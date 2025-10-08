@@ -1,0 +1,106 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif
+}
+.navbar {
+    background-color: #00BFFF; /* Warna biru cerah */
+    padding: 15px 50px; /* Padding atas/bawah dan kiri/kanan */
+    display: flex;
+    justify-content: space-between; /* Pisahkan logo dan tautan navigasi */
+    align-items: center;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sedikit bayangan */
+}
+
+/* Gaya untuk logo */
+.logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Gaya untuk kumpulan tautan navigasi */
+.nav-links {
+    display: flex;
+    gap: 30px; /* Jarak antar tautan */
+}
+
+/* Gaya untuk setiap tautan */
+.nav-links a {
+    color: white;
+    text-decoration: none; /* Hilangkan garis bawah */
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Gaya saat tautan di-hover (opsional, untuk interaksi) */
+.nav-links a:hover {
+    background-color: rgba(255, 255, 255, 0.384); /* Sedikit latar belakang saat di-hover */
+    border-radius: 4px;
+}
+
+/* Gaya tambahan untuk halaman utama (opsional) */
+
+body{
+    margin: 0 auto;
+    padding: 0 auto;
+    font-family: Arial, Helvetica, sans-serif
+}
+.login-form{
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #00BFFF;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.226);
+    display: block;
+    width: 25%;
+    padding: 40px;
+    margin: 20px auto;
+    align-items: center;
+    margin-top: 30px;
+}
+.login-form h3{
+    text-align: center;
+}
+select{
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+input{
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+button{
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px auto;
+    color: rgb(255, 255, 255);
+    border-radius: 50px;
+    cursor: pointer;
+}
+.login-btn{
+    background-color: #00BFFF;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+.login-btn:hover{
+    background-color: rgb(52, 113, 182);
+}
+a {
+    text-align: center;
+    font-size: 15px;
+    align-items: center;
+}
