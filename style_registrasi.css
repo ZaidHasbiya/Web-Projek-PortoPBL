@@ -1,4 +1,4 @@
-* {
+ *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -40,18 +40,11 @@
 
 /* Gaya saat tautan di-hover (opsional, untuk interaksi) */
 .nav-links a:hover {
-    color: rgba(255, 255, 255, 0.384);
+    color: rgba(255, 255, 255, 0.384); /* Sedikit latar belakang saat di-hover */
     border-radius: 4px;
 }
 
-/* Gaya tambahan untuk halaman utama (opsional) */
-
-body{
-    margin: 0 auto;
-    padding: 0 auto;
-    font-family: Arial, Helvetica, sans-serif
-}
-.login-form{
+.registrasi-form{
     background-color: rgb(241, 241, 241);
     border-radius: 30px;
     
@@ -63,16 +56,8 @@ body{
     align-items: center;
     margin-top: 30px;
 }
-.login-form h3{
+.registrasi-form h3{
     text-align: center;
-}
-select{
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    margin-bottom: 20px;
 }
 input{
     width: 100%;
@@ -83,24 +68,21 @@ input{
     margin-bottom: 20px;
 }
 button{
+    background-color: #00BFFF;
     width: 100%;
     padding: 10px;
     margin-top: 10px auto;
     color: rgb(255, 255, 255);
     border-radius: 50px;
     cursor: pointer;
+    margin-bottom: 10px;
+    border: #00BFFF;
 }
-.login-btn{
-    background-color: #00BFFF;
+.registrasi-btn{
     font-size: 1rem;
     font-weight: bold;
     margin-bottom: 30px;
 }
-.login-btn:hover{
-    background-color:blue;
-}
-a {
-    text-align: center;
-    font-size: 15px;
-    align-items: center;
+.registrasi-btn:hover{
+    background-color: blue;
 }
