@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PortoPBL</title>
+
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  crossorigin="anonymous"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="../styles.css" type="text/css">
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark py-3 bg-info shadow">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">PortoPBL</a>
+      <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ms-auto d-flex gap-3 text-center pt-lg-0 pt-4">
+          <li class="nav-item">
+            <a class="nav-link fw-bold" href="index.html">Beranda</a>
+          </li>
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdownMenuLink"
+            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Jurusan
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" href="jurusan_if_mhs.html">Teknik Informatika</a></li>
+            <li><a class="dropdown-item" href="jurusan_mesin_mhs.html">Teknik Mesin</a></li>
+            <li><a class="dropdown-item" href="jurusan_elektro_mhs.html">Teknik Elektro</a></li>
+            <li><a class="dropdown-item" href="jurusan_mb_mhs.html">Manajemen Bisnis</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdownMenuLink"
+            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Profil
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" href="#">Profil Saya</a></li>
+            <li><a class="dropdown-item" href="projek_saya.html">Projek Saya</a></li>
+          </ul>
+        </li>
+          <li class="nav-item">
+            <a class="nav-link fw-bold" href="projek_mhs.html">Projek</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-bold" href="login.html">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center my-5">
+  <h1 class="m-0">Projek Saya</h1>
+  <a href="tambah_projek.html" class="btn btn-info text-white">
+    <i class="fas fa-plus"></i> Tambah Projek
+  </a>
+</div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+  <div class="col">
+    <div class="card border border-info">
+      <img src="../asset/projek.png" class="card-img-top" alt="Projek Web Portofolio PBL">
+      <div class="card-body">
+        <h5 class="card-title">Web Portofolio Projek PBL</h5>
+        <p class="card-text">Deskripsi Projek : Lorem ipsum</p>
+        <p class="card-text">Dibuat Oleh :</p>
+        <p class="card-text">Nama Mahasiswa : Lorem ipsum</p>
+        <p class="card-text">NIM : Lorem ipsum</p>
+        <div class="d-flex justify-content-center gap-2 mb-2">
+        <a href="edit_projek.html" class="btn btn-warning btn-sm d-flex align-items-center gap-1">
+          <i class="fas fa-edit"></i> Edit
+        </a>
+        <a href="#" class="btn btn-danger btn-sm d-flex align-items-center gap-1" onclick="return confirm('Yakin ingin menghapus projek ini?');">
+          <i class="fas fa-trash-alt"></i> Hapus
+        </a>
+      </div>
+        <a href="lihat_projek_mhs.html" class="btn btn-outline-info rounded-pill d-flex justify-content-center">Lihat Projek</a>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card border border-info">
+      <img src="../asset/projek.png" class="card-img-top" alt="Projek Web Portofolio PBL">
+      <div class="card-body">
+        <h5 class="card-title">Web Portofolio Projek PBL</h5>
+        <p class="card-text">Deskripsi Projek : Lorem ipsum</p>
+        <p class="card-text">Dibuat Oleh :</p>
+        <p class="card-text">Nama Mahasiswa : Lorem ipsum</p>
+        <p class="card-text">NIM : Lorem ipsum</p>
+        <div class="d-flex justify-content-center gap-2 mb-2">
+        <a href="edit_projek.html" class="btn btn-warning btn-sm d-flex align-items-center gap-1">
+          <i class="fas fa-edit"></i> Edit
+        </a>
+        <a href="#" class="btn btn-danger btn-sm d-flex align-items-center gap-1" onclick="return confirm('Yakin ingin menghapus projek ini?');">
+          <i class="fas fa-trash-alt"></i> Hapus
+        </a>
+      </div>
+        <a href="lihat_projek_mhs.html" class="btn btn-outline-info rounded-pill d-flex justify-content-center">Lihat Projek</a>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card border border-info">
+      <img src="../asset/projek.png" class="card-img-top" alt="Projek Web Portofolio PBL">
+      <div class="card-body">
+        <h5 class="card-title">Web Portofolio Projek PBL</h5>
+        <p class="card-text">Deskripsi Projek : Lorem ipsum</p>
+        <p class="card-text">Dibuat Oleh :</p>
+        <p class="card-text">Nama Mahasiswa : Lorem ipsum</p>
+        <p class="card-text">NIM : Lorem ipsum</p>
+        <div class="d-flex justify-content-center gap-2 mb-2">
+        <a href="edit_projek.html" class="btn btn-warning btn-sm d-flex align-items-center gap-1">
+          <i class="fas fa-edit"></i> Edit
+        </a>
+        <a href="#" class="btn btn-danger btn-sm d-flex align-items-center gap-1" onclick="return confirm('Yakin ingin menghapus projek ini?');">
+          <i class="fas fa-trash-alt"></i> Hapus
+        </a>
+      </div>
+        <a href="lihat_projek_mhs.html" class="btn btn-outline-info rounded-pill d-flex justify-content-center">Lihat Projek</a>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card border border-info">
+      <img src="../asset/projek.png" class="card-img-top" alt="Projek Web Portofolio PBL">
+      <div class="card-body">
+        <h5 class="card-title">Web Portofolio Projek PBL</h5>
+        <p class="card-text">Deskripsi Projek : Lorem ipsum</p>
+        <p class="card-text">Dibuat Oleh :</p>
+        <p class="card-text">Nama Mahasiswa : Lorem ipsum</p>
+        <p class="card-text">NIM : Lorem ipsum</p>
+        <div class="d-flex justify-content-center gap-2 mb-2">
+        <a href="edit_projek.html" class="btn btn-warning btn-sm d-flex align-items-center gap-1">
+          <i class="fas fa-edit"></i> Edit
+        </a>
+        <a href="#" class="btn btn-danger btn-sm d-flex align-items-center gap-1" onclick="return confirm('Yakin ingin menghapus projek ini?');">
+          <i class="fas fa-trash-alt"></i> Hapus
+        </a>
+      </div>
+        <a href="lihat_projek_mhs.html" class="btn btn-outline-info rounded-pill d-flex justify-content-center">Lihat Projek</a>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card border border-info">
+      <img src="../asset/projek.png" class="card-img-top" alt="Projek Web Portofolio PBL">
+      <div class="card-body">
+        <h5 class="card-title">Web Portofolio Projek PBL</h5>
+        <p class="card-text">Deskripsi Projek : Lorem ipsum</p>
+        <p class="card-text">Dibuat Oleh :</p>
+        <p class="card-text">Nama Mahasiswa : Lorem ipsum</p>
+        <p class="card-text">NIM : Lorem ipsum</p>
+        <div class="d-flex justify-content-center gap-2 mb-2">
+        <a href="edit_projek.html" class="btn btn-warning btn-sm d-flex align-items-center gap-1">
+          <i class="fas fa-edit"></i> Edit
+        </a>
+        <a href="#" class="btn btn-danger btn-sm d-flex align-items-center gap-1" onclick="return confirm('Yakin ingin menghapus projek ini?');">
+          <i class="fas fa-trash-alt"></i> Hapus
+        </a>
+      </div>
+        <a href="lihat_projek_mhs.html" class="btn btn-outline-info rounded-pill d-flex justify-content-center">Lihat Projek</a>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card border border-info">
+      <img src="../asset/projek.png" class="card-img-top" alt="Projek Web Portofolio PBL">
+      <div class="card-body">
+        <h5 class="card-title">Web Portofolio Projek PBL</h5>
+        <p class="card-text">Deskripsi Projek : Lorem ipsum</p>
+        <p class="card-text">Dibuat Oleh :</p>
+        <p class="card-text">Nama Mahasiswa : Lorem ipsum</p>
+        <p class="card-text">NIM : Lorem ipsum</p>
+        <div class="d-flex justify-content-center gap-2 mb-2">
+        <a href="edit_projek.html" class="btn btn-warning btn-sm d-flex align-items-center gap-1">
+          <i class="fas fa-edit"></i> Edit
+        </a>
+        <a href="#" class="btn btn-danger btn-sm d-flex align-items-center gap-1" onclick="return confirm('Yakin ingin menghapus projek ini?');">
+          <i class="fas fa-trash-alt"></i> Hapus
+        </a>
+      </div>
+        <a href="lihat_projek_mhs.html" class="btn btn-outline-info rounded-pill d-flex justify-content-center">Lihat Projek</a>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  <img src="asset/wave-info.svg">
+  <footer class="text-center py-3 bg-light mt-5">
+    &copy; <span>2025</span> Tim Web Portofolio Projek PBL
+  </footer>
+
+  <script src="../js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
