@@ -27,6 +27,9 @@
     display: flex;
     gap: 30px; /* Jarak antar tautan */
 }
+.nav-links li {
+  list-style: none;
+}
 
 /* Gaya untuk setiap tautan */
 .nav-links a {
