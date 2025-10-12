@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Edit Projek | PortoPBL</title>
+  <title>Edit Profil | PortoPBL</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,26 +18,20 @@
 
 <body>
   <div class="container my-5">
-    <h3 class="mb-4">Edit Projek</h3>
+    <h3 class="mb-4">Edit Profil</h3>
 
     <form action="#" method="post" enctype="multipart/form-data">
       <div class="mb-3">
-        <label for="judul" class="form-label">Judul Proyek</label>
-        <input type="text" class="form-control" id="judul" name="judul" placeholder="Judul Proyek">
+        <label for="nama" class="form-label">Nama</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Nama">
+      </div>
+      <div class="mb-3">
+        <label for="nim" class="form-label">NIM</label>
+        <input type="text" class="form-control" id="nim" name="nim" placeholder="NIM">
       </div>
 
-      <div class="mb-3">
-        <label for="deskripsi" class="form-label">Deskripsi Proyek</label>
-        <textarea class="form-control" id="deskripsi" name="deskripsi" placeholder="Deskripsi Proyek" rows="3"></textarea>
-      </div>
-
-      <div class="mb-3">
-        <label for="video" class="form-label">Link Video</label>
-        <input type="url" class="form-control" id="video" name="video" placeholder="Link Video">
-      </div>
-
-      <div class="mb-3">
-        <label for="foto" class="form-label">Foto Proyek</label>
+<div class="mb-3">
+        <label for="foto" class="form-label">Foto Profil</label>
         <div class="form-text text-danger mb-2">
           File foto berupa jpg, jpeg, dan png dan tidak melebihi 20Mb
         </div>
@@ -45,17 +39,26 @@
       </div>
 
       <div class="mb-3">
-        <label for="tgl_pembuatan" class="form-label">Tanggal Pembuatan</label>
-        <input type="date" class="form-control" id="tgl_pembuatan" name="tgl_pembuatan">
+        <label for="deskripsi" class="form-label">Deskripsi Diri</label>
+        <textarea class="form-control" id="deskripsi" name="deskripsi" placeholder="Deskripsi Diri" rows="3"></textarea>
       </div>
 
-      <div class="mb-4">
-        <label for="tgl_selesai" class="form-label">Tanggal Selesai</label>
-        <input type="date" class="form-control" id="tgl_selesai" name="tgl_selesai">
+      <div class="mb-3">
+        <label for="deskripsi" class="form-label">Catatan Prestasi</label>
+        <textarea class="form-control" id="deskripsi" name="catatan_prestasi" placeholder="Catatan Prestasi" rows="3"></textarea>
       </div>
 
+<div class="mb-3">
+        <label for="jurusan">Pilih Jurusan:</label>
+<select id="jurusan" name="jurusan">
+  <option value="if">Teknik Informatika</option>
+  <option value="tm">Teknik Mesin</option>
+  <option value="te">Teknik Elektro</option>
+  <option value="mb">Manajemen Bisnis</option>
+</select>
+      </div>
       <div class="d-flex justify-content-between">
-        <a href="projek_saya.html" class="btn btn-primary">Kembali</a>
+        <a href="lihat_profil_if_mhs.html" class="btn btn-primary">Kembali</a>
         <button type="submit" class="btn btn-success">EDIT</button>
       </div>
     </form>

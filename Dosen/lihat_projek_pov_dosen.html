@@ -20,7 +20,7 @@
   <!-- ===== Navbar ===== -->
   <nav class="navbar navbar-expand-lg navbar-dark py-3 bg-info shadow">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="index_mahasiswa.html">PortoPBL</a>
+      <a class="navbar-brand fw-bold" href="index_dosen.html">PortoPBL</a>
       <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -49,8 +49,7 @@
             Profil
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Profil Saya</a></li>
-            <li><a class="dropdown-item" href="projek_saya.html">Projek Saya</a></li>
+            <li><a class="dropdown-item" href="lihat_profil_dosen.html">Profil Saya</a></li>
           </ul>
         </li>
           <li class="nav-item">
@@ -81,6 +80,13 @@
     <p>NIM : 3312501048</p>
     <div class="border border-dark p-3 rounded mt-4">
       <h6 class="fw-semibold mb-3">Komentar</h6>
+      <form class="mt-4">
+    <div class="mb-3">
+      <label for="komentarBaru" class="form-label">Tambahkan Komentar:</label>
+      <textarea class="form-control" id="komentarBaru" name="komentar" rows="3" placeholder="Tulis komentar Anda..."></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary btn-sm">Kirim</button>
+  </form>
       <div class="mt-3 p-2 bg-secondary-subtle rounded">
         <i class="mb-1">Dosen 1</i>
         <p class="mb-0">Aplikasi ini sangat membantu!</p>
