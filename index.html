@@ -18,7 +18,7 @@
 <body>
 
   <!-- ===== Navbar ===== -->
-  <nav class="navbar navbar-expand-lg navbar-dark py-3 bg-info shadow fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark py-3 bg-dark-blue shadow fixed-top">
     <div class="container">
       <a class="navbar-brand fw-bold" href="index.html">PortoPBL</a>
       <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -62,11 +62,28 @@
 
   <!-- ===== Jumbotron ===== -->
   <section class="jumbotron text-center">
-    <h1 class="display-3 fw-bold text-white">WELCOME TO PORTOPBL</h1>
-    <h2>Platform Portofolio Digital Mahasiswa</h2>
-    <a href="login.html" class="btn btn-outline-light rounded-pill mt-4 text-center" style="width:200px">LOGIN</a>
-    <img src="asset/wave.svg" alt="Garis pemisah">
-  </section>
+  <h1 class="display-3 fw-bold text-white">WELCOME TO PORTOPBL</h1>
+  <h2>Platform Portofolio Digital Mahasiswa</h2>
+  <a href="login.html" class="btn btn-outline-light rounded-pill mt-4 text-center" style="width:200px">LOGIN</a>
+<h2 class="text-white mt-5">Hasil Projek</h2>
+  <!-- Gambar hasil projek -->
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-3 mb-3">
+        <img src="asset/projek.png" alt="Projek 1" class="img-fluid rounded shadow">
+      </div>
+      <div class="col-md-3 mb-3">
+        <img src="asset/projek.png" alt="Projek 2" class="img-fluid rounded shadow">
+      </div>
+      <div class="col-md-3 mb-3">
+        <img src="asset/projek.png" alt="Projek 3" class="img-fluid rounded shadow">
+      </div>
+    </div>
+  </div>
+
+  <img src="asset/wave.svg" alt="Garis pemisah">
+</section>
+
 
   <!-- ===== Tentang Section ===== -->
   <section id="tentang" class="mt-5">
@@ -82,13 +99,13 @@
         </div>
       </div>
     </div>
-    <img src="asset/wave-info.svg" alt="Garis pemisah">
+    <img src="asset/wave-dark-blue.svg" alt="Garis pemisah">
   </section>
 
   <!-- ===== Tim Section ===== -->
   <section id="tim">
     <div class="container">
-      <div class="row text-center mb-4">
+      <div class="row text-center mb-4 text-white">
         <div class="col">
           <h1>TIM KAMI</h1>
         </div>
@@ -96,7 +113,7 @@
 
       <div class="row text-center">
         <div class="col-md-4 mb-3">
-          <div class="card" style="width: 24rem;">
+          <div class="card h-100">
             <img src="tim/zaid.jpeg" class="card-img-top" alt="Zaid Hasbiya Abrar">
             <div class="card-body">
               <p class="card-text">Zaid Hasbiya Abrar</p>
@@ -105,7 +122,7 @@
         </div>
 
         <div class="col-md-4 mb-3">
-          <div class="card" style="width: 26rem;">
+          <div class="card h-100">
             <img src="tim/patur.jpeg" class="card-img-top" alt="Fathur Alfitrah">
             <div class="card-body">
               <p class="card-text">Fathur Alfitrah</p>
@@ -114,7 +131,7 @@
         </div>
 
         <div class="col-md-4 mb-3">
-          <div class="card" style="width: 24rem;">
+          <div class="card h-100">
             <img src="tim/panda.jpeg" class="card-img-top" alt="Reifandra Kinadi">
             <div class="card-body">
               <p class="card-text">Reifandra Kinadi</p>
@@ -126,7 +143,6 @@
 
     <img src="asset/wave.svg" alt="Garis pemisah bawah">
   </section>
-
   <footer class="text-center py-3 bg-light mt-5">
     &copy; <span>2025</span> Tim Web Portofolio Projek PBL
   </footer>
