@@ -2,10 +2,18 @@ body{
     font-family: 'Poppins','Sans-serif';
 }
 .jumbotron{
-    background-color: #0dcaf0;
+    background-color: #1565c0;
 }
+.jumbotron img {
+  transition: transform 0.3s ease;
+}
+
+.jumbotron img:hover {
+  transform: scale(1.05);
+}
+
 #tim{
-    background-color: #0dcaf0;
+    background-color: #1565c0;
 }
 section {
     padding-top: 8rem;
@@ -24,4 +32,8 @@ section {
     color: rgba(255, 255, 255, 0.384);
     border-radius: 4px;
 }
+.bg-dark-blue {
+  background-color: #0d47a1 !important; /* biru gelap */
+}
+
 
