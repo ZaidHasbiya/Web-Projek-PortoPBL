@@ -2,7 +2,7 @@ body{
     font-family: 'Poppins','Sans-serif';
 }
 .jumbotron{
-    background-color: #1565c0;
+    background-image: url(asset/poltek.jpeg);
 }
 .jumbotron img {
   transition: transform 0.3s ease;
@@ -13,7 +13,7 @@ body{
 }
 
 #tim{
-    background-color: #1565c0;
+    background-color: #54ccff;
 }
 section {
     padding-top: 8rem;
