@@ -18,7 +18,7 @@
 <body>
 
   <!-- ===== Navbar ===== -->
-  <nav class="navbar navbar-expand-lg navbar-dark py-3 bg-dark-blue shadow fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark py-3 bg-dark-blue shadow">
     <div class="container">
       <a class="navbar-brand fw-bold" href="index_dosen.html">PortoPBL</a>
       <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -62,23 +62,45 @@
       </div>
     </div>
   </nav>
-  <div class="container pt-4">
-    <h1 class="my-5">Web Portofolio Projek PBL</h1>
-    <img src="../asset/projek.png" class="img-fluid rounded shadow-sm mb-4" alt="Gambar Proyek" style="max-height: 300px;">
-    <h2>Deskripsi Projek</h2>
-    <p>Proyek ini bertujuan untuk mengembangkan sebuah sistem informasi portofolio mahasiswa berbasis web.
-      Website ini menampilkan profil mahasiswa, data akademik, catatan prestasi, dan proyek yang telah dikerjakan.
-      Sistem ini dibangun menggunakan HTML, CSS, Bootstrap, serta PHP dan MySQL sebagai backend.
-      Tujuannya adalah membantu mahasiswa mempresentasikan kemampuan dan pencapaian mereka secara profesional.</p>
-      <h2>Video</h2>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/MCVkMmYL-aY?si=m3doQT0OKtydUnms" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <p>Tanggal Dibuat: </p>
-    <p>Tanggal Selesai: </p>
-    <p>Dibuat Oleh :</p>
-    <p>Nama : Panda</p>
-    <p>NIM : 3312501048</p>
-    <div class="border border-dark p-3 rounded mt-4">
+   <div class="container">
+  <h1 class="my-5">Web Portofolio Projek PBL</h1>
+
+  <!-- Gambar dipusatkan -->
+  <div class="text-center">
+    <img src="../asset/projek.png" 
+         class="img-fluid rounded shadow-sm mb-4 d-block mx-auto" 
+         alt="Gambar Proyek" 
+         style="max-height: 300px;">
+  </div>
+
+  <h2>Deskripsi Projek</h2>
+  <p>
+    Proyek ini bertujuan untuk mengembangkan sebuah sistem informasi portofolio mahasiswa berbasis web.
+    Website ini menampilkan profil mahasiswa, data akademik, catatan prestasi, dan proyek yang telah dikerjakan.
+    Sistem ini dibangun menggunakan HTML, CSS, Bootstrap, serta PHP dan MySQL sebagai backend.
+    Tujuannya adalah membantu mahasiswa mempresentasikan kemampuan dan pencapaian mereka secara profesional.
+  </p>
+
+  <h2>Video</h2>
+  <!-- Video dipusatkan -->
+  <div class="d-flex justify-content-center mb-4">
+    <iframe width="560" height="315" 
+            src="https://www.youtube.com/embed/MCVkMmYL-aY?si=m3doQT0OKtydUnms" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen>
+    </iframe>
+  </div>
+
+  <p>Tanggal Dibuat: </p>
+  <p>Tanggal Selesai: </p>
+  <p>Dibuat Oleh :</p>
+  <p>Nama : Panda</p>
+  <p>NIM : 3312501048</p>
+
+  <div class="border border-dark p-3 rounded mt-4">
       <h6 class="fw-semibold mb-3">Komentar</h6>
       <form class="mt-4">
     <div class="mb-3">
@@ -91,8 +113,8 @@
         <i class="mb-1">Dosen 1</i>
         <p class="mb-0">Aplikasi ini sangat membantu!</p>
       </div>
-    </div>
-  </div>
+</div>
+</div>
   <img src="../asset/wave-dark-blue.svg">
   <footer class="text-center py-3 bg-light mt-5">
     &copy; <span>2025</span> Tim Web Portofolio Projek PBL
