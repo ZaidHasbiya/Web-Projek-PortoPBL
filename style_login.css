@@ -5,7 +5,7 @@
     font-family: 'Poppins', sans-serif
 }
 .navbar {
-    background-color: #00BFFF; /* Warna biru cerah */
+    background-color: #0d47a1; /* Warna biru cerah */
     padding: 15px 50px; /* Padding atas/bawah dan kiri/kanan */
     display: flex;
     justify-content: space-between; /* Pisahkan logo dan tautan navigasi */
