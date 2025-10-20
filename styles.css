@@ -1,15 +1,20 @@
 body{
     font-family: 'Poppins','Sans-serif';
 }
-.jumbotron{
-    background-image: url(asset/poltek.jpeg);
+.jumbotron {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('asset/poltek.jpeg');
+    background-size: cover;    
+    background-position: center;  
+    background-repeat: no-repeat;
+    color: white;
 }
+
 .jumbotron img {
-  transition: transform 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .jumbotron img:hover {
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
 
 #tim{
