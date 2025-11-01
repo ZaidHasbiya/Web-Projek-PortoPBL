@@ -46,9 +46,9 @@
     display: block;
     width: 25%;
     padding: 40px;
-    margin: 20px auto;
+    margin: 0;
     align-items: center;
-    margin-top: 80px;
+    margin-top: 40px;
     padding-top: 50px;
 }
 .registrasi-form h3{
@@ -82,7 +82,13 @@ button{
     background-color: blue;
 }
 .form{
-    margin-top: 120px;
+    margin-top: 50px;
     justify-content: center;
     align-items: center;
+}
+.error {
+      color: red;
+      display: none;
+      font-size: 0.9rem;
+      margin-top: 4px;
 }
