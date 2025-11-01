@@ -15,27 +15,32 @@
   </head>
 <body>
 <div class="form">
-<div class="container mt-5">
+<div class="container">
   <div class="row  justify-content-center">
     <div class="col-12 col-md-4 bg-light p-4 rounded shadow">
-      <form action="">
+      <form id="registrationForm">
+        <img src="asset/logo.png" class="d-block mx-auto mb-3" alt="Logo" width="200">
         <h3 class="login-title text-center mb-4">Registrasi Akun PortoPBL</h3>
 
         <div class="mb-3">
-          <input type="text" class="form-control fullname" placeholder="Nama Lengkap">
+          <input type="text" class="form-control fullname"  id="name" placeholder="Nama Lengkap">
+          <small id="nameError" class="error">Nama lengkap harus diisi!</small>
         </div>
         <div class="mb-3">
-          <input type="text" class="form-control inputnim" placeholder="NIM">
+          <input type="text" class="form-control inputnim" id="nim" placeholder="NIM">
+          <small id="nimError" class="error">NIM harus diisi!</small>
         </div>
         <div class="mb-3">
-          <input type="password" class="form-control password" placeholder="Password">
+          <input type="password" class="form-control password" id="password" placeholder="Password">
+          <small id="passwordError" class="error">Password minimal 6 karakter!</small>
         </div>
         <div class="mb-3">
-          <input type="password" class="form-control confirm-password" placeholder="Konfirmasi Password">
+          <input type="password" class="form-control confirm-password" id="confirmPassword" placeholder="Konfirmasi Password">
+          <small id="confirmError" class="error">Konfirmasi password harus sama!</small>
         </div>
 
         <div class="d-grid gap-2">
-          <a href="login.html" class="btn btn-info text-white">Daftar Sekarang</a>
+          <button type="submit" class="btn btn-info text-white">Daftar Sekarang</button>
         </div>
       </form>
 
@@ -46,6 +51,7 @@
   </div>
 </div>
 </div>
-
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="registrasi.js"></script>
 </body>
 </html>
