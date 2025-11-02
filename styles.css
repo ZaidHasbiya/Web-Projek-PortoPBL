@@ -9,11 +9,11 @@ body{
     color: white;
 }
 
-.jumbotron img {
+.jumbotron .container img {
     transition: transform 0.3s ease;
 }
 
-.jumbotron img:hover {
+.jumbotron .container img:hover {
     transform: scale(1.05);
 }
 

@@ -40,9 +40,25 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     document.getElementById('confirmError').style.display = 'none';
   }
 
+  // Jika semua valid → tampilkan SweetAlert
   if (valid) {
-    alert('Pendaftaran berhasil!');
-    document.getElementById('registrationForm').reset();
-    window.location.href = 'login.html';
+    Swal.fire({
+      title: 'Registrasi Berhasil',
+      text: 'Silakan login untuk melanjutkan',
+      icon: 'success',
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'OK'
+    }).then(() => {
+      document.getElementById('registrationForm').reset();
+      window.location.href = 'login.html';
+    });
+  } else {
+    Swal.fire({
+      title: 'Registrasi Gagal',
+      text: 'Periksa kembali data yang kamu masukkan.',
+      icon: 'error',
+      confirmButtonText: 'Coba Lagi',
+      confirmButtonColor: '#d33'
+    });
   }
 });
