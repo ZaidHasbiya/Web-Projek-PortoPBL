@@ -24,13 +24,39 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
   // Jika semua valid
   if (valid) {
-    alert('Login Berhasil!');
+    Swal.fire({
+      title: 'Login Berhasil!',
+      text: `Selamat datang kembali, ${role}!`,
+      icon: 'success',
+      showConfirmButton: false,
+      timer: 1500
+    }).then(() => {
+      // Tampilkan loading sebelum redirect
+      Swal.fire({
+        title: 'Memproses...',
+        text: 'Mohon tunggu sebentar',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
 
-    // Arahkan sesuai role
-    if (role === "Mahasiswa") {
-      window.location.href = "mahasiswa/index_mahasiswa.html";
-    } else if (role === "Dosen") {
-      window.location.href = "Dosen/index_dosen.html";
-    }
+      // Delay sebelum redirect (simulasi loading)
+      setTimeout(() => {
+        if (role === "Mahasiswa") {
+          window.location.href = "mahasiswa/index_mahasiswa.html";
+        } else if (role === "Dosen") {
+          window.location.href = "Dosen/index_dosen.html";
+        }
+      }, 2000);
+    });
+  } else {
+    Swal.fire({
+      title: 'Login Gagal',
+      text: 'Pastikan semua data sudah diisi dengan benar!',
+      icon: 'error',
+      confirmButtonText: 'Coba Lagi',
+      confirmButtonColor: '#d33'
+    });
   }
 });
