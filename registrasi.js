@@ -40,7 +40,6 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     document.getElementById('confirmError').style.display = 'none';
   }
 
-  // Jika semua valid → tampilkan SweetAlert
   if (valid) {
     Swal.fire({
       title: 'Registrasi Berhasil',
