@@ -1,0 +1,163 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Nov 13, 2025 at 03:31 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `test_portopbl`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `komentar`
+--
+
+CREATE TABLE `komentar` (
+  `komentar_id` int(11) NOT NULL,
+  `komentar` varchar(255) NOT NULL,
+  `projek_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `komentar`
+--
+
+INSERT INTO `komentar` (`komentar_id`, `komentar`, `projek_id`, `user_id`) VALUES
+(1, 'mantap', 6, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `projek`
+--
+
+CREATE TABLE `projek` (
+  `projek_id` int(11) NOT NULL,
+  `judul` varchar(255) NOT NULL,
+  `deskripsi` varchar(255) NOT NULL,
+  `link` varchar(255) NOT NULL,
+  `gambar_projek` varchar(255) NOT NULL,
+  `tgl_pembuatan` date NOT NULL,
+  `tgl_selesai` date NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `projek`
+--
+
+INSERT INTO `projek` (`projek_id`, `judul`, `deskripsi`, `link`, `gambar_projek`, `tgl_pembuatan`, `tgl_selesai`, `user_id`) VALUES
+(6, 'Web Portofolio Projek PBL (Project Based Learning)', 'tes', 'https://youtu.be/L-gKceeb61Q?si=reXYD4t7YNArm25u', 'poltek.jpeg', '2025-11-13', '2025-11-13', 1),
+(7, 'Web Portofolio Projek PBL (Project Based Learning)', 'tes', 'https://youtu.be/L-gKceeb61Q?si=reXYD4t7YNArm25u', 'projek.png', '2025-11-13', '2025-11-13', 1),
+(8, 'Web Portofolio Projek PBL (Project Based Learning)', 'tes', 'https://youtu.be/L-gKceeb61Q?si=reXYD4t7YNArm25u', 'projek.png', '2025-11-13', '2025-11-13', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `jurusan` enum('teknik mesin','teknik informatika','teknik elektro','manajemen bisnis') DEFAULT NULL,
+  `role` enum('mahasiswa','dosen','admin') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `nama`, `username`, `password`, `jurusan`, `role`) VALUES
+(1, 'Zaid Hasbiya Abrar', '3312501046', 'Jiro2127', '', 'mahasiswa'),
+(3, 'Reifandra Kinadi', '3312501048', 'Jiro2127', NULL, 'mahasiswa'),
+(12, 'Fathur Alfitrah', '3312501047', '123456', NULL, 'mahasiswa');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `komentar`
+--
+ALTER TABLE `komentar`
+  ADD PRIMARY KEY (`komentar_id`),
+  ADD KEY `projek_id` (`projek_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `projek`
+--
+ALTER TABLE `projek`
+  ADD PRIMARY KEY (`projek_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `komentar`
+--
+ALTER TABLE `komentar`
+  MODIFY `komentar_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `projek`
+--
+ALTER TABLE `projek`
+  MODIFY `projek_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `komentar`
+--
+ALTER TABLE `komentar`
+  ADD CONSTRAINT `projek_id` FOREIGN KEY (`projek_id`) REFERENCES `projek` (`projek_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `projek`
+--
+ALTER TABLE `projek`
+  ADD CONSTRAINT `fk_projek_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

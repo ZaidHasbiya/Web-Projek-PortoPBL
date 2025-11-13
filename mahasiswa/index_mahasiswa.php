@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['username'])){
+  echo "<script>alert('username tidak sesuai ! silahkan melakukan login'); window.location ='login.php';</script>";
+}
+
+if($_SESSION['role'] != 'mahasiswa'){
+  echo "<script>alert('Akses ditolak! Halaman ini hanya untuk Mahasiswa.');window.location='index.php';</script>";
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,58 +31,11 @@
 <body>
 
   <!-- ===== Navbar ===== -->
-  <nav class="navbar navbar-expand-lg navbar-dark py-3 bg-dark-blue shadow fixed-top">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="index.html">
-        <img src="../asset/logo.png" alt="Logo" width="50" height="44" class="me-2">
-        PortoPBL</a>
-      <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav ms-auto d-flex gap-3 text-center pt-lg-0 pt-4">
-          <li class="nav-item">
-            <a class="nav-link fw-bold" href="#">Beranda</a>
-          </li>
-          <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdownMenuLink"
-            role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Jurusan
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="jurusan_if_mhs.html">Teknik Informatika</a></li>
-            <li><a class="dropdown-item" href="jurusan_mesin_mhs.html">Teknik Mesin</a></li>
-            <li><a class="dropdown-item" href="jurusan_elektro_mhs.html">Teknik Elektro</a></li>
-            <li><a class="dropdown-item" href="jurusan_mb_mhs.html">Manajemen Bisnis</a></li>
-          </ul>
-        </li>
-          <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdownMenuLink"
-            role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Profil
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="lihat_profil_if_mhs.html">Profil Saya</a></li>
-            <li><a class="dropdown-item" href="edit_profil.html">Edit Profil</a></li>
-            <li><a class="dropdown-item" href="projek_saya.html">Projek Saya</a></li>
-          </ul>
-        </li>
-          <li class="nav-item">
-            <a class="nav-link fw-bold" href="projek_mhs.html">Projek</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-bold" href="../login.html">Log Out</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <?php include 'layouts/navbar_mhs.php'; ?>
 
   <!-- ===== Jumbotron ===== -->
   <section class="jumbotron text-center">
-    <h1 class="text-white fw-bold">Halo, Nama Mahasiswa</h1>
+    <h1 class="text-white fw-bold">Halo, <?= $_SESSION['nama']; ?></h1>
     <h1 class="display-3 fw-bold text-white">WELCOME TO PORTOPBL</h1>
     <h2>Platform Portofolio Digital Mahasiswa</h2>
 
