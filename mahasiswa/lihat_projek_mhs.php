@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 include '../koneksi.php';
 
 if (!isset($_SESSION['nama'])) {
@@ -68,7 +69,9 @@ $komentarResult = mysqli_query($koneksi, $komentarQuery);
   <div class="container py-5">
    <h1><?= htmlspecialchars($projek['judul']); ?></h1>
     <?php if (!empty($projek['gambar_projek'])): ?>
+
       <img src="../asset/uploads/<?= htmlspecialchars($projek['gambar_projek']); ?>" class="img-fluid rounded shadow-sm mb-4" alt="Gambar Projek">
+
     <?php endif; ?>
     <h2>Deskripsi Projek</h2>
     <p><?= nl2br(htmlspecialchars($projek['deskripsi'])); ?></p>
@@ -85,6 +88,7 @@ $komentarResult = mysqli_query($koneksi, $komentarQuery);
     <div class="border border-dark p-3 rounded mt-4">
       <h6 class="fw-semibold mb-3">Komentar</h6>
       <div class="mt-4">
+
          <?php if (mysqli_num_rows($komentarResult) > 0): ?>
     <?php while ($k = mysqli_fetch_assoc($komentarResult)): ?>
       <div class="p-3 bg-light border rounded mb-3">
@@ -95,6 +99,7 @@ $komentarResult = mysqli_query($koneksi, $komentarQuery);
   <?php else: ?>
       <p class="text-muted">Belum ada komentar.</p>
   <?php endif; ?>
+
       </div>
     </div>
   </div>

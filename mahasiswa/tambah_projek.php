@@ -24,6 +24,7 @@ if (strpos($link, "youtu.be") !== false) {
     $link = str_replace("watch?v=", "embed/", $link);
 }
 
+
   $tgl_pembuatan = $_POST['tgl_pembuatan'];
   $tgl_selesai = $_POST['tgl_selesai'];
 
@@ -73,6 +74,7 @@ if (strpos($link, "youtu.be") !== false) {
     <h3 class="mb-4">Tambah Projek</h3>
 
     <form action="#" method="post" enctype="multipart/form-data">
+
       <div class="mb-3">
         <label for="judul" class="form-label">Judul Proyek</label>
         <input type="text" class="form-control" id="judul" name="judul" placeholder="Judul Proyek" required>

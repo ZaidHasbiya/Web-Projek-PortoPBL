@@ -137,6 +137,7 @@ $result_projek = mysqli_query($koneksi, $query_projek);
       <p class="text-center text-white fw-semibold">Mahasiswa belum mengunggah projek apapun.</p>
   <?php endif; ?>
 
+
 </div>
   <!-- ===== Wave + Footer ===== -->
   <img src="asset/wave-dark-blue.svg" class="w-100" alt="">

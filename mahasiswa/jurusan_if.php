@@ -54,7 +54,9 @@ $data = mysqli_query($koneksi, $query);
             <p class="mb-1"><strong>Nama:</strong> <?= $row['nama']; ?></p>
             <p class="mb-1"><strong>NIM:</strong> <?=  $row['username']; ?></p>
             <p class="mb-3"><strong>Jurusan:</strong> <?= $row['jurusan']; ?></p>
+
             <a href="lihat_profil_mhs.php?id=<?= $row['id']; ?>" class="btn btn-info px-4">Lihat Profil</a>
+
           </div>
         </div>
       </div>
