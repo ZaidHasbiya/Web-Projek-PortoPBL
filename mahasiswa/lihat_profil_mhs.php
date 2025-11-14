@@ -1,26 +1,33 @@
 <?php
 session_start();
-include '../koneksi.php';
+include 'koneksi.php';
 
 if(!isset($_SESSION['username'])){
-  echo "<script>alert('username tidak sesuai ! silahkan melakukan login'); window.location ='login.php';</script>";
+  echo "<script>alert('Silakan login terlebih dahulu'); window.location ='../login.php';</script>";
+  exit;
 }
 
 if ($_SESSION['role'] !== 'mahasiswa') {
-    echo "<script>
-            alert('Maaf, anda bukan mahasiswa. Silakan login ulang.');
-            window.location.href = 'login.php';
-          </script>";
+    echo "<script>alert('Anda tidak memiliki akses!'); window.location.href='../login.php';</script>";
     exit;
 }
 
-$nama = $_SESSION['nama'];
+if (!isset($_GET['id'])) {
+    echo "<script>alert('Mahasiswa tidak ditemukan'); window.location='index_mahasiswa.php';</script>";
+    exit;
+}
 
-$query = "SELECT * FROM users WHERE nama = '$nama'";
-$result = mysqli_query($koneksi, $query);
-$user = mysqli_fetch_assoc($result);
+$user_id = $_GET['id'];
 
-$user_id = $user['id'];
+$query_user = "SELECT * FROM users WHERE id = '$user_id'";
+$result_user = mysqli_query($koneksi, $query_user);
+$user = mysqli_fetch_assoc($result_user);
+
+if (!$user) {
+    echo "<script>alert('Mahasiswa tidak ditemukan'); window.location='index_mahasiswa.php';</script>";
+    exit;
+}
+
 $query_projek = "SELECT * FROM projek WHERE user_id = '$user_id'";
 $result_projek = mysqli_query($koneksi, $query_projek);
 ?>
@@ -42,15 +49,15 @@ $result_projek = mysqli_query($koneksi, $query_projek);
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
 
-  <link rel="stylesheet" href="../styles.css" type="text/css">
+  <link rel="stylesheet" href="styles.css" type="text/css">
 </head>
 
 <body>
 
- <?php include 'layouts/navbar_mhs.php'; ?>
-<div class="container my-5">
+  <?php include 'layouts/navbar_mhs.php'; ?>
+  <div class="container py-4 mt-5 pt-5">
   <!-- Baris utama -->
   <div class="row align-items-center">
     <!-- Kolom kiri: Foto + Jurusan -->
@@ -69,7 +76,7 @@ $result_projek = mysqli_query($koneksi, $query_projek);
 </div>
 </div>
     <!-- Kolom kanan: Tentang Mahasiswa -->
-    <div class="col-md-8">
+   <div class="col-md-8">
       <!-- Tentang Mahasiswa -->
       <div class="bg-info p-3 rounded mb-4">
         <h5 class="fw-bold text-white">Tentang Mahasiswa</h5>
@@ -138,8 +145,8 @@ $result_projek = mysqli_query($koneksi, $query_projek);
   <?php endif; ?>
 
 </div>
-  <!-- ===== Wave + Footer ===== -->
-  <img src="asset/wave-dark-blue.svg" class="w-100" alt="">
+
+  <img src="../asset/wave-dark-blue.svg">
   <footer class="text-center py-3 bg-light mt-5">
     &copy; <span>2025</span> Tim Web Portofolio Projek PBL
   </footer>
