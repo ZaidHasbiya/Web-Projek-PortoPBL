@@ -16,6 +16,15 @@ if(isset($_POST['tambah'])){
   $judul = $_POST['judul'];
   $deskripsi = $_POST['deskripsi'];
   $link = $_POST['link'];
+
+if (strpos($link, "youtu.be") !== false) {
+    $id = basename($link);
+    $link = "https://www.youtube.com/embed/$id";
+} else {
+    $link = str_replace("watch?v=", "embed/", $link);
+}
+
+
   $tgl_pembuatan = $_POST['tgl_pembuatan'];
   $tgl_selesai = $_POST['tgl_selesai'];
 
@@ -64,7 +73,8 @@ if(isset($_POST['tambah'])){
   <div class="container my-5">
     <h3 class="mb-4">Tambah Projek</h3>
 
-    <form id="formProjek" action="#" method="post" enctype="multipart/form-data">
+    <form action="#" method="post" enctype="multipart/form-data">
+
       <div class="mb-3">
         <label for="judul" class="form-label">Judul Proyek</label>
         <input type="text" class="form-control" id="judul" name="judul" placeholder="Judul Proyek" required>

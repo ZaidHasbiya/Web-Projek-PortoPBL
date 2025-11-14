@@ -58,14 +58,14 @@ $result = mysqli_num_rows($data);
         <?php while($row = mysqli_fetch_assoc($data)) :?>
   <div class="col">
     <div class="card border border-info">
-      <img src="asset/uploads/<?= $row['gambar_projek']; ?>" class="card-img-top" alt="Projek Web Portofolio PBL">
+      <img src="../asset/uploads/<?= $row['gambar_projek']; ?>" class="card-img-top" alt="Projek Web Portofolio PBL">
       <div class="card-body">
         <h5 class="card-title"><?= $row['judul']; ?></h5>
         <p class="card-text">Deskripsi Projek : <?= $row['deskripsi']; ?></p>
         <p class="card-text">Dibuat Oleh :</p>
         <p class="card-text">Nama Mahasiswa : <?= $row['nama']; ?></p>
         <p class="card-text">NIM : <?= $row['username']; ?></p>
-        <a href="lihat_projek_dosen.php?projek_id=<?= $row['projek_id']; ?>" class="btn btn-outline-info rounded-pill d-flex justify-content-center">Lihat Projek</a>
+        <a href="lihat_projek_mhs.php?projek_id=<?= $row['projek_id']; ?>" class="btn btn-outline-info rounded-pill d-flex justify-content-center">Lihat Projek</a>
       </div>
     </div>
   </div>
