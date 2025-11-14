@@ -53,7 +53,6 @@ $result_projek = mysqli_query($koneksi, $query_projek);
 
   <link rel="stylesheet" href="styles.css" type="text/css">
 </head>
-
 <body>
 
   <?php include 'layouts/navbar_mhs.php'; ?>
