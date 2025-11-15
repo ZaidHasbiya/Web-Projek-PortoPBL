@@ -1,3 +1,27 @@
+<?php
+include 'koneksi.php';
+
+if(isset($_POST['registrasi'])){
+$nama = $_POST['nama'];
+$nim = $_POST['username'];
+$password = $_POST['password'];
+$role = 'mahasiswa';
+
+$cek = mysqli_query($koneksi,"SELECT * FROM users WHERE nama = '$nama' AND username = '$nim'");
+
+if(mysqli_num_rows($cek) > 0){
+  echo "<script>alert('Nama atau NIM sudah terdaftar'); window.location = 'registrasi.php';</script>";
+} else{
+  $data = "INSERT INTO users (nama, username, password, role) VALUES ('$nama', '$nim', '$password', '$role')";
+  if(mysqli_query($koneksi, $data)){
+    echo "<script>alert('Registrasi berhasil! silahkan melakukan login'); window.location = 'login.php';</script>";
+  }else{
+    echo "<script>alert('Registrasi berhasil! silahkan registrasi ulang !'); window.location = 'registrasi.php';</script>";
+  }
+}
+}
+
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -31,21 +55,20 @@
           </ul>
         </li>
             <a href="projek.html">Projek</a>
-            <a href="registrasi.html">Daftar</a>
+            <a href="registrasi.php">Daftar</a>
         </nav>
     </header>
 
     <div class="registrasi-form">
-    <form action="">
+   <form method="POST" action="">
         <h3 class="login-title">Registrasi Akun PortoPBL</h3><br>
         <br>
-        <input type="text" class="fullname" placeholder="Nama Lengkap">
-        <input type="text" class="inputnim" placeholder="NIM">
-        <input type="password" class="password" placeholder="Password">
-        <input type="password" class="confirm-password" placeholder="Konfirmasi Password">
+        <input type="text" class="fullname" placeholder="Nama Lengkap" name="nama">
+        <input type="text" class="inputnim" placeholder="NIM" name="username">
+        <input type="password" class="password" placeholder="Password" name="password">
+        <button type="submit" class="registrasi-btn" name="registrasi">Daftar Sekarang</button>
     </form>
-    <a href="login.html"><button type="submit" class="registrasi-btn">Daftar Sekarang</button></a>
-    <a href="login.html">Sudah Punya Akun? Login Disini</a>
+    <a href="login.php">Sudah Punya Akun? Login Disini</a>
     </div><br><br>
     <img src="asset/wave-info.svg">
 

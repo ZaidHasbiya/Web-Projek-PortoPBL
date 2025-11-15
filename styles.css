@@ -1,44 +1,13 @@
 body{
     font-family: 'Poppins','Sans-serif';
 }
-.jumbotron {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('asset/poltek.jpeg');
-    background-size: cover;    
-    background-position: center;  
-    background-repeat: no-repeat;
-    color: white;
+.jumbotron{
+    background-color: #0dcaf0;
 }
-
-.jumbotron .container img {
-    transition: transform 0.3s ease;
-}
-
-.jumbotron .container img:hover {
-    transform: scale(1.05);
-}
-
 #tim{
-    background-color: #54ccff;
+    background-color: #0dcaf0;
 }
 section {
     padding-top: 8rem;
 }
-.nav-links a {
-    color: white;
-    text-decoration: none; /* Hilangkan garis bawah */
-    font-size: 16px;
-    font-weight: 500;
-    padding: 10px 10px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-/* Gaya saat tautan di-hover (opsional, untuk interaksi) */
-.nav-links a:hover {
-    color: rgba(255, 255, 255, 0.384);
-    border-radius: 4px;
-}
-.bg-dark-blue {
-  background-color: #0d47a1 !important; /* biru gelap */
-}
-
 

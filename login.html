@@ -15,36 +15,36 @@
     
   </head>
 <body>
+    <header class="navbar">
+        <a class="navbar-brand fw-bold text-white" href="index.html">PortoPBL</a>
+        <nav class="nav-links">
+            <a href="index.html">Beranda</a>
+            <li class="nav-item">
+            <a class="nav-link fw-bold" href="jurusan.html">Jurusan</a>
+          </li>
+            <a href="projek.html">Projek</a>
+            <a href="registrasi.html">Daftar</a>
+        </nav>
+    </header>
     <div class="login-form">
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-    <div class="col-12 col-md-4 bg-light p-4 rounded shadow">
-    <form id="loginForm">
-        <img src="asset/logo.png" class="d-block mx-auto mb-3" alt="Logo" width="220">
-        <h3 class="text-center">Login</h3><br>
+    <form action="">
+        <h3 class="login-title">Login</h3><br>
         <label for="cars">Masuk Sebagai :</label>
     <select name="role" id="role" >
         <option value="Mahasiswa">Mahasiswa</option>
         <option value="Dosen">Dosen</option>
     </select>
         <br>
-        <label for="nim">NIM :</label>
-            <input type="text" id="nim" class="form-control inputNIM" placeholder="Masukkan NIM Anda">
-            <small id="nimError" class="error text-danger">NIM harus diisi!</small>
-            <label for="password">Password :</label>
-            <input type="password" id="password" class="form-control inputPassword" placeholder="Masukkan Password Anda">
-            <small id="passwordError" class="error text-danger">Password harus diisi!</small>
-
-            <div class="d-grid gap-2 mt-4">
-              <button type="submit" class="btn btn-info text-white" id="loginBtn">Login</button>
-            </div>
-          </form>
+        <label for="number">NIM :</label>
+        <input type="text" class="inputNIM" placeholder="Masukkan NIM Anda"><br>
+        <label for="password">Password :</label>
+        <input type="password" class="inputPassword" placeholder="Masukkan Password Anda">
+        
+    </form>
+    <a href="../mahasiswa/index_mahasiswa.html"><button type="submit" class="login-btn">Login</button></a>
     <a href="registrasi.html" class="text-center">Belum Punya Akun? Registrasi Disini</a>
-</div>    
-</div></div></div>
     </div><br><br>
+    <img src="asset/wave-info.svg">
     <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="login.js"></script>
 </body>
 </html>
