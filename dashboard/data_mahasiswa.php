@@ -1,3 +1,21 @@
+<?php
+session_start();
+include '../koneksi.php';
+
+if(!isset($_SESSION['username'])){
+  echo "<script>alert('username tidak sesuai ! silahkan melakukan login'); window.location ='login.php';</script>";
+}
+
+if($_SESSION['role'] != 'admin'){
+  echo "<script>alert('Akses ditolak! Halaman ini hanya untuk admin.');window.location='index.php';</script>";
+    exit;
+}
+
+$query = "SELECT * FROM users WHERE role='mahasiswa'";
+$data = mysqli_query($koneksi, $query);
+$result = mysqli_num_rows($data);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -17,7 +35,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">Dashboard Admin</a>
+            <a class="navbar-brand ps-3" href="dashboard.php">Dashboard Admin</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar-->
@@ -39,7 +57,7 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link text-white" href="index.html">
+                            <a class="nav-link text-white" href="dashboard.php">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
@@ -50,8 +68,8 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link text-white" href="data_mahasiswa.html">Data Mahasiswa</a>
-                                    <a class="nav-link text-white" href="data_dosen.html">Data Dosen</a>
+                                    <a class="nav-link text-white" href="data_mahasiswa.php">Data Mahasiswa</a>
+                                    <a class="nav-link text-white" href="data_dosen.php">Data Dosen</a>
                                 </nav>
                             </div>
                         </div>
@@ -69,49 +87,82 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
+                        <a href="tambah_mahasiswa.php" class="btn btn-info text-white mb-4">
+    <i class="fas fa-plus"></i> Tambah Mahasiswa
+  </a>
                     </div>
-                    <table class="table table-bordered text-center">
-                        <tr>
-                            <td>No</td>
-                            <td>Nama</td>
-                            <td>NIM</td>
-                            <td>Jurusan</td>
-                            <td colspan="2">Aksi</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Reifandra Kinadi</td>
-                            <td>3312501046</td>
-                            <td>Teknik Informatika</td>
-                            <td><button class="btn btn-info btn-sm text-white" data-bs-toggle="modal" data-bs-target="#modalLihat1">
-                                <i class="fas fa-eye"></i> Lihat
-                            </button>
-                        </td>
-                        <td><button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</button></td>
-                        </tr>
-                    </table>
-                    <div class="modal fade" id="modalLihat1" tabindex="-1" aria-labelledby="modalLihatLabel1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable">
-    <div class="modal-content">
+                    <div class="table-responsive">
+                   <table class="table table-bordered text-center">
+    <tr>
+        <th>No</th>
+        <th>Nama</th>
+        <th>NIM</th>
+        <th>Jurusan</th>
+        <th colspan="3">Aksi</th>
+    </tr>
 
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalLihatLabel1">Detail Mahasiswa</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+    <?php 
+    if ($result > 0) {
+        $no = 1;
+        while ($row = mysqli_fetch_assoc($data)) :
+    ?>
+    <tr>
+        <td><?= $no++; ?></td>
+        <td><?= $row['nama']; ?></td>
+        <td><?= $row['username']; ?></td>
+        <td><?= !empty($row['jurusan']) ? $row['jurusan'] : 'Belum diatur'; ?></td>
 
-      <div class="modal-body">
-        <p><strong>Nama:</strong> Reifandra Kinadi</p>
-        <p><strong>NIM:</strong> 3312501046</p>
-        <p><strong>Jurusan:</strong> Teknik Informatika</p>
-      </div>
+        <td>
+            <button class="btn btn-info btn-sm text-white" data-bs-toggle="modal" data-bs-target="#modalLihat<?= $row['id']; ?>">
+                <i class="fas fa-eye"></i> Lihat
+            </button>
+        </td>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-      </div>
+        <td>
+            <a href="edit_mahasiswa.php?id=<?= $row['id']; ?>" class="btn btn-warning btn-sm text-white">
+                <i class="fas fa-edit"></i> Edit
+            </a>
+        </td>
 
+        <td>
+            <a onclick="return confirm('Yakin ingin menghapus?')" href="hapus_mahasiswa.php?id=<?= $row['id']; ?>" class="btn btn-danger btn-sm">
+                <i class="fas fa-trash"></i> Hapus
+            </a>
+        </td>
+    </tr>
+
+    <div class="modal fade" id="modalLihat<?= $row['id']; ?>" tabindex="-1" aria-labelledby="modalLihatLabel<?= $row['id']; ?>" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLihatLabel<?= $row['id']; ?>">Detail Mahasiswa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p><strong>Nama:</strong> <?= $row['nama']; ?></p>
+                    <p><strong>NIM:</strong> <?= $row['username']; ?></p>
+                    <p><strong>Jurusan:</strong> <?= !empty($row['jurusan']) ? $row['jurusan'] : 'Belum diatur'; ?></p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+
+    <?php endwhile; } else { ?>
+
+    <tr>
+        <td colspan="7" class="text-center text-muted">Tidak ada data mahasiswa</td>
+    </tr>
+
+    <?php } ?>
+</table>
+                    </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">

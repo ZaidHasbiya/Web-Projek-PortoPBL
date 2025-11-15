@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['username'])){
+  echo "<script>alert('username tidak sesuai ! silahkan melakukan login'); window.location ='login.php';</script>";
+}
+
+if($_SESSION['role'] != 'admin'){
+  echo "<script>alert('Akses ditolak! Halaman ini hanya untuk admin.');window.location='index.php';</script>";
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -50,8 +62,8 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link text-white" href="data_mahasiswa.html">Data Mahasiswa</a>
-                                    <a class="nav-link text-white" href="data_dosen.html">Data Dosen</a>
+                                    <a class="nav-link text-white" href="data_mahasiswa.php">Data Mahasiswa</a>
+                                    <a class="nav-link text-white" href="data_dosen.php">Data Dosen</a>
                                 </nav>
                             </div>
                         </div>
@@ -65,59 +77,31 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Data Dosen</h1>
+                        <h1 class="mt-4">Dashboard</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
-                        <a href="tambah_dosen.html" class="btn btn-info text-white mb-4">
-    <i class="fas fa-plus"></i> Tambah Dosen
-  </a>
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-primary text-white mb-4">
+                                    <div class="card-body">Data Mahasiswa</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-warning text-white mb-4">
+                                    <div class="card-body">Data Dosen</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="table-responsive">
-                    <table class="table table-bordered text-center">
-                        <tr>
-                            <td>No</td>
-                            <td>Nama</td>
-                            <td>NIK</td>
-                            <td>Username</td>
-                            <td colspan="3">Aksi</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Reifandra Kinadi</td>
-                            <td>3312501046</td>
-                            <td>Admin#123</td>
-                            <td><button class="btn btn-info btn-sm text-white" data-bs-toggle="modal" data-bs-target="#modalLihat1">
-                                <i class="fas fa-eye"></i> Lihat
-                            </button>
-                        </td>
-                        <td><a href="edit_dosen.html" class="btn btn-warning btn-sm text-white"><i class="fas fa-edit"></i> Edit</a></td>
-                        <td><button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</button></td>
-                        </tr>
-                    </table>
-                    </div>
-                    <div class="modal fade" id="modalLihat1" tabindex="-1" aria-labelledby="modalLihatLabel1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalLihatLabel1">Detail Dosen</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <div class="modal-body">
-        <p><strong>Nama:</strong> Reifandra Kinadi</p>
-        <p><strong>NIK:</strong> 3312501046</p>
-        <p><strong>Username:</strong> Admin#123</p>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-      </div>
-
-    </div>
-  </div>
-</div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
