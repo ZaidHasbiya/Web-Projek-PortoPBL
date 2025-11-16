@@ -1,19 +1,9 @@
 <?php
-session_start();
-include '../koneksi.php';
 
-if(!isset($_SESSION['username'])){
-  echo "<script>alert('Silakan login terlebih dahulu'); window.location ='login.php';</script>";
-  exit;
-}
-
-if ($_SESSION['role'] !== 'dosen') {
-    echo "<script>alert('Anda tidak memiliki akses!'); window.location.href='login.php';</script>";
-    exit;
-}
+include 'koneksi.php';
 
 if (!isset($_GET['id'])) {
-    echo "<script>alert('Mahasiswa tidak ditemukan'); window.location='index_dosen.php';</script>";
+    echo "<script>alert('Mahasiswa tidak ditemukan'); window.location='index_mahasiswa.php';</script>";
     exit;
 }
 
@@ -24,7 +14,7 @@ $result_user = mysqli_query($koneksi, $query_user);
 $user = mysqli_fetch_assoc($result_user);
 
 if (!$user) {
-    echo "<script>alert('Mahasiswa tidak ditemukan'); window.location='index_dosen.php';</script>";
+    echo "<script>alert('Mahasiswa tidak ditemukan'); window.location='index_mahasiswa.php';</script>";
     exit;
 }
 
@@ -49,21 +39,20 @@ $result_projek = mysqli_query($koneksi, $query_projek);
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
 
-  <link rel="stylesheet" href="../styles.css" type="text/css">
+  <link rel="stylesheet" href="styles.css" type="text/css">
 </head>
-
 <body>
 
-  <?php include '../layouts/navbar_dosen.php'; ?>
+  <?php include 'layouts/navbar_publik.php'; ?>
   <div class="container py-4 mt-5 pt-5">
   <!-- Baris utama -->
   <div class="row align-items-center">
     <!-- Kolom kiri: Foto + Jurusan -->
     <div class="col-md-4 text-center">
       <div class="ratio ratio-1x1 rounded-circle overflow-hidden mx-auto mb-2" style="width: 200px;">
-        <img src="../tim/panda.jpeg" alt="Foto Mahasiswa" class="w-100 h-100" style="object-fit: cover;">
+        <img src="tim/panda.jpeg" alt="Foto Mahasiswa" class="w-100 h-100" style="object-fit: cover;">
       </div>
       <small class="d-block mb-3 text-muted">
   <?= htmlspecialchars($user['nama']) ?>
@@ -130,7 +119,7 @@ $result_projek = mysqli_query($koneksi, $query_projek);
             <div class="bg-light border border-dark-subtle p-3 text-center rounded">
               <span class="fw-semibold text-muted">Foto</span>
               <?php if (!empty($projek['gambar_projek'])): ?>
-                <img src="../asset/uploads/<?= htmlspecialchars($projek['gambar_projek']) ?>" 
+                <img src="assets/uploads/<?= htmlspecialchars($projek['gambar_projek']) ?>" 
                      class="img-fluid rounded mt-2">
               <?php endif; ?>
             </div>
@@ -151,7 +140,7 @@ $result_projek = mysqli_query($koneksi, $query_projek);
     &copy; <span>2025</span> Tim Web Portofolio Projek PBL
   </footer>
 
-  <script src="../js/bootstrap.bundle.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

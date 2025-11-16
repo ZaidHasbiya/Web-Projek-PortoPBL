@@ -18,53 +18,13 @@
 <body>
 
   <!-- ===== Navbar ===== -->
-  <nav class="navbar navbar-expand-lg navbar-dark py-3 bg-info shadow fixed-top">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="index.html">PortoPBL</a>
-      <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav ms-auto d-flex gap-3 text-center pt-lg-0 pt-4">
-          <li class="nav-item">
-            <a class="nav-link fw-bold" href="#">Beranda</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-bold" href="#tentang">Tentang</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-bold" href="#tim">Tim</a>
-          </li>
-          <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdownMenuLink"
-            role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Jurusan
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="jurusan_if.html">Teknik Informatika</a></li>
-            <li><a class="dropdown-item" href="jurusan_mesin.html">Teknik Mesin</a></li>
-            <li><a class="dropdown-item" href="jurusan_elektro.html">Teknik Elektro</a></li>
-            <li><a class="dropdown-item" href="jurusan_mb.html">Manajemen Bisnis</a></li>
-          </ul>
-        </li>
-          <li class="nav-item">
-            <a class="nav-link fw-bold" href="projek.html">Projek</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-bold" href="registrasi.html">Daftar</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <?php include 'layouts/navbar_publik.php'; ?>
 
   <!-- ===== Jumbotron ===== -->
   <section class="jumbotron text-center">
     <h1 class="display-3 fw-bold text-white">WELCOME TO PORTOPBL</h1>
     <h2>Platform Portofolio Digital Mahasiswa</h2>
-    <a href="login.html" class="btn btn-outline-light rounded-pill mt-4 text-center" style="width:200px">LOGIN</a>
+    <a href="login.php" class="btn btn-outline-light rounded-pill mt-4 text-center" style="width:200px">LOGIN</a>
     <img src="asset/wave.svg" alt="Garis pemisah">
   </section>
 
@@ -90,33 +50,36 @@
     <div class="container">
       <div class="row text-center mb-4">
         <div class="col">
-          <h1>TIM KAMI</h1>
+          <h1 class="text-white">TIM PROJEK PBL</h1>
         </div>
       </div>
 
       <div class="row text-center">
         <div class="col-md-4 mb-3">
-          <div class="card" style="width: 24rem;">
-            <img src="tim/zaid.jpeg" class="card-img-top" alt="Zaid Hasbiya Abrar">
+          <div class="card h-100">
+            <img src="tim/zaid-biru.jpg" class="card-img-top" alt="Zaid Hasbiya Abrar">
             <div class="card-body">
+              <p class="card-text">3312501046</p>
               <p class="card-text">Zaid Hasbiya Abrar</p>
             </div>
           </div>
         </div>
 
         <div class="col-md-4 mb-3">
-          <div class="card" style="width: 26rem;">
-            <img src="tim/patur.jpeg" class="card-img-top" alt="Fathur Alfitrah">
+          <div class="card h-100">
+            <img src="tim/patur-biru.jpg" class="card-img-top" alt="Fathur Alfitrah">
             <div class="card-body">
-              <p class="card-text">Fathur Alfitrah</p>
+              <p class="card-text">3312501047</p>
+              <p class="card-text">Fathur Alfitrah Dermawan</p>
             </div>
           </div>
         </div>
 
         <div class="col-md-4 mb-3">
-          <div class="card" style="width: 24rem;">
-            <img src="tim/panda.jpeg" class="card-img-top" alt="Reifandra Kinadi">
+          <div class="card h-100">
+            <img src="tim/panda-biru.jpg" class="card-img-top" alt="Reifandra Kinadi">
             <div class="card-body">
+              <p class="card-text">3312501048</p>
               <p class="card-text">Reifandra Kinadi</p>
             </div>
           </div>

@@ -30,7 +30,7 @@ if (strpos($link, "youtu.be") !== false) {
 
   $gambar = $_FILES['gambar_projek']['name'];
     $tmp = $_FILES['gambar_projek']['tmp_name'];
-    $folder = "asset/uploads/";
+    $folder = "../asset/uploads/";
 
     if (file_exists($folder . $gambar)) {
         echo "<script>alert('Gagal! Nama file sudah ada, silakan ganti nama file.'); window.history.back();</script>";
@@ -87,7 +87,7 @@ if (strpos($link, "youtu.be") !== false) {
 
       <div class="mb-3">
         <label for="video" class="form-label">Link Video</label>
-        <input type="url" class="form-control" id="video" name="video" placeholder="Link Video" required>
+        <input type="url" class="form-control" id="video" name="link" placeholder="Link Video" required>
       </div>
 
       <div class="mb-3">
@@ -109,7 +109,7 @@ if (strpos($link, "youtu.be") !== false) {
       </div>
 
       <div class="d-flex justify-content-between">
-        <a href="projek_saya.html" class="btn btn-primary">Kembali</a>
+        <a href="projek_saya.php" class="btn btn-primary">Kembali</a>
         <button type="submit" class="btn btn-success" name="tambah">TAMBAH</button>
       </div>
     </form>
@@ -121,6 +121,5 @@ if (strpos($link, "youtu.be") !== false) {
   </footer>
 
   <script src="../js/bootstrap.bundle.min.js"></script>
-  <script src="tambah.js"></script>
 </body>
 </html>

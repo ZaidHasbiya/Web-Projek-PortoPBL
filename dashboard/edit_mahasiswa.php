@@ -12,17 +12,17 @@ if($_SESSION['role'] != 'admin'){
 }
 
 if(!isset($_GET['id'])){
-    echo "<script>alert('ID tidak ditemukan'); window.location='data_dosen.php';</script>";
+    echo "<script>alert('ID tidak ditemukan'); window.location='data_mahasiswa.php';</script>";
     exit;
 }
 
 $id = $_GET['id'];
 
-$qDosen = mysqli_query($koneksi, "SELECT * FROM users WHERE id='$id' AND role='dosen'");
-$dosen = mysqli_fetch_assoc($qDosen);
+$qMhs = mysqli_query($koneksi, "SELECT * FROM users WHERE id='$id' AND role='mahasiswa'");
+$mhs = mysqli_fetch_assoc($qMhs);
 
-if(!$dosen){
-    echo "<script>alert('Data dosen tidak ditemukan'); window.location='data_dosen.php';</script>";
+if(!$mhs){
+    echo "<script>alert('Data mahasiswa tidak ditemukan'); window.location='data_mahasiswa.php';</script>";
     exit;
 }
 
@@ -52,9 +52,9 @@ if(isset($_POST['update'])){
     );
 
     if($update){
-        echo "<script>alert('Data dosen berhasil diperbarui!'); window.location='data_dosen.php';</script>";
+        echo "<script>alert('Data mahasiswa berhasil diperbarui!'); window.location='data_mahasiswa.php';</script>";
     } else {
-        echo "<script>alert('Gagal memperbarui data!'); window.location='edit_dosen.php?id=$id';</script>";
+        echo "<script>alert('Gagal memperbarui data!'); window.location='edit_mahasiswa.php?id=$id';</script>";
     }
 }
 
@@ -75,22 +75,22 @@ if(isset($_POST['update'])){
 <body>
 
 <div class="container my-5">
-    <h3 class="mb-4">Edit Dosen</h3>
+    <h3 class="mb-4">Edit Mahasiswa</h3>
 
     <form method="post">
         <div class="mb-3">
-            <label>Nama Dosen</label>
-            <input type="text" class="form-control" name="nama" value="<?= $dosen['nama']; ?>" required>
+            <label>Nama Mahasiswa</label>
+            <input type="text" class="form-control" name="nama" value="<?= $mhs['nama']; ?>" required>
         </div>
 
         <div class="mb-3">
-            <label>NIK</label>
-            <input type="text" class="form-control" name="username" value="<?= $dosen['username']; ?>" required>
+            <label>NIM</label>
+            <input type="text" class="form-control" name="username" value="<?= $mhs['username']; ?>" required>
         </div>
 
         <div class="mb-3">
             <label>Password</label>
-            <input type="text" class="form-control" name="password" value="<?= $dosen['password']; ?>" required>
+            <input type="text" class="form-control" name="password" value="<?= $mhs['password']; ?>" required>
         </div>
 
         <div class="mb-3">
@@ -99,7 +99,7 @@ if(isset($_POST['update'])){
                 <option value="">-- Pilih Jurusan --</option>
 
                 <?php foreach($jurusan_list as $j): ?>
-                    <option value="<?= $j ?>" <?= ($dosen['jurusan'] == $j ? 'selected' : '') ?>>
+                    <option value="<?= $j ?>" <?= ($mhs['jurusan'] == $j ? 'selected' : '') ?>>
                         <?= ucfirst($j) ?>
                     </option>
                 <?php endforeach; ?>
@@ -110,7 +110,7 @@ if(isset($_POST['update'])){
             <label>Role</label>
            <select name="role" class="form-control" required>
     <?php foreach ($role_list as $r): ?>
-        <option value="<?= $r ?>" <?= $dosen['role']==$r ? 'selected' : '' ?>>
+        <option value="<?= $r ?>" <?= $mhs['role']==$r ? 'selected' : '' ?>>
             <?= ucfirst($r) ?>
         </option>
     <?php endforeach; ?>
@@ -118,7 +118,7 @@ if(isset($_POST['update'])){
         </div>
 
         <div class="d-flex justify-content-between">
-            <a href="data_dosen.php" class="btn btn-primary">Kembali</a>
+            <a href="data_mahasiswa.php" class="btn btn-primary">Kembali</a>
             <button type="submit" name="update" class="btn btn-success">Update</button>
         </div>
     </form>

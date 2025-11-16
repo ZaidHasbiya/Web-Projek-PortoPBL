@@ -11,11 +11,11 @@ if($_SESSION['role'] != 'admin'){
     exit;
 }
 
-$q = mysqli_query($koneksi, "SHOW COLUMNS FROM users LIKE 'jurusan'");
-$row = mysqli_fetch_assoc($q);
+$jurusan = mysqli_fetch_assoc(mysqli_query($koneksi, "SHOW COLUMNS FROM users LIKE 'jurusan'"));
+$jurusan_list = explode("','", str_replace(["enum('","')"], "", $jurusan['Type']));
 
-$enum = str_replace(["enum('", "')"], "", $row['Type']);
-$jurusan_list = explode("','", $enum);
+$role = mysqli_fetch_assoc(mysqli_query($koneksi, "SHOW COLUMNS FROM users LIKE 'role'"));
+$role_list = explode("','", str_replace(["enum('","')"], "", $role['Type']));
 
 if(isset($_POST['tambah'])){
 
@@ -81,6 +81,16 @@ if(mysqli_num_rows($cek) > 0){
 
     <?php foreach ($jurusan_list as $j): ?>
         <option value="<?= $j ?>"><?= ucfirst($j) ?></option>
+    <?php endforeach; ?>
+</select>
+      </div>
+      <div class="mb-3">
+        <label for="role" class="form-label">Pilih Role</label>
+<select name="role" class="form-control" id="role" required>
+    <option value="">-- Pilih Role --</option>
+
+    <?php foreach ($role_list as $r): ?>
+        <option value="<?= $r ?>"><?= ucfirst($r) ?></option>
     <?php endforeach; ?>
 </select>
       </div>

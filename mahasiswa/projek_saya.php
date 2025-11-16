@@ -49,8 +49,8 @@ $jumlah_projek = mysqli_num_rows($result);
 
 <body>
 
-  <?php include 'layouts/navbar_mhs.php'; ?>
-  <div class="container">
+  <?php include '../layouts/navbar_mhs.php'; ?>
+  <div class="container mt-5 pt-5">
     <div class="d-flex justify-content-between align-items-center my-5">
   <h1 class="m-0">Projek Saya</h1>
   <a href="tambah_projek.php" class="btn btn-info text-white">
@@ -63,7 +63,7 @@ $jumlah_projek = mysqli_num_rows($result);
       <?php while ($row = mysqli_fetch_assoc($result)): ?>
         <div class="col">
           <div class="card border border-info">
-            <img src="asset/uploads/<?= htmlspecialchars($row['gambar_projek']); ?>">
+            <img src="../asset/uploads/<?= htmlspecialchars($row['gambar_projek']); ?>">
             <div class="card-body">
               <h5 class="card-title"><?= htmlspecialchars($row['judul']); ?></h5>
               <p class="card-text">Deskripsi Projek : <?= htmlspecialchars($row['deskripsi']); ?></p>

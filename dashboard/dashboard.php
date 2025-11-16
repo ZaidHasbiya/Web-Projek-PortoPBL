@@ -2,13 +2,14 @@
 session_start();
 
 if(!isset($_SESSION['username'])){
-  echo "<script>alert('username tidak sesuai ! silahkan melakukan login'); window.location ='login.php';</script>";
+  echo "<script>alert('username tidak sesuai ! silahkan melakukan login'); window.location ='../login.php';</script>";
 }
 
 if($_SESSION['role'] != 'admin'){
-  echo "<script>alert('Akses ditolak! Halaman ini hanya untuk admin.');window.location='index.php';</script>";
+  echo "<script>alert('Akses ditolak! Halaman ini hanya untuk admin.');window.location='../login.php';</script>";
     exit;
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +41,7 @@ if($_SESSION['role'] != 'admin'){
                         <li><a class="dropdown-item" href="#!">Settings</a></li>
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <li><a class="dropdown-item" href="../logout.php">Logout</a></li>
                     </ul>
                 </li>
             </ul>

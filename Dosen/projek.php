@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'koneksi.php';
+include '../koneksi.php';
 
 if(!isset($_SESSION['nama'])){
     echo "<script>alert('Silahkan Melakukan Login Terlebih Dahulu'); window.location.href = 'login.php';</script>";
@@ -59,9 +59,9 @@ if (isset($_POST['cari'])) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
 
-  <link rel="stylesheet" href="styles.css" type="text/css">
+  <link rel="stylesheet" href="../styles.css" type="text/css">
 </head>
 <style>
  .navbar-brand img {
@@ -76,7 +76,7 @@ if (isset($_POST['cari'])) {
 <body>
 
   <!-- ===== Navbar ===== -->
-  <?php include 'layouts/navbar_dosen.php'; ?>
+  <?php include '../layouts/navbar_dosen.php'; ?>
   <div class="container">
     <div class="d-flex justify-content-between align-items-center my-5">
   <h1 class="my-5">Projek</h1>
@@ -90,7 +90,7 @@ if (isset($_POST['cari'])) {
         <?php while($row = mysqli_fetch_assoc($data)) :?>
   <div class="col">
     <div class="card border border-info">
-      <img src="asset/uploads/<?= $row['gambar_projek']; ?>" class="card-img-top" alt="Projek Web Portofolio PBL">
+      <img src="../asset/uploads/<?= $row['gambar_projek']; ?>" class="card-img-top" alt="Projek Web Portofolio PBL">
       <div class="card-body">
         <h5 class="card-title"><?= $row['judul']; ?></h5>
         <p class="card-text">Deskripsi Projek : <?= $row['deskripsi']; ?></p>
@@ -112,7 +112,7 @@ if (isset($_POST['cari'])) {
     &copy; <span>2025</span> Tim Web Portofolio Projek PBL
   </footer>
 
-  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="../js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

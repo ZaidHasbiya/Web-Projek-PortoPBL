@@ -31,7 +31,7 @@ if($_SESSION['role'] != 'mahasiswa'){
 <body>
 
   <!-- ===== Navbar ===== -->
-  <?php include 'layouts/navbar_mhs.php'; ?>
+  <?php include '../layouts/navbar_mhs.php'; ?>
 
   <!-- ===== Jumbotron ===== -->
   <section class="jumbotron text-center">

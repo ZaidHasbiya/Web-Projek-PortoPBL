@@ -107,7 +107,7 @@ if (isset($_POST['edit'])) {
         </div>
         <?php if (!empty($projek['gambar_projek'])): ?>
           <div class="mt-2">
-            <img src="asset/uploads/<?= htmlspecialchars($projek['gambar_projek']) ?>" alt="Gambar Projek" width="200">
+            <img src="../asset/uploads/<?= htmlspecialchars($projek['gambar_projek']) ?>" alt="Gambar Projek" width="200">
           </div>
         <?php endif; ?><br>
         <input type="file" class="form-control" id="gambar_projek" name="gambar_projek" accept=".jpg,.jpeg,.png">

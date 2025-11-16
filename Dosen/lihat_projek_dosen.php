@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'koneksi.php';
+include '../koneksi.php';
 
 if (!isset($_SESSION['nama'])) {
   echo "<script>alert('Silakan login terlebih dahulu!'); window.location.href='../login.php';</script>";
@@ -57,19 +57,19 @@ $komentarResult = mysqli_query($koneksi, $komentarQuery);
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="styles.css" type="text/css">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../styles.css" type="text/css">
 </head>
 
 <body>
-  <?php include 'layouts/navbar_dosen.php'; ?>
+  <?php include '../layouts/navbar_dosen.php'; ?>
   <div class="container py-5 mt-5">
 
     <h1 class="fw-bold mb-4"><?= htmlspecialchars($projek['judul']); ?></h1>
 
     <?php if (!empty($projek['gambar_projek'])): ?>
       <div class="mb-4">
-        <img src="asset/uploads/<?= $projek['gambar_projek']; ?>" 
+        <img src="../asset/uploads/<?= $projek['gambar_projek']; ?>" 
              class="img-fluid rounded shadow" 
              alt="Gambar Projek">
       </div>
@@ -123,6 +123,6 @@ $komentarResult = mysqli_query($koneksi, $komentarQuery);
   <?php endif; ?>
 </div>
 </div>
-<script src="js/bootstrap.bundle.min.js"></script>
+<script src="../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

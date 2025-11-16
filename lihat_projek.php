@@ -1,41 +1,25 @@
 <?php
-session_start();
 
-include '../koneksi.php';
+include 'koneksi.php';
 
-if (!isset($_SESSION['nama'])) {
-    echo "<script>
-            alert('Silakan login terlebih dahulu!');
-            window.location.href = 'login.php';
-          </script>";
-    exit;
-}
-
-if ($_SESSION['role'] !== 'mahasiswa') {
-    echo "<script>
-            alert('Maaf, anda bukan mahasiswa. Silakan login ulang.');
-            window.location.href = 'login.php';
-          </script>";
-    exit;
-}
-
-$user_id = $_SESSION['id'];
-
-if (!isset($_GET['projek_id'])) {
-    echo "<script>alert('Projek tidak ditemukan!'); window.location.href='projek_saya.php';</script>";
-    exit;
-}
 $projek_id = $_GET['projek_id'];
 
-$query = "SELECT * FROM projek WHERE projek_id = '$projek_id' AND user_id = '$user_id'";
-$result = mysqli_query($koneksi, $query);
-
-if (mysqli_num_rows($result) == 0) {
-    echo "<script>alert('Projek tidak ditemukan atau bukan milik Anda.'); window.location.href='projek_saya.php';</script>";
-    exit;
+if (!$projek_id) {
+  echo "<script>alert('Projek tidak ditemukan!'); window.location.href='projek_mhs.php';</script>";
+  exit;
 }
 
+$query = "SELECT projek.*, users.nama, users.username 
+          FROM projek 
+          JOIN users ON projek.user_id = users.id 
+          WHERE projek.projek_id = '$projek_id'";
+$result = mysqli_query($koneksi, $query);
 $projek = mysqli_fetch_assoc($result);
+
+if (!$projek) {
+  echo "<script>alert('Projek tidak ditemukan.'); window.location.href='projek.php';</script>";
+  exit;
+}
 
 $komentarQuery = "SELECT komentar.*, users.nama 
                   FROM komentar 
@@ -57,20 +41,20 @@ $komentarResult = mysqli_query($koneksi, $komentarQuery);
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
 
-  <link rel="stylesheet" href="../styles.css" type="text/css">
+  <link rel="stylesheet" href="styles.css" type="text/css">
 </head>
 
 <body>
 
   <!-- ===== Navbar ===== -->
-  <?php include '../layouts/navbar_mhs.php'; ?>
+  <?php include 'layouts/navbar_publik.php'; ?>
   <div class="container py-5 mt-5">
    <h1><?= htmlspecialchars($projek['judul']); ?></h1>
     <?php if (!empty($projek['gambar_projek'])): ?>
 
-      <img src="../asset/uploads/<?= htmlspecialchars($projek['gambar_projek']); ?>" class="img-fluid rounded shadow-sm mb-4" alt="Gambar Projek">
+      <img src="asset/uploads/<?= htmlspecialchars($projek['gambar_projek']); ?>" class="img-fluid rounded shadow-sm mb-4" alt="Gambar Projek">
 
     <?php endif; ?>
     <h2>Deskripsi Projek</h2>
@@ -83,8 +67,8 @@ $komentarResult = mysqli_query($koneksi, $komentarQuery);
 
     <p><strong>Tanggal Dibuat:</strong> <?= htmlspecialchars($projek['tgl_pembuatan']); ?></p>
     <p><strong>Tanggal Selesai:</strong> <?= htmlspecialchars($projek['tgl_selesai']); ?></p>
-    <p><strong>Dibuat Oleh:</strong> <?= $_SESSION['nama']; ?></p>
-    <p><strong>NIM:</strong> <?= $_SESSION['username']; ?></p>
+    <p><strong>Dibuat Oleh:</strong> <?= $projek['nama']; ?></p>
+    <p><strong>NIM:</strong> <?= $projek['username']; ?></p>
     <div class="border border-dark p-3 rounded mt-4">
       <h6 class="fw-semibold mb-3">Komentar</h6>
       <div class="mt-4">
@@ -103,12 +87,12 @@ $komentarResult = mysqli_query($koneksi, $komentarQuery);
       </div>
     </div>
   </div>
-  <img src="../asset/wave-dark-blue.svg">
+  <img src="asset/wave-dark-blue.svg">
   <footer class="text-center py-3 bg-light mt-5">
     &copy; <span>2025</span> Tim Web Portofolio Projek PBL
   </footer>
 
-  <script src="../js/bootstrap.bundle.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

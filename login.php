@@ -2,6 +2,9 @@
 session_start();
 include 'koneksi.php';
 
+$query_role = mysqli_fetch_assoc(mysqli_query($koneksi, "SHOW COLUMNS FROM users LIKE 'role'"));
+  $role_list = explode("','", str_replace(["enum('","')"], "", $query_role['Type']));
+
 if(isset($_POST['login'])){
   $username = $_POST['username'];
   $password = $_POST['password'];
@@ -19,12 +22,12 @@ if(isset($_POST['login'])){
     if($role == 'mahasiswa'){
       echo "<script>
             alert('Login Berhasil!');
-            window.location = 'index_mahasiswa.php';
+            window.location = 'mahasiswa/index_mahasiswa.php';
           </script>";
     } elseif($role == 'dosen'){
       echo "<script>
             alert('Login Berhasil!');
-            window.location = 'index_dosen.php';
+            window.location = 'Dosen/index_dosen.php';
           </script>";
       exit;
     } elseif($role == 'admin'){
@@ -62,11 +65,12 @@ if(isset($_POST['login'])){
       <h3 class="login-title">Login</h3><br>
       
       <label for="role">Masuk Sebagai :</label>
-      <select name="role" id="role">
-        <option value="mahasiswa">Mahasiswa</option>
-        <option value="dosen">Dosen</option>
-        <option value="admin">Admin</option>
-      </select><br>
+<select name="role" id="role" required>
+    <option value="">-- Pilih Role --</option>
+    <?php foreach($role_list as $r): ?>
+        <option value="<?= $r ?>"><?= ucfirst($r) ?></option>
+    <?php endforeach; ?>
+</select><br>
 
       <label for="username">Username :</label>
       <input type="text" name="username" class="inputNIM" placeholder="Masukkan Username Anda" required><br>

@@ -43,7 +43,7 @@ if (!$projek) {
 }
 
 if (!empty($projek['gambar_projek'])) {
-    $filePath = 'asset/uploads/' . $projek['gambar_projek'];
+    $filePath = '../asset/uploads/' . $projek['gambar_projek'];
     if (file_exists($filePath)) {
         unlink($filePath);
     }
