@@ -2,10 +2,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif
 }
 .navbar {
-    background-color: #0d47a1; /* Warna biru cerah */
+    background-color: #00BFFF; /* Warna biru cerah */
     padding: 15px 50px; /* Padding atas/bawah dan kiri/kanan */
     display: flex;
     justify-content: space-between; /* Pisahkan logo dan tautan navigasi */
@@ -42,14 +42,14 @@
 .registrasi-form{
     background-color: rgb(241, 241, 241);
     border-radius: 30px;
+    
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.226);
     display: block;
     width: 25%;
     padding: 40px;
     margin: 20px auto;
     align-items: center;
-    margin-top: 80px;
-    padding-top: 50px;
+    margin-top: 30px;
 }
 .registrasi-form h3{
     text-align: center;
@@ -80,9 +80,4 @@ button{
 }
 .registrasi-btn:hover{
     background-color: blue;
-}
-.form{
-    margin-top: 120px;
-    justify-content: center;
-    align-items: center;
 }

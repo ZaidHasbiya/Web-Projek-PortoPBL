@@ -15,12 +15,20 @@
     
   </head>
 <body>
+    <header class="navbar">
+        <a class="navbar-brand fw-bold text-white" href="index.html">PortoPBL</a>
+        <nav class="nav-links">
+            <a href="index.html">Beranda</a>
+            <li class="nav-item">
+            <a class="nav-link fw-bold" href="jurusan.html">Jurusan</a>
+          </li>
+            <a href="projek.html">Projek</a>
+            <a href="registrasi.html">Daftar</a>
+        </nav>
+    </header>
     <div class="login-form">
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-    <div class="col-12 col-md-4 bg-light p-4 rounded shadow">
     <form action="">
-        <h3 class="text-center">Login</h3><br>
+        <h3 class="login-title">Login</h3><br>
         <label for="cars">Masuk Sebagai :</label>
     <select name="role" id="role" >
         <option value="Mahasiswa">Mahasiswa</option>
@@ -33,14 +41,10 @@
         <input type="password" class="inputPassword" placeholder="Masukkan Password Anda">
         
     </form>
-    
-    <a href="../mahasiswa/index_mahasiswa.html"><button type="submit" class="login-btn" id="loginBtn">Login</button></a>
-    <div class="text-center">
+    <a href="../mahasiswa/index_mahasiswa.html"><button type="submit" class="login-btn">Login</button></a>
     <a href="registrasi.html" class="text-center">Belum Punya Akun? Registrasi Disini</a>
-</div>    
-</div></div></div>
     </div><br><br>
+    <img src="asset/wave-info.svg">
     <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>
