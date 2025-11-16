@@ -49,8 +49,8 @@ $result_projek = mysqli_query($koneksi, $query_projek);
 
 <body>
 
- <?php include 'layouts/navbar_mhs.php'; ?>
-<div class="container my-5">
+ <?php include '../layouts/navbar_mhs.php'; ?>
+<div class="container my-5 pt-5">
   <!-- Baris utama -->
   <div class="row align-items-center">
     <!-- Kolom kiri: Foto + Jurusan -->

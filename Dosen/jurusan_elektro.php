@@ -1,5 +1,5 @@
 <?php
-include 'koneksi.php';
+include '../koneksi.php';
 session_start();
 
 if (!isset($_SESSION['nama']) || $_SESSION['role'] !== 'dosen') {
@@ -12,7 +12,7 @@ if (!isset($_SESSION['nama']) || $_SESSION['role'] !== 'dosen') {
 
 $user_id = $_SESSION['id'];
 
-$query = "SELECT * FROM users WHERE jurusan = 'teknik elektro'";
+$query = "SELECT * FROM users WHERE jurusan = 'teknik elektro' AND role='mahasiswa'";
 $data = mysqli_query($koneksi, $query);
 
 ?>
@@ -28,14 +28,14 @@ $data = mysqli_query($koneksi, $query);
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
 
-  <link rel="stylesheet" href="styles.css" type="text/css">
+  <link rel="stylesheet" href="../styles.css" type="text/css">
 </head>
 <body>
 
   <!-- ===== Navbar ===== -->
-<?php include 'layouts/navbar_dosen.php'; ?>
+<?php include '../layouts/navbar_dosen.php'; ?>
   <div class="container">
     <h1 class="py-5 mt-5">Jurusan Teknik Elektro</h1>
     <?php if (mysqli_num_rows($data) > 0 ) : ?>
@@ -45,7 +45,7 @@ $data = mysqli_query($koneksi, $query);
       <div class="col-md-4 col-lg-3">
         <div class="card shadow-sm border-0 h-100">
           <div class="ratio ratio-1x1">
-            <img src="tim/profil-kosong.jpeg" class="card-img-top rounded-2" alt="Foto Mahasiswa" style="object-fit: cover;">
+            <img src="../tim/profil-kosong.jpeg" class="card-img-top rounded-2" alt="Foto Mahasiswa" style="object-fit: cover;">
           </div>
           <div class="card-body text-center">
             <p class="mb-1"><strong>Nama:</strong> <?= $row['nama'] ?></p>
@@ -66,7 +66,7 @@ $data = mysqli_query($koneksi, $query);
     &copy; <span>2025</span> Tim Web Portofolio Projek PBL
   </footer>
 
-  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="../js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

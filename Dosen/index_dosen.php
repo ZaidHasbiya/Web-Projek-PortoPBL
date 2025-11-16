@@ -22,22 +22,22 @@ if($_SESSION['role'] != 'dosen'){
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
 
-  <link rel="stylesheet" href="styles.css" type="text/css">
+  <link rel="stylesheet" href="../styles.css" type="text/css">
 </head>
 
 <body>
 
   <!-- ===== Navbar ===== -->
-  <?php include 'layouts/navbar_dosen.php'; ?>
+  <?php include '../layouts/navbar_dosen.php'; ?>
 
   <!-- ===== Jumbotron ===== -->
   <section class="jumbotron text-center">
     <h1 class="text-white fw-bold">Halo, <?= $_SESSION['nama'] ?></h1>
     <h1 class="display-3 fw-bold text-white">WELCOME TO PORTOPBL</h1>
     <h2>Platform Portofolio Digital Mahasiswa</h2>
-    <img src="asset/wave.svg" alt="Garis pemisah">
+    <img src="../asset/wave.svg" alt="Garis pemisah">
   </section>
 
   <!-- ===== Tentang Section ===== -->
@@ -54,7 +54,7 @@ if($_SESSION['role'] != 'dosen'){
         </div>
       </div>
     </div>
-    <img src="asset/wave-dark-blue.svg" alt="Garis pemisah">
+    <img src="../asset/wave-info.svg" alt="Garis pemisah">
   </section>
 
   <!-- ===== Tim Section ===== -->
@@ -62,15 +62,16 @@ if($_SESSION['role'] != 'dosen'){
     <div class="container">
       <div class="row text-center mb-4">
         <div class="col">
-          <h1>TIM KAMI</h1>
+          <h1 class="text-white">TIM PROJEK PBL</h1>
         </div>
       </div>
 
       <div class="row text-center">
         <div class="col-md-4 mb-3">
           <div class="card h-100">
-            <img src="tim/zaid.jpeg" class="card-img-top" alt="Zaid Hasbiya Abrar">
+            <img src="../tim/zaid-biru.jpg" class="card-img-top" alt="Zaid Hasbiya Abrar">
             <div class="card-body">
+              <p class="card-text">3312501046</p>
               <p class="card-text">Zaid Hasbiya Abrar</p>
             </div>
           </div>
@@ -78,17 +79,19 @@ if($_SESSION['role'] != 'dosen'){
 
         <div class="col-md-4 mb-3">
           <div class="card h-100">
-            <img src="tim/patur.jpeg" class="card-img-top" alt="Fathur Alfitrah">
+            <img src="../tim/patur-biru.jpg" class="card-img-top" alt="Fathur Alfitrah">
             <div class="card-body">
-              <p class="card-text">Fathur Alfitrah</p>
+              <p class="card-text">3312501047</p>
+              <p class="card-text">Fathur Alfitrah Dermawan</p>
             </div>
           </div>
         </div>
 
         <div class="col-md-4 mb-3">
           <div class="card h-100">
-            <img src="tim/panda.jpeg" class="card-img-top" alt="Reifandra Kinadi">
+            <img src="../tim/panda-biru.jpg" class="card-img-top" alt="Reifandra Kinadi">
             <div class="card-body">
+              <p class="card-text">3312501048</p>
               <p class="card-text">Reifandra Kinadi</p>
             </div>
           </div>
@@ -96,14 +99,14 @@ if($_SESSION['role'] != 'dosen'){
       </div>
     </div>
 
-    <img src="asset/wave.svg" alt="Garis pemisah bawah">
+    <img src="../asset/wave.svg" alt="Garis pemisah bawah">
   </section>
 
   <footer class="text-center py-3 bg-light mt-5">
     &copy; <span>2025</span> Tim Web Portofolio Projek PBL
   </footer>
 
-  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="../js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

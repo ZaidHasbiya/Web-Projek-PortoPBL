@@ -12,7 +12,7 @@ if (!isset($_SESSION['nama']) || $_SESSION['role'] !== 'mahasiswa') {
 
 $user_id = $_SESSION['id'];
 
-$query = "SELECT * FROM users WHERE jurusan = 'teknik informatika'";
+$query = "SELECT * FROM users WHERE jurusan = 'teknik informatika' AND role='mahasiswa'";
 $data = mysqli_query($koneksi, $query);
 
 ?>
@@ -37,10 +37,10 @@ $data = mysqli_query($koneksi, $query);
 <body>
 
   <!-- ===== Navbar ===== -->
-  <?php include 'layouts/navbar_mhs.php'; ?>
+  <?php include '../layouts/navbar_mhs.php'; ?>
 
   <div class="container">
-    <h1 class="my-5">Jurusan Teknik Informatika</h1>
+    <h1 class="my-5 pt-5">Jurusan Teknik Informatika</h1>
     <?php if (mysqli_num_rows($data) > 0 ) : ?>
      <div class="d-flex flex-wrap justify-content-evenly align-items-start gap-4">
         <?php while ($row = mysqli_fetch_assoc($data)): ?>
@@ -48,7 +48,7 @@ $data = mysqli_query($koneksi, $query);
       <div class="col-md-4 col-lg-3">
         <div class="card shadow-sm border-0 h-100">
           <div class="ratio ratio-1x1">
-            <img src="tim/profil-kosong.jpeg" class="card-img-top rounded-2" alt="Foto Mahasiswa" style="object-fit: cover;">
+            <img src="../tim/profil-kosong.jpeg" class="card-img-top rounded-2" alt="Foto Mahasiswa" style="object-fit: cover;">
           </div>
           <div class="card-body text-center">
             <p class="mb-1"><strong>Nama:</strong> <?= $row['nama']; ?></p>
