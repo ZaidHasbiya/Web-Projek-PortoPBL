@@ -65,6 +65,7 @@ if($_SESSION['role'] != 'admin'){
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link text-white" href="data_mahasiswa.php">Data Mahasiswa</a>
                                     <a class="nav-link text-white" href="data_dosen.php">Data Dosen</a>
+                                    <a class="nav-link text-white" href="data_komentar.php">Komentar Dosen</a>
                                 </nav>
                             </div>
                         </div>
