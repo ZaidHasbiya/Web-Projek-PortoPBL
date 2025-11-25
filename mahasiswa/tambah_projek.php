@@ -115,10 +115,11 @@ if (strpos($link, "youtu.be") !== false) {
     </form>
   </div>
 
-  <img src="../asset/wave-dark-blue.svg" class="w-100" alt="">
-  <footer class="text-center py-3 bg-light mt-5">
-    &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-  </footer>
+  <img src="../asset/wave-dark-blue.svg" class="mt-5 d-block w-100 mb-0">
+
+<footer class="text-center py-3 bg-light">
+  &copy; <span>2025</span> Tim Web Portofolio Projek PBL
+</footer>
 
   <script src="../js/bootstrap.bundle.min.js"></script>
 </body>

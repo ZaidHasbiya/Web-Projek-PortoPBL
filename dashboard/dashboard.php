@@ -28,7 +28,7 @@ if($_SESSION['role'] != 'admin'){
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" />
     </head>
     <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="index.html">Dashboard Admin</a>
             <!-- Sidebar Toggle-->
@@ -48,10 +48,10 @@ if($_SESSION['role'] != 'admin'){
         </nav>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion bg-dark" id="sidenavAccordion">
+                <nav class="sb-sidenav accordion bg-primary" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Core</div>
+                            <div class="sb-sidenav-menu-heading"></div>
                             <a class="nav-link text-white" href="index.html">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-tachometer-alt"></i></div>
                                 Dashboard

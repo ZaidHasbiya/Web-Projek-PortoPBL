@@ -80,7 +80,6 @@ if(isset($_POST['login'])){
 
       <button type="submit" name="login" class="login-btn" id="loginBtn">Login</button>
     </form>
-    <a href="registrasi.php" class="text-center">Belum Punya Akun? Registrasi Disini</a>
   </div>
 
   <img src="asset/wave-info.svg" alt="">

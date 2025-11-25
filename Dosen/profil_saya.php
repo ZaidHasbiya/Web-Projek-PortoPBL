@@ -2,8 +2,11 @@
 session_start();
 include '../koneksi.php';
 
-if(!isset($_SESSION['username'])){
-  echo "<script>alert('username tidak sesuai ! silahkan melakukan login'); window.location ='login.php';</script>";
+if (!isset($_SESSION['username'])) {
+    echo "<script>
+            alert('Username tidak sesuai! Silakan login.');
+            window.location = 'login.php';
+          </script>";
 }
 
 if ($_SESSION['role'] !== 'dosen') {
@@ -15,62 +18,89 @@ if ($_SESSION['role'] !== 'dosen') {
 }
 
 $nama = $_SESSION['nama'];
-
 $query = "SELECT * FROM users WHERE nama = '$nama'";
 $result = mysqli_query($koneksi, $query);
 $user = mysqli_fetch_assoc($result);
-
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PortoPBL</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PortoPBL</title>
 
-  <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-  crossorigin="anonymous"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
 
-  <link rel="stylesheet" href="../styles.css" type="text/css">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="../styles.css" type="text/css">
 </head>
 
 <body>
 
-  <?php include '../layouts/navbar_dosen.php'; ?>
-<div class="container my-5">
-  <!-- Baris utama -->
-  <div class="row align-items-center">
-    <!-- Kolom kiri: Foto + Jurusan -->
-    <div class="col-md-4 text-center">
-      <div class="ratio ratio-1x1 rounded-circle overflow-hidden mx-auto mb-2" style="width: 200px;">
-        <img src="../tim/panda.jpeg" alt="Foto Mahasiswa" class="w-100 h-100" style="object-fit: cover;">
+    <!-- Navbar -->
+    <?php include '../layouts/navbar_dosen.php'; ?>
+
+    <!-- Container Profil -->
+    <div class="container my-5">
+        <div class="row align-items-center">
+
+            <!-- Kolom Kiri: Foto dan Identitas -->
+            <div class="col-md-4 text-center">
+
+                <!-- Foto profil -->
+                <div class="ratio ratio-1x1 rounded-circle overflow-hidden mx-auto mb-2" style="width: 200px;">
+                    <img src="../tim/panda.jpeg" alt="Foto Mahasiswa" class="w-100 h-100" style="object-fit: cover;">
+                </div>
+
+                <!-- Nama -->
+                <small class="d-block mb-3 text-muted">
+                    <?= htmlspecialchars($user['nama']) ?>
+                </small>
+
+                <!-- Jurusan -->
+                <div class="bg-info p-2 rounded d-inline-block">
+                    <strong class="text-white">
+                        Jurusan: <?= htmlspecialchars($user['jurusan'] ?: 'Belum Diatur') ?>
+                    </strong>
+                </div>
+
+            </div>
+                <!-- Kolom kanan: Tentang Mahasiswa -->
+    <div class="col-md-8">
+      <!-- Tentang Mahasiswa -->
+      <div class="bg-info p-3 rounded mb-4">
+        <h5 class="fw-bold text-white">Tentang Dosen</h5>
+        <p class="mb-0 text-white">Deskripsi singkat tentang Dosen dapat ditulis di sini.</p>
       </div>
-      <small class="d-block mb-3 text-muted">
-  <?= htmlspecialchars($user['nama']) ?>
-</small>
 
-<div class="bg-info p-2 rounded d-inline-block">
-  <strong class="text-white">
-    Jurusan: <?= htmlspecialchars($user['jurusan'] ?: 'Belum Diatur') ?>
-  </strong>
-</div>
-</div>
-    
-  <footer class="text-center py-3 bg-light mt-5">
-    &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-  </footer>
+      <!-- Catatan Prestasi -->
+      <div class="bg-info p-3 rounded">
+        <h5 class="fw-bold text-white">Catatan Prestasi</h5>
+      </div>
+    </div>
+        </div>
+    </div>
 
-  <script src="../js/bootstrap.bundle.min.js"></script>
+    <!-- Wave -->
+    <img src="../asset/wave-dark-blue.svg" class="mt-5 d-block w-100 mb-0">
+
+    <!-- Footer -->
+    <footer class="text-center py-3 bg-light">
+        &copy; <span>2025</span> Tim Web Portofolio Projek PBL
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="../js/bootstrap.bundle.min.js"></script>
+
 </body>
-
 </html>
