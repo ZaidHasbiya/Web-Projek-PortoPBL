@@ -1,7 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark py-3 bg-dark-blue shadow fixed-top">
     <div class="container">
       <a class="navbar-brand fw-bold" href="index_mahasiswa.php">
-        <img src="../asset/logo.png" alt="Logo" width="50" height="44" class="me-2">
         PortoPBL</a>
       <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,7 +10,7 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ms-auto d-flex gap-3 text-center pt-lg-0 pt-4">
           <li class="nav-item">
-            <a class="nav-link fw-bold" href="#">Beranda</a>
+            <a class="nav-link fw-bold" href="index_mahasiswa.php">Beranda</a>
           </li>
           <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdownMenuLink"

@@ -70,7 +70,7 @@ if($_SESSION['role'] != 'mahasiswa'){
         </div>
       </div>
     </div>
-    <img src="../asset/wave-new.svg" alt="Garis pemisah">
+    <img src="../asset/wave-biru.svg" alt="Garis pemisah">
   </section>
 
   <!-- ===== Tim Section ===== -->

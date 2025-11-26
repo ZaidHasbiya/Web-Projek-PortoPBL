@@ -24,7 +24,7 @@
           </ul>
         </li>
           <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdownMenuLink"
+          <a class="nav-link dropdown-toggle fw-bold" href="../Dosen/profil_saya.php" id="navbarDropdownMenuLink"
             role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Profil
           </a>

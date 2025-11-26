@@ -49,7 +49,7 @@ table thead tr {
 </head>
 
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="dashboard.php">Dashboard Admin</a>
         <!-- Sidebar Toggle-->
@@ -73,10 +73,10 @@ table thead tr {
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion bg-dark" id="sidenavAccordion">
+            <nav class="sb-sidenav accordion bg-primary" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Core</div>
+                        <div class="sb-sidenav-menu-heading"></div>
                         <a class="nav-link text-white" href="dashboard.php">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-tachometer-alt"></i></div>
                             Dashboard
