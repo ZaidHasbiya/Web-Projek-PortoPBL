@@ -19,17 +19,15 @@ if ($_SESSION['role'] !== 'mahasiswa') {
     exit;
 }
 
+$user_id = $_SESSION['id'];
 
 if (!isset($_GET['projek_id'])) {
-    echo "<script>alert('Projek tidak ditemukan!'); window.location.href='projek_mhs.php';</script>";
+    echo "<script>alert('Projek tidak ditemukan!'); window.location.href='projek_saya.php';</script>";
     exit;
 }
 $projek_id = $_GET['projek_id'];
 
-$query = "SELECT projek.*, users.nama, users.username 
-          FROM projek
-          JOIN users ON projek.user_id = users.id
-          WHERE projek.projek_id = '$projek_id'";
+$query = "SELECT * FROM projek WHERE projek_id = '$projek_id' AND user_id = '$user_id'";
 $result = mysqli_query($koneksi, $query);
 
 if (mysqli_num_rows($result) == 0) {
@@ -88,11 +86,12 @@ $komentarResult = mysqli_query($koneksi, $komentarQuery);
     <?php endif; ?>
     </div>
     </div>
+    
     <div class="mb-4">
     <p><strong>Tanggal Dibuat:</strong> <?= htmlspecialchars($projek['tgl_pembuatan']); ?></p>
     <p><strong>Tanggal Selesai:</strong> <?= htmlspecialchars($projek['tgl_selesai']); ?></p>
-    <p><strong>Dibuat Oleh:</strong> <?= $projek['nama']; ?></p>
-    <p><strong>NIM:</strong> <?= $projek['username']; ?></p>
+    <p><strong>Dibuat Oleh:</strong> <?= $_SESSION['nama']; ?></p>
+    <p><strong>NIM:</strong> <?= $_SESSION['username']; ?></p>
     </div>
     
     <div class="border border-dark p-3 rounded mt-4">

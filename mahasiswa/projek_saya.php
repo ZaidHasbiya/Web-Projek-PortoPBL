@@ -78,7 +78,7 @@ $jumlah_projek = mysqli_num_rows($result);
                   <i class="fas fa-trash-alt"></i> Hapus
                 </a>
               </div>
-              <a href="lihat_projek_mhs.php?projek_id=<?= $row['projek_id']; ?>" class="btn btn-outline-info rounded-pill d-flex justify-content-center">Lihat Projek</a>
+              <a href="lihat_projek_saya.php?projek_id=<?= $row['projek_id']; ?>" class="btn btn-outline-info rounded-pill d-flex justify-content-center">Lihat Projek</a>
             </div>
           </div>
         </div>
