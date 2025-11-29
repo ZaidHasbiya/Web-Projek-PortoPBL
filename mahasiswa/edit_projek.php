@@ -32,6 +32,14 @@ if (isset($_POST['edit'])) {
   $judul = $_POST['judul'];
   $deskripsi = $_POST['deskripsi'];
   $link = $_POST['link'];
+  if (!empty($link)) {
+    if (strpos($link, "youtu.be") !== false) {
+        $id = basename($link);
+        $link = "https://www.youtube.com/embed/$id";
+    } else {
+        $link = str_replace("watch?v=", "embed/", $link);
+    }
+}
   $tgl_pembuatan = $_POST['tgl_pembuatan'];
   $tgl_selesai = $_POST['tgl_selesai'];
 
@@ -40,7 +48,7 @@ if (isset($_POST['edit'])) {
       $namaFile = $_FILES['gambar_projek']['name'];
       $tmpName  = $_FILES['gambar_projek']['tmp_name'];
 
-      move_uploaded_file($tmpName, 'asset/uploads/' . $namaFile);
+      move_uploaded_file($tmpName, '../asset/uploads/' . $namaFile);
 
       $gambar = $namaFile;
   }
@@ -97,7 +105,7 @@ if (isset($_POST['edit'])) {
 
       <div class="mb-3">
         <label for="video" class="form-label">Link Video</label>
-        <input type="url" class="form-control" id="video" name="link" value="<?= $projek['link'] ?>">
+        <input type="url" class="form-control" id="link" name="link" value="<?= $projek['link'] ?>">
       </div>
 
       <div class="mb-3">

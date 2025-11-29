@@ -22,6 +22,7 @@ $user_id = $_GET['id'];
 $query_user = "SELECT * FROM users WHERE id = '$user_id'";
 $result_user = mysqli_query($koneksi, $query_user);
 $user = mysqli_fetch_assoc($result_user);
+$foto = !empty($user['foto_profil']) ? $user['foto_profil'] : '../tim/profil-kosong.jpeg';
 
 if (!$user) {
     echo "<script>alert('Mahasiswa tidak ditemukan'); window.location='index_mahasiswa.php';</script>";
@@ -57,12 +58,10 @@ $result_projek = mysqli_query($koneksi, $query_projek);
 
   <?php include '../layouts/navbar_mhs.php'; ?>
   <div class="container py-4 mt-5 pt-5">
-  <!-- Baris utama -->
   <div class="row align-items-center">
-    <!-- Kolom kiri: Foto + Jurusan -->
     <div class="col-md-4 text-center">
       <div class="ratio ratio-1x1 rounded-circle overflow-hidden mx-auto mb-2" style="width: 200px;">
-        <img src="../tim/panda.jpeg" alt="Foto Mahasiswa" class="w-100 h-100" style="object-fit: cover;">
+        <img src="<?= $foto ?>" alt="Foto Mahasiswa" class="w-100 h-100" style="object-fit: cover;">
       </div>
       <small class="d-block mb-3 text-muted">
   <?= htmlspecialchars($user['nama']) ?>
@@ -74,30 +73,20 @@ $result_projek = mysqli_query($koneksi, $query_projek);
   </strong>
 </div>
 </div>
-    <!-- Kolom kanan: Tentang Mahasiswa -->
    <div class="col-md-8">
-      <!-- Tentang Mahasiswa -->
       <div class="bg-info p-3 rounded mb-4">
-        <h5 class="fw-bold text-white">Tentang Mahasiswa</h5>
-        <p class="mb-0 text-white">Deskripsi singkat tentang mahasiswa dapat ditulis di sini.</p>
-      </div>
-
-      <!-- Catatan Prestasi -->
-      <div class="bg-info p-3 rounded">
-        <h5 class="fw-bold text-white">Catatan Prestasi</h5>
-          <p class="text-white">Juara 1 Lomba Web Design</p>
-          <p class="text-white">Asisten Praktikum Pemrograman Web</p>
-          <p class="text-white">Peserta Kegiatan PBL 2025</p>
+        <h5 class="fw-bold text-white">Profil Mahasiswa</h5>
+        <p class="mb-0 text-white">Nama Mahasiswa : <?= $user['nama']; ?></p>
+        <p class="mb-0 text-white">NIM : <?= $user['username']; ?></p>
+        <p class="mb-0 text-white">Jurusan : <?= $user['jurusan']; ?></p>
       </div>
     </div>
 </div>
- </div>
-<div class="bg-primary p-4 rounded mt-4">
-  <h5 class="fw-bold mb-3 text-center text-white">Proyek</h5>
-  <?php if(mysqli_num_rows($result_projek) > 0) : ?>
-    <?php while ($projek = mysqli_fetch_assoc($result_projek)): ?>
 
-      <div class="bg-primary bg-opacity-25 p-4 rounded mb-4">
+ <?php if(mysqli_num_rows($result_projek) > 0) : ?>
+    <?php while ($projek = mysqli_fetch_assoc($result_projek)): ?>
+<div class="bg-info p-4 rounded mt-4">
+  <h5 class="fw-bold mb-3 text-center text-white">Proyek</h5>
 
         <div class="mb-3">
           <label class="form-label fw-semibold text-white">Judul Proyek</label>
@@ -127,24 +116,21 @@ $result_projek = mysqli_query($koneksi, $query_projek);
 
           <div class="col-md-6">
             <div class="bg-light border border-dark-subtle p-3 text-center rounded">
-              <span class="fw-semibold text-muted">Foto</span>
+              <span class="fw-semibold text-muted">Foto</span><br>
               <?php if (!empty($projek['gambar_projek'])): ?>
-                <img src="../assets/uploads/<?= htmlspecialchars($projek['gambar_projek']) ?>" 
+                <img src="../asset/uploads/<?= htmlspecialchars($projek['gambar_projek']) ?>" 
                      class="img-fluid rounded mt-2">
               <?php endif; ?>
             </div>
           </div>
         </div>
-      </div>
-
-    <?php endwhile; ?>
-
-  <?php else: ?>
-      <p class="text-center text-white fw-semibold">Mahasiswa belum mengunggah projek apapun.</p>
-  <?php endif; ?>
 
 </div>
-
+<?php endwhile; ?>
+<?php else: ?>
+      <p class="text-center fw-semibold">Mahasiswa belum mengunggah projek apapun.</p>
+<?php endif; ?>
+</div>
   <img src="../asset/wave-dark-blue.svg">
   <footer class="text-center py-3 bg-light mt-5">
     &copy; <span>2025</span> Tim Web Portofolio Projek PBL

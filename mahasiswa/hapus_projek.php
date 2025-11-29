@@ -48,7 +48,6 @@ if (!empty($projek['gambar_projek'])) {
         unlink($filePath);
     }
 }
-
 $delete = "DELETE FROM projek WHERE projek_id = '$projek_id' AND user_id = '$user_id'";
 if (mysqli_query($koneksi, $delete)) {
     echo "<script>
