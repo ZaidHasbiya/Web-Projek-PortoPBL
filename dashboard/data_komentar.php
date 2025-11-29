@@ -26,6 +26,14 @@ table thead tr {
     font-weight: 600;
     font-size: 15px;
 }
+table thead th {
+    text-align: center !important;
+}
+
+table tbody td {
+    text-align: justify !important;
+    vertical-align: top;
+}
 </style>
 <!DOCTYPE html>
 <html lang="en">
