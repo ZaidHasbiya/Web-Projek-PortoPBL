@@ -32,6 +32,16 @@ $data = mysqli_query($koneksi, $query);
 
   <link rel="stylesheet" href="../styles.css" type="text/css">
 </head>
+<style>
+  img.wave {
+    position: relative;
+    z-index: 0;
+}
+.navbar {
+    position: relative;
+    z-index: 10;
+}
+</style>
 <body>
 
   <!-- ===== Navbar ===== -->
