@@ -63,7 +63,7 @@ if (isset($_POST['edit'])) {
             WHERE projek_id = '$projek_id'";
 
   if (mysqli_query($koneksi, $query)) {
-    echo "<script>alert('Projek berhasil diperbarui!');window.location='projek_saya.php';</script>";
+    echo "<script>alert('Projek berhasil diubah!');window.location='projek_saya.php';</script>";
   } else {
     echo "<script>alert('Gagal memperbarui projek!');</script>";
   }
@@ -76,7 +76,7 @@ if (isset($_POST['edit'])) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Edit Projek | PortoPBL</title>
+  <title>Halaman Ubah Projek | PortoPBL</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,7 +90,7 @@ if (isset($_POST['edit'])) {
 
 <body>
   <div class="container my-5">
-    <h3 class="mb-4">Edit Projek</h3>
+    <h3 class="mb-4">Ubah Projek</h3>
     <form action="" method="post" enctype="multipart/form-data">
       <input type="hidden" name="projek_id" value="<?= $projek['projek_id'] ?>">
       <div class="mb-3">
@@ -133,7 +133,7 @@ if (isset($_POST['edit'])) {
 
       <div class="d-flex justify-content-between">
         <a href="projek_saya.php" class="btn btn-primary">Kembali</a>
-        <button type="submit" class="btn btn-success" name="edit">EDIT</button>
+        <button type="submit" class="btn btn-success" name="edit">UBAH</button>
       </div>
     </form>
   </div>
