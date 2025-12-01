@@ -72,7 +72,7 @@ $jumlah_projek = mysqli_num_rows($result);
 
               <div class="d-flex justify-content-center gap-2 mb-2">
                 <a href="edit_projek.php?projek_id=<?= $row['projek_id']; ?>" class="btn btn-warning btn-sm d-flex align-items-center gap-1">
-                  <i class="fas fa-edit"></i> Edit
+                  <i class="fas fa-edit"></i> Ubah
                 </a>
                 <a href="hapus_projek.php?projek_id=<?= $row['projek_id']; ?>" class="btn btn-danger btn-sm d-flex align-items-center gap-1" onclick="return confirm('Yakin ingin menghapus projek ini?');">
                   <i class="fas fa-trash-alt"></i> Hapus
