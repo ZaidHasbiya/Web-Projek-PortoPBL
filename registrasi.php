@@ -41,7 +41,7 @@ if(mysqli_num_rows($cek) > 0){
     <header class="navbar">
         <a class="navbar-brand fw-bold text-white" href="index.html">PortoPBL</a>
         <nav class="nav-links">
-            <a href="index.html">Beranda</a>
+            <a href="index.html">home</a>
             <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdownMenuLink"
             role="button" data-bs-toggle="dropdown" aria-expanded="false">
