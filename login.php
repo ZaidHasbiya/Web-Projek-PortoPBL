@@ -72,10 +72,10 @@ if(isset($_POST['login'])){
     <?php endforeach; ?>
 </select><br>
 
-      <label for="username">Username :</label>
+      <label for="username">Username  :</label>
       <input type="text" name="username" class="inputNIM" placeholder="Masukkan Username Anda" required><br>
 
-      <label for="password">Password :</label>
+      <label for="password">Password  :</label>
       <input type="password" name="password" class="inputPassword" placeholder="Masukkan Password Anda" required><br>
 
       <button type="submit" name="login" class="login-btn" id="loginBtn">Login</button>
