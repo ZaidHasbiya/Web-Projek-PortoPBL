@@ -16,14 +16,22 @@ $data = mysqli_query($koneksi, "SELECT * FROM users WHERE id = '$user_id'");
 $user = mysqli_fetch_assoc($data);
 
 if (isset($_POST['edit'])) {
+  $deskripsi = $_POST['deskripsi_diri'];
+  $prestasi = $_POST['prestasi'];
+
     if (!empty($_FILES['foto_profil']['name'])) {
         $namaFile = $_FILES['foto_profil']['name'];
         $tmpName  = $_FILES['foto_profil']['tmp_name'];
 
         move_uploaded_file($tmpName, '../asset/profil/' . $namaFile);
 
-        mysqli_query($koneksi, "UPDATE users SET foto_profil = '$namaFile' WHERE id = '$user_id'");
-    }
+        mysqli_query($koneksi, "UPDATE users SET foto_profil = '$namaFile', deskripsi_diri = '$deskripsi', prestasi = '$prestasi' WHERE id = '$user_id'");
+    }else {
+    mysqli_query($koneksi, "UPDATE users SET 
+        deskripsi_diri = '$deskripsi',
+        prestasi = '$prestasi'
+        WHERE id = '$user_id'");
+}
 
     echo "<script>
             alert('Profil berhasil diperbarui!');
@@ -39,7 +47,7 @@ if (isset($_POST['edit'])) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Edit Profil | PortoPBL</title>
+  <title>Ubah Profil | PortoPBL</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,7 +61,7 @@ if (isset($_POST['edit'])) {
 
 <body>
   <div class="container my-5">
-    <h3 class="mb-4">Edit Profil</h3>
+    <h3 class="mb-4">Ubah Profil</h3>
     <form action="#" method="post" enctype="multipart/form-data">
   <div class="mb-3">
     <label class="form-label">Nama</label>
@@ -78,9 +86,19 @@ if (isset($_POST['edit'])) {
     <input type="file" class="form-control" id="foto_profil" name="foto_profil" accept=".jpg,.jpeg,.png">
   </div>
 
+  <div class="mb-3">
+  <label class="form-label">Catatan Prestasi</label>
+  <textarea class="form-control" name="prestasi" rows="3"><?= $user['prestasi'] ?: 'Belum Diatur'; ?></textarea>
+</div>
+
+<div class="mb-3">
+  <label class="form-label">Deskripsi Diri</label>
+  <textarea class="form-control" name="deskripsi_diri" rows="4"><?= $user['deskripsi_diri'] ?: 'Belum Diatur'; ?></textarea>
+</div>
+
   <div class="d-flex justify-content-between">
     <a href="profil_saya.php" class="btn btn-primary">Kembali</a>
-    <button type="submit" name="edit" class="btn btn-success">EDIT</button>
+    <button type="submit" name="edit" class="btn btn-success">UBAH</button>
   </div>
 </form>
   </div>

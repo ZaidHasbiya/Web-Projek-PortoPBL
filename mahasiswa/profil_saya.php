@@ -72,11 +72,16 @@ $result_projek = mysqli_query($koneksi, $query_projek);
 </div>
 </div>
     <div class="col-md-8">
+      <!-- Tentang Mahasiswa -->
       <div class="bg-info p-3 rounded mb-4">
-        <h5 class="fw-bold text-white">Profil Mahasiswa</h5>
-        <p class="mb-0 text-white">Nama Mahasiswa : <?= $user['nama']; ?></p>
-        <p class="mb-0 text-white">NIM : <?= $user['username']; ?></p>
-        <p class="mb-0 text-white">Jurusan : <?= $user['jurusan']; ?></p>
+        <h5 class="fw-bold text-white">Tentang Mahasiswa</h5>
+        <p class="mb-0 text-white"><?= $user['deskripsi_diri'] ?: 'Belum Ada Deskripsi Apapun' ?></p>
+      </div>
+
+      <!-- Catatan Prestasi -->
+      <div class="bg-info p-3 rounded">
+        <h5 class="fw-bold text-white">Catatan Prestasi</h5>
+          <p class="text-white"><?= $user['prestasi'] ?: 'Belum Ada Prestasi Apapun' ?></p>
       </div>
     </div>
 </div>

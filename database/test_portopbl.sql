@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2025 at 02:02 AM
+-- Generation Time: Dec 07, 2025 at 02:54 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -68,7 +68,8 @@ CREATE TABLE `projek` (
 
 INSERT INTO `projek` (`projek_id`, `judul`, `deskripsi`, `link`, `gambar_projek`, `tgl_pembuatan`, `tgl_selesai`, `user_id`) VALUES
 (6, 'Web Portofolio Projek PBL (Project Based Learningg)', 'tes', 'https://www.youtube.com/embed/Ak6VTSekGP4?si=pJ4HSd2ggz3qC_g8', 'poltek.jpeg', '2025-11-13', '2025-11-13', 1),
-(11, 'Web Portofolio Projek PBL (Project Based Learning)', 'oke', 'https://www.youtube.com/embed/L-gKceeb61Q?si=reXYD4t7YNArm25u', 'WhatsApp Image 2025-10-21 at 09.03.56.jpeg', '2025-11-16', '2025-11-16', 1);
+(11, 'Web Portofolio Projek PBL (Project Based Learning)', 'oke', 'https://www.youtube.com/embed/L-gKceeb61Q?si=reXYD4t7YNArm25u', 'WhatsApp Image 2025-10-21 at 09.03.56.jpeg', '2025-11-16', '2025-11-16', 1),
+(15, 'Web Portofolio Projek PBL (Project Based Learning)', 'Web Portofolio PBL', 'https://www.youtube.com/embed/L-gKceeb61Q?si=reXYD4t7YNArm25u', 'RPP.drawio.png', '2025-12-02', '2025-12-02', 1);
 
 -- --------------------------------------------------------
 
@@ -82,6 +83,8 @@ CREATE TABLE `users` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `foto_profil` varchar(255) DEFAULT NULL,
+  `deskripsi_diri` varchar(255) DEFAULT NULL,
+  `prestasi` varchar(255) DEFAULT NULL,
   `jurusan` enum('teknik mesin','teknik informatika','teknik elektro','manajemen bisnis') DEFAULT NULL,
   `role` enum('mahasiswa','dosen','admin') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -90,14 +93,14 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `nama`, `username`, `password`, `foto_profil`, `jurusan`, `role`) VALUES
-(1, 'Zaid Hasbiya Abrar', '3312501046', 'Jiro2127', 'zaid.jpeg', 'teknik informatika', 'mahasiswa'),
-(3, 'Reifandra Kinadii', '3312501048', 'Jiro2127', NULL, 'teknik informatika', 'mahasiswa'),
-(12, 'Fathur Alfitrah', '3312501047', '123456', NULL, NULL, 'mahasiswa'),
-(13, 'dosen', '331250104', 'dosen123', NULL, 'teknik informatika', 'dosen'),
-(14, 'admin', '331250105', 'admin123', NULL, 'teknik informatika', 'admin'),
-(16, 'dosen', '3312501', 'dosen123', NULL, 'teknik informatika', 'dosen'),
-(17, 'Cyntia', '123456', '123456', NULL, 'teknik informatika', 'dosen');
+INSERT INTO `users` (`id`, `nama`, `username`, `password`, `foto_profil`, `deskripsi_diri`, `prestasi`, `jurusan`, `role`) VALUES
+(1, 'Zaid Hasbiya Abrar', '3312501046', 'Jiro2127', 'zaid.jpeg', 'Belum Diatur', 'Magang Di Dinas Komunikasi Dan Informatika Kota Batam', 'teknik informatika', 'mahasiswa'),
+(3, 'Reifandra Kinadii', '3312501048', 'Jiro2127', NULL, '', '', 'teknik informatika', 'mahasiswa'),
+(12, 'Fathur Alfitrah', '3312501047', '123456', NULL, '', '', NULL, 'mahasiswa'),
+(13, 'dosen', '331250104', 'dosen123', NULL, '', '', 'teknik informatika', 'dosen'),
+(14, 'admin', '331250105', 'admin123', NULL, '', '', 'teknik informatika', 'admin'),
+(16, 'dosen', '3312501', 'dosen123', NULL, '', '', 'teknik informatika', 'dosen'),
+(17, 'Cyntia', '123456', '123456', NULL, '', '', 'teknik informatika', 'dosen');
 
 --
 -- Indexes for dumped tables
@@ -139,7 +142,7 @@ ALTER TABLE `komentar`
 -- AUTO_INCREMENT for table `projek`
 --
 ALTER TABLE `projek`
-  MODIFY `projek_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `projek_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`
