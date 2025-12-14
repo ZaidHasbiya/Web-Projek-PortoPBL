@@ -9,7 +9,7 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ms-auto d-flex gap-3 text-center pt-lg-0 pt-4">
           <li class="nav-item">
-            <a class="nav-link fw-bold" href="#">Beranda</a>
+            <a class="nav-link fw-bold" href="index.php">Beranda</a>
           </li>
           <li class="nav-item">
             <a class="nav-link fw-bold" href="#tentang">Tentang</a>

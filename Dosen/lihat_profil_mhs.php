@@ -18,18 +18,57 @@ if (!isset($_GET['id'])) {
 }
 
 $user_id = $_GET['id'];
-
+$dosen_id = $_SESSION['id'];
 $query_user = "SELECT * FROM users WHERE id = '$user_id'";
 $result_user = mysqli_query($koneksi, $query_user);
 $user = mysqli_fetch_assoc($result_user);
+$foto = !empty($user['foto_profil']) 
+        ? '../asset/profil/' . $user['foto_profil'] 
+        : '../tim/profil-kosong.jpeg';
 
 if (!$user) {
     echo "<script>alert('Mahasiswa tidak ditemukan'); window.location='index_dosen.php';</script>";
     exit;
 }
 
+if (isset($_POST['simpan_penilaian'])) {
+    $mahasiswa_id = $user_id;
+    $dosen_id = $_SESSION['id'];
+    $komentar = $_POST['komentar'];
+    $nilai = (int) $_POST['nilai'];
+
+    $insert_penilaian = "INSERT INTO penilaian_portofolio 
+        (mahasiswa_id, dosen_id, komentar, nilai)
+        VALUES ('$mahasiswa_id', '$dosen_id', '$komentar', '$nilai')";
+
+    if ($insert_penilaian) {
+        mysqli_query($koneksi, $insert_penilaian);
+        echo "<script>alert('Penilaian berhasil disimpan');</script>";
+    } else {
+        echo "<script>alert('Gagal menyimpan penilaian');</script>";
+    }
+}
 $query_projek = "SELECT * FROM projek WHERE user_id = '$user_id'";
 $result_projek = mysqli_query($koneksi, $query_projek);
+
+$query_penilaian = "
+SELECT pf.*, u.nama AS nama_dosen
+FROM penilaian_portofolio pf
+JOIN users u ON pf.dosen_id = u.id
+WHERE pf.mahasiswa_id = '$user_id'
+ORDER BY pf.id_penilaian DESC
+";
+
+$result_penilaian = mysqli_query($koneksi, $query_penilaian);
+
+$query_history_penilaian_dosen = "
+SELECT pf.*, u.nama AS nama_dosen
+FROM penilaian_portofolio pf
+JOIN users u ON pf.dosen_id = u.id
+WHERE pf.mahasiswa_id = '$user_id' AND dosen_id = '$dosen_id'
+ORDER BY pf.id_penilaian DESC
+";
+$result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaian_dosen);
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +102,7 @@ $result_projek = mysqli_query($koneksi, $query_projek);
     <!-- Kolom kiri: Foto + Jurusan -->
     <div class="col-md-4 text-center">
       <div class="ratio ratio-1x1 rounded-circle overflow-hidden mx-auto mb-2" style="width: 200px;">
-        <img src="../tim/panda.jpeg" alt="Foto Mahasiswa" class="w-100 h-100" style="object-fit: cover;">
+        <img src="<?= $foto ?>" alt="Foto Mahasiswa" class="w-100 h-100" style="object-fit: cover;">
       </div>
       <small class="d-block mb-3 text-muted">
   <?= htmlspecialchars($user['nama']) ?>
@@ -80,25 +119,21 @@ $result_projek = mysqli_query($koneksi, $query_projek);
       <!-- Tentang Mahasiswa -->
       <div class="bg-info p-3 rounded mb-4">
         <h5 class="fw-bold text-white">Tentang Mahasiswa</h5>
-        <p class="mb-0 text-white">Deskripsi singkat tentang mahasiswa dapat ditulis di sini.</p>
+        <p class="mb-0 text-white"><?= $user['deskripsi_diri'] ?: 'Belum Ada Deskripsi Apapun' ?></p>
       </div>
 
       <!-- Catatan Prestasi -->
       <div class="bg-info p-3 rounded">
         <h5 class="fw-bold text-white">Catatan Prestasi</h5>
-          <p class="text-white">Juara 1 Lomba Web Design</p>
-          <p class="text-white">Asisten Praktikum Pemrograman Web</p>
-          <p class="text-white">Peserta Kegiatan PBL 2025</p>
+          <p class="text-white"><?= $user['prestasi'] ?: 'Belum Ada Prestasi Apapun' ?></p>
       </div>
     </div>
 </div>
- </div>
-<div class="bg-primary p-4 rounded mt-4">
-  <h5 class="fw-bold mb-3 text-center text-white">Proyek</h5>
-  <?php if(mysqli_num_rows($result_projek) > 0) : ?>
-    <?php while ($projek = mysqli_fetch_assoc($result_projek)): ?>
 
-      <div class="bg-primary bg-opacity-25 p-4 rounded mb-4">
+<?php if(mysqli_num_rows($result_projek) > 0) : ?>
+    <?php while ($projek = mysqli_fetch_assoc($result_projek)): ?>
+<div class="bg-info p-4 rounded mt-4">
+  <h5 class="fw-bold mb-3 text-center text-white">Proyek</h5>
 
         <div class="mb-3">
           <label class="form-label fw-semibold text-white">Judul Proyek</label>
@@ -128,7 +163,7 @@ $result_projek = mysqli_query($koneksi, $query_projek);
 
           <div class="col-md-6">
             <div class="bg-light border border-dark-subtle p-3 text-center rounded">
-              <span class="fw-semibold text-muted">Foto</span>
+              <span class="fw-semibold text-muted">Foto</span><br>
               <?php if (!empty($projek['gambar_projek'])): ?>
                 <img src="../asset/uploads/<?= htmlspecialchars($projek['gambar_projek']) ?>" 
                      class="img-fluid rounded mt-2">
@@ -136,16 +171,88 @@ $result_projek = mysqli_query($koneksi, $query_projek);
             </div>
           </div>
         </div>
-      </div>
-
-    <?php endwhile; ?>
+</div>
+<?php endwhile; ?>
 
   <?php else: ?>
-      <p class="text-center text-white fw-semibold">Mahasiswa belum mengunggah projek apapun.</p>
+      <p class="text-center text-black fw-semibold">Mahasiswa belum mengunggah projek apapun.</p>
   <?php endif; ?>
+  <div class="container mt-4 mb-5">
+  <div class="bg-info p-4 rounded">
+    <h5 class="fw-bold text-white mb-3 text-center">
+      Riwayat Penilaian Portofolio
+    </h5>
 
+    <?php if (mysqli_num_rows($result_penilaian) > 0): ?>
+      <?php while ($p = mysqli_fetch_assoc($result_penilaian)): ?>
+
+        <div class="bg-light p-3 rounded mb-3">
+          <strong><?= htmlspecialchars($p['nama_dosen']) ?></strong>
+          <span class="badge bg-info ms-2">
+            Nilai: <?= htmlspecialchars($p['nilai']) ?>
+          </span>
+
+          <p class="mt-2 mb-1">
+            <?= htmlspecialchars($p['komentar']) ?>
+          </p>
+
+        </div>
+
+      <?php endwhile; ?>
+    <?php else: ?>
+      <p class="text-center text-white">
+        Belum ada penilaian dari dosen.
+      </p>
+    <?php endif; ?>
+    <h5 class="fw-bold text-white mb-3 text-center">
+      Komentar Dan Penilaian Anda
+    </h5>
+
+<?php if(mysqli_num_rows($result_history_penilaian_dosen) > 0) :?>
+  <?php while ($h = mysqli_fetch_assoc($result_history_penilaian_dosen)) :?>
+
+    <div class="bg-light p-3 rounded mb-3">
+          <strong><?= htmlspecialchars($h['nama_dosen']) ?></strong>
+          <span class="badge bg-info ms-2">
+            Nilai: <?= htmlspecialchars($h['nilai']) ?>
+          </span>
+
+          <p class="mt-2 mb-1">
+            <?= htmlspecialchars($h['komentar']) ?>
+          </p>
+        </div>
+        <?php endwhile; ?>
+        <?php else: ?>
+      <p class="text-center text-white">
+        Anda belum memiliki penilaian apapun dari portofolio ini.
+      </p>
+        <?php endif;?>
 </div>
+</div>
+<div class="container mt-4">
+  <div class="bg-info p-4 rounded">
+    <h5 class="fw-bold text-white mb-3 text-center">
+      Penilaian Profil Mahasiswa
+    </h5>
 
+    <form method="POST">
+      <div class="mb-3">
+        <label class="form-label text-white">Komentar</label>
+        <textarea name="komentar" class="form-control" required></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-white">Nilai (0 - 100)</label>
+        <input type="number" name="nilai" class="form-control" min="0" max="100" required>
+      </div>
+
+      <button type="submit" name="simpan_penilaian" class="btn btn-light fw-semibold">
+        Simpan Penilaian
+      </button>
+    </form>
+  </div>
+</div>
+</div>
   <img src="asset/wave-dark-blue.svg">
   <footer class="text-center py-3 bg-light mt-5">
     &copy; <span>2025</span> Tim Web Portofolio Projek PBL
