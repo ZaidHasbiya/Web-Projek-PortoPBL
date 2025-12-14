@@ -22,6 +22,15 @@ if (!$user) {
 
 $query_projek = "SELECT * FROM projek WHERE user_id = '$user_id'";
 $result_projek = mysqli_query($koneksi, $query_projek);
+
+$query_penilaian = "
+SELECT pf.*, u.nama AS nama_dosen
+FROM penilaian_portofolio pf
+JOIN users u ON pf.dosen_id = u.id
+WHERE pf.mahasiswa_id = '$user_id'
+ORDER BY pf.id_penilaian DESC
+";
+$result_penilaian = mysqli_query($koneksi, $query_penilaian);
 ?>
 
 <!DOCTYPE html>
@@ -128,6 +137,36 @@ $result_projek = mysqli_query($koneksi, $query_projek);
   <?php else: ?>
       <p class="text-center text-white fw-semibold">Mahasiswa belum mengunggah projek apapun.</p>
   <?php endif; ?>
+  
+  <div class="container mt-4 mb-5">
+<div class="bg-info p-4 rounded">
+    <h5 class="fw-bold text-white mb-3 text-center">
+      Riwayat Penilaian Portofolio
+    </h5>
+
+    <?php if (mysqli_num_rows($result_penilaian) > 0): ?>
+      <?php while ($p = mysqli_fetch_assoc($result_penilaian)): ?>
+
+        <div class="bg-light p-3 rounded mb-3">
+          <strong><?= htmlspecialchars($p['nama_dosen']) ?></strong>
+          <span class="badge bg-info ms-2">
+            Nilai: <?= htmlspecialchars($p['nilai']) ?>
+          </span>
+
+          <p class="mt-2 mb-1">
+            <?= htmlspecialchars($p['komentar']) ?>
+          </p>
+
+        </div>
+
+      <?php endwhile; ?>
+    <?php else: ?>
+      <p class="text-center text-white">
+        Belum ada penilaian dari dosen.
+      </p>
+    <?php endif; ?>
+</div>
+</div>
 </div>
   <img src="asset/wave-dark-blue.svg">
   <footer class="text-center py-3 bg-light mt-5">
