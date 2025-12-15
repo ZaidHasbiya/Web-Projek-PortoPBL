@@ -37,7 +37,6 @@ $data = mysqli_query($koneksi, $query);
 
   <!-- ===== Navbar ===== -->
   <?php include '../layouts/navbar_mhs.php'; ?>
-
   <div class="container">
     <h1 class="my-5 pt-5">Jurusan Teknik Informatika</h1>
     <?php if (mysqli_num_rows($data) > 0 ) : ?>

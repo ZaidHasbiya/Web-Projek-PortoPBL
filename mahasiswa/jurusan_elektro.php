@@ -42,6 +42,7 @@ $data = mysqli_query($koneksi, $query);
 
   <div class="container">
     <h1 class="my-5 pt-5">Jurusan Teknik Elektro</h1>
+    
     <?php if (mysqli_num_rows($data) > 0 ) : ?>
      <div class="d-flex flex-wrap justify-content-evenly align-items-start gap-4">
         <?php while ($row = mysqli_fetch_assoc($data)): ?>
@@ -79,3 +80,4 @@ $data = mysqli_query($koneksi, $query);
 </body>
 
 </html>
+buatkan aku fitur pencarian menggunakan nama, username dan rolenya mahasiswa
