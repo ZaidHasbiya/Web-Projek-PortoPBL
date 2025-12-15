@@ -31,6 +31,7 @@ $result = mysqli_num_rows($data);
   <link rel="stylesheet" href="css/bootstrap.min.css">
 
   <link rel="stylesheet" href="styles.css" type="text/css">
+  <link rel="stylesheet" href="custom.css">
 </head>
 
 <body>
@@ -50,7 +51,7 @@ $result = mysqli_num_rows($data);
         <p class="card-text">Dibuat Oleh :</p>
         <p class="card-text">Nama Mahasiswa : <?= $row['nama']; ?></p>
         <p class="card-text">NIM : <?= $row['username']; ?></p>
-        <a href="lihat_projek.php?projek_id=<?= $row['projek_id']; ?>" class="btn btn-outline-info rounded-pill d-flex justify-content-center">Lihat Projek</a>
+        <a href="lihat_projek.php?projek_id=<?= $row['projek_id']; ?>" class="btn btn-outline-info rounded-pill d-flex justify-content-center strk-btn">Lihat Projek</a>
       </div>
     </div>
   </div>
@@ -61,10 +62,19 @@ $result = mysqli_num_rows($data);
   <?php endif; ?>
   </div>
 
-  <img src="asset/wave-dark-blue.svg">
-  <footer class="text-center py-3 bg-light mt-5">
-    &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-  </footer>
+<div class="overflow-hidden mt-5">
+  <img src="asset/wave-new-navy.svg"
+       class="img-fluid d-block"
+       style="width:100vw"
+       alt="wave">
+</div>
+<section class="bg-footer">
+<br><br><br>
+</section>
+
+<footer class="w-100 text-center py-3 bg-light">
+  &copy; <span>2025</span> Tim Web Portofolio Projek PBL
+</footer>
 
   <script src="js/bootstrap.bundle.min.js"></script>
 </body>

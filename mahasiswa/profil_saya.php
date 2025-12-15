@@ -65,7 +65,7 @@ $result_projek = mysqli_query($koneksi, $query_projek);
   <?= htmlspecialchars($user['nama']) ?>
 </small>
 
-<div class="bg-info p-2 rounded d-inline-block">
+<div class="bg-footer p-2 rounded d-inline-block">
   <strong class="text-white">
     Jurusan: <?= htmlspecialchars($user['jurusan'] ?: 'Belum Diatur') ?>
   </strong>
@@ -73,13 +73,13 @@ $result_projek = mysqli_query($koneksi, $query_projek);
 </div>
     <div class="col-md-8">
       <!-- Tentang Mahasiswa -->
-      <div class="bg-info p-3 rounded mb-4">
+      <div class="bg-footer p-3 rounded mb-4">
         <h5 class="fw-bold text-white">Tentang Mahasiswa</h5>
         <p class="mb-0 text-white"><?= $user['deskripsi_diri'] ?: 'Belum Ada Deskripsi Apapun' ?></p>
       </div>
 
       <!-- Catatan Prestasi -->
-      <div class="bg-info p-3 rounded">
+      <div class="bg-footer p-3 rounded">
         <h5 class="fw-bold text-white">Catatan Prestasi</h5>
           <p class="text-white"><?= $user['prestasi'] ?: 'Belum Ada Prestasi Apapun' ?></p>
       </div>
@@ -87,7 +87,7 @@ $result_projek = mysqli_query($koneksi, $query_projek);
 </div>
  <?php if(mysqli_num_rows($result_projek) > 0) : ?>
     <?php while ($projek = mysqli_fetch_assoc($result_projek)): ?>
-<div class="bg-info p-4 rounded mt-4">
+<div class="bg-footer p-4 rounded mt-4">
   <h5 class="fw-bold mb-3 text-center text-white">Proyek</h5>
 
         <div class="mb-3">
@@ -133,10 +133,16 @@ $result_projek = mysqli_query($koneksi, $query_projek);
   <?php endif; ?>
   </div>
   <!-- ===== Wave + Footer ===== -->
-  <img src="asset/wave-dark-blue.svg" class="w-100" alt="">
-  <footer class="text-center py-3 bg-light mt-5">
-    &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-  </footer>
+<div class="overflow-hidden mt-5">
+  <img src="../asset/wave-new-navy.svg"
+       class="img-fluid d-block"
+       style="width:100vw"
+       alt="wave">
+</div>
+
+<footer class="w-100 text-center py-3 bg-light">
+  &copy; <span>2025</span> Tim Web Portofolio Projek PBL
+</footer>
 
   <script src="../js/bootstrap.bundle.min.js"></script>
 </body>

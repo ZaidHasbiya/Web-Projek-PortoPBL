@@ -105,7 +105,7 @@ $komentarResult = mysqli_query($koneksi, $komentarQuery);
     <textarea name="komentar" class="form-control" rows="3" placeholder="Tulis komentar di sini..." required></textarea>
   </div>
 
-  <button type="submit" class="btn btn-primary">Kirim Komentar</button>
+  <button type="submit" class="btn btn-clr">Kirim Komentar</button>
 </form>
 
 <div class="border p-3 rounded shadow-sm mb-5">

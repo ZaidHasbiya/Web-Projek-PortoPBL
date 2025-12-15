@@ -1,7 +1,7 @@
 <?php
 include 'koneksi.php';
 
-$query = "SELECT * FROM users WHERE jurusan = 'manajemen bisnis' AND role='mahasiswa'";
+$query = "SELECT * FROM users WHERE jurusan = 'teknik mesin' AND role='mahasiswa'";
 $data = mysqli_query($koneksi, $query);
 
 ?>
@@ -29,7 +29,7 @@ $data = mysqli_query($koneksi, $query);
   <?php include 'layouts/navbar_publik.php'; ?>
 
   <div class="container">
-    <h1 class="my-5 pt-5">Jurusan Manajemen Bisnis</h1>
+    <h1 class="my-5 pt-5">Jurusan Teknik Mesin</h1>
     <?php if (mysqli_num_rows($data) > 0 ) : ?>
      <div class="d-flex flex-wrap justify-content-evenly align-items-start gap-4">
         <?php while ($row = mysqli_fetch_assoc($data)): ?>
@@ -47,7 +47,7 @@ $data = mysqli_query($koneksi, $query);
             <p class="mb-1"><strong>NIM:</strong> <?=  $row['username']; ?></p>
             <p class="mb-3"><strong>Jurusan:</strong> <?= $row['jurusan']; ?></p>
 
-            <a href="lihat_profil_mhs.php?id=<?= $row['id']; ?>" class="btn btn-info px-4">Lihat Profil</a>
+            <a href="lihat_profil_mhs.php?id=<?= $row['id']; ?>" class="btn btn-clr px-4">Lihat Profil</a>
 
           </div>
         </div>
@@ -59,10 +59,16 @@ $data = mysqli_query($koneksi, $query);
     </div>
     <?php endif; ?>
   </div>
-  <img src="asset/wave-dark-blue.svg">
-  <footer class="text-center py-3 bg-light mt-5">
-    &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-  </footer>
+<div class="overflow-hidden mt-5">
+  <img src="asset/wave-new-navy.svg"
+       class="img-fluid d-block"
+       style="width:100vw"
+       alt="wave">
+</div>
+
+<footer class="w-100 text-center py-3 bg-light">
+  &copy; <span>2025</span> Tim Web Portofolio Projek PBL
+</footer>
 
   <script src="js/bootstrap.bundle.min.js"></script>
 </body>

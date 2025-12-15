@@ -64,6 +64,7 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
   <link rel="stylesheet" href="../css/bootstrap.min.css">
 
   <link rel="stylesheet" href="../styles.css" type="text/css">
+  <link rel="stylesheet" href="../custom.css">
 </head>
 <body>
 
@@ -78,14 +79,14 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
   <?= htmlspecialchars($user['nama']) ?>
 </small>
 
-<div class="bg-info p-2 rounded d-inline-block">
+<div class="bg-footer p-2 rounded d-inline-block">
   <strong class="text-white">
     Jurusan: <?= htmlspecialchars($user['jurusan'] ?: 'Belum Diatur') ?>
   </strong>
 </div>
 </div>
    <div class="col-md-8">
-      <div class="bg-info p-3 rounded mb-4">
+      <div class="bg-footer p-3 rounded mb-4">
         <h5 class="fw-bold text-white">Profil Mahasiswa</h5>
         <p class="mb-0 text-white">Nama Mahasiswa : <?= $user['nama']; ?></p>
         <p class="mb-0 text-white">NIM : <?= $user['username']; ?></p>
@@ -96,7 +97,7 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
 
  <?php if(mysqli_num_rows($result_projek) > 0) : ?>
     <?php while ($projek = mysqli_fetch_assoc($result_projek)): ?>
-<div class="bg-info p-4 rounded mt-4">
+<div class="bg-footer p-4 rounded mt-4">
   <h5 class="fw-bold mb-3 text-center text-white">Proyek</h5>
 
         <div class="mb-3">
@@ -143,7 +144,7 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
 <?php endif; ?>
 
 <div class="container mt-4 mb-5">
-<div class="bg-info p-4 rounded">
+<div class="bg-footer p-4 rounded">
     <h5 class="fw-bold text-white mb-3 text-center">
       Riwayat Penilaian Portofolio
     </h5>
@@ -153,7 +154,7 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
 
         <div class="bg-light p-3 rounded mb-3">
           <strong><?= htmlspecialchars($p['nama_dosen']) ?></strong>
-          <span class="badge bg-info ms-2">
+          <span class="badge bg-footer ms-2">
             Nilai: <?= htmlspecialchars($p['nilai']) ?>
           </span>
 
@@ -172,10 +173,16 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
 </div>
 </div>
   </div>
-  <img src="../asset/wave-dark-blue.svg">
-  <footer class="text-center py-3 bg-light mt-5">
-    &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-  </footer>
+<div class="overflow-hidden mt-5">
+  <img src="../asset/wave-new-navy.svg"
+       class="img-fluid d-block"
+       style="width:100vw"
+       alt="wave">
+</div>
+
+<footer class="w-100 text-center py-3 bg-light">
+  &copy; <span>2025</span> Tim Web Portofolio Projek PBL
+</footer>
 
   <script src="../js/bootstrap.bundle.min.js"></script>
 </body>

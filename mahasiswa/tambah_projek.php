@@ -66,6 +66,7 @@ if (strpos($link, "youtu.be") !== false) {
 
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../styles.css" type="text/css">
+  <link rel="stylesheet" href="../custom.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
@@ -109,15 +110,20 @@ if (strpos($link, "youtu.be") !== false) {
       </div>
 
       <div class="d-flex justify-content-between">
-        <a href="projek_saya.php" class="btn btn-primary">Kembali</a>
+        <a href="projek_saya.php" class="btn btn-clr">Kembali</a>
         <button type="submit" class="btn btn-success" name="tambah">TAMBAH</button>
       </div>
     </form>
   </div>
 
-  <img src="../asset/wave-dark-blue.svg" class="mt-5 d-block w-100 mb-0">
+<div class="overflow-hidden mt-5">
+  <img src="../asset/wave-new-navy.svg"
+       class="img-fluid d-block"
+       style="width:100vw"
+       alt="wave">
+</div>
 
-<footer class="text-center py-3 bg-light">
+<footer class="w-100 text-center py-3 bg-light">
   &copy; <span>2025</span> Tim Web Portofolio Projek PBL
 </footer>
 

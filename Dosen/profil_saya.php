@@ -43,6 +43,7 @@ $user = mysqli_fetch_assoc($result);
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="../styles.css" type="text/css">
+    <link rel="stylesheet" href="../custom.css">
 </head>
 
 <body>
@@ -51,7 +52,7 @@ $user = mysqli_fetch_assoc($result);
     <?php include '../layouts/navbar_dosen.php'; ?>
 
     <!-- Container Profil -->
-    <div class="container my-5">
+    <div class="container my-5 margin-top">
         <div class="row align-items-center">
 
             <!-- Kolom Kiri: Foto dan Identitas -->
@@ -68,7 +69,7 @@ $user = mysqli_fetch_assoc($result);
                 </small>
 
                 <!-- Jurusan -->
-                <div class="bg-info p-2 rounded d-inline-block">
+                <div class="bg-footer p-2 rounded d-inline-block">
                     <strong class="text-white">
                         Jurusan: <?= htmlspecialchars($user['jurusan'] ?: 'Belum Diatur') ?>
                     </strong>
@@ -78,26 +79,32 @@ $user = mysqli_fetch_assoc($result);
                 <!-- Kolom kanan: Tentang Mahasiswa -->
     <div class="col-md-8">
       <!-- Tentang Mahasiswa -->
-      <div class="bg-info p-3 rounded mb-4">
+      <div class="bg-footer p-3 rounded mb-4">
         <h5 class="fw-bold text-white">Tentang Dosen</h5>
         <p class="mb-0 text-white">Deskripsi singkat tentang Dosen dapat ditulis di sini.</p>
       </div>
 
       <!-- Catatan Prestasi -->
-      <div class="bg-info p-3 rounded">
+      <div class="bg-footer p-3 rounded">
         <h5 class="fw-bold text-white">Catatan Prestasi</h5>
       </div>
     </div>
         </div>
     </div>
 
-    <!-- Wave -->
-    <img src="../asset/wave-dark-blue.svg" class="mt-5 d-block w-100 mb-0">
+<div class="overflow-hidden mt-5">
+  <img src="../asset/wave-new-navy.svg"
+       class="img-fluid d-block"
+       style="width:100vw"
+       alt="wave">
+</div>
+<section class="bg-footer">
+<br><br><br>
+</section>
 
-    <!-- Footer -->
-    <footer class="text-center py-3 bg-light">
-        &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-    </footer>
+<footer class="w-100 text-center py-3 bg-light">
+  &copy; <span>2025</span> Tim Web Portofolio Projek PBL
+</footer>
 
     <!-- Bootstrap JS -->
     <script src="../js/bootstrap.bundle.min.js"></script>
