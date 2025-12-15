@@ -91,6 +91,7 @@ $result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaia
   <link rel="stylesheet" href="../css/bootstrap.min.css">
 
   <link rel="stylesheet" href="../styles.css" type="text/css">
+  <link rel="stylesheet" href="../custom.css">
 </head>
 
 <body>
@@ -108,7 +109,7 @@ $result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaia
   <?= htmlspecialchars($user['nama']) ?>
 </small>
 
-<div class="bg-info p-2 rounded d-inline-block">
+<div class="bg-footer p-2 rounded d-inline-block">
   <strong class="text-white">
     Jurusan: <?= htmlspecialchars($user['jurusan'] ?: 'Belum Diatur') ?>
   </strong>
@@ -117,13 +118,13 @@ $result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaia
     <!-- Kolom kanan: Tentang Mahasiswa -->
    <div class="col-md-8">
       <!-- Tentang Mahasiswa -->
-      <div class="bg-info p-3 rounded mb-4">
+      <div class="bg-footer p-3 rounded mb-4">
         <h5 class="fw-bold text-white">Tentang Mahasiswa</h5>
         <p class="mb-0 text-white"><?= $user['deskripsi_diri'] ?: 'Belum Ada Deskripsi Apapun' ?></p>
       </div>
 
       <!-- Catatan Prestasi -->
-      <div class="bg-info p-3 rounded">
+      <div class="bg-footer p-3 rounded">
         <h5 class="fw-bold text-white">Catatan Prestasi</h5>
           <p class="text-white"><?= $user['prestasi'] ?: 'Belum Ada Prestasi Apapun' ?></p>
       </div>
@@ -132,7 +133,7 @@ $result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaia
 
 <?php if(mysqli_num_rows($result_projek) > 0) : ?>
     <?php while ($projek = mysqli_fetch_assoc($result_projek)): ?>
-<div class="bg-info p-4 rounded mt-4">
+<div class="bg-footer p-4 rounded mt-4">
   <h5 class="fw-bold mb-3 text-center text-white">Proyek</h5>
 
         <div class="mb-3">
@@ -178,7 +179,7 @@ $result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaia
       <p class="text-center text-black fw-semibold">Mahasiswa belum mengunggah projek apapun.</p>
   <?php endif; ?>
   <div class="container mt-4 mb-5">
-  <div class="bg-info p-4 rounded">
+  <div class="bg-footer p-4 rounded">
     <h5 class="fw-bold text-white mb-3 text-center">
       Riwayat Penilaian Portofolio
     </h5>
@@ -188,7 +189,7 @@ $result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaia
 
         <div class="bg-light p-3 rounded mb-3">
           <strong><?= htmlspecialchars($p['nama_dosen']) ?></strong>
-          <span class="badge bg-info ms-2">
+          <span class="badge bg-footer ms-2">
             Nilai: <?= htmlspecialchars($p['nilai']) ?>
           </span>
 
@@ -213,7 +214,7 @@ $result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaia
 
     <div class="bg-light p-3 rounded mb-3">
           <strong><?= htmlspecialchars($h['nama_dosen']) ?></strong>
-          <span class="badge bg-info ms-2">
+          <span class="badge bg-footer ms-2">
             Nilai: <?= htmlspecialchars($h['nilai']) ?>
           </span>
 
@@ -230,7 +231,7 @@ $result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaia
 </div>
 </div>
 <div class="container mt-4">
-  <div class="bg-info p-4 rounded">
+  <div class="bg-footer p-4 rounded">
     <h5 class="fw-bold text-white mb-3 text-center">
       Penilaian Profil Mahasiswa
     </h5>

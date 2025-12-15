@@ -12,7 +12,19 @@ if (!isset($_SESSION['nama']) || $_SESSION['role'] !== 'dosen') {
 
 $user_id = $_SESSION['id'];
 
-$query = "SELECT * FROM users WHERE jurusan = 'teknik informatika' AND role='mahasiswa'";
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+
+$query = "SELECT * FROM users
+          WHERE jurusan = 'teknik informatika'
+          AND role = 'mahasiswa'";
+
+if (!empty($search)) {
+    $query .= " AND (
+                  nama LIKE '%$search%'
+                  OR username LIKE '%$search%'
+               )";
+}
+
 $data = mysqli_query($koneksi, $query);
 
 ?>
@@ -34,10 +46,6 @@ $data = mysqli_query($koneksi, $query);
   <link rel="stylesheet" href="../custom.css">
 </head>
 <style>
-  img.wave {
-    position: relative;
-    z-index: 0;
-}
 .navbar {
     position: relative;
     z-index: 10;
@@ -49,6 +57,22 @@ $data = mysqli_query($koneksi, $query);
 <?php include '../layouts/navbar_dosen.php'; ?>
   <div class="container">
     <h1 class="py-5 mt-5">Jurusan Teknik Informatika</h1>
+    <form method="GET" class="row mb-4">
+  <div class="col-md-6 col-lg-4">
+    <input 
+      type="text" 
+      name="search" 
+      class="form-control"
+      placeholder="Cari nama / NIM mahasiswa..."
+      value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-clr">
+      Cari
+    </button>
+  </div>
+</form>
+
     <?php if (mysqli_num_rows($data) > 0 ) : ?>
      <div class="d-flex flex-wrap justify-content-evenly align-items-start gap-4">
         <?php while ($row = mysqli_fetch_assoc($data)): ?>

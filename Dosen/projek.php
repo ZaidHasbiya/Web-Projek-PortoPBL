@@ -90,9 +90,9 @@ if (isset($_POST['cari'])) {
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <?php while($row = mysqli_fetch_assoc($data)) :?>
   <div class="col">
-    <div class="card border border-info outline-card">
+    <div class="card border border-info ">
       <img src="../asset/uploads/<?= $row['gambar_projek']; ?>" class="card-img-top" alt="Projek Web Portofolio PBL">
-      <div class="card-body outline-card">
+      <div class="card-body">
         <h5 class="card-title"><?= $row['judul']; ?></h5>
         <p class="card-text">Deskripsi Projek : <?= $row['deskripsi']; ?></p>
         <p class="card-text">Dibuat Oleh :</p>
