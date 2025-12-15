@@ -62,6 +62,7 @@ if (isset($_POST['cari'])) {
   <link rel="stylesheet" href="../css/bootstrap.min.css">
 
   <link rel="stylesheet" href="../styles.css" type="text/css">
+  <link rel="stylesheet" href="../custom.css">
 </head>
 <style>
  .navbar-brand img {
@@ -82,22 +83,22 @@ if (isset($_POST['cari'])) {
   <h1 class="my-5">Projek</h1>
   <form class="d-flex" method="POST">
         <input class="form-control me-2" type="text" placeholder="Cari Mahasiswa" name="keyword">
-        <button class="btn btn-info" type="submit" name="cari">Cari</button>
+        <button class="btn btn-clr" type="submit" name="cari">Cari</button>
       </form>
       </div>
     <?php if ($result > 0 ): ?>
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <?php while($row = mysqli_fetch_assoc($data)) :?>
   <div class="col">
-    <div class="card border border-info">
+    <div class="card border border-info outline-card">
       <img src="../asset/uploads/<?= $row['gambar_projek']; ?>" class="card-img-top" alt="Projek Web Portofolio PBL">
-      <div class="card-body">
+      <div class="card-body outline-card">
         <h5 class="card-title"><?= $row['judul']; ?></h5>
         <p class="card-text">Deskripsi Projek : <?= $row['deskripsi']; ?></p>
         <p class="card-text">Dibuat Oleh :</p>
         <p class="card-text">Nama Mahasiswa : <?= $row['nama']; ?></p>
         <p class="card-text">NIM : <?= $row['username']; ?></p>
-        <a href="lihat_projek_dosen.php?projek_id=<?= $row['projek_id']; ?>" class="btn btn-outline-info rounded-pill d-flex justify-content-center">Lihat Projek</a>
+        <a href="lihat_projek_dosen.php?projek_id=<?= $row['projek_id']; ?>" class="btn btn-outline-info rounded-pill d-flex justify-content-center strk-btn">Lihat Projek</a>
       </div>
     </div>
   </div>

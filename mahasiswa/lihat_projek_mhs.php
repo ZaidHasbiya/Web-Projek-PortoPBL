@@ -113,10 +113,16 @@ $komentarResult = mysqli_query($koneksi, $komentarQuery);
       </div>
     </div>
   </div>
-  <img src="../asset/wave-dark-blue.svg">
-  <footer class="text-center py-3 bg-light mt-5">
-    &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-  </footer>
+<div class="overflow-hidden mt-5">
+  <img src="../asset/wave-new-navy.svg"
+       class="img-fluid d-block"
+       style="width:100vw"
+       alt="wave">
+</div>
+
+<footer class="w-100 text-center py-3 bg-light">
+  &copy; <span>2025</span> Tim Web Portofolio Projek PBL
+</footer>
 
   <script src="../js/bootstrap.bundle.min.js"></script>
 </body>

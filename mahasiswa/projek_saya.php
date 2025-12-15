@@ -53,8 +53,8 @@ $jumlah_projek = mysqli_num_rows($result);
   <div class="container mt-5 pt-5">
     <div class="d-flex justify-content-between align-items-center my-5">
   <h1 class="m-0">Projek Saya</h1>
-  <a href="tambah_projek.php" class="btn btn-info text-white">
-    <i class="fas fa-plus"></i> Tambah Projek
+  <a href="tambah_projek.php" class="btn btn-clr text-white">
+    <i class="fas fa-plus "></i> Tambah Projek
   </a>
 </div>
 
@@ -78,7 +78,7 @@ $jumlah_projek = mysqli_num_rows($result);
                   <i class="fas fa-trash-alt"></i> Hapus
                 </a>
               </div>
-              <a href="lihat_projek_saya.php?projek_id=<?= $row['projek_id']; ?>" class="btn btn-outline-info rounded-pill d-flex justify-content-center">Lihat Projek</a>
+              <a href="lihat_projek_saya.php?projek_id=<?= $row['projek_id']; ?>" class="btn btn-outline-info rounded-pill d-flex justify-content-center strk-btn">Lihat Projek</a>
             </div>
           </div>
         </div>
@@ -91,9 +91,14 @@ $jumlah_projek = mysqli_num_rows($result);
     </div>
   <?php endif; ?>
   </div>
-  <img src="../asset/wave-dark-blue.svg" class="mt-5 d-block w-100 mb-0">
+<div class="overflow-hidden mt-5">
+  <img src="../asset/wave-new-navy.svg"
+       class="img-fluid d-block"
+       style="width:100vw"
+       alt="wave">
+</div>
 
-<footer class="text-center py-3 bg-light">
+<footer class="w-100 text-center py-3 bg-light">
   &copy; <span>2025</span> Tim Web Portofolio Projek PBL
 </footer>
 

@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
 
   <link rel="stylesheet" href="styles.css" type="text/css">
+  <link rel="stylesheet" href="custom.css">
 </head>
 
 <body>
@@ -42,7 +43,7 @@
         </div>
       </div>
     </div>
-    <img src="asset/wave-info.svg" alt="Garis pemisah">
+    <img src="asset/wave-new-navy.svg" alt="Garis pemisah">
   </section>
 
   <!-- ===== Tim Section ===== -->

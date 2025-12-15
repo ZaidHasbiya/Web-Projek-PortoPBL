@@ -86,6 +86,7 @@ if (isset($_POST['edit'])) {
 
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../styles.css" type="text/css">
+  <link rel="stylesheet" href="../custom.css">
 </head>
 
 <body>
@@ -132,16 +133,22 @@ if (isset($_POST['edit'])) {
       </div>
 
       <div class="d-flex justify-content-between">
-        <a href="projek_saya.php" class="btn btn-primary">Kembali</a>
+        <a href="projek_saya.php" class="btn btn-clr">Kembali</a>
         <button type="submit" class="btn btn-success" name="edit">UBAH</button>
       </div>
     </form>
   </div>
 
-  <img src="../asset/wave-info.svg" class="w-100" alt="">
-  <footer class="text-center py-3 bg-light mt-5">
-    &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-  </footer>
+<div class="overflow-hidden mt-5">
+  <img src="../asset/wave-new-navy.svg"
+       class="img-fluid d-block"
+       style="width:100vw"
+       alt="wave">
+</div>
+
+<footer class="w-100 text-center py-3 bg-light">
+  &copy; <span>2025</span> Tim Web Portofolio Projek PBL
+</footer>
 
   <script src="../js/bootstrap.bundle.min.js"></script>
 </body>

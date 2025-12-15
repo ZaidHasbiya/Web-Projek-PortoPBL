@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark py-3 bg-dark-blue shadow fixed-top">
+<link rel="stylesheet" href="../custom.css">
+<nav class="navbar navbar-expand-lg navbar-dark py-3 bg-nav-new shadow fixed-top">
     <div class="container">
       <a class="navbar-brand fw-bold" href="index.html">PortoPBL</a>
       <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"

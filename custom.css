@@ -1,0 +1,36 @@
+.bg-nav-new{
+    background-color: #0B3C5D;
+}
+#tim{
+    background-color: #1D5D8C;
+}
+.nav-link:hover{
+    color: #4FB3E8;
+}
+.bg-footer{
+    background-color: #1D5D8C;
+}
+.h-nav:hover{
+    color: #4FB3E8;
+}
+.btn-clr{
+    background-color: #0B3C5D;
+    color: aliceblue;
+}
+.btn-clr:hover{
+    background-color: #4FB3E8;
+}
+.margin-top{
+    padding-top: 50px;
+}
+.strk-btn{
+    border-color: #0B3C5D;
+    color: #0B3C5D;
+}
+.strk-btn:hover{
+    background-color: #0B3C5D;
+    color: aliceblue;
+}
+.outline-card{
+    border: solid 3px #0B3C5D;
+}
