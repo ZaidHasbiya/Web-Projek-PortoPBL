@@ -84,11 +84,14 @@ img.wave {
         <?php if (mysqli_num_rows($data) > 0 ) : ?>
         <div class="d-flex flex-wrap justify-content-evenly align-items-start gap-4">
             <?php while ($row = mysqli_fetch_assoc($data)): ?>
+            <?php
+          $foto = !empty($row['foto_profil']) ? "../asset/profil/" . $row['foto_profil'] : "../tim/profil-kosong.jpeg";
+        ?>
             <!-- Card 1 -->
             <div class="col-md-4 col-lg-3">
                 <div class="card shadow-sm border-0 h-100">
                     <div class="ratio ratio-1x1">
-                        <img src="../tim/profil-kosong.jpeg" class="card-img-top rounded-2" alt="Foto Mahasiswa"
+                        <img src="<?= $foto ?>" class="card-img-top rounded-2" alt="Foto Mahasiswa"
                             style="object-fit: cover;">
                     </div>
                     <div class="card-body text-center">

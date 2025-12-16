@@ -104,6 +104,13 @@ $result_projek = mysqli_query($koneksi, $query_projek);
           </div>
         </div>
 
+        <div class="mb-4">
+          <label class="form-label fw-semibold text-white">Link Repositori</label>
+          <div class="form-control bg-light" style="min-height: 100px;">
+            <a href="<?= htmlspecialchars($projek['link_repo']); ?>" target="_blank" ><?= htmlspecialchars($projek['link_repo']); ?></a>
+          </div>
+        </div>
+        
         <div class="row g-3">
           <div class="col-md-6">
             <div class="bg-light border border-dark-subtle p-3 text-center rounded">

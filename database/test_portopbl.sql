@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2025 at 01:27 PM
+-- Generation Time: Dec 16, 2025 at 01:47 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -78,6 +78,7 @@ CREATE TABLE `projek` (
   `judul` varchar(255) NOT NULL,
   `deskripsi` varchar(255) NOT NULL,
   `link` varchar(255) NOT NULL,
+  `link_repo` varchar(255) NOT NULL,
   `gambar_projek` varchar(255) NOT NULL,
   `tgl_pembuatan` date NOT NULL,
   `tgl_selesai` date NOT NULL,
@@ -88,10 +89,11 @@ CREATE TABLE `projek` (
 -- Dumping data for table `projek`
 --
 
-INSERT INTO `projek` (`projek_id`, `judul`, `deskripsi`, `link`, `gambar_projek`, `tgl_pembuatan`, `tgl_selesai`, `user_id`) VALUES
-(6, 'Web Portofolio Projek PBL (Project Based Learningg)', 'tes', 'https://www.youtube.com/embed/Ak6VTSekGP4?si=pJ4HSd2ggz3qC_g8', 'poltek.jpeg', '2025-11-13', '2025-11-13', 1),
-(11, 'Web Portofolio Projek PBL (Project Based Learning)', 'oke', 'https://www.youtube.com/embed/L-gKceeb61Q?si=reXYD4t7YNArm25u', 'WhatsApp Image 2025-10-21 at 09.03.56.jpeg', '2025-11-16', '2025-11-16', 1),
-(15, 'Web Portofolio Projek PBL (Project Based Learning)', 'Web Portofolio PBL', 'https://www.youtube.com/embed/L-gKceeb61Q?si=reXYD4t7YNArm25u', 'RPP.drawio.png', '2025-12-02', '2025-12-02', 1);
+INSERT INTO `projek` (`projek_id`, `judul`, `deskripsi`, `link`, `link_repo`, `gambar_projek`, `tgl_pembuatan`, `tgl_selesai`, `user_id`) VALUES
+(6, 'Web Portofolio Projek PBL (Project Based Learningg)', 'tes', 'https://www.youtube.com/embed/Ak6VTSekGP4?si=pJ4HSd2ggz3qC_g8', 'https://github.com/ZaidHasbiya/Web-Projek-PortoPBL.git', 'poltek.jpeg', '2025-11-13', '2025-11-13', 1),
+(11, 'Web Portofolio Projek PBL (Project Based Learning)', 'oke', 'https://www.youtube.com/embed/L-gKceeb61Q?si=reXYD4t7YNArm25u', 'https://github.com/ZaidHasbiya/Web-Projek-PortoPBL.git', '1765844662_RPP.drawio.png', '2025-11-16', '2025-11-16', 1),
+(15, 'Web Portofolio Projek PBL (Project Based Learning)', 'Web Portofolio PBL', 'https://www.youtube.com/embed/L-gKceeb61Q?si=reXYD4t7YNArm25u', '', 'RPP.drawio.png', '2025-12-02', '2025-12-02', 1),
+(17, 'Web Portofolio Projek PBL (Project Based Learning)', 'Web Portofolio Projek PBL (Project Based Learning)', 'https://www.youtube.com/embed/L-gKceeb61Q?si=reXYD4t7YNArm25u', 'https://github.com/ZaidHasbiya/Web-Projek-PortoPBL.git', '1765845017_poltek.jpeg', '2025-12-16', '2025-12-16', 12);
 
 -- --------------------------------------------------------
 
@@ -178,7 +180,7 @@ ALTER TABLE `penilaian_portofolio`
 -- AUTO_INCREMENT for table `projek`
 --
 ALTER TABLE `projek`
-  MODIFY `projek_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `projek_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `users`

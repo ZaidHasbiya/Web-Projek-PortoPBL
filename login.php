@@ -57,7 +57,7 @@ if(isset($_POST['login'])){
     <div class="card shadow border-0 rounded-4">
       <div class="card-body p-4">
 
-        <h3 class="text-center fw-bold mb-4">Login</h3>
+        <h3 class="text-center fw-bold mb-4">Masuk</h3>
 
         <form action="" method="POST">
           
@@ -83,7 +83,7 @@ if(isset($_POST['login'])){
 
           <div class="d-grid mt-4">
             <button type="submit" name="login" class="btn btn-footer btn-lg">
-              Login
+              Masuk
             </button>
           </div>
 
