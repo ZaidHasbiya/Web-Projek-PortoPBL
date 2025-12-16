@@ -24,22 +24,44 @@ if (strpos($link, "youtu.be") !== false) {
     $link = str_replace("watch?v=", "embed/", $link);
 }
 
-
+  $link_repo = $_POST['link_repo'];
   $tgl_pembuatan = $_POST['tgl_pembuatan'];
   $tgl_selesai = $_POST['tgl_selesai'];
 
-  $gambar = $_FILES['gambar_projek']['name'];
-    $tmp = $_FILES['gambar_projek']['tmp_name'];
-    $folder = "../asset/uploads/";
+$gambar = time() . '_' . basename($_FILES['gambar_projek']['name']);
+$tmp = $_FILES['gambar_projek']['tmp_name'];
+$ukuran = $_FILES['gambar_projek']['size'];
+$error = $_FILES['gambar_projek']['error'];
 
-    if (file_exists($folder . $gambar)) {
-        echo "<script>alert('Gagal! Nama file sudah ada, silakan ganti nama file.'); window.history.back();</script>";
-        exit;
-    }
+$folder = "../asset/uploads/";
+$max_size = 20 * 1024 * 1024;
+$allowed_ext = ['jpg', 'jpeg', 'png'];
 
-    move_uploaded_file($tmp, $folder . $gambar);
+if ($error !== 0) {
+    echo "<script>alert('Terjadi kesalahan saat upload gambar!'); window.history.back();</script>";
+    exit;
+}
 
-    $query = ("INSERT INTO projek (user_id, judul, deskripsi, link, gambar_projek, tgl_pembuatan, tgl_selesai) VALUES ('$user_id', '$judul', '$deskripsi','$link', '$gambar', '$tgl_pembuatan', '$tgl_selesai')");
+$ext = strtolower(pathinfo($gambar, PATHINFO_EXTENSION));
+
+if (!in_array($ext, $allowed_ext)) {
+    echo "<script>alert('Format gambar harus JPG, JPEG, atau PNG!'); window.history.back();</script>";
+    exit;
+}
+
+if ($ukuran > $max_size) {
+    echo "<script>alert('Ukuran gambar maksimal 20 MB!'); window.history.back();</script>";
+    exit;
+}
+
+if (file_exists($folder . $gambar)) {
+    echo "<script>alert('Nama file sudah ada, silakan ganti nama file!'); window.history.back();</script>";
+    exit;
+}
+
+move_uploaded_file($tmp, $folder . $gambar);
+
+    $query = ("INSERT INTO projek (user_id, judul, deskripsi, link, link_repo, gambar_projek, tgl_pembuatan, tgl_selesai) VALUES ('$user_id', '$judul', '$deskripsi','$link', '$link_repo', '$gambar', '$tgl_pembuatan', '$tgl_selesai')");
     $result = mysqli_query($koneksi, $query);
 
     if($result){
@@ -89,6 +111,10 @@ if (strpos($link, "youtu.be") !== false) {
       <div class="mb-3">
         <label for="video" class="form-label">Link Video</label>
         <input type="url" class="form-control" id="video" name="link" placeholder="Link Video" required>
+      </div>
+      <div class="mb-3">
+        <label for="repo" class="form-label">Link Repositori</label>
+        <input type="url" class="form-control" id="repo" name="link_repo" placeholder="Link Repositori" required>
       </div>
 
       <div class="mb-3">

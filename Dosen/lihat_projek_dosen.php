@@ -91,6 +91,7 @@ $komentarResult = mysqli_query($koneksi, $komentarQuery);
     <?php endif; ?>
 
     <div class="mb-4">
+      <p><strong>Link Repositori:<br></strong><a href="<?= htmlspecialchars($projek['link_repo']); ?>" target="_blank" ><?= htmlspecialchars($projek['link_repo']); ?></a></p>
       <p><strong>Tanggal Dibuat:</strong> <?= htmlspecialchars($projek['tgl_pembuatan']); ?></p>
       <p><strong>Tanggal Selesai:</strong> <?= htmlspecialchars($projek['tgl_selesai']); ?></p>
       <p><strong>Dibuat Oleh:</strong> <?= $projek['nama']; ?></p>

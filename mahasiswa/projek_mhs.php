@@ -15,15 +15,25 @@ if ($_SESSION['role'] !== 'mahasiswa') {
     exit;
 }
 
-$user_id = $_SESSION['id'];
+$limit = 6;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$page = ($page < 1) ? 1 : $page;
+$offset = ($page - 1) * $limit;
+
+$total_query = mysqli_query($koneksi,
+    "SELECT COUNT(*) AS total FROM projek");
+$total_data = mysqli_fetch_assoc($total_query)['total'];
+$total_page = ceil($total_data / $limit);
 
 $query = "SELECT projek.*, users.nama, users.username 
           FROM projek 
           JOIN users ON projek.user_id = users.id 
-          ORDER BY projek.judul ASC";
+          ORDER BY projek.judul ASC
+          LIMIT $limit OFFSET $offset";
 
-$data = mysqli_query ($koneksi, $query);
+$data = mysqli_query($koneksi, $query);
 $result = mysqli_num_rows($data);
+
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +67,7 @@ $result = mysqli_num_rows($data);
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <?php while($row = mysqli_fetch_assoc($data)) :?>
   <div class="col">
-    <div class="card border border-info">
+    <div class="card border border-info h-100 d-flex flex-column">
       <img src="../asset/uploads/<?= $row['gambar_projek']; ?>" class="card-img-top" alt="Projek Web Portofolio PBL">
       <div class="card-body">
         <h5 class="card-title"><?= $row['judul']; ?></h5>
@@ -71,6 +81,20 @@ $result = mysqli_num_rows($data);
   </div>
   <?php endwhile; ?>
   </div>
+  <?php if ($total_page > 1): ?>
+<nav class="mt-4">
+  <ul class="pagination justify-content-center">
+    <?php for ($i = 1; $i <= $total_page; $i++): ?>
+      <li class="page-item <?= ($i == $page) ? 'active' : ''; ?>">
+        <a class="page-link" href="?page=<?= $i; ?>">
+          <?= $i; ?>
+        </a>
+      </li>
+    <?php endfor; ?>
+  </ul>
+</nav>
+<?php endif; ?>
+
   <?php else : ?>
     <h2>Belum ada projek</h2>
   <?php endif; ?>

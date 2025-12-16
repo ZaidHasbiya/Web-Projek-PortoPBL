@@ -19,7 +19,22 @@ if ($_SESSION['role'] !== 'mahasiswa') {
 }
 $user_id = $_SESSION['id'];
 
-$query = "SELECT projek.*, users.nama, users.username FROM projek JOIN users ON projek.user_id = users.id WHERE user_id = '$user_id'";
+$limit = 6;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$page = ($page < 1) ? 1 : $page;
+
+$offset = ($page - 1) * $limit;
+
+$total_query = mysqli_query($koneksi, 
+    "SELECT COUNT(*) AS total FROM projek WHERE user_id = '$user_id'");
+$total_data = mysqli_fetch_assoc($total_query)['total'];
+$total_page = ceil($total_data / $limit);
+
+$query = "SELECT projek.*, users.nama, users.username 
+          FROM projek 
+          JOIN users ON projek.user_id = users.id 
+          WHERE user_id = '$user_id'
+          LIMIT $limit OFFSET $offset";
 $result = mysqli_query($koneksi, $query);
 $jumlah_projek = mysqli_num_rows($result);
 
@@ -59,31 +74,55 @@ $jumlah_projek = mysqli_num_rows($result);
 </div>
 
 <?php if ($jumlah_projek > 0): ?>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
       <?php while ($row = mysqli_fetch_assoc($result)): ?>
         <div class="col">
-          <div class="card border border-info">
-            <img src="../asset/uploads/<?= htmlspecialchars($row['gambar_projek']); ?>">
-            <div class="card-body">
-              <h5 class="card-title"><?= htmlspecialchars($row['judul']); ?></h5>
-              <p class="card-text">Deskripsi Projek : <?= htmlspecialchars($row['deskripsi']); ?></p>
-              <p class="card-text">Dibuat Oleh : <?= ($row['nama']); ?></p>
-              <p class="card-text">NIM : <?= ($row['username']); ?></p>
+  <div class="card border border-info h-100 d-flex flex-column">
+    <img src="../asset/uploads/<?= $row['gambar_projek']; ?>" class="card-img-top" alt="Projek Web Portofolio PBL">
+      <div class="card-body">
+        <h5 class="card-title"><?= $row['judul']; ?></h5>
+        <p class="card-text">Deskripsi Projek : <?= $row['deskripsi']; ?></p>
+        <p class="card-text">Dibuat Oleh :</p>
+        <p class="card-text">Nama Mahasiswa : <?= $row['nama']; ?></p>
+        <p class="card-text">NIM : <?= $row['username']; ?></p>
 
-              <div class="d-flex justify-content-center gap-2 mb-2">
-                <a href="edit_projek.php?projek_id=<?= $row['projek_id']; ?>" class="btn btn-warning btn-sm d-flex align-items-center gap-1">
-                  <i class="fas fa-edit"></i> Ubah
-                </a>
-                <a href="hapus_projek.php?projek_id=<?= $row['projek_id']; ?>" class="btn btn-danger btn-sm d-flex align-items-center gap-1" onclick="return confirm('Yakin ingin menghapus projek ini?');">
-                  <i class="fas fa-trash-alt"></i> Hapus
-                </a>
-              </div>
-              <a href="lihat_projek_saya.php?projek_id=<?= $row['projek_id']; ?>" class="btn btn-outline-info rounded-pill d-flex justify-content-center strk-btn">Lihat Projek</a>
-            </div>
-          </div>
+      <div class="mt-auto">
+        <div class="d-flex justify-content-center gap-2 mb-2">
+          <a href="edit_projek.php?projek_id=<?= $row['projek_id']; ?>" class="btn btn-warning btn-sm">
+            <i class="fas fa-edit"></i> Ubah
+          </a>
+          <a href="hapus_projek.php?projek_id=<?= $row['projek_id']; ?>" 
+             class="btn btn-danger btn-sm"
+             onclick="return confirm('Yakin ingin menghapus projek ini?');">
+            <i class="fas fa-trash-alt"></i> Hapus
+          </a>
         </div>
-      <?php endwhile; ?>
+
+        <a href="lihat_projek_saya.php?projek_id=<?= $row['projek_id']; ?>" 
+           class="btn btn-outline-info w-100 rounded-pill">
+           Lihat Projek
+        </a>
+      </div>
     </div>
+  </div>
+</div>
+  <?php endwhile; ?>
+  <?php if ($total_page > 1): ?>
+<nav class="mt-4">
+  <ul class="pagination justify-content-center">
+
+    <?php for ($i = 1; $i <= $total_page; $i++): ?>
+      <li class="page-item <?= ($i == $page) ? 'active' : ''; ?>">
+        <a class="page-link" href="?page=<?= $i; ?>">
+          <?= $i; ?>
+        </a>
+      </li>
+    <?php endfor; ?>
+
+  </ul>
+</nav>
+<?php endif; ?>
+
   <?php else: ?>
     <div class="text-center my-5">
       <i class="fas fa-folder-open fa-3x text-info mb-3"></i>

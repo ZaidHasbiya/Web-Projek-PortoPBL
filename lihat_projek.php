@@ -64,7 +64,7 @@ $komentarResult = mysqli_query($koneksi, $komentarQuery);
       <h2>Video</h2>
       <iframe width="560" height="315" src="<?= htmlspecialchars($projek['link']); ?>" title="Video Projek" frameborder="0" allowfullscreen></iframe>
     <?php endif; ?>
-
+    <p><strong>Link Repositori:<br></strong><a href="<?= htmlspecialchars($projek['link_repo']); ?>" target="_blank" ><?= htmlspecialchars($projek['link_repo']); ?></a></p>
     <p><strong>Tanggal Dibuat:</strong> <?= htmlspecialchars($projek['tgl_pembuatan']); ?></p>
     <p><strong>Tanggal Selesai:</strong> <?= htmlspecialchars($projek['tgl_selesai']); ?></p>
     <p><strong>Dibuat Oleh:</strong> <?= $projek['nama']; ?></p>

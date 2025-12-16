@@ -21,6 +21,9 @@ $nama = $_SESSION['nama'];
 $query = "SELECT * FROM users WHERE nama = '$nama'";
 $result = mysqli_query($koneksi, $query);
 $user = mysqli_fetch_assoc($result);
+$foto = !empty($user['foto_profil']) 
+        ? '../asset/profil/' . $user['foto_profil'] 
+        : '../tim/profil-kosong.jpeg';
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +55,7 @@ $user = mysqli_fetch_assoc($result);
     <?php include '../layouts/navbar_dosen.php'; ?>
 
     <!-- Container Profil -->
-    <div class="container my-5 margin-top">
+    <div class="container my-5 mt-5 pt-5">
         <div class="row align-items-center">
 
             <!-- Kolom Kiri: Foto dan Identitas -->
@@ -60,7 +63,7 @@ $user = mysqli_fetch_assoc($result);
 
                 <!-- Foto profil -->
                 <div class="ratio ratio-1x1 rounded-circle overflow-hidden mx-auto mb-2" style="width: 200px;">
-                    <img src="../tim/panda.jpeg" alt="Foto Mahasiswa" class="w-100 h-100" style="object-fit: cover;">
+                    <img src="<?= $foto ?>" alt="Foto Dosen" class="w-100 h-100" style="object-fit: cover;">
                 </div>
 
                 <!-- Nama -->

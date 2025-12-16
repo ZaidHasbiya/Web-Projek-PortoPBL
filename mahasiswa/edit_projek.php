@@ -40,23 +40,50 @@ if (isset($_POST['edit'])) {
         $link = str_replace("watch?v=", "embed/", $link);
     }
 }
+$link_repo = $_POST['link_repo'];
   $tgl_pembuatan = $_POST['tgl_pembuatan'];
   $tgl_selesai = $_POST['tgl_selesai'];
 
   $gambar = $projek['gambar_projek'];
-  if (!empty($_FILES['gambar_projek']['name'])) {
-      $namaFile = $_FILES['gambar_projek']['name'];
-      $tmpName  = $_FILES['gambar_projek']['tmp_name'];
 
-      move_uploaded_file($tmpName, '../asset/uploads/' . $namaFile);
+if (!empty($_FILES['gambar_projek']['name'])) {
 
-      $gambar = $namaFile;
-  }
+    $namaFile = $_FILES['gambar_projek']['name'];
+    $tmpName  = $_FILES['gambar_projek']['tmp_name'];
+    $ukuran   = $_FILES['gambar_projek']['size'];
+    $error    = $_FILES['gambar_projek']['error'];
+
+    $folder = "../asset/uploads/";
+    $max_size = 20 * 1024 * 1024;
+    $allowed_ext = ['jpg', 'jpeg', 'png'];
+
+    if ($error !== 0) {
+        echo "<script>alert('Terjadi kesalahan saat upload gambar!');window.history.back();</script>";
+        exit;
+    }
+
+    $ext = strtolower(pathinfo($namaFile, PATHINFO_EXTENSION));
+
+    if (!in_array($ext, $allowed_ext)) {
+        echo "<script>alert('Format gambar harus JPG, JPEG, atau PNG!');window.history.back();</script>";
+        exit;
+    }
+
+    if ($ukuran > $max_size) {
+        echo "<script>alert('Ukuran gambar maksimal 20 MB!');window.history.back();</script>";
+        exit;
+    }
+
+    $namaBaru = time() . '_' . $namaFile;
+    move_uploaded_file($tmpName, $folder . $namaBaru);
+    $gambar = $namaBaru;
+}
 
   $query = "UPDATE projek 
             SET judul = '$judul', 
                 deskripsi = '$deskripsi',
-                link = '$link',
+                link = '$link', 
+                link_repo = '$link_repo', 
                 tgl_pembuatan = '$tgl_pembuatan',
                 tgl_selesai = '$tgl_selesai',
                 gambar_projek = '$gambar'
@@ -107,6 +134,12 @@ if (isset($_POST['edit'])) {
       <div class="mb-3">
         <label for="video" class="form-label">Link Video</label>
         <input type="url" class="form-control" id="link" name="link" value="<?= $projek['link'] ?>">
+      </div>
+
+      <div class="mb-3">
+        <label for="repo" class="form-label">Link Repositori</label>
+        <input type="url" class="form-control" id="repo" name="link_repo"
+       value="<?= $projek['link_repo'] ?>" required>
       </div>
 
       <div class="mb-3">
