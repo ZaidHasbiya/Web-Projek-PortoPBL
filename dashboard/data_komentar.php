@@ -26,6 +26,7 @@ table thead tr {
     font-weight: 600;
     font-size: 15px;
 }
+
 table thead th {
     text-align: center !important;
 }
@@ -55,9 +56,75 @@ table tbody td {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         crossorigin="anonymous" />
 </head>
+<style>
+.bg-nav-new {
+    background: linear-gradient(90deg, #1D5D8C, #2E86C1);
+}
+
+.bg-nav-new .navbar-brand {
+    font-weight: 700;
+}
+
+.bg-nav-new .nav-link,
+.bg-nav-new .navbar-brand,
+.bg-nav-new .btn-link,
+.bg-nav-new i {
+    color: #ffffff !important;
+}
+
+.sb-sidenav {
+    background: linear-gradient(180deg, #0F3C5F, #1D5D8C);
+    color: #ffffff;
+}
+
+.sb-sidenav .nav-link {
+    color: rgba(255, 255, 255, 0.85);
+    padding: 12px 20px;
+    border-radius: 10px;
+    margin: 4px 10px;
+    transition: all 0.3s ease;
+}
+
+.sb-sidenav .sb-nav-link-icon i {
+    color: #BFDFFF;
+    transition: 0.3s;
+}
+
+.sb-sidenav .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+
+.sb-sidenav .nav-link:hover i {
+    color: #ffffff;
+}
+
+.sb-sidenav .nav-link.active {
+    background: rgba(255, 255, 255, 0.25);
+    font-weight: 600;
+}
+
+.sb-sidenav-menu-nested .nav-link {
+    background-color: rgba(0, 0, 0, 0.15);
+    margin-left: 20px;
+    font-size: 14px;
+}
+
+.sb-sidenav-collapse-arrow i {
+    color: #ffffff;
+}
+
+.sb-sidenav-footer {
+    background-color: rgba(0, 0, 0, 0.25);
+    color: #ffffff;
+    padding: 15px;
+    font-size: 14px;
+}
+</style>
 
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-nav-new shadow fixed-top">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="dashboard.php">Dashboard Admin</a>
         <!-- Sidebar Toggle-->
@@ -81,7 +148,7 @@ table tbody td {
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion bg-primary" id="sidenavAccordion">
+                <nav class="sb-sidenav accordion" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading"></div>
