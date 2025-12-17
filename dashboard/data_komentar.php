@@ -174,7 +174,9 @@ table tbody td {
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    Start Bootstrap
+                 <strong>
+                        <?= htmlspecialchars($_SESSION['nama'] ?? 'Guest'); ?>
+                    </strong>
                 </div>
             </nav>
         </div>
