@@ -166,7 +166,7 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
           </span>
 
           <p class="mt-2 mb-1">
-            <?= htmlspecialchars($p['komentar']) ?>
+            Komentar: <?= htmlspecialchars($p['komentar']) ?>
           </p>
 
         </div>

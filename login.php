@@ -40,7 +40,7 @@ if(isset($_POST['login'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PortoPBL | Login</title>
+    <title>PortoPBL | Masuk</title>
 
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -135,7 +135,7 @@ background-color: rgba(251, 254, 255, 0.7);
 
                         <div class="mb-3">
                             <label class="form-label">Username</label>
-                            <input type="text" name="username" class="form-control" placeholder="Masukkan Username"
+                            <input type="text" name="username" class="form-control" placeholder="Masukkan Username (NIM atau NIDN)"
                                 required>
                         </div>
 

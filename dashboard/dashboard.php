@@ -150,7 +150,7 @@ if($_SESSION['role'] != 'admin'){
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    Start Bootstrap
+                    <?= $_SESSION['nama'] ?>
                 </div>
             </nav>
         </div>

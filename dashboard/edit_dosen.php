@@ -84,7 +84,7 @@ if(isset($_POST['update'])){
         </div>
 
         <div class="mb-3">
-            <label>NIK</label>
+            <label>NIDN</label>
             <input type="text" class="form-control" name="username" value="<?= $dosen['username']; ?>" required>
         </div>
 

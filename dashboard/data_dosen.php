@@ -154,7 +154,7 @@ $result = mysqli_num_rows($data);
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    Start Bootstrap
+                    <?= $_SESSION['nama'] ?>
                 </div>
             </nav>
         </div>
@@ -174,7 +174,7 @@ $result = mysqli_num_rows($data);
                         <tr>
                             <th>No</th>
                             <th>Nama</th>
-                            <th>NIK</th>
+                            <th>NIDN</th>
                             <th>Jurusan</th>
                             <th colspan="3">Aksi</th>
                         </tr>
@@ -245,30 +245,6 @@ $result = mysqli_num_rows($data);
                         <?php } ?>
                     </table>
 
-                </div>
-                <div class="modal fade" id="modalLihat1" tabindex="-1" aria-labelledby="modalLihatLabel1"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable">
-                        <div class="modal-content">
-
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modalLihatLabel1">Detail Dosen</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-
-                            <div class="modal-body">
-                                <p><strong>Nama:</strong> Reifandra Kinadi</p>
-                                <p><strong>NIK:</strong> 3312501046</p>
-                                <p><strong>Username:</strong> Admin#123</p>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                            </div>
-
-                        </div>
-                    </div>
                 </div>
             </main>
             <footer class="py-4 bg-light mt-auto">

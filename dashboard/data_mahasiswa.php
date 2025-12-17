@@ -153,7 +153,7 @@ $result = mysqli_num_rows($data);
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    Start Bootstrap
+                    <?= $_SESSION['nama'] ?>
                 </div>
             </nav>
         </div>
