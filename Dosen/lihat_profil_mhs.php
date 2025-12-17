@@ -226,7 +226,7 @@ $result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaia
           </span>
 
           <p class="mt-2 mb-1">
-            <?= htmlspecialchars($h['komentar']) ?>
+            Komentar: <?= htmlspecialchars($h['komentar']) ?>
           </p>
         </div>
         <?php endwhile; ?>

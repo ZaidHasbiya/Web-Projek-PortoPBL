@@ -21,7 +21,7 @@ $id = $_GET['id'];
 $hapus = mysqli_query($koneksi, "DELETE FROM users WHERE id='$id' AND role='mahasiswa'");
 
 if($hapus){
-    echo "<script>alert('Data dosen berhasil dihapus!'); window.location='data_mahasiswa.php';</script>";
+    echo "<script>alert('Data mahasiswa berhasil dihapus!'); window.location='data_mahasiswa.php';</script>";
 }else{
     echo "<script>alert('Gagal menghapus data'); window.location='data_mahasiswa.php';</script>";
 }

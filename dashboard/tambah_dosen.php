@@ -67,8 +67,8 @@ if(mysqli_num_rows($cek) > 0){
         <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Dosen" required>
       </div>
       <div class="mb-3">
-        <label for="nik" class="form-label">NIK</label>
-        <input type="text" class="form-control" id="username" name="username" placeholder="NIK" required>
+        <label for="nik" class="form-label">NIDN</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="NIDN" required>
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>

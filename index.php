@@ -28,13 +28,13 @@
     <!-- ===== Navbar ===== -->
     <?php include 'layouts/navbar_publik.php'; ?>
 
-    <!-- ===== Jumbotron ===== -->
-    <section class="jumbotron text-center">
-        <h1 class="display-3 fw-bold text-white">WELCOME TO PORTOPBL</h1>
-        <h2>Platform Portofolio Digital Mahasiswa</h2>
-        <a href="login.php" class="btn btn-outline-light rounded-pill mt-4 text-center" style="width:200px">MASUK</a>
-        <img src="asset/wave.svg" alt="Garis pemisah">
-    </section>
+  <!-- ===== Jumbotron ===== -->
+  <section class="jumbotron text-center">
+    <h1 class="display-3 fw-bold text-white">SELAMAT DATANG DI PORTOPBL</h1>
+    <h2>Platform Portofolio Digital Mahasiswa</h2>
+    <a href="login.php" class="btn btn-outline-light rounded-pill mt-4 text-center" style="width:200px">MASUK</a>
+    <img src="asset/wave.svg" alt="Garis pemisah">
+  </section>
 
     <!-- ===== Tentang Section ===== -->
     <section id="tentang" class="mt-5">

@@ -154,11 +154,32 @@ $result = mysqli_num_rows($data);
                 </div>
                 <<div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    <strong>
-                        <?= htmlspecialchars($_SESSION['nama'] ?? 'Guest'); ?>
-                    </strong>
-        </div>
 
+                    <?= $_SESSION['nama'] ?>
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Data Dosen</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                    <a href="tambah_dosen.php" class="btn btn-info text-white mb-4">
+                        <i class="fas fa-plus"></i> Tambah Dosen
+                    </a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center">
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>NIDN</th>
+                            <th>Jurusan</th>
+                            <th colspan="3">Aksi</th>
+                        </tr>
+        </div>
         </nav>
     </div>
     <div id="layoutSidenav_content">
@@ -236,36 +257,26 @@ $result = mysqli_num_rows($data);
 
                             </div>
                         </div>
-                    </div>
 
-                    <?php endwhile; } else { ?>
+                        <?php endwhile; } else { ?>
 
-                    <tr>
-                        <td colspan="7" class="text-center text-muted">Tidak ada data dosen</td>
-                    </tr>
+                        <tr>
+                            <td colspan="7" class="text-center text-muted">Tidak ada data dosen</td>
+                        </tr>
 
-                    <?php } ?>
-                </table>
+                        <?php } ?>
+                    </table>
 
-            </div>
-            <div class="modal fade" id="modalLihat1" tabindex="-1" aria-labelledby="modalLihatLabel1"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable">
-                    <div class="modal-content">
-
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalLihatLabel1">Detail Dosen</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-
-                        <div class="modal-body">
-                            <p><strong>Nama:</strong> Reifandra Kinadi</p>
-                            <p><strong>NIK:</strong> 3312501046</p>
-                            <p><strong>Username:</strong> Admin#123</p>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
                         </div>
 
                     </div>

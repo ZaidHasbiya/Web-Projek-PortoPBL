@@ -65,19 +65,19 @@ img.wave {
     <?php include '../layouts/navbar_dosen.php'; ?>
     <div class="container">
         <h1 class="py-5 mt-5">Jurusan Teknik Mesin</h1>
-        <form method="GET" class="row mb-4">
-  <div class="col-md-6 col-lg-4">
-    <input 
-      type="text" 
-      name="search" 
-      class="form-control"
-      placeholder="Cari nama / NIM mahasiswa..."
-      value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
-  </div>
-  <div class="col-auto">
-    <button type="submit" class="btn btn-clr">
-      Cari
-    </button>
+        <form method="GET" class="row justify-content-center mb-4">
+  <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+    <div class="input-group">
+      <input 
+        type="text" 
+        name="search" 
+        class="form-control form-control-lg"
+        placeholder="Cari nama / NIM mahasiswa..."
+        value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
+      <button type="submit" class="btn btn-clr px-4">
+        Cari
+      </button>
+    </div>
   </div>
 </form>
 

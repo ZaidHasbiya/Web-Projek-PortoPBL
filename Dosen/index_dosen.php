@@ -36,7 +36,7 @@ if($_SESSION['role'] != 'dosen'){
   <!-- ===== Jumbotron ===== -->
   <section class="jumbotron text-center">
     <h1 class="text-white fw-bold">Halo, <?= $_SESSION['nama'] ?></h1>
-    <h1 class="display-3 fw-bold text-white">WELCOME TO PORTOPBL</h1>
+    <h1 class="display-3 fw-bold text-white">SELAMAT DATANG DI PORTOPBL</h1>
     <h2>Platform Portofolio Digital Mahasiswa</h2>
     <img src="../asset/wave.svg" alt="Garis pemisah">
   </section>

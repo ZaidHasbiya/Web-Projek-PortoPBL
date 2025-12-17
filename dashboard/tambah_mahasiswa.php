@@ -23,7 +23,7 @@ if(isset($_POST['tambah'])){
   $username = $_POST['username'];
   $password = $_POST['password'];
   $jurusan = $_POST['jurusan'];
-  $role = 'dosen';
+  $role = 'mahasiswa';
 
   $cek = mysqli_query($koneksi,"SELECT * FROM users WHERE nama = '$nama' OR username = '$username'");
 
@@ -64,11 +64,11 @@ if(mysqli_num_rows($cek) > 0){
     <form action="" method="post">
       <div class="mb-3">
         <label for="nama" class="form-label">Nama Mahasiswa</label>
-        <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Dosen" required>
+        <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Mahasiswa" required>
       </div>
       <div class="mb-3">
         <label for="nik" class="form-label">NIM</label>
-        <input type="text" class="form-control" id="username" name="username" placeholder="NIK" required>
+        <input type="text" class="form-control" id="username" name="username" placeholder="NIM" required>
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
@@ -86,7 +86,7 @@ if(mysqli_num_rows($cek) > 0){
       </div>
 
       <div class="d-flex justify-content-between">
-        <a href="data_dosen.php" class="btn btn-primary">Kembali</a>
+        <a href="data_mahasiswa.php" class="btn btn-primary">Kembali</a>
         <button type="submit" class="btn btn-success" name="tambah">Tambah</button>
       </div>
     </form>
