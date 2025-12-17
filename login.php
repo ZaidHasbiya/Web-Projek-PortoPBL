@@ -34,66 +34,132 @@ if(isset($_POST['login'])){
 }
 ?>
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PortoPBL | Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PortoPBL | Login</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <style>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background: #f8fafc;
+        font-family: 'Poppins', sans-serif;
+        min-height: 100vh;
+
+        /* Background image */
+        background:
+            linear-gradient(rgba(13, 27, 42, 0.65),
+                rgba(13, 27, 42, 0.65)),
+            url('asset/poltek.jpeg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }
-  </style>
+
+
+.login-card {
+    border-radius: 20px;
+background-color: rgba(251, 254, 255, 0.7);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+
+
+
+    .logo {
+        width: 150px;
+    }
+
+.btn-primary-custom {
+    background-color: #0d6efd;
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+    color: #ffffff; 
+}
+
+.btn-primary-custom:hover {
+    background-color: #0b5ed7;
+    color: #ffffff;
+}
+
+
+.form-control,
+.form-select {
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.8);
+}
+.card-body label,
+.card-body p {
+    color: #0d1b2a;
+    font-weight: 500;
+}
+
+    </style>
 </head>
+
 <body>
 
-<div class="container min-vh-100 d-flex align-items-center justify-content-center">
-  <div class="col-md-5 col-lg-4">
-    <div class="card shadow border-0 rounded-4">
-      <div class="card-body p-4">
+    <div class="container min-vh-100 d-flex align-items-center justify-content-center">
+        <div class="col-md-5 col-lg-5">
 
-        <h3 class="text-center fw-bold mb-4">Masuk</h3>
+            <div class="card login-card shadow border-0">
+                <div class="card-body p-4">
 
-        <form action="" method="POST">
-          
-          <div class="mb-3">
-            <label class="form-label">Masuk Sebagai</label>
-            <select name="role" class="form-select" required>
-              <option value="">-- Pilih Role --</option>
-              <?php foreach($role_list as $r): ?>
-                <option value="<?= $r ?>"><?= ucfirst($r) ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
+                    <!-- Logo -->
+                    <div class="text-center mb-3">
+                        <img src="asset/logo.png" alt="Logo PortoPBL" class="logo mb-2">
+                        <p class="text-muted mb-0">Silakan masuk ke akun anda</p>
+                    </div>
 
-          <div class="mb-3">
-            <label class="form-label">Username</label>
-            <input type="text" name="username" class="form-control" placeholder="Masukkan Username" required>
-          </div>
+                    <form action="" method="POST">
 
-          <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" placeholder="Masukkan Password" required>
-          </div>
+                        <div class="mb-3">
+                            <label class="form-label">Masuk Sebagai</label>
+                            <select name="role" class="form-select" required>
+                                <option value="">-- Pilih Role --</option>
+                                <?php foreach($role_list as $r): ?>
+                                <option value="<?= $r ?>"><?= ucfirst($r) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
 
-          <div class="d-grid mt-4">
-            <button type="submit" name="login" class="btn btn-footer btn-lg">
-              Masuk
-            </button>
-          </div>
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input type="text" name="username" class="form-control" placeholder="Masukkan Username"
+                                required>
+                        </div>
 
-        </form>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="Masukkan Password"
+                                required>
+                        </div>
 
-      </div>
+                        <div class="d-grid mt-4">
+                            <button type="submit" name="login" class="btn btn-primary-custom btn-lg">
+                                Masuk
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
     </div>
-  </div>
-</div>
 
-<script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
