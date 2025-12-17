@@ -174,7 +174,9 @@ table tbody td {
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
+                    
                     <?= $_SESSION['nama'] ?>
+                
                 </div>
             </nav>
         </div>

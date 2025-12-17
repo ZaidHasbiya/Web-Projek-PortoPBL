@@ -51,9 +51,8 @@ if(isset($_POST['login'])){
     <style>
     body {
         font-family: 'Poppins', sans-serif;
-        min-height: 100vh;
+        letter-spacing: 0.2px;
 
-        /* Background image */
         background:
             linear-gradient(rgba(13, 27, 42, 0.65),
                 rgba(13, 27, 42, 0.65)),
@@ -63,47 +62,104 @@ if(isset($_POST['login'])){
         background-repeat: no-repeat;
         background-attachment: fixed;
     }
+    .text-muted {
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0.3px;
+    }
 
+    .form-label {
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.4px;
+    }
 
-.login-card {
-    border-radius: 20px;
-background-color: rgba(251, 254, 255, 0.7);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-}
+    .form-control,
+    .form-select {
+        font-size: 14.5px;
+        font-weight: 400;
+    }
 
+    .btn-primary-custom {
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.6px;
+    }
 
-
+    .login-card {
+        border-radius: 20px;
+        background-color: rgba(251, 254, 255, 0.7);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+    }
 
     .logo {
         width: 150px;
+        max-width: 100%;
+        height: auto;
+        transition: transform 0.3s ease;
     }
 
-.btn-primary-custom {
-    background-color: #0d6efd;
-    border: none;
-    border-radius: 30px;
-    font-weight: 600;
-    color: #ffffff; 
-}
-
-.btn-primary-custom:hover {
-    background-color: #0b5ed7;
-    color: #ffffff;
-}
+    .logo:hover {
+        transform: scale(1.05);
+    }
 
 
-.form-control,
-.form-select {
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.8);
-}
-.card-body label,
-.card-body p {
-    color: #0d1b2a;
-    font-weight: 500;
-}
+    .btn-primary-custom {
+        background-color: #0d6efd;
+        border: none;
+        border-radius: 30px;
+        font-weight: 600;
+        color: #ffffff;
+    }
 
+    .btn-primary-custom:hover {
+        background-color: #0b5ed7;
+        color: #ffffff;
+    }
+
+
+    .form-control,
+    .form-select {
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.8);
+    }
+
+    .card-body label,
+    .card-body p {
+        color: #0d1b2a;
+        font-weight: 500;
+    }
+
+    .select-wrapper {
+        position: relative;
+    }
+
+    .custom-select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        padding-right: 40px;
+        cursor: pointer;
+    }
+
+    .select-arrow {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        width: 0;
+        height: 0;
+        pointer-events: none;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 6px solid #555;
+        transform: translateY(-50%);
+        transition: transform 0.3s ease;
+    }
+
+    .custom-select:focus+.select-arrow {
+        transform: translateY(-50%) rotate(180deg);
+    }
     </style>
 </head>
 
@@ -117,7 +173,7 @@ background-color: rgba(251, 254, 255, 0.7);
 
                     <!-- Logo -->
                     <div class="text-center mb-3">
-                        <img src="asset/logo.png" alt="Logo PortoPBL" class="logo mb-2">
+                        <img src="asset/logoo.png" alt="Logo PortoPBL" class="logo mb-2">
                         <p class="text-muted mb-0">Silakan masuk ke akun anda</p>
                     </div>
 
@@ -125,13 +181,18 @@ background-color: rgba(251, 254, 255, 0.7);
 
                         <div class="mb-3">
                             <label class="form-label">Masuk Sebagai</label>
-                            <select name="role" class="form-select" required>
-                                <option value="">-- Pilih Role --</option>
-                                <?php foreach($role_list as $r): ?>
-                                <option value="<?= $r ?>"><?= ucfirst($r) ?></option>
-                                <?php endforeach; ?>
-                            </select>
+
+                            <div class="select-wrapper">
+                                <select name="role" class="form-select custom-select" required>
+                                    <option value="">Pilih Role</option>
+                                    <?php foreach($role_list as $r): ?>
+                                    <option value="<?= $r ?>"><?= ucfirst($r) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <span class="select-arrow"></span>
+                            </div>
                         </div>
+
 
                         <div class="mb-3">
                             <label class="form-label">Username</label>
