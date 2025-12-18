@@ -25,7 +25,7 @@ $result = mysqli_num_rows($data);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard - SB Admin</title>
+    <title>Dasbor - SB Admin</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -102,10 +102,11 @@ $result = mysqli_num_rows($data);
     font-size: 14px;
 }
 </style>
+
 <body class="sb-nav-fixed">
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-nav-new shadow fixed-top">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-nav-new shadow fixed-top">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="dashboard.php">Dashboard Admin</a>
+        <a class="navbar-brand ps-3" href="dashboard.php">Dasbor Admin</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
                 class="fas fa-bars"></i></button>
@@ -125,15 +126,17 @@ $result = mysqli_num_rows($data);
             </li>
         </ul>
     </nav>
+
     <div id="layoutSidenav">
+        <!-- SIDEBAR -->
         <div id="layoutSidenav_nav">
-                 <nav class="sb-sidenav accordion" id="sidenavAccordion">
+            <nav class="sb-sidenav accordion" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading"></div>
                         <a class="nav-link text-white" href="dashboard.php">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-tachometer-alt"></i></div>
-                            Dashboard
+                            Dasbor
                         </a>
                         <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
                             data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -157,28 +160,28 @@ $result = mysqli_num_rows($data);
                 </div>
             </nav>
         </div>
+        <!-- CONTENT -->
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Data Mahasiswa</h1>
-                    <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item active">Dashboard</li>
-                    </ol>
-                    <a href="tambah_mahasiswa.php" class="btn btn-info text-white mb-4">
-                        <i class="fas fa-plus"></i> Tambah Mahasiswa
+                    <h1 class="mt-4">Data Dosen</h1>
+                    <a href="tambah_dosen.php" class="btn btn-info text-white mb-4">
+                        <i class="fas fa-plus"></i> Tambah Dosen
                     </a>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-bordered text-center">
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>NIM</th>
-                            <th>Jurusan</th>
-                            <th colspan="3">Aksi</th>
-                        </tr>
 
-                        <?php 
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>NIDN</th>
+                                    <th>Jurusan</th>
+                                    <th colspan="3">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
     if ($result > 0) {
         $no = 1;
         while ($row = mysqli_fetch_assoc($data)) :
