@@ -63,7 +63,7 @@ if(isset($_POST['update'])){
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Edit Dosen</title>
+    <title>Ubah Dosen</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -75,7 +75,7 @@ if(isset($_POST['update'])){
 <body>
 
 <div class="container my-5">
-    <h3 class="mb-4">Edit Dosen</h3>
+    <h3 class="mb-4">Ubah Dosen</h3>
 
     <form method="post">
         <div class="mb-3">
@@ -119,7 +119,7 @@ if(isset($_POST['update'])){
 
         <div class="d-flex justify-content-between">
             <a href="data_dosen.php" class="btn btn-primary">Kembali</a>
-            <button type="submit" name="update" class="btn btn-success">Update</button>
+            <button type="submit" name="update" class="btn btn-success">Ubah</button>
         </div>
     </form>
 </div>
