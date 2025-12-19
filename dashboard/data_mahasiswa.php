@@ -164,9 +164,9 @@ $result = mysqli_num_rows($data);
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Data Dosen</h1>
-                    <a href="tambah_dosen.php" class="btn btn-info text-white mb-4">
-                        <i class="fas fa-plus"></i> Tambah Dosen
+                    <h1 class="mt-4">Data Mahasiswa</h1>
+                    <a href="tambah_mahasiswa.php" class="btn btn-info text-white mb-4">
+                        <i class="fas fa-plus"></i> Tambah Mahasiswa
                     </a>
 
                     <div class="table-responsive">
@@ -175,7 +175,7 @@ $result = mysqli_num_rows($data);
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>NIDN</th>
+                                    <th>NIM</th>
                                     <th>Jurusan</th>
                                     <th colspan="3">Aksi</th>
                                 </tr>
@@ -202,7 +202,7 @@ $result = mysqli_num_rows($data);
                             <td>
                                 <a href="edit_mahasiswa.php?id=<?= $row['id']; ?>"
                                     class="btn btn-warning btn-sm text-white">
-                                    <i class="fas fa-edit"></i> Edit
+                                    <i class="fas fa-edit"></i> Ubah
                                 </a>
                             </td>
 

@@ -201,7 +201,7 @@ $result = mysqli_num_rows($data);
                                     <td>
                                         <a href="edit_dosen.php?id=<?= $row['id']; ?>"
                                             class="btn btn-warning btn-sm text-white"><i
-                                                class="fas fa-edit"></i>Edit</a>
+                                                class="fas fa-edit"></i>Ubah</a>
                                     </td>
                                     <td>
                                         <a href="hapus_dosen.php?id=<?= $row['id']; ?>"
