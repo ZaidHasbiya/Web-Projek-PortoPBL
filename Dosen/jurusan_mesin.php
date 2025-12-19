@@ -53,28 +53,62 @@ img.wave {
     z-index: 0;
 }
 
-.navbar {
-    position: relative;
-    z-index: 10;
+.search-box {
+    width: 100%;
+    max-width: 550px;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
 }
+
+.search-box input {
+    border-radius: 12px 0 0 12px;
+    padding: 10px 15px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.search-box input:focus {
+    box-shadow: inset 0 0 5px rgba(0,123,255,0.5);
+    outline: none;
+}
+
+.search-box .btn {
+    border-radius: 0 12px 12px 0; 
+    background-color: var(--navbar-bg-color, #14446e); 
+    color: #fff;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.search-box .btn:hover {
+    background-color: #1D5D8C; 
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
 </style>
 
 <body>
 
     <!-- ===== Navbar ===== -->
     <?php include '../layouts/navbar_dosen.php'; ?>
-    <div class="container">
-        <h1 class="py-5 mt-5">Jurusan Teknik Mesin</h1>
-        <form method="GET" class="row justify-content-center mb-4">
-  <div class="col-12 col-sm-10 col-md-8 col-lg-6">
-    <div class="input-group">
+   <div class="text-center pt-4 mb-4">
+  <h1 class="fw-bold display-6 mb-2">Jurusan Teknik Mesin</h1>
+</div>
+
+<form method="GET" class="d-flex justify-content-center mb-5">
+  <div class="search-box shadow-sm">
+    <div class="input-group input-group-lg">
       <input 
         type="text" 
         name="search" 
-        class="form-control form-control-lg"
-        placeholder="Cari nama / NIM mahasiswa..."
+        class="form-control border-0"
+        placeholder="Cari nama atau NIM Mahasiswa"
         value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
-      <button type="submit" class="btn btn-clr px-4">
+      <button type="submit" class="btn btn-clr px-4 fw-semibold">
         Cari
       </button>
     </div>
