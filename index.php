@@ -1,12 +1,3 @@
-<!--
-Nama File   : index.php
-Fungsi     : Halaman utama (landing page) aplikasi PortoPBL
-Pembuat    : Tim Web Portofolio Projek PBL
-Dibuat     : 2025
-Deskripsi  : Menampilkan halaman publik berisi informasi aplikasi,
-             deskripsi, tim pengembang, dan navigasi login.
--->
-
 <!DOCTYPE html>
 <html lang="en">
 

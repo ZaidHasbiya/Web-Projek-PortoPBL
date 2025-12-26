@@ -1,13 +1,29 @@
 <?php
-session_start();
+/*
+Nama File   : index_mahasiswa.php
+Deskripsi     : Halaman dashboard utama mahasiswa setelah login
+Dibuat Oleh    : Fathur Alfitrah - NIM : [3312501048]
+Tanggal     : 10 Oktober 2025
+*/
 
-if(!isset($_SESSION['username'])){
-  echo "<script>alert('username tidak sesuai ! silahkan melakukan login'); window.location ='login.php';</script>";
+session_start(); 
+// Memulai session untuk mengecek status login
+
+// Validasi login
+if (!isset($_SESSION['username'])) {
+  echo "<script>
+          alert('Username tidak sesuai! Silakan melakukan login.');
+          window.location ='../login.php';
+        </script>";
 }
 
-if($_SESSION['role'] != 'mahasiswa'){
-  echo "<script>alert('Akses ditolak! Halaman ini hanya untuk Mahasiswa.');window.location='index.php';</script>";
-    exit;
+// Validasi role pengguna
+if ($_SESSION['role'] != 'mahasiswa') {
+  echo "<script>
+          alert('Akses ditolak! Halaman ini hanya untuk Mahasiswa.');
+          window.location='index.php';
+        </script>";
+  exit;
 }
 ?>
 
@@ -15,42 +31,67 @@ if($_SESSION['role'] != 'mahasiswa'){
 <html lang="en">
 
 <head>
+  <!-- Metadata halaman -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PortoPBL</title>
 
+  <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
+    rel="stylesheet"
+  >
 
+  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="../css/bootstrap.min.css">
 
+  <!-- AOS Animation CSS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="../styles.css" type="text/css">
 </head>
 
 <body>
 
-  <!-- ===== Navbar ===== -->
+  <!-- Navbar Mahasiswa -->
   <?php include '../layouts/navbar_mhs.php'; ?>
 
-  <!-- ===== Jumbotron ===== -->
+  <!-- Section Jumbotron -->
   <section class="jumbotron text-center">
-    <h1 class="text-white fw-bold">Halo, <?= $_SESSION['nama']; ?></h1>
-    <h1 class="display-3 fw-bold text-white">SELAMAT DATANG DI PORTOPBL</h1>
-    <h2>Platform Portofolio Digital Mahasiswa</h2>
+    <h1 class="text-white fw-bold" data-aos="fade-up">
+      Halo, <?= $_SESSION['nama']; ?>
+    </h1>
+
+    <h1
+      class="display-3 fw-bold text-white"
+      data-aos="fade-up"
+      data-aos-delay="150"
+    >
+      SELAMAT DATANG DI PORTOPBL
+    </h1>
+
+    <h2 data-aos="fade-up" data-aos-delay="300">
+      Platform Portofolio Digital Mahasiswa
+    </h2>
+
     <img src="../asset/wave.svg" alt="Garis pemisah">
   </section>
 
-  <!-- ===== Tentang Section ===== -->
+  <!-- Section Tentang -->
   <section id="tentang" class="mt-5">
     <div class="container">
       <div class="row text-center">
         <div class="col">
-          <h1>Tentang PortoPBL</h1><br>
-          <h3>
-            Sebuah website portofolio sebagai platform bagi mahasiswa untuk mendokumentasikan dan memamerkan proyek-proyek PBL mereka.
-            Website ini adalah ruang pribadi untuk membangun portofolio digital berisi deskripsi proyek, tangkapan layar, kode sumber,
-            dan video demo. Membantu mahasiswa menampilkan hasil proyek PBL secara digital.
+          <h1 data-aos="fade-up">Tentang PortoPBL</h1>
+          <br>
+          <h3 data-aos="fade-up" data-aos-delay="150">
+            Sebuah website portofolio sebagai platform bagi mahasiswa untuk
+            mendokumentasikan dan memamerkan proyek-proyek PBL mereka.
+            Website ini menjadi ruang pribadi untuk membangun portofolio digital
+            berisi deskripsi proyek, tangkapan layar, kode sumber, dan video demo.
           </h3>
         </div>
       </div>
@@ -58,19 +99,25 @@ if($_SESSION['role'] != 'mahasiswa'){
     <img src="../asset/wave-new-navy.svg" alt="Garis pemisah">
   </section>
 
-  <!-- ===== Tim Section ===== -->
+  <!-- Section Tim Projek -->
   <section id="tim">
     <div class="container">
       <div class="row text-center mb-4">
         <div class="col">
-          <h1 class="text-white">TIM PROJEK PBL</h1>
+          <h1 class="text-white" data-aos="fade-up">TIM PROJEK PBL</h1>
         </div>
       </div>
 
       <div class="row text-center">
-        <div class="col-md-4 mb-3">
+
+        <!-- Anggota 1 -->
+        <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="100">
           <div class="card h-100">
-            <img src="../tim/zaid-biru.jpg" class="card-img-top" alt="Zaid Hasbiya Abrar">
+            <img
+              src="../tim/zaid-biru.jpg"
+              class="card-img-top"
+              alt="Zaid Hasbiya Abrar"
+            >
             <div class="card-body">
               <p class="card-text">3312501046</p>
               <p class="card-text">Zaid Hasbiya Abrar</p>
@@ -78,9 +125,14 @@ if($_SESSION['role'] != 'mahasiswa'){
           </div>
         </div>
 
-        <div class="col-md-4 mb-3">
+        <!-- Anggota 2 -->
+        <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="200">
           <div class="card h-100">
-            <img src="../tim/patur-biru.jpg" class="card-img-top" alt="Fathur Alfitrah">
+            <img
+              src="../tim/patur-biru.jpg"
+              class="card-img-top"
+              alt="Fathur Alfitrah Dermawan"
+            >
             <div class="card-body">
               <p class="card-text">3312501047</p>
               <p class="card-text">Fathur Alfitrah Dermawan</p>
@@ -88,26 +140,43 @@ if($_SESSION['role'] != 'mahasiswa'){
           </div>
         </div>
 
-        <div class="col-md-4 mb-3">
+        <!-- Anggota 3 -->
+        <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="300">
           <div class="card h-100">
-            <img src="../tim/panda-biru.jpg" class="card-img-top" alt="Reifandra Kinadi">
+            <img
+              src="../tim/panda-biru.jpg"
+              class="card-img-top"
+              alt="Reifandra Kinadi"
+            >
             <div class="card-body">
               <p class="card-text">3312501048</p>
               <p class="card-text">Reifandra Kinadi</p>
             </div>
           </div>
         </div>
+
       </div>
     </div>
 
     <img src="../asset/wave.svg" alt="Garis pemisah bawah">
   </section>
 
-  <footer class="text-center py-3 bg-light mt-5">
+  <!-- Footer -->
+  <footer class="text-center py-3 bg-light mt-5" data-aos="fade-up">
     &copy; <span>2025</span> Tim Web Portofolio Projek PBL
   </footer>
 
+  <!-- JavaScript -->
   <script src="../js/bootstrap.bundle.min.js"></script>
-</body>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    // Inisialisasi animasi AOS
+    AOS.init({
+      duration: 900,
+      once: true,
+      easing: 'ease-out-cubic'
+    });
+  </script>
 
+</body>
 </html>
