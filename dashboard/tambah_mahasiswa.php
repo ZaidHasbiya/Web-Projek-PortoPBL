@@ -1,44 +1,59 @@
 <?php
+/**
+ * File: tambah_mahasiswa.php
+ * Fungsi: Menambahkan data mahasiswa baru ke database
+ * Catatan: Hanya admin yang dapat mengakses halaman ini
+ */
+
 session_start();
-include '../koneksi.php';
+include '../koneksi.php'; // Koneksi ke database
 
+// Cek apakah user sudah login
 if(!isset($_SESSION['username'])){
-  echo "<script>alert('username tidak sesuai ! silahkan melakukan login'); window.location ='login.php';</script>";
-}
-
-if($_SESSION['role'] != 'admin'){
-  echo "<script>alert('Akses ditolak! Halaman ini hanya untuk admin.');window.location='index.php';</script>";
+    echo "<script>alert('Silakan login dahulu'); window.location='../login.php';</script>";
     exit;
 }
 
+// Cek apakah user adalah admin
+if($_SESSION['role'] != 'admin'){
+    echo "<script>alert('Akses ditolak!'); window.location='../login.php';</script>";
+    exit;
+}
+
+// Ambil daftar jurusan dari enum di kolom 'jurusan'
 $q = mysqli_query($koneksi, "SHOW COLUMNS FROM users LIKE 'jurusan'");
 $row = mysqli_fetch_assoc($q);
 
-$enum = str_replace(["enum('", "')"], "", $row['Type']);
-$jurusan_list = explode("','", $enum);
+$enum = str_replace(["enum('", "')"], "", $row['Type']); // Hapus bagian enum
+$jurusan_list = explode("','", $enum); // Pecah string menjadi array jurusan
 
+// Proses saat form dikirim
 if(isset($_POST['tambah'])){
 
-  $nama = $_POST['nama'];
-  $username = $_POST['username'];
-  $password = $_POST['password'];
-  $jurusan = $_POST['jurusan'];
-  $role = 'mahasiswa';
+    $nama = $_POST['nama']; // Nama mahasiswa
+    $username = $_POST['username']; // NIM mahasiswa
+    $password = $_POST['password']; // Password
+    $jurusan = $_POST['jurusan']; // Jurusan
+    $role = 'mahasiswa'; // Role otomatis mahasiswa
 
-  $cek = mysqli_query($koneksi,"SELECT * FROM users WHERE nama = '$nama' OR username = '$username'");
+    // Cek apakah username sudah ada di database
+    $cek = mysqli_query($koneksi,"SELECT * FROM users WHERE username = '$username'");
+    
+    if(mysqli_num_rows($cek) > 0){
+        // Jika username sudah ada
+        echo "<script>alert('Nama atau username sudah terdaftar'); window.location = 'data_mahasiswa.php';</script>";
+    } else {
+        // Insert data mahasiswa baru ke database
+        $query = "INSERT INTO users (nama, username, password, jurusan, role) 
+                  VALUES ('$nama', '$username', '$password', '$jurusan', '$role')";
+        $data = mysqli_query($koneksi, $query);
 
-if(mysqli_num_rows($cek) > 0){
-  echo "<script>alert('Nama atau username sudah terdaftar'); window.location = 'data_mahasiswa.php';</script>";
-}else{
-  $query = "INSERT INTO users (nama, username, password, jurusan, role) VALUES ('$nama', '$username', '$password', '$jurusan', '$role')";
-  $data = mysqli_query($koneksi, $query);
-
-  if($data){
-    echo "<script>alert('Tambah data mahasiswa berhasil!'); window.location ='data_mahasiswa.php';</script>";
-  } else{
-    echo "<script>alert('Tambah data mahasiswa gagal!'); window.location ='tambah_mahasiswa.php';</script>";
-  }
-}
+        if($data){
+            echo "<script>alert('Tambah data mahasiswa berhasil!'); window.location ='data_mahasiswa.php';</script>";
+        } else{
+            echo "<script>alert('Tambah data mahasiswa gagal!'); window.location ='tambah_mahasiswa.php';</script>";
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -49,11 +64,12 @@ if(mysqli_num_rows($cek) > 0){
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tambah Mahasiswa</title>
 
+  <!-- Font Poppins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
   <link rel="stylesheet" href="css/styles.css" type="text/css">
 </head>
 
@@ -61,13 +77,14 @@ if(mysqli_num_rows($cek) > 0){
   <div class="container my-5">
     <h3 class="mb-4">Tambah Mahasiswa</h3>
 
+    <!-- Form tambah mahasiswa -->
     <form action="" method="post">
       <div class="mb-3">
         <label for="nama" class="form-label">Nama Mahasiswa</label>
         <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Mahasiswa" required>
       </div>
       <div class="mb-3">
-        <label for="nik" class="form-label">NIM</label>
+        <label for="username" class="form-label">NIM</label>
         <input type="text" class="form-control" id="username" name="username" placeholder="NIM" required>
       </div>
       <div class="mb-3">
@@ -76,13 +93,12 @@ if(mysqli_num_rows($cek) > 0){
       </div>
       <div class="mb-3">
         <label for="jurusan" class="form-label">Pilih Jurusan</label>
-<select name="jurusan" class="form-control" id="jurusan" required>
-    <option value="">-- Pilih Jurusan --</option>
-
-    <?php foreach ($jurusan_list as $j): ?>
-        <option value="<?= $j ?>"><?= ucfirst($j) ?></option>
-    <?php endforeach; ?>
-</select>
+        <select name="jurusan" class="form-control" id="jurusan" required>
+          <option value="">-- Pilih Jurusan --</option>
+          <?php foreach ($jurusan_list as $j): ?>
+              <option value="<?= $j ?>"><?= ucfirst($j) ?></option>
+          <?php endforeach; ?>
+        </select>
       </div>
 
       <div class="d-flex justify-content-between">
@@ -92,6 +108,7 @@ if(mysqli_num_rows($cek) > 0){
     </form>
   </div>
 
+  <!-- Footer -->
   <img src="../asset/wave-info.svg" class="w-100" alt="">
   <footer class="text-center py-3 bg-light mt-5">
     &copy; <span>2025</span> Tim Web Portofolio Projek PBL
