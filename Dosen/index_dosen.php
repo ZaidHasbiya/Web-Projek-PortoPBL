@@ -1,15 +1,36 @@
 <?php
+
+/*
+Nama File : index_dosen.php
+Deskripsi : Halaman dashboard dosen pada aplikasi PortoPBL.
+            Digunakan untuk menampilkan halaman utama dosen
+            setelah login, termasuk informasi sambutan,
+            deskripsi aplikasi, dan tim projek PBL.
+*/
+
+// Memulai session
 session_start();
 
+// Mengecek apakah session username ada (user sudah login atau belum)
 if(!isset($_SESSION['username'])){
-  echo "<script>alert('username tidak sesuai ! silahkan melakukan login'); window.location ='login.php';</script>";
+  // Jika belum login, tampilkan alert dan arahkan ke halaman login
+  echo "<script>
+          alert('username tidak sesuai ! silahkan melakukan login');
+          window.location ='../login.php';
+        </script>";
 }
 
+// Mengecek apakah role user adalah dosen
 if($_SESSION['role'] != 'dosen'){
-  echo "<script>alert('Akses ditolak! Halaman ini hanya untuk Dosen.');window.location='index.php';</script>";
-    exit;
+  // Jika bukan dosen, akses ditolak
+  echo "<script>
+          alert('Akses ditolak! Halaman ini hanya untuk Dosen.');
+          window.location='index.php';
+        </script>";
+  exit;
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,36 +39,59 @@ if($_SESSION['role'] != 'dosen'){
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PortoPBL</title>
 
+  <!-- Google Font Poppins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
+  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="../css/bootstrap.min.css">
 
+  <!-- AOS (Animate On Scroll) CSS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="../styles.css" type="text/css">
   <link rel="stylesheet" href="../custom.css">
 </head>
 
 <body>
 
-  <!-- ===== Navbar ===== -->
+  <!-- ===== Navbar Dosen ===== -->
   <?php include '../layouts/navbar_dosen.php'; ?>
 
-  <!-- ===== Jumbotron ===== -->
+  <!-- ===== Jumbotron / Header Section ===== -->
   <section class="jumbotron text-center">
-    <h1 class="text-white fw-bold">Halo, <?= $_SESSION['nama'] ?></h1>
-    <h1 class="display-3 fw-bold text-white">SELAMAT DATANG DI PORTOPBL</h1>
-    <h2>Platform Portofolio Digital Mahasiswa</h2>
+
+    <!-- Sapaan nama dosen -->
+    <h1 class="text-white fw-bold" data-aos="fade-up">
+      Halo, <?= $_SESSION['nama'] ?>
+    </h1>
+
+    <!-- Judul utama -->
+    <h1 class="display-3 fw-bold text-white" data-aos="fade-up" data-aos-delay="150">
+      SELAMAT DATANG DI PORTOPBL
+    </h1>
+
+    <!-- Subjudul -->
+    <h2 data-aos="fade-up" data-aos-delay="300">
+      Platform Portofolio Digital Mahasiswa
+    </h2>
+
+    <!-- Gambar wave -->
     <img src="../asset/wave.svg" alt="Garis pemisah">
   </section>
 
-  <!-- ===== Tentang Section ===== -->
+  <!-- ===== Tentang PortoPBL ===== -->
   <section id="tentang" class="mt-5">
     <div class="container">
       <div class="row text-center">
         <div class="col">
-          <h1>Tentang PortoPBL</h1><br>
-          <h3>
+          <h1 data-aos="fade-up">Tentang PortoPBL</h1>
+          <br>
+
+          <!-- Deskripsi aplikasi -->
+          <h3 data-aos="fade-up" data-aos-delay="150">
             Sebuah website portofolio sebagai platform bagi mahasiswa untuk mendokumentasikan dan memamerkan proyek-proyek PBL mereka.
             Website ini adalah ruang pribadi untuk membangun portofolio digital berisi deskripsi proyek, tangkapan layar, kode sumber,
             dan video demo. Membantu mahasiswa menampilkan hasil proyek PBL secara digital.
@@ -55,20 +99,27 @@ if($_SESSION['role'] != 'dosen'){
         </div>
       </div>
     </div>
+
+    <!-- Wave pemisah -->
     <img src="../asset/wave-new-navy.svg" alt="Garis pemisah">
   </section>
 
-  <!-- ===== Tim Section ===== -->
+  <!-- ===== Tim Projek PBL ===== -->
   <section id="tim">
     <div class="container">
+
+      <!-- Judul tim -->
       <div class="row text-center mb-4">
         <div class="col">
-          <h1 class="text-white">TIM PROJEK PBL</h1>
+          <h1 class="text-white" data-aos="fade-up">TIM PROJEK PBL</h1>
         </div>
       </div>
 
+      <!-- Daftar anggota tim -->
       <div class="row text-center">
-        <div class="col-md-4 mb-3">
+
+        <!-- Anggota 1 -->
+        <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="100">
           <div class="card h-100">
             <img src="../tim/zaid-biru.jpg" class="card-img-top" alt="Zaid Hasbiya Abrar">
             <div class="card-body">
@@ -78,7 +129,8 @@ if($_SESSION['role'] != 'dosen'){
           </div>
         </div>
 
-        <div class="col-md-4 mb-3">
+        <!-- Anggota 2 -->
+        <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="200">
           <div class="card h-100">
             <img src="../tim/patur-biru.jpg" class="card-img-top" alt="Fathur Alfitrah">
             <div class="card-body">
@@ -88,7 +140,8 @@ if($_SESSION['role'] != 'dosen'){
           </div>
         </div>
 
-        <div class="col-md-4 mb-3">
+        <!-- Anggota 3 -->
+        <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="300">
           <div class="card h-100">
             <img src="../tim/panda-biru.jpg" class="card-img-top" alt="Reifandra Kinadi">
             <div class="card-body">
@@ -97,17 +150,32 @@ if($_SESSION['role'] != 'dosen'){
             </div>
           </div>
         </div>
+
       </div>
     </div>
 
+    <!-- Wave -->
     <img src="../asset/wave.svg" alt="Garis pemisah bawah">
   </section>
 
-  <footer class="text-center py-3 bg-light mt-5">
+  <!-- ===== Footer ===== -->
+  <footer class="text-center py-3 bg-light mt-5" data-aos="fade-up">
     &copy; <span>2025</span> Tim Web Portofolio Projek PBL
   </footer>
 
+  <!-- ===== JavaScript ===== -->
   <script src="../js/bootstrap.bundle.min.js"></script>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    // Inisialisasi animasi AOS
+    AOS.init({
+      duration: 900,
+      once: true,
+      easing: 'ease-out-cubic'
+    });
+  </script>
 </body>
 
 </html>

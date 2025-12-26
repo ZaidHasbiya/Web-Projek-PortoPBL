@@ -1,23 +1,49 @@
 <?php
+/*
+Nama File : jurusan_informatika.php
+Deskripsi : Halaman dosen untuk menampilkan daftar mahasiswa
+            jurusan Teknik Informatika dengan fitur pencarian
+            dan pagination.
+*/
+
+// Menghubungkan file koneksi database
 include '../koneksi.php';
+
+// Memulai session
 session_start();
 
-if (!isset($_SESSION['nama']) || $_SESSION['role'] !== 'dosen') {
+// Validasi login dan role dosen
+if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'dosen') {
+    // Jika bukan dosen, arahkan ke halaman login
     echo "<script>
             alert('Maaf, anda bukan dosen. Silakan login ulang.');
-            window.location.href = 'login.php';
+            window.location.href = '../login.php';
           </script>";
     exit;
 }
 
+// Menyimpan ID user dosen dari session
 $user_id = $_SESSION['id'];
 
+// Menangkap keyword pencarian dari URL (jika ada)
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 
+// Menentukan jumlah data per halaman
+$limit = 6;
+
+// Menentukan halaman saat ini
+$page  = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$page  = ($page < 1) ? 1 : $page;
+
+// Menghitung offset data untuk pagination
+$offset = ($page - 1) * $limit;
+
+// Query dasar untuk mengambil data mahasiswa Teknik Informatika
 $query = "SELECT * FROM users
           WHERE jurusan = 'teknik informatika'
           AND role = 'mahasiswa'";
 
+// Jika ada pencarian, tambahkan kondisi LIKE
 if (!empty($search)) {
     $query .= " AND (
                   nama LIKE '%$search%'
@@ -25,9 +51,36 @@ if (!empty($search)) {
                )";
 }
 
+// Menambahkan LIMIT dan OFFSET ke query
+$query .= " LIMIT $limit OFFSET $offset";
+
+// Menjalankan query data mahasiswa
 $data = mysqli_query($koneksi, $query);
 
+// Query untuk menghitung total data (pagination)
+$totalQuery = "SELECT COUNT(*) AS total FROM users
+               WHERE jurusan = 'teknik informatika'
+               AND role = 'mahasiswa'";
+
+// Jika ada pencarian, tambahkan kondisi ke query total
+if (!empty($search)) {
+    $totalQuery .= " AND (
+                        nama LIKE '%$search%'
+                        OR username LIKE '%$search%'
+                     )";
+}
+
+// Menjalankan query total data
+$totalResult = mysqli_query($koneksi, $totalQuery);
+$totalRow = mysqli_fetch_assoc($totalResult);
+
+// Mengambil jumlah total data
+$totalData = $totalRow['total'];
+
+// Menghitung jumlah total halaman
+$totalPage = ceil($totalData / $limit);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,20 +89,27 @@ $data = mysqli_query($koneksi, $query);
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PortoPBL</title>
 
+  <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="../css/bootstrap.min.css">
 
-  <link rel="stylesheet" href="../styles.css" type="text/css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="../custom.css">
 </head>
+
 <style>
+/* Mengatur posisi navbar agar tetap di atas */
 .navbar {
     position: relative;
     z-index: 10;
 }
+
+/* Styling kotak pencarian */
 .search-box {
     width: 100%;
     max-width: 550px;
@@ -57,53 +117,32 @@ $data = mysqli_query($koneksi, $query);
     border-radius: 14px;
     padding: 6px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
 }
-
-.search-box input {
-    border-radius: 12px 0 0 12px;
-    padding: 10px 15px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-}
-
-.search-box input:focus {
-    box-shadow: inset 0 0 5px rgba(0,123,255,0.5);
-    outline: none;
-}
-
-.search-box .btn {
-    border-radius: 0 12px 12px 0; 
-    background-color: var(--navbar-bg-color, #14446e); 
-    color: #fff;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.search-box .btn:hover {
-    background-color: #1D5D8C; 
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
 </style>
+
 <body>
 
-  <!-- ===== Navbar ===== -->
+<!-- ===== Navbar Dosen ===== -->
 <?php include '../layouts/navbar_dosen.php'; ?>
-  <div class="text-center pt-4 mb-4">
+
+<!-- ===== Judul Halaman ===== -->
+<div class="text-center pt-4 mb-4">
   <h1 class="fw-bold display-6 mb-2">Jurusan Teknik Informatika</h1>
 </div>
 
+<!-- ===== Form Pencarian ===== -->
 <form method="GET" class="d-flex justify-content-center mb-5">
   <div class="search-box shadow-sm">
     <div class="input-group input-group-lg">
+      <!-- Input pencarian nama atau NIM -->
       <input 
         type="text" 
         name="search" 
         class="form-control border-0"
         placeholder="Cari nama atau NIM Mahasiswa"
-        value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
+        value="<?= htmlspecialchars($search) ?>">
+      
+      <!-- Tombol cari -->
       <button type="submit" class="btn btn-clr px-4 fw-semibold">
         Cari
       </button>
@@ -111,14 +150,19 @@ $data = mysqli_query($koneksi, $query);
   </div>
 </form>
 
+<?php if (mysqli_num_rows($data) > 0 ) : ?>
+  <!-- ===== Daftar Mahasiswa ===== -->
+  <div class="d-flex flex-wrap justify-content-evenly align-items-start gap-4">
 
-    <?php if (mysqli_num_rows($data) > 0 ) : ?>
-     <div class="d-flex flex-wrap justify-content-evenly align-items-start gap-4">
-        <?php while ($row = mysqli_fetch_assoc($data)): ?>
-          <?php
-          $foto = !empty($row['foto_profil']) ? "../asset/profil/" . $row['foto_profil'] : "../tim/profil-kosong.jpeg";
-        ?>
-      <!-- Card 1 -->
+    <?php while ($row = mysqli_fetch_assoc($data)): ?>
+      <?php
+        // Menentukan foto profil mahasiswa
+        $foto = !empty($row['foto_profil']) 
+                ? "../asset/profil/" . $row['foto_profil'] 
+                : "../tim/profil-kosong.jpeg";
+      ?>
+
+      <!-- Card Mahasiswa -->
       <div class="col-md-4 col-lg-3">
         <div class="card shadow-sm border-0 h-100">
           <div class="ratio ratio-1x1">
@@ -126,31 +170,72 @@ $data = mysqli_query($koneksi, $query);
           </div>
           <div class="card-body text-center">
             <p class="mb-1"><strong>Nama:</strong> <?= $row['nama'] ?></p>
-            <p class="mb-1"><strong>NIM:</strong> <?=  $row['username'] ?></p>
+            <p class="mb-1"><strong>NIM:</strong> <?= $row['username'] ?></p>
             <p class="mb-3"><strong>Jurusan:</strong> <?= $row['jurusan'] ?></p>
-            <a href="lihat_profil_mhs.php?id=<?= $row['id'] ?>" class="btn btn-info px-4 btn-clr">Lihat Profil</a>
+            <a href="lihat_profil_mhs.php?id=<?= $row['id'] ?>" class="btn btn-info px-4 btn-clr">
+              Lihat Profil
+            </a>
           </div>
         </div>
       </div>
-      <?php endwhile;?>
-      <!-- Card 3 -->
-      <?php else: ?>
-        <h2>Belum ada mahasiswa</h2>
-    </div>
-    <?php endif; ?>
+    <?php endwhile; ?>
+
   </div>
+
+  <!-- ===== Pagination ===== -->
+  <?php if ($totalPage > 1): ?>
+    <nav class="d-flex justify-content-center mt-5">
+      <ul class="pagination">
+
+        <!-- Tombol Sebelumnya -->
+        <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
+          <a class="page-link" href="?page=<?= $page - 1 ?>&search=<?= urlencode($search) ?>">Sebelumnya</a>
+        </li>
+
+        <!-- Nomor Halaman -->
+        <?php for ($i = 1; $i <= $totalPage; $i++): ?>
+          <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+            <a class="page-link" href="?page=<?= $i ?>&search=<?= urlencode($search) ?>">
+              <?= $i ?>
+            </a>
+          </li>
+        <?php endfor; ?>
+
+        <!-- Tombol Selanjutnya -->
+        <li class="page-item <?= ($page >= $totalPage) ? 'disabled' : '' ?>">
+          <a class="page-link" href="?page=<?= $page + 1 ?>&search=<?= urlencode($search) ?>">Selanjutnya</a>
+        </li>
+
+      </ul>
+    </nav>
+  <?php endif; ?>
+
+<?php else: ?>
+
+  <!-- Pesan jika data kosong -->
+  <?php if (!empty($search)): ?>
+    <h2 class="text-center text-muted">
+      Mahasiswa belum ada atau terdaftar
+    </h2>
+  <?php else: ?>
+    <h2 class="text-center text-muted">
+      Belum ada mahasiswa
+    </h2>
+  <?php endif; ?>
+
+<?php endif; ?>
+
+<!-- Wave -->
 <div class="overflow-hidden mt-5">
-  <img src="../asset/wave-new-navy.svg"
-       class="img-fluid d-block"
-       style="width:100vw"
-       alt="wave">
+  <img src="../asset/wave-new-navy.svg" class="img-fluid d-block" style="width:100vw" alt="wave">
 </div>
 
+<!-- Footer -->
 <footer class="w-100 text-center py-3 bg-light">
   &copy; <span>2025</span> Tim Web Portofolio Projek PBL
 </footer>
 
-  <script src="../js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="../js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
