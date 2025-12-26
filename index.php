@@ -1,3 +1,12 @@
+<!--
+Nama File   : index.php
+Fungsi     : Halaman utama (landing page) aplikasi PortoPBL
+Pembuat    : Tim Web Portofolio Projek PBL
+Dibuat     : 2025
+Deskripsi  : Menampilkan halaman publik berisi informasi aplikasi,
+             deskripsi, tim pengembang, dan navigasi login.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,8 +19,7 @@
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
     <!-- Bootstrap CSS -->
@@ -26,9 +34,9 @@
 
     <!-- Style tambahan khusus -->
     <style>
-        .text-justify {
-            text-align: justify !important;
-        }
+    .text-justify {
+        text-align: justify !important;
+    }
     </style>
 </head>
 
@@ -48,16 +56,18 @@
             Platform Portofolio Digital Mahasiswa
         </h2>
 
-        <a href="login.php"
-           class="btn btn-outline-light rounded-pill mt-4 text-center"
-           style="width:200px"
-           data-aos="fade-up"
-           data-aos-delay="400">
+        <a href="login.php" class="btn btn-outline-light rounded-pill mt-4 text-center" style="width:200px"
+            data-aos="fade-up" data-aos-delay="400">
             MASUK
         </a>
 
         <!-- Gambar dekoratif -->
-        <img src="asset/wave.svg" alt="Garis pemisah" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -10 1440 320"
+            style="width: 100%; display: flex; margin-top: -1 px;">
+            <path fill="#fdf6e3" fill-opacity="1"
+                d="M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,213.3C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+            </path>
+        </svg>
     </section>
 
     <!-- Section Tentang Menjelaskan fungsi dan tujuan aplikasi-->
@@ -81,7 +91,12 @@
             </div>
         </div>
 
-        <img src="asset/wave-new-navy.svg" alt="Garis pemisah" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -10 1440 320"
+            style="width: 100%; display: flex margin-top -5px">
+            <path fill="#1D5D8C" fill-opacity="1"
+                d="M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,213.3C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+            </path>
+        </svg>
     </section>
 
     <!-- Section Tim Menampilkan anggota tim pengembang -->
@@ -131,13 +146,19 @@
             </div>
         </div>
 
-        <img src="asset/wave.svg" alt="Garis pemisah bawah" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"
+            style="width: 100%; display: block; margin-top: -1px;">
+            <path fill="#fdf6e3" fill-opacity="1"
+                d="M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,213.3C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+            </path>
+        </svg>
     </section>
 
     <!-- Footer -->
-    <footer class="text-center py-3 bg-light mt-5" data-aos="fade-up">
-        &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-    </footer>
+        <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
+            &copy; <span>2025</span> Tim Web Portofolio Projek PBL
+        </footer>
+    </div>
 
     <!-- Bootstrap JS -->
     <script src="js/bootstrap.bundle.min.js"></script>
@@ -147,12 +168,12 @@
 
     <!-- Inisialisasi AOS -->
     <script>
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
+    AOS.init({
+        duration: 1000,
+        once: true
+    });
     </script>
 
 </body>
-</html>
 
+</html>
