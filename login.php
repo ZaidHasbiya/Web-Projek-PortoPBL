@@ -1,226 +1,250 @@
 <?php
+/*
+Nama File   : login.php
+Deskripsi     : Menangani proses login pengguna (mahasiswa, dosen, admin)
+             dan mengarahkan ke halaman sesuai role
+Dibuat Oleh    : Fathur Alfitah - NIM : [3312501048]
+Dibuat     : 2025
+*/
+
 session_start();
 include 'koneksi.php';
 
-$query_role = mysqli_fetch_assoc(mysqli_query($koneksi, "SHOW COLUMNS FROM users LIKE 'role'"));
-$role_list = explode("','", str_replace(["enum('","')"], "", $query_role['Type']));
+// Mengambil daftar role dari kolom ENUM pada tabel users
+$query_role = mysqli_fetch_assoc(
+  mysqli_query($koneksi, "SHOW COLUMNS FROM users LIKE 'role'")
+);
 
-if(isset($_POST['login'])){
+// Mengubah tipe ENUM menjadi array role
+$role_list = explode(
+  "','",
+  str_replace(["enum('", "')"], "", $query_role['Type'])
+);
+
+// Mengecek apakah tombol login ditekan
+if (isset($_POST['login'])) {
+
+  // Mengambil data input dari form login
   $username = $_POST['username'];
   $password = $_POST['password'];
-  $role = $_POST['role'];
+  $role     = $_POST['role'];
 
-  $query = mysqli_query($koneksi, "SELECT * FROM users WHERE username = '$username' AND password = '$password' AND role = '$role'");
+  // Query untuk mencocokkan data login dengan database
+  $query = mysqli_query(
+    $koneksi,
+    "SELECT * FROM users 
+     WHERE username = '$username' 
+     AND password = '$password' 
+     AND role = '$role'"
+  );
+
+  // Mengambil hasil query
   $data = mysqli_fetch_assoc($query);
 
-  if($data) {
-    $_SESSION['id'] = $data['id'];
-    $_SESSION['nama'] = $data['nama'];
-    $_SESSION['username'] = $data['username'];
-    $_SESSION['role'] = $data['role'];
+  // Jika data ditemukan (login berhasil)
+  if ($data) {
 
-    if($role == 'mahasiswa'){
+    // Menyimpan data pengguna ke dalam session
+    $_SESSION['id']       = $data['id'];
+    $_SESSION['nama']     = $data['nama'];
+    $_SESSION['username'] = $data['username'];
+    $_SESSION['role']     = $data['role'];
+
+    // Pengalihan halaman berdasarkan role
+    if ($role == 'mahasiswa') {
       echo "<script>alert('Login Berhasil!'); window.location='mahasiswa/index_mahasiswa.php';</script>";
-    } elseif($role == 'dosen'){
+    } elseif ($role == 'dosen') {
       echo "<script>alert('Login Berhasil!'); window.location='Dosen/index_dosen.php';</script>";
       exit;
-    } elseif($role == 'admin'){
+    } elseif ($role == 'admin') {
       echo "<script>alert('Login Berhasil!'); window.location='dashboard/dashboard.php';</script>";
       exit;
     }
+
   } else {
+    // Jika login gagal
     echo "<script>alert('Login Gagal! Username atau Password'); window.location='login.php';</script>";
   }
 }
 ?>
-<!DOCTYPE html>
+
 <!DOCTYPE html>
 <html lang="id">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PortoPBL | Masuk</title>
+  <!-- Metadata halaman -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PortoPBL | Masuk</title>
 
-    <!-- Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Font Google -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
 
-    <style>
+  <!-- CSS internal halaman login -->
+  <style>
     body {
-        font-family: 'Poppins', sans-serif;
-        letter-spacing: 0.2px;
-
-        background:
-            linear-gradient(rgba(13, 27, 42, 0.65),
-                rgba(13, 27, 42, 0.65)),
-            url('asset/poltek.jpeg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: 0.2px;
+      background:
+        linear-gradient(rgba(13, 27, 42, 0.65),
+        rgba(13, 27, 42, 0.65)),
+        url('asset/poltek.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
     }
+
     .text-muted {
-        font-size: 14px;
-        font-weight: 400;
-        letter-spacing: 0.3px;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.3px;
     }
 
     .form-label {
-        font-size: 14px;
-        font-weight: 500;
-        letter-spacing: 0.4px;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.4px;
     }
 
     .form-control,
     .form-select {
-        font-size: 14.5px;
-        font-weight: 400;
+      font-size: 14.5px;
+      font-weight: 400;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.8);
     }
 
     .btn-primary-custom {
-        font-size: 15px;
-        font-weight: 600;
-        letter-spacing: 0.6px;
-    }
-
-    .login-card {
-        border-radius: 20px;
-        background-color: rgba(251, 254, 255, 0.7);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-        border: 1px solid rgba(255, 255, 255, 0.4);
-    }
-
-    .logo {
-        width: 150px;
-        max-width: 100%;
-        height: auto;
-        transition: transform 0.3s ease;
-    }
-
-    .logo:hover {
-        transform: scale(1.05);
-    }
-
-
-    .btn-primary-custom {
-        background-color: #0d6efd;
-        border: none;
-        border-radius: 30px;
-        font-weight: 600;
-        color: #ffffff;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      background-color: #0d6efd;
+      border: none;
+      border-radius: 30px;
+      color: #ffffff;
     }
 
     .btn-primary-custom:hover {
-        background-color: #0b5ed7;
-        color: #ffffff;
+      background-color: #0b5ed7;
+      color: #ffffff;
     }
 
-
-    .form-control,
-    .form-select {
-        border-radius: 10px;
-        background: rgba(255, 255, 255, 0.8);
+    .login-card {
+      border-radius: 20px;
+      background-color: rgba(251, 254, 255, 0.7);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.4);
     }
 
-    .card-body label,
-    .card-body p {
-        color: #0d1b2a;
-        font-weight: 500;
+    .logo {
+      width: 150px;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
     }
 
     .select-wrapper {
-        position: relative;
+      position: relative;
     }
 
     .custom-select {
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        padding-right: 40px;
-        cursor: pointer;
+      appearance: none;
+      padding-right: 40px;
+      cursor: pointer;
     }
 
     .select-arrow {
-        position: absolute;
-        top: 50%;
-        right: 15px;
-        width: 0;
-        height: 0;
-        pointer-events: none;
-        border-left: 6px solid transparent;
-        border-right: 6px solid transparent;
-        border-top: 6px solid #555;
-        transform: translateY(-50%);
-        transition: transform 0.3s ease;
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid #555;
+      transform: translateY(-50%);
     }
-
-    .custom-select:focus+.select-arrow {
-        transform: translateY(-50%) rotate(180deg);
-    }
-    </style>
+  </style>
 </head>
 
 <body>
 
-    <div class="container min-vh-100 d-flex align-items-center justify-content-center">
-        <div class="col-md-5 col-lg-5">
+<!-- Container utama halaman login -->
+<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+  <div class="col-md-5">
 
-            <div class="card login-card shadow border-0">
-                <div class="card-body p-4">
+    <!-- Card login -->
+    <div class="card login-card shadow border-0">
+      <div class="card-body p-4">
 
-                    <!-- Logo -->
-                    <div class="text-center mb-3">
-                        <img src="asset/logoo.png" alt="Logo PortoPBL" class="logo mb-2">
-                        <p class="text-muted mb-0">Silakan masuk ke akun anda</p>
-                    </div>
-
-                    <form action="" method="POST">
-
-                        <div class="mb-3">
-                            <label class="form-label">Masuk Sebagai</label>
-
-                            <div class="select-wrapper">
-                                <select name="role" class="form-select custom-select" required>
-                                    <option value="">Pilih Role</option>
-                                    <?php foreach($role_list as $r): ?>
-                                    <option value="<?= $r ?>"><?= ucfirst($r) ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                                <span class="select-arrow"></span>
-                            </div>
-                        </div>
-
-
-                        <div class="mb-3">
-                            <label class="form-label">Username</label>
-                            <input type="text" name="username" class="form-control" placeholder="Masukkan Username (NIM atau NIDN)"
-                                required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Password</label>
-                            <input type="password" name="password" class="form-control" placeholder="Masukkan Password"
-                                required>
-                        </div>
-
-                        <div class="d-grid mt-4">
-                            <button type="submit" name="login" class="btn btn-primary-custom btn-lg">
-                                Masuk
-                            </button>
-                        </div>
-
-                    </form>
-
-                </div>
-            </div>
-
+        <!-- Logo aplikasi -->
+        <div class="text-center mb-3">
+          <img src="asset/logoo.png" alt="Logo PortoPBL" class="logo mb-2">
+          <p class="text-muted mb-0">Silakan masuk ke akun anda</p>
         </div>
+
+        <!-- Form login -->
+        <form action="" method="POST">
+
+          <!-- Pilih role -->
+          <div class="mb-3">
+            <label class="form-label">Masuk Sebagai</label>
+            <div class="select-wrapper">
+              <select name="role" class="form-select custom-select" required>
+                <option value="">Pilih Role</option>
+                <?php foreach ($role_list as $r): ?>
+                  <option value="<?= $r ?>"><?= ucfirst($r) ?></option>
+                <?php endforeach; ?>
+              </select>
+              <span class="select-arrow"></span>
+            </div>
+          </div>
+
+          <!-- Input username -->
+          <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input
+              type="text"
+              name="username"
+              class="form-control"
+              placeholder="Masukkan Username (NIM atau NIDN)"
+              required
+            >
+          </div>
+
+          <!-- Input password -->
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input
+              type="password"
+              name="password"
+              class="form-control"
+              placeholder="Masukkan Password"
+              required
+            >
+          </div>
+
+          <!-- Tombol login -->
+          <div class="d-grid mt-4">
+            <button type="submit" name="login" class="btn btn-primary-custom btn-lg">
+              Masuk
+            </button>
+          </div>
+
+        </form>
+
+      </div>
     </div>
 
-    <script src="js/bootstrap.bundle.min.js"></script>
-</body>
+  </div>
+</div>
 
+<!-- Bootstrap JS -->
+<script src="js/bootstrap.bundle.min.js"></script>
+
+</body>
 </html>

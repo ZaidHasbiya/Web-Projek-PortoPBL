@@ -1,158 +1,155 @@
 <?php
+/*
+Nama File        : tambah_projek.php
+Deskripsi   : File ini digunakan untuk menambahkan data projek mahasiswa,
+              termasuk upload gambar, validasi input, dan penyimpanan ke database
+Dibuat Oleh    : Zaid Hasbiya Abrar - NIM : [3312501046]
+Tanggal     : 10 Oktober 2025
+*/
+
 include '../koneksi.php';
+
+// memulai session
 session_start();
 
-if (!isset($_SESSION['nama']) || $_SESSION['role'] !== 'mahasiswa') {
+// Cek login
+if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'mahasiswa') {
     echo "<script>
             alert('Maaf, anda bukan mahasiswa. Silakan login ulang.');
-            window.location.href = 'login.php';
+            window.location.href = '../login.php';
           </script>";
     exit;
 }
 
 $user_id = $_SESSION['id'];
 
-if(isset($_POST['tambah'])){
-  $judul = $_POST['judul'];
-  $deskripsi = $_POST['deskripsi'];
-  $link = $_POST['link'];
+// Proses tambah projek
+if (isset($_POST['tambah'])) {
 
-if (strpos($link, "youtu.be") !== false) {
-    $id = basename($link);
-    $link = "https://www.youtube.com/embed/$id";
-} else {
-    $link = str_replace("watch?v=", "embed/", $link);
-}
+    $judul = $_POST['judul'];
+    $deskripsi = $_POST['deskripsi'];
+    $link = $_POST['link'];
+    $link_repo = $_POST['link_repo'];
+    $tgl_pembuatan = $_POST['tgl_pembuatan'];
+    $tgl_selesai = $_POST['tgl_selesai'];
 
-  $link_repo = $_POST['link_repo'];
-  $tgl_pembuatan = $_POST['tgl_pembuatan'];
-  $tgl_selesai = $_POST['tgl_selesai'];
-
-$gambar = time() . '_' . basename($_FILES['gambar_projek']['name']);
-$tmp = $_FILES['gambar_projek']['tmp_name'];
-$ukuran = $_FILES['gambar_projek']['size'];
-$error = $_FILES['gambar_projek']['error'];
-
-$folder = "../asset/uploads/";
-$max_size = 20 * 1024 * 1024;
-$allowed_ext = ['jpg', 'jpeg', 'png'];
-
-if ($error !== 0) {
-    echo "<script>alert('Terjadi kesalahan saat upload gambar!'); window.history.back();</script>";
-    exit;
-}
-
-$ext = strtolower(pathinfo($gambar, PATHINFO_EXTENSION));
-
-if (!in_array($ext, $allowed_ext)) {
-    echo "<script>alert('Format gambar harus JPG, JPEG, atau PNG!'); window.history.back();</script>";
-    exit;
-}
-
-if ($ukuran > $max_size) {
-    echo "<script>alert('Ukuran gambar maksimal 20 MB!'); window.history.back();</script>";
-    exit;
-}
-
-if (file_exists($folder . $gambar)) {
-    echo "<script>alert('Nama file sudah ada, silakan ganti nama file!'); window.history.back();</script>";
-    exit;
-}
-
-move_uploaded_file($tmp, $folder . $gambar);
-
-    $query = ("INSERT INTO projek (user_id, judul, deskripsi, link, link_repo, gambar_projek, tgl_pembuatan, tgl_selesai) VALUES ('$user_id', '$judul', '$deskripsi','$link', '$link_repo', '$gambar', '$tgl_pembuatan', '$tgl_selesai')");
-    $result = mysqli_query($koneksi, $query);
-
-    if($result){
-      echo "<script>alert('Projek berhasil ditambahkan!'); window.location='projek_saya.php';</script>";
+    // Ubah link YouTube ke format embed
+    if (strpos($link, "youtu.be") !== false) {
+        $id = basename($link);
+        $link = "https://www.youtube.com/embed/$id";
     } else {
-        echo "<script>alert('Gagal menambahkan projek!'); window.location='tambah_projek.php';</script>";
+        $link = str_replace("watch?v=", "embed/", $link);
+    }
+
+    // Konfigurasi upload gambar
+    $gambar = time() . '_' . basename($_FILES['gambar_projek']['name']);
+    $tmp = $_FILES['gambar_projek']['tmp_name'];
+    $ukuran = $_FILES['gambar_projek']['size'];
+    $error = $_FILES['gambar_projek']['error'];
+
+    $folder = "../asset/uploads/";
+    $max_size = 20 * 1024 * 1024;
+    $allowed_ext = ['jpg', 'jpeg', 'png'];
+
+    if ($error !== 0) {
+        echo "<script>alert('Terjadi kesalahan upload gambar!');history.back();</script>";
+        exit;
+    }
+
+    $ext = strtolower(pathinfo($gambar, PATHINFO_EXTENSION));
+
+    if (!in_array($ext, $allowed_ext)) {
+        echo "<script>alert('Format gambar harus JPG, JPEG, atau PNG');history.back();</script>";
+        exit;
+    }
+
+    if ($ukuran > $max_size) {
+        echo "<script>alert('Ukuran gambar maksimal 20 MB');history.back();</script>";
+        exit;
+    }
+
+    move_uploaded_file($tmp, $folder . $gambar);
+
+    // Simpan ke database
+    $query = "INSERT INTO projek 
+              (user_id, judul, deskripsi, link, link_repo, gambar_projek, tgl_pembuatan, tgl_selesai)
+              VALUES
+              ('$user_id', '$judul', '$deskripsi', '$link', '$link_repo', '$gambar', '$tgl_pembuatan', '$tgl_selesai')";
+
+    if (mysqli_query($koneksi, $query)) {
+        echo "<script>alert('Projek berhasil ditambahkan');window.location='projek_saya.php';</script>";
+    } else {
+        echo "<script>alert('Gagal menambahkan projek');history.back();</script>";
     }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Tambah Projek | PortoPBL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="../css/bootstrap.min.css">
-  <link rel="stylesheet" href="../styles.css" type="text/css">
-  <link rel="stylesheet" href="../custom.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="../styles.css">
 </head>
 
 <body>
-  <div class="container my-5">
-    <h3 class="mb-4">Tambah Projek</h3>
 
-    <form action="#" method="post" enctype="multipart/form-data">
+<div class="container my-5">
+  <h3 class="mb-4">Tambah Projek</h3>
 
-      <div class="mb-3">
-        <label for="judul" class="form-label">Judul Proyek</label>
-        <input type="text" class="form-control" id="judul" name="judul" placeholder="Judul Proyek" required>
-      </div>
+  <form method="post" enctype="multipart/form-data">
 
-      <div class="mb-3">
-        <label for="deskripsi" class="form-label">Deskripsi Proyek</label>
-        <textarea class="form-control" id="deskripsi" name="deskripsi" placeholder="Deskripsi Proyek" rows="3" required></textarea>
-      </div>
+    <div class="mb-3">
+      <label class="form-label">Judul Projek</label>
+      <input type="text" class="form-control" name="judul" required>
+    </div>
 
-      <div class="mb-3">
-        <label for="video" class="form-label">Link Video</label>
-        <input type="url" class="form-control" id="video" name="link" placeholder="Link Video" required>
-      </div>
-      <div class="mb-3">
-        <label for="repo" class="form-label">Link Repositori</label>
-        <input type="url" class="form-control" id="repo" name="link_repo" placeholder="Link Repositori" required>
-      </div>
+    <div class="mb-3">
+      <label class="form-label">Deskripsi Projek</label>
+      <textarea class="form-control" name="deskripsi" rows="3" required></textarea>
+    </div>
 
-      <div class="mb-3">
-        <label for="foto" class="form-label">Foto Proyek</label>
-        <div class="form-text text-danger mb-2">
-          File foto berupa jpg, jpeg, dan png dan tidak melebihi 20Mb
-        </div>
-        <input type="file" class="form-control" id="foto" name="gambar_projek" accept=".jpg,.jpeg,.png" required>
-      </div>
+    <div class="mb-3">
+      <label class="form-label">Tautan Video</label>
+      <input type="url" class="form-control" name="link" required>
+    </div>
 
-      <div class="mb-3">
-        <label for="tgl_pembuatan" class="form-label">Tanggal Pembuatan</label>
-        <input type="date" class="form-control" id="tgl_pembuatan" name="tgl_pembuatan" required>
-      </div>
+    <div class="mb-3">
+      <label class="form-label">Tautan Repositori</label>
+      <input type="url" class="form-control" name="link_repo" required>
+    </div>
 
-      <div class="mb-4">
-        <label for="tgl_selesai" class="form-label">Tanggal Selesai</label>
-        <input type="date" class="form-control" id="tgl_selesai" name="tgl_selesai" required>
-      </div>
+    <div class="mb-3">
+      <label class="form-label">Foto Projek</label>
+      <input type="file" class="form-control" name="gambar_projek" accept=".jpg,.jpeg,.png" required>
+      <small class="text-danger">Format jpg, jpeg, png (maks 20MB)</small>
+    </div>
 
-      <div class="d-flex justify-content-between">
-        <a href="projek_saya.php" class="btn btn-clr">Kembali</a>
-        <button type="submit" class="btn btn-success" name="tambah">TAMBAH</button>
-      </div>
-    </form>
-  </div>
+    <div class="mb-3">
+      <label class="form-label">Tanggal Pembuatan</label>
+      <input type="date" class="form-control" name="tgl_pembuatan" required>
+    </div>
 
-<div class="overflow-hidden mt-5">
-  <img src="../asset/wave-new-navy.svg"
-       class="img-fluid d-block"
-       style="width:100vw"
-       alt="wave">
+    <div class="mb-4">
+      <label class="form-label">Tanggal Selesai</label>
+      <input type="date" class="form-control" name="tgl_selesai" required>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <a href="projek_saya.php" class="btn btn-secondary">Kembali</a>
+      <button type="submit" name="tambah" class="btn btn-success">Tambah</button>
+    </div>
+
+  </form>
 </div>
 
-<footer class="w-100 text-center py-3 bg-light">
-  &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-</footer>
-
-  <script src="../js/bootstrap.bundle.min.js"></script>
+<script src="../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
