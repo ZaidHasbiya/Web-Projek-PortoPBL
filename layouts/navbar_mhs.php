@@ -32,8 +32,9 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="profil_saya.php">Profil Saya</a></li>
-                        <li><a class="dropdown-item" href="edit_profil.php">Edit Profil</a></li>
+                        <li><a class="dropdown-item" href="edit_profil.php">Ubah Profil</a></li>
                         <li><a class="dropdown-item" href="projek_saya.php">Projek Saya</a></li>
+                        <li><a class="dropdown-item" href="ubah_password.php">Ubah Password</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
