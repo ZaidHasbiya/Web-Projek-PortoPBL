@@ -1,33 +1,46 @@
 <?php
-session_start();
-include '../koneksi.php';
+/**
+ * File: projek.php
+ * Fungsi: Menampilkan daftar projek mahasiswa untuk dosen, dengan fitur pencarian berdasarkan nama atau username mahasiswa.
+ * Pembuat: Zaid Hasbiya Abrar
+ * Waktu Pembuatan: 26 Desember 2025
+ */
 
-if(!isset($_SESSION['nama'])){
-    echo "<script>alert('Silahkan Melakukan Login Terlebih Dahulu'); window.location.href = 'login.php';</script>";
+session_start(); // Memulai session untuk mengecek status login
+include '../koneksi.php'; // Menghubungkan ke database
+
+// Mengecek apakah user sudah login
+if(!isset($_SESSION['username'])){
+    echo "<script>alert('Silahkan Melakukan Login Terlebih Dahulu'); window.location.href = '../login.php';</script>";
     exit;
 }
 
+// Mengecek apakah user memiliki role 'dosen'
 if ($_SESSION['role'] !== 'dosen') {
     echo "<script>
             alert('Maaf, anda bukan dosen. Silakan login ulang.');
-            window.location.href = 'login.php';
+            window.location.href = '../login.php';
           </script>";
     exit;
 }
 
+// Mengambil id user dari session
 $user_id = $_SESSION['id'];
 
+// Query default untuk menampilkan semua projek beserta nama dan username pembuat
 $query = "SELECT projek.*, users.nama, users.username 
           FROM projek 
           JOIN users ON projek.user_id = users.id 
           ORDER BY projek.judul ASC";
 
-$data = mysqli_query ($koneksi, $query);
-$result = mysqli_num_rows($data);
+$data = mysqli_query($koneksi, $query); // Eksekusi query
+$result = mysqli_num_rows($data); // Menghitung jumlah projek
 
+// Jika form pencarian dikirim
 if (isset($_POST['cari'])) {
-    $keyword = mysqli_real_escape_string($koneksi, $_POST['keyword']);
+    $keyword = mysqli_real_escape_string($koneksi, $_POST['keyword']); // Mengamankan input dari SQL injection
 
+    // Query pencarian berdasarkan nama atau username mahasiswa
     $query = "SELECT projek.*, users.nama, users.username 
               FROM projek
               JOIN users ON projek.user_id = users.id
@@ -38,6 +51,7 @@ if (isset($_POST['cari'])) {
     $data = mysqli_query($koneksi, $query);
     $result = mysqli_num_rows($data);
 } else {
+    // Query default jika tidak melakukan pencarian
     $query = "SELECT projek.*, users.nama, users.username 
               FROM projek 
               JOIN users ON projek.user_id = users.id 
@@ -47,6 +61,7 @@ if (isset($_POST['cari'])) {
     $result = mysqli_num_rows($data);
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,64 +70,99 @@ if (isset($_POST['cari'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PortoPBL</title>
 
+  <!-- Google Fonts Poppins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
+  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="../css/bootstrap.min.css">
 
+  <!-- Custom Styles -->
   <link rel="stylesheet" href="../styles.css" type="text/css">
   <link rel="stylesheet" href="../custom.css">
 </head>
+
 <style>
- .navbar-brand img {
-      width: 80px;
-      height: 80px;
-      margin-right: 12px;
-    }
-    .navbar-brand {
-      font-size: 1.2rem; 
-    }
-  </style>
+/* Styling navbar brand */
+.navbar-brand img {
+  width: 80px;
+  height: 80px;
+  margin-right: 12px;
+}
+
+.navbar-brand {
+  font-size: 1.2rem; 
+}
+</style>
+
 <body>
 
-  <!-- ===== Navbar ===== -->
+  <!-- ===== Navbar dosen ===== -->
   <?php include '../layouts/navbar_dosen.php'; ?>
+
+  <!-- Container utama projek -->
   <div class="container">
+    
+    <!-- Header dan form pencarian -->
     <div class="d-flex justify-content-between align-items-center my-5">
-  <h1 class="my-5">Projek</h1>
-  <form class="d-flex" method="POST">
+      <h1 class="my-5">Projek</h1>
+
+      <!-- Form pencarian mahasiswa -->
+      <form class="d-flex" method="POST">
         <input class="form-control me-2" type="text" placeholder="Cari Mahasiswa" name="keyword">
         <button class="btn btn-clr" type="submit" name="cari">Cari</button>
       </form>
-      </div>
-    <?php if ($result > 0 ): ?>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        <?php while($row = mysqli_fetch_assoc($data)) :?>
-  <div class="col">
-    <div class="card border border-info ">
-      <img src="../asset/uploads/<?= $row['gambar_projek']; ?>" class="card-img-top" alt="Projek Web Portofolio PBL">
-      <div class="card-body">
-        <h5 class="card-title"><?= $row['judul']; ?></h5>
-        <p class="card-text">Deskripsi Projek : <?= $row['deskripsi']; ?></p>
-        <p class="card-text">Dibuat Oleh :</p>
-        <p class="card-text">Nama Mahasiswa : <?= $row['nama']; ?></p>
-        <p class="card-text">NIM : <?= $row['username']; ?></p>
-        <a href="lihat_projek_dosen.php?projek_id=<?= $row['projek_id']; ?>" class="btn btn-outline-info rounded-pill d-flex justify-content-center strk-btn">Lihat Projek</a>
-      </div>
     </div>
+
+    <!-- Menampilkan projek jika ada -->
+    <?php if ($result > 0 ): ?>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <?php while($row = mysqli_fetch_assoc($data)) :?>
+          <div class="col">
+            <div class="card border border-info">
+              
+              <!-- Gambar projek -->
+              <div class="ratio ratio-16x9 overflow-hidden">
+                <img src="../asset/uploads/<?= $row['gambar_projek']; ?>" 
+                     class="w-100 h-100 object-fit-cover" 
+                     alt="Projek Web Portofolio PBL">
+              </div>
+
+              <!-- Konten projek -->
+              <div class="card-body">
+                <h5 class="card-title"><?= $row['judul']; ?></h5>
+                <p class="card-text">Deskripsi Projek : <?= $row['deskripsi']; ?></p>
+                <p class="card-text">Dibuat Oleh :</p>
+                <p class="card-text">Nama Mahasiswa : <?= $row['nama']; ?></p>
+                <p class="card-text">NIM : <?= $row['username']; ?></p>
+
+                <!-- Tombol untuk melihat projek detail -->
+                <a href="lihat_projek_dosen.php?projek_id=<?= $row['projek_id']; ?>" 
+                   class="btn btn-outline-info rounded-pill d-flex justify-content-center strk-btn">
+                   Lihat Projek
+                </a>
+              </div>
+            </div>
+          </div>
+        <?php endwhile; ?>
+      </div>
+
+    <?php else : ?>
+      <!-- Pesan jika tidak ada projek -->
+      <h2>Belum ada projek</h2>
+    <?php endif; ?>
   </div>
-  <?php endwhile; ?>
-  </div>
-  <?php else : ?>
-    <h2>Belum ada projek</h2>
-  <?php endif; ?>
-  </div>
+
+  <!-- Wave -->
   <img src="asset/wave-info.svg">
+
+  <!-- Footer halaman -->
   <footer class="text-center py-3 bg-light mt-5">
     &copy; <span>2025</span> Tim Web Portofolio Projek PBL
   </footer>
 
+  <!-- Bootstrap JS -->
   <script src="../js/bootstrap.bundle.min.js"></script>
 </body>
 

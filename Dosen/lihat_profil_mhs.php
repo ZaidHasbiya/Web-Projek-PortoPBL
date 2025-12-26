@@ -1,272 +1,238 @@
 <?php
+/*
+Nama File : lihat_profil_mhs.php
+Deskripsi :
+Halaman ini digunakan oleh dosen untuk melihat detail profil mahasiswa,
+daftar proyek mahasiswa, serta memberikan dan melihat penilaian portofolio.
+*/
+
 session_start();
 include '../koneksi.php';
 
-if(!isset($_SESSION['username'])){
-  echo "<script>alert('Silakan login terlebih dahulu'); window.location ='login.php';</script>";
+// Cek login
+if (!isset($_SESSION['username'])) {
+  echo "<script>alert('Silakan login terlebih dahulu'); window.location ='../login.php';</script>";
   exit;
 }
 
+// Cek role dosen
 if ($_SESSION['role'] !== 'dosen') {
-    echo "<script>alert('Anda tidak memiliki akses!'); window.location.href='login.php';</script>";
-    exit;
+  echo "<script>alert('Anda tidak memiliki akses!'); window.location.href='../login.php';</script>";
+  exit;
 }
 
+// Cek ID mahasiswa
 if (!isset($_GET['id'])) {
-    echo "<script>alert('Mahasiswa tidak ditemukan'); window.location='index_dosen.php';</script>";
-    exit;
+  echo "<script>alert('Mahasiswa tidak ditemukan'); window.location='index_dosen.php';</script>";
+  exit;
 }
 
-$user_id = $_GET['id'];
+$user_id  = $_GET['id'];
 $dosen_id = $_SESSION['id'];
-$query_user = "SELECT * FROM users WHERE id = '$user_id'";
+
+// Ambil data mahasiswa
+$query_user  = "SELECT * FROM users WHERE id = '$user_id'";
 $result_user = mysqli_query($koneksi, $query_user);
-$user = mysqli_fetch_assoc($result_user);
-$foto = !empty($user['foto_profil']) 
-        ? '../asset/profil/' . $user['foto_profil'] 
-        : '../tim/profil-kosong.jpeg';
+$user        = mysqli_fetch_assoc($result_user);
 
 if (!$user) {
-    echo "<script>alert('Mahasiswa tidak ditemukan'); window.location='index_dosen.php';</script>";
-    exit;
+  echo "<script>alert('Mahasiswa tidak ditemukan'); window.location='index_dosen.php';</script>";
+  exit;
 }
 
+// Foto profil
+$foto = !empty($user['foto_profil'])
+  ? '../asset/profil/' . $user['foto_profil']
+  : '../tim/profil-kosong.jpeg';
+
+// Simpan penilaian
 if (isset($_POST['simpan_penilaian'])) {
-    $mahasiswa_id = $user_id;
-    $dosen_id = $_SESSION['id'];
-    $komentar = $_POST['komentar'];
-    $nilai = (int) $_POST['nilai'];
+  $komentar = $_POST['komentar'];
+  $nilai    = (int) $_POST['nilai'];
 
-    $insert_penilaian = "INSERT INTO penilaian_portofolio 
-        (mahasiswa_id, dosen_id, komentar, nilai)
-        VALUES ('$mahasiswa_id', '$dosen_id', '$komentar', '$nilai')";
+  $insert_penilaian = "
+    INSERT INTO penilaian_portofolio 
+    (mahasiswa_id, dosen_id, komentar, nilai)
+    VALUES ('$user_id', '$dosen_id', '$komentar', '$nilai')
+  ";
 
-    if ($insert_penilaian) {
-        mysqli_query($koneksi, $insert_penilaian);
-        echo "<script>alert('Penilaian berhasil disimpan');</script>";
-    } else {
-        echo "<script>alert('Gagal menyimpan penilaian');</script>";
-    }
+  if (mysqli_query($koneksi, $insert_penilaian)) {
+    echo "<script>alert('Penilaian berhasil disimpan');</script>";
+  } else {
+    echo "<script>alert('Gagal menyimpan penilaian');</script>";
+  }
 }
-$query_projek = "SELECT * FROM projek WHERE user_id = '$user_id'";
+
+// Ambil projek mahasiswa
+$query_projek  = "SELECT * FROM projek WHERE user_id = '$user_id'";
 $result_projek = mysqli_query($koneksi, $query_projek);
 
+// Ambil seluruh penilaian
 $query_penilaian = "
-SELECT pf.*, u.nama AS nama_dosen
-FROM penilaian_portofolio pf
-JOIN users u ON pf.dosen_id = u.id
-WHERE pf.mahasiswa_id = '$user_id'
-ORDER BY pf.id_penilaian DESC
+  SELECT pf.*, u.nama AS nama_dosen
+  FROM penilaian_portofolio pf
+  JOIN users u ON pf.dosen_id = u.id
+  WHERE pf.mahasiswa_id = '$user_id'
+  ORDER BY pf.id_penilaian DESC
 ";
-
 $result_penilaian = mysqli_query($koneksi, $query_penilaian);
 
+// Ambil penilaian dosen yang login
 $query_history_penilaian_dosen = "
-SELECT pf.*, u.nama AS nama_dosen
-FROM penilaian_portofolio pf
-JOIN users u ON pf.dosen_id = u.id
-WHERE pf.mahasiswa_id = '$user_id' AND dosen_id = '$dosen_id'
-ORDER BY pf.id_penilaian DESC
+  SELECT pf.*, u.nama AS nama_dosen
+  FROM penilaian_portofolio pf
+  JOIN users u ON pf.dosen_id = u.id
+  WHERE pf.mahasiswa_id = '$user_id'
+  AND pf.dosen_id = '$dosen_id'
+  ORDER BY pf.id_penilaian DESC
 ";
 $result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaian_dosen);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PortoPBL</title>
 
-  <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-  crossorigin="anonymous"/>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="../css/bootstrap.min.css">
-
-  <link rel="stylesheet" href="../styles.css" type="text/css">
+  <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="../custom.css">
 </head>
 
 <body>
 
-  <?php include '../layouts/navbar_dosen.php'; ?>
-  <div class="container py-4 mt-5 pt-5">
-  <!-- Baris utama -->
+<?php include '../layouts/navbar_dosen.php'; ?>
+
+<div class="container py-4 mt-5 pt-5">
   <div class="row align-items-center">
-    <!-- Kolom kiri: Foto + Jurusan -->
     <div class="col-md-4 text-center">
-      <div class="ratio ratio-1x1 rounded-circle overflow-hidden mx-auto mb-2" style="width: 200px;">
-        <img src="<?= $foto ?>" alt="Foto Mahasiswa" class="w-100 h-100" style="object-fit: cover;">
+      <div class="ratio ratio-1x1 rounded-circle overflow-hidden mx-auto mb-2" style="width:200px;">
+        <img src="<?= $foto ?>" class="w-100 h-100" style="object-fit:cover;">
       </div>
+
       <small class="d-block mb-3 text-muted">
-  <?= htmlspecialchars($user['nama']) ?>
-</small>
+        <?= htmlspecialchars($user['nama']) ?>
+      </small>
 
-<div class="bg-footer p-2 rounded d-inline-block">
-  <strong class="text-white">
-    Jurusan: <?= htmlspecialchars($user['jurusan'] ?: 'Belum Diatur') ?>
-  </strong>
-</div>
-</div>
-    <!-- Kolom kanan: Tentang Mahasiswa -->
-   <div class="col-md-8">
-      <!-- Tentang Mahasiswa -->
-      <div class="bg-footer p-3 rounded mb-4">
-        <h5 class="fw-bold text-white">Tentang Mahasiswa</h5>
-        <p class="mb-0 text-white"><?= $user['deskripsi_diri'] ?: 'Belum Ada Deskripsi Apapun' ?></p>
-      </div>
-
-      <!-- Catatan Prestasi -->
-      <div class="bg-footer p-3 rounded">
-        <h5 class="fw-bold text-white">Catatan Prestasi</h5>
-          <p class="text-white"><?= $user['prestasi'] ?: 'Belum Ada Prestasi Apapun' ?></p>
+      <div class="bg-footer p-2 rounded d-inline-block">
+        <strong class="text-white">
+          Jurusan: <?= htmlspecialchars($user['jurusan'] ?: 'Belum Diatur') ?>
+        </strong>
       </div>
     </div>
-</div>
 
-<?php if(mysqli_num_rows($result_projek) > 0) : ?>
-    <?php while ($projek = mysqli_fetch_assoc($result_projek)): ?>
-<div class="bg-footer p-4 rounded mt-4">
-  <h5 class="fw-bold mb-3 text-center text-white">Proyek</h5>
-
-        <div class="mb-3">
-          <label class="form-label fw-semibold text-white">Judul Proyek</label>
-          <div class="form-control bg-light">
-            <?= htmlspecialchars($projek['judul']) ?>
-          </div>
-        </div>
-
-        <div class="mb-4">
-          <label class="form-label fw-semibold text-white">Deskripsi Proyek</label>
-          <div class="form-control bg-light" style="min-height: 100px;">
-            <?= htmlspecialchars($projek['deskripsi']) ?>
-          </div>
-        </div>
-
-        <div class="mb-4">
-          <label class="form-label fw-semibold text-white">Link Repositori</label>
-          <div class="form-control bg-light" style="min-height: 100px;">
-            <a href="<?= htmlspecialchars($projek['link_repo']); ?>" target="_blank" ><?= htmlspecialchars($projek['link_repo']); ?></a>
-          </div>
-        </div>
-        
-        <div class="row g-3">
-          <div class="col-md-6">
-            <div class="bg-light border border-dark-subtle p-3 text-center rounded">
-              <span class="fw-semibold text-muted">Video</span>
-              <?php if (!empty($projek['link'])): ?>
-                <div class="ratio ratio-16x9 mt-2">
-                  <iframe src="<?= htmlspecialchars($projek['link']) ?>" allowfullscreen></iframe>
-                </div>
-              <?php endif; ?>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="bg-light border border-dark-subtle p-3 text-center rounded">
-              <span class="fw-semibold text-muted">Foto</span><br>
-              <?php if (!empty($projek['gambar_projek'])): ?>
-                <img src="../asset/uploads/<?= htmlspecialchars($projek['gambar_projek']) ?>" 
-                     class="img-fluid rounded mt-2">
-              <?php endif; ?>
-            </div>
-          </div>
-        </div>
-</div>
-<?php endwhile; ?>
-
-  <?php else: ?>
-      <p class="text-center text-black fw-semibold">Mahasiswa belum mengunggah projek apapun.</p>
-  <?php endif; ?>
-  <div class="container mt-4 mb-5">
-  <div class="bg-footer p-4 rounded">
-    <h5 class="fw-bold text-white mb-3 text-center">
-      Riwayat Penilaian Portofolio
-    </h5>
-
-    <?php if (mysqli_num_rows($result_penilaian) > 0): ?>
-      <?php while ($p = mysqli_fetch_assoc($result_penilaian)): ?>
-
-        <div class="bg-light p-3 rounded mb-3">
-          <strong><?= htmlspecialchars($p['nama_dosen']) ?></strong>
-          <span class="badge bg-footer ms-2">
-            Nilai: <?= htmlspecialchars($p['nilai']) ?>
-          </span>
-
-          <p class="mt-2 mb-1">
-            <?= htmlspecialchars($p['komentar']) ?>
-          </p>
-
-        </div>
-
-      <?php endwhile; ?>
-    <?php else: ?>
-      <p class="text-center text-white">
-        Belum ada penilaian dari dosen.
-      </p>
-    <?php endif; ?>
-    <h5 class="fw-bold text-white mb-3 text-center">
-      Komentar Dan Penilaian Anda
-    </h5>
-
-<?php if(mysqli_num_rows($result_history_penilaian_dosen) > 0) :?>
-  <?php while ($h = mysqli_fetch_assoc($result_history_penilaian_dosen)) :?>
-
-    <div class="bg-light p-3 rounded mb-3">
-          <strong><?= htmlspecialchars($h['nama_dosen']) ?></strong>
-          <span class="badge bg-footer ms-2">
-            Nilai: <?= htmlspecialchars($h['nilai']) ?>
-          </span>
-
-          <p class="mt-2 mb-1">
-            Komentar: <?= htmlspecialchars($h['komentar']) ?>
-          </p>
-        </div>
-        <?php endwhile; ?>
-        <?php else: ?>
-      <p class="text-center text-white">
-        Anda belum memiliki penilaian apapun dari portofolio ini.
-      </p>
-        <?php endif;?>
-</div>
-</div>
-<div class="container mt-4">
-  <div class="bg-footer p-4 rounded">
-    <h5 class="fw-bold text-white mb-3 text-center">
-      Penilaian Profil Mahasiswa
-    </h5>
-
-    <form method="POST">
-      <div class="mb-3">
-        <label class="form-label text-white">Komentar</label>
-        <textarea name="komentar" class="form-control" required></textarea>
+    <div class="col-md-8">
+      <div class="bg-footer p-3 rounded mb-4">
+        <h5 class="fw-bold text-white">Tentang Mahasiswa</h5>
+        <p class="text-white mb-0">
+          <?= $user['deskripsi_diri'] ?: 'Belum Ada Deskripsi Apapun' ?>
+        </p>
       </div>
 
-      <div class="mb-3">
-        <label class="form-label text-white">Nilai (0 - 100)</label>
-        <input type="number" name="nilai" class="form-control" min="0" max="100" required>
+      <div class="bg-footer p-3 rounded">
+        <h5 class="fw-bold text-white">Catatan Prestasi</h5>
+        <p class="text-white">
+          <?= $user['prestasi'] ?: 'Belum Ada Prestasi Apapun' ?>
+        </p>
       </div>
-
-      <button type="submit" name="simpan_penilaian" class="btn btn-light fw-semibold">
-        Simpan Penilaian
-      </button>
-    </form>
+    </div>
   </div>
-</div>
-</div>
-  <img src="asset/wave-dark-blue.svg">
-  <footer class="text-center py-3 bg-light mt-5">
-    &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-  </footer>
 
-  <script src="../js/bootstrap.bundle.min.js"></script>
+<?php if (mysqli_num_rows($result_projek) > 0): ?>
+  <?php while ($projek = mysqli_fetch_assoc($result_projek)): ?>
+    <div class="bg-footer p-4 rounded mt-4">
+      <h5 class="fw-bold text-white text-center mb-3">Proyek</h5>
+
+      <div class="mb-3">
+        <label class="form-label text-white fw-semibold">Judul Proyek</label>
+        <div class="form-control bg-light">
+          <?= htmlspecialchars($projek['judul']) ?>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-white fw-semibold">Deskripsi Proyek</label>
+        <div class="form-control bg-light">
+          <?= htmlspecialchars($projek['deskripsi']) ?>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-white fw-semibold">Tautan Repositori</label>
+        <div class="form-control bg-light">
+          <a href="<?= htmlspecialchars($projek['link_repo']) ?>" target="_blank">
+            <?= htmlspecialchars($projek['link_repo']) ?>
+          </a>
+        </div>
+      </div>
+      <div class="row g-3">
+
+            <!-- Video -->
+            <div class="col-md-6">
+              <div class="bg-light border p-3 text-center rounded">
+                <span class="fw-semibold text-muted">Video</span>
+                <?php if (!empty($projek['link'])): ?>
+                  <div class="ratio ratio-16x9 mt-2">
+                    <iframe src="<?= htmlspecialchars($projek['link']) ?>" allowfullscreen></iframe>
+                  </div>
+                <?php endif; ?>
+              </div>
+            </div>
+
+            <!-- Foto -->
+            <div class="col-md-6">
+              <div class="bg-light border p-3 text-center rounded">
+                <span class="fw-semibold text-muted">Foto</span><br>
+                <?php if (!empty($projek['gambar_projek'])): ?>
+                  <img
+                    src="../asset/uploads/<?= htmlspecialchars($projek['gambar_projek']) ?>"
+                    class="img-fluid rounded mt-2"
+                  >
+                <?php endif; ?>
+              </div>
+            </div>
+
+          </div>
+    </div>
+  <?php endwhile; ?>
+<?php else: ?>
+  <p class="text-center fw-semibold mt-4">
+    Mahasiswa belum mengunggah projek apapun.
+  </p>
+<?php endif; ?>
+
+<div class="bg-footer p-4 rounded mt-4">
+  <h5 class="fw-bold text-white text-center mb-3">Penilaian Profil Mahasiswa</h5>
+
+  <form method="POST">
+    <div class="mb-3">
+      <label class="form-label text-white">Komentar</label>
+      <textarea name="komentar" class="form-control" required></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label text-white">Nilai (0 - 100)</label>
+      <input type="number" name="nilai" class="form-control" min="0" max="100" required>
+    </div>
+
+    <button type="submit" name="simpan_penilaian" class="btn btn-light fw-semibold">
+      Simpan Penilaian
+    </button>
+  </form>
+</div>
+
+</div>
+
+<footer class="text-center py-3 bg-light mt-5">
+  &copy; 2025 Tim Web Portofolio Projek PBL
+</footer>
+
+<script src="../js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
