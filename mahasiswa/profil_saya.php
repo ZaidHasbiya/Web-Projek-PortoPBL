@@ -158,14 +158,12 @@ body {
     color: #e9e1c9 !important;
 }
 
-/* DESKRIPSI / ISI TEKS (bukan link) */
 .bg-footer p,
 .bg-footer span,
 .bg-footer .form-control {
     color: #2d3748 !important;
 }
 
-/* LINK — kembali ke warna biru default */
 .bg-footer a {
     color: #0d6efd !important;
     /* biru bootstrap / default */
@@ -177,21 +175,17 @@ body {
     color: #0a58ca !important;
 }
 
-
-/* Label form tetap cream */
 .bg-footer label {
     color: #e9e1c9 !important;
     font-weight: 600;
 }
 
-/* Background isi form */
 .bg-footer .form-control {
     background: #fffef5;
     border-radius: 10px;
     border: 1px solid #e9e1c9;
 }
 
-/* Badge nilai */
 .badge.bg-footer {
     background: #0B3C5D !important;
     color: #e9e1c9 !important;

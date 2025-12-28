@@ -41,18 +41,21 @@ $foto = !empty($user['foto_profil'])
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PortoPBL</title>
 
     <!-- Font Awesome untuk ikon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        crossorigin="anonymous" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -61,6 +64,31 @@ $foto = !empty($user['foto_profil'])
     <link rel="stylesheet" href="../styles.css" type="text/css">
     <link rel="stylesheet" href="../custom.css">
 </head>
+
+<style>
+/* warna tema biru */
+.bg-footer {
+    background-color: #1D5D8C !important;
+    color: white !important;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+
+/* background halaman */
+body {
+    background: #fdf6e3 !important;
+}
+
+.bg-footer h5,
+.bg-footer strong {
+    color: #e9e1c9 !important;
+}
+
+.bg-footer p {
+    color: #2d3748 !important;
+}
+
+</style>
 
 <body>
 
@@ -112,10 +140,7 @@ $foto = !empty($user['foto_profil'])
 
     <!-- Wave -->
     <div class="overflow-hidden mt-5">
-        <img src="../asset/wave-new-navy.svg"
-             class="img-fluid d-block"
-             style="width:100vw"
-             alt="wave">
+        <img src="../asset/wave-new-navy.svg" class="img-fluid d-block" style="width:100vw" alt="wave">
     </div>
 
     <!-- Section tambahan dengan background footer -->
@@ -124,7 +149,7 @@ $foto = !empty($user['foto_profil'])
     </section>
 
     <!-- Footer halaman -->
-    <footer class="w-100 text-center py-3 bg-light">
+    <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
         &copy; <span>2025</span> Tim Web Portofolio Projek PBL
     </footer>
 
@@ -132,4 +157,5 @@ $foto = !empty($user['foto_profil'])
     <script src="../js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

@@ -126,6 +126,7 @@ if (isset($_POST['edit'])) {
     <link rel="stylesheet" href="../styles.css" type="text/css">
 
 </head>
+
 <style>
 body {
     background-color: #fdf6e3 !important;
@@ -136,7 +137,6 @@ h1, h2, h3, label {
     color: #2d3748;
 }
 
-/* pastikan tombol kembali biru */
 .btn-clr {
     background-color: #1D5D8C !important;
     color: #fff !important;
