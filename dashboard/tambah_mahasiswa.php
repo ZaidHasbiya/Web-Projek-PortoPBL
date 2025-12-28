@@ -60,60 +60,62 @@ if(isset($_POST['tambah'])){
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tambah Mahasiswa</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tambah Mahasiswa</title>
 
-  <!-- Font Poppins -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
 </head>
 
-<body>
-  <div class="container my-5">
-    <h3 class="mb-4">Tambah Mahasiswa</h3>
+<body style="background-color: #fdf6e3;">
+    <div class="container my-5">
+        <h3 class="mb-4">Tambah Mahasiswa</h3>
 
-    <!-- Form tambah mahasiswa -->
-    <form action="" method="post">
-      <div class="mb-3">
-        <label for="nama" class="form-label">Nama Mahasiswa</label>
-        <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Mahasiswa" required>
-      </div>
-      <div class="mb-3">
-        <label for="username" class="form-label">NIM</label>
-        <input type="text" class="form-control" id="username" name="username" placeholder="NIM" required>
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="text" class="form-control" id="password" name="password" placeholder="Password" required>
-      </div>
-      <div class="mb-3">
-        <label for="jurusan" class="form-label">Pilih Jurusan</label>
-        <select name="jurusan" class="form-control" id="jurusan" required>
-          <option value="">-- Pilih Jurusan --</option>
-          <?php foreach ($jurusan_list as $j): ?>
-              <option value="<?= $j ?>"><?= ucfirst($j) ?></option>
-          <?php endforeach; ?>
-        </select>
-      </div>
+        <!-- Form tambah mahasiswa -->
+        <form action="" method="post">
+            <div class="mb-3">
+                <label for="nama" class="form-label">Nama Mahasiswa</label>
+                <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Mahasiswa" required>
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">NIM</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="NIM" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="text" class="form-control" id="password" name="password" placeholder="Password" required>
+            </div>
+            <div class="mb-3">
+                <label for="jurusan" class="form-label">Pilih Jurusan</label>
+                <select name="jurusan" class="form-control" id="jurusan" required>
+                    <option value="">-- Pilih Jurusan --</option>
+                    <?php foreach ($jurusan_list as $j): ?>
+                    <option value="<?= $j ?>"><?= ucfirst($j) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-      <div class="d-flex justify-content-between">
-        <a href="data_mahasiswa.php" class="btn btn-primary">Kembali</a>
-        <button type="submit" class="btn btn-success" name="tambah">Tambah</button>
-      </div>
-    </form>
-  </div>
+            <div class="d-flex justify-content-between">
+                <a href="data_mahasiswa.php" class="btn btn-primary">Kembali</a>
+                <button type="submit" class="btn btn-success" name="tambah">Tambah</button>
+            </div>
+        </form>
+    </div>
 
-  <!-- Footer -->
-  <img src="../asset/wave-info.svg" class="w-100" alt="">
-  <footer class="text-center py-3 bg-light mt-5">
-    &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-  </footer>
+    <!-- Footer -->
+    <img src="../asset/wave-new-navy.svg" class="w-100" alt="wave">
+    <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
+        &copy; <span>2025</span> Tim Web Portofolio Projek PBL
+    </footer>
 
-  <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

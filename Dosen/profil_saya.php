@@ -66,15 +66,12 @@ $foto = !empty($user['foto_profil'])
 </head>
 
 <style>
-/* warna tema biru */
 .bg-footer {
     background-color: #1D5D8C !important;
     color: white !important;
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
 }
 
-
-/* background halaman */
 body {
     background: #fdf6e3 !important;
 }
@@ -87,7 +84,6 @@ body {
 .bg-footer p {
     color: #2d3748 !important;
 }
-
 </style>
 
 <body>
