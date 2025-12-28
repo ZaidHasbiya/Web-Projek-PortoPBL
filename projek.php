@@ -78,6 +78,22 @@ $result = mysqli_num_rows($data);
   <link rel="stylesheet" href="custom.css">
 </head>
 
+<style>
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+}
+</style>
+
 <body>
 
   <!-- Navbar publik -->
@@ -158,7 +174,7 @@ $result = mysqli_num_rows($data);
   </div>
 
   <!-- Wave -->
-  <div class="overflow-hidden mt-5">
+  <div class="overflow mt-5">
     <img
       src="asset/wave-new-navy.svg"
       class="img-fluid d-block"
@@ -166,11 +182,6 @@ $result = mysqli_num_rows($data);
       alt="wave"
     >
   </div>
-
-  <!-- Footer -->
-  <section class="bg-footer">
-    <br><br><br>
-  </section>
 
   <!-- Footer -->
 <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">

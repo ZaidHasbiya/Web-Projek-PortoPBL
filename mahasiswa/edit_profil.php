@@ -124,7 +124,7 @@ if (isset($_POST['edit'])) {
   <!-- CSS -->
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../styles.css" type="text/css">
-  <link rel="stylesheet" href="../custom.css">
+
 </head>
 
 <body>

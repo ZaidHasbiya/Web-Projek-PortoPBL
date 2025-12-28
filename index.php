@@ -42,8 +42,9 @@ Deskripsi  : Menampilkan halaman publik berisi informasi aplikasi,
     .jumbotron h2 {
         color: #e9e1c9 !important;
     }
-
- 
+    #tim h1 {
+    color: #e9e1c9 !important;
+}
     </style>
 </head>
 
@@ -112,7 +113,7 @@ Deskripsi  : Menampilkan halaman publik berisi informasi aplikasi,
 
             <div class="row text-center mb-4">
                 <div class="col">
-                    <h1 class="text-white" data-aos="fade-up">
+                    <h1 data-aos="fade-up">
                         TIM PROJEK PBL
                     </h1>
                 </div>

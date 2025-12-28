@@ -69,7 +69,8 @@ $totalPage = ceil($totalData / $limit);
 </head>
 
 <style>
-html, body {
+html,
+body {
     height: 100%;
 }
 
@@ -79,7 +80,7 @@ body {
 }
 
 .container {
-    flex: 1; /* dorong footer ke bawah */
+    flex: 1;
 }
 </style>
 
