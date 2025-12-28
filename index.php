@@ -145,20 +145,20 @@ Deskripsi  : Menampilkan halaman publik berisi informasi aplikasi,
 
             </div>
         </div>
-
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"
-            style="width: 100%; display: block; margin-top: -1px;">
-            <path fill="#fdf6e3" fill-opacity="1"
-                d="M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,213.3C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-            </path>
-        </svg>
     </section>
 
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"
+        style="width:100%; display:block; margin-top:-2px; transform: scaleY(-1);">
+        <path fill="#1D5D8C" fill-opacity="1" d="M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,213.3C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320
+        C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320
+        C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+        </path>
+    </svg>
+
     <!-- Footer -->
-        <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
-            &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-        </footer>
-    </div>
+    <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
+        &copy; <span>2025</span> Tim Web Portofolio Projek PBL
+    </footer>
 
     <!-- Bootstrap JS -->
     <script src="js/bootstrap.bundle.min.js"></script>
@@ -168,6 +168,27 @@ Deskripsi  : Menampilkan halaman publik berisi informasi aplikasi,
 
     <!-- Inisialisasi AOS -->
     <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px)';
+        });
+
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
     AOS.init({
         duration: 1000,
         once: true

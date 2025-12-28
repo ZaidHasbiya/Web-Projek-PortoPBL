@@ -1,79 +1,13 @@
-.bg-nav-new{
-    background-color: #0B3C5D;
-}
-#tim{
-    background-color: #1D5D8C;
-}
-.nav-link:hover{
-    color: #4FB3E8;
-}
-.bg-footer{
-    background-color: #1D5D8C;
-}
-.h-nav:hover{
-    color: #4FB3E8;
-}
-.btn-clr{
-    background-color: #0B3C5D;
-    color: aliceblue;
-}
-.btn-clr:hover{
-    background-color: #4FB3E8;
-}
-.margin-top{
-    padding-top: 50px;
-}
-.strk-btn{
-    border-color: #0B3C5D;
-    color: #0B3C5D;
-}
-.strk-btn:hover{
-    background-color: #0B3C5D;
-    color: aliceblue;
-}
-.outline-card{
-    border: solid 3px #0B3C5D;
-}
-.bg-nav-new{
-    background-color: #0B3C5D;
-}
-#tim{
-    background-color: #1D5D8C;
-}
-.nav-link:hover{
-    color: #4FB3E8;
-}
-.bg-footer{
-    background-color: #1D5D8C;
-}
-.h-nav:hover{
-    color: #4FB3E8;
-}
-.btn-clr{
-    background-color: #0B3C5D;
-    color: aliceblue;
-}
-.btn-clr:hover{
-    background-color: #4FB3E8;
-}
-.margin-top{
-    padding-top: 50px;
-}
-.strk-btn{
-    border-color: #0B3C5D;
-    color: #0B3C5D;
-}
-.strk-btn:hover{
-    background-color: #0B3C5D;
-    color: aliceblue;
-}
-.outline-card{
-    border: solid 3px #0B3C5D;
-}
-
+/* =========================================
+   Global Base Style
+========================================= */
 body {
     background-color: #fdf6e3 !important;
     font-family: 'Poppins', sans-serif;
+}
+
+h1, h2, h3 {
+    color: #2d3748;
 }
 
 .card {
@@ -81,77 +15,81 @@ body {
     border: 1px solid #e9e1c9;
     border-radius: 15px !important;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform .3s ease, box-shadow .3s ease;
 }
 
+/* =========================================
+   Navbar
+========================================= */
+.bg-nav-new {
+    background-color: #0B3C5D;
+}
+
+.nav-link:hover,
+.h-nav:hover {
+    color: #4FB3E8;
+}
+
+.btn-clr {
+    background-color: #0B3C5D;
+    color: aliceblue;
+}
+
+.btn-clr:hover {
+    background-color: #4FB3E8;
+}
+
+/* =========================================
+   Section Tentang
+========================================= */
+#tentang {
+    background-color: #fdf6e3;
+    padding: 60px 0;
+}
+
+/* =========================================
+   Section TIM
+========================================= */
 #tim {
-    padding: 80px 0;
+    background-color: #1D5D8C;
     color: white;
+    padding-top: 80px;
+    padding-bottom: 0;   
 }
 
+/* kartu di dalam TIM (tetap cream) */
 #tim .card {
     background-color: #fffef5 !important;
     color: #333;
 }
 
+/* SVG pemutus ke footer */
+#tim svg {
+    display: block;
+    margin-bottom: -8px;
+}
+
+/* =========================================
+   Footer
+========================================= */
 footer {
     background-color: #e9e1c9 !important;
-    /* Cream gelap untuk kontras */
     color: #5a5a5a !important;
     padding: 25px 0 !important;
     font-weight: 500;
 }
-
-.btn-outline-light {
-    border: 2px solid white;
-    background: transparent;
-    transition: all 0.3s ease;
-}
-
-.btn-outline-light:hover {
-    background: white;
-    color: #4a90e2 !important;
-    border-color: white;
-}
-
-h1,
-h2,
-h3 {
-    color: #2d3748;
-}
-
-/* Typography yang lebih baik */
-h1 {
-    font-weight: 700 !important;
-    margin-bottom: 20px;
-}
-
-h2 {
-    font-weight: 500 !important;
-    color: rgba(255, 255, 255, 0.9) !important;
-}
-
-h3 {
-    font-weight: 400 !important;
-    line-height: 1.8;
-    color: #4a5568;
-}
-
-
-
-/* Responsive adjustments */
+/* =========================================
+   Responsive
+========================================= */
 @media (max-width: 768px) {
-    .jumbotron {
-        padding: 60px 0;
-    }
 
-    h1.display-3 {
-        font-size: 2.5rem;
-    }
+    .jumbotron { padding: 60px 0; }
+
+    h1.display-3 { font-size: 2.5rem; }
 
     #tentang,
     #tim {
-        padding: 50px 0;
+        padding-top: 60px;
     }
 
     .card-img-top {
