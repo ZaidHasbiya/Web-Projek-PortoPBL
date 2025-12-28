@@ -61,122 +61,109 @@ $result = mysqli_num_rows($data);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <!-- Metadata -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PortoPBL</title>
+    <!-- Metadata -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PortoPBL</title>
 
-  <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    crossorigin="anonymous"
-  />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        crossorigin="anonymous" />
 
-  <!-- Google Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;900&display=swap"
-    rel="stylesheet"
-  >
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;900&display=swap"
+        rel="stylesheet">
 
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="../styles.css" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../styles.css" type="text/css">
 </head>
 
 <body>
 
-<!-- Navbar Mahasiswa -->
-<?php include '../layouts/navbar_mhs.php'; ?>
+    <!-- Navbar Mahasiswa -->
+    <?php include '../layouts/navbar_mhs.php'; ?>
 
-<div class="container">
-  <h1 class="my-5 pt-5">Projek</h1>
+    <div class="container">
+        <h1 class="my-5 pt-5">Projek</h1>
 
-  <?php if ($result > 0): ?>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <?php if ($result > 0): ?>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
 
-      <?php while ($row = mysqli_fetch_assoc($data)): ?>
-        <div class="col">
-          <div class="card border border-info h-100 d-flex flex-column">
+            <?php while ($row = mysqli_fetch_assoc($data)): ?>
+            <div class="col">
+                <div class="card border border-info h-100 d-flex flex-column">
 
-            <!-- Gambar Projek -->
-            <div class="ratio ratio-16x9 overflow-hidden">
-              <img
-                src="../asset/uploads/<?= htmlspecialchars($row['gambar_projek']); ?>"
-                class="w-100 h-100 object-fit-cover"
-                alt="Projek Web Portofolio PBL"
-              >
+                    <!-- Gambar Projek -->
+                    <div class="ratio ratio-16x9 overflow-hidden">
+                        <img src="../asset/uploads/<?= htmlspecialchars($row['gambar_projek']); ?>"
+                            class="w-100 h-100 object-fit-cover" alt="Projek Web Portofolio PBL">
+                    </div>
+
+                    <!-- Informasi Projek -->
+                    <div class="card-body">
+                        <h5 class="card-title"><?= htmlspecialchars($row['judul']); ?></h5>
+
+                        <p class="card-text">
+                            Deskripsi Projek : <?= htmlspecialchars($row['deskripsi']); ?>
+                        </p>
+
+                        <p class="card-text mb-1">Dibuat Oleh :</p>
+                        <p class="card-text mb-1">
+                            Nama Mahasiswa : <?= htmlspecialchars($row['nama']); ?>
+                        </p>
+                        <p class="card-text">
+                            NIM : <?= htmlspecialchars($row['username']); ?>
+                        </p>
+
+                        <a href="lihat_projek_mhs.php?projek_id=<?= $row['projek_id']; ?>"
+                            class="btn btn-outline-info rounded-pill d-flex justify-content-center">
+                            Lihat Projek
+                        </a>
+                    </div>
+                </div>
             </div>
+            <?php endwhile; ?>
 
-            <!-- Informasi Projek -->
-            <div class="card-body">
-              <h5 class="card-title"><?= htmlspecialchars($row['judul']); ?></h5>
-
-              <p class="card-text">
-                Deskripsi Projek : <?= htmlspecialchars($row['deskripsi']); ?>
-              </p>
-
-              <p class="card-text mb-1">Dibuat Oleh :</p>
-              <p class="card-text mb-1">
-                Nama Mahasiswa : <?= htmlspecialchars($row['nama']); ?>
-              </p>
-              <p class="card-text">
-                NIM : <?= htmlspecialchars($row['username']); ?>
-              </p>
-
-              <a
-                href="lihat_projek_mhs.php?projek_id=<?= $row['projek_id']; ?>"
-                class="btn btn-outline-info rounded-pill d-flex justify-content-center"
-              >
-                Lihat Projek
-              </a>
-            </div>
-          </div>
         </div>
-      <?php endwhile; ?>
 
+        <!-- Pagination -->
+        <?php if ($total_page > 1): ?>
+        <nav class="mt-4">
+            <ul class="pagination justify-content-center">
+                <?php for ($i = 1; $i <= $total_page; $i++): ?>
+                <li class="page-item <?= ($i == $page) ? 'active' : ''; ?>">
+                    <a class="page-link" href="?page=<?= $i; ?>">
+                        <?= $i; ?>
+                    </a>
+                </li>
+                <?php endfor; ?>
+            </ul>
+        </nav>
+        <?php endif; ?>
+
+        <?php else: ?>
+        <h2>Belum ada projek</h2>
+        <?php endif; ?>
     </div>
 
-    <!-- Pagination -->
-    <?php if ($total_page > 1): ?>
-      <nav class="mt-4">
-        <ul class="pagination justify-content-center">
-          <?php for ($i = 1; $i <= $total_page; $i++): ?>
-            <li class="page-item <?= ($i == $page) ? 'active' : ''; ?>">
-              <a class="page-link" href="?page=<?= $i; ?>">
-                <?= $i; ?>
-              </a>
-            </li>
-          <?php endfor; ?>
-        </ul>
-      </nav>
-    <?php endif; ?>
+    <!-- Wave -->
+    <div class="overflow-hidden mt-5">
+        <img src="../asset/wave-new-navy.svg" class="img-fluid d-block" style="width:100vw" alt="wave">
+    </div>
 
-  <?php else: ?>
-    <h2>Belum ada projek</h2>
-  <?php endif; ?>
-</div>
-
-<!-- Wave -->
-<div class="overflow-hidden mt-5">
-  <img
-    src="../asset/wave-new-navy.svg"
-    class="img-fluid d-block"
-    style="width:100vw"
-    alt="wave"
-  >
-</div>
-
-<!-- Footer -->
-<footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
+    <!-- Footer -->
+    <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
         &copy; <span>2025</span> Tim Web Portofolio Projek PBL
     </footer>
 
-<script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

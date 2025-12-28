@@ -1,4 +1,10 @@
 <link rel="stylesheet" href="../custom.css">
+<style>
+  .navbar .dropdown-menu {
+    background-color: #e9e1c9 !important;
+    border: 1px solid #d9d2b8;
+}
+</style>
 <nav class="navbar navbar-expand-lg navbar-dark py-3 bg-nav-new shadow fixed-top">
     <div class="container">
         <a class="navbar-brand fw-bold" href="index_mahasiswa.php">PortoPBL</a>

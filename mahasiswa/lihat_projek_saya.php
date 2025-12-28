@@ -194,9 +194,9 @@ $komentarResult = mysqli_query($koneksi, $komentarQuery);
   </div>
 
   <!-- Footer -->
-  <footer class="w-100 text-center py-3 bg-light">
-    &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-  </footer>
+  <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
+        &copy; <span>2025</span> Tim Web Portofolio Projek PBL
+    </footer>
 
   <!-- Bootstrap JS -->
   <script src="../js/bootstrap.bundle.min.js"></script>
