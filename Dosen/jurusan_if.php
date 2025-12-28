@@ -235,6 +235,33 @@ $totalPage = ceil($totalData / $limit);
 
     <!-- Bootstrap JS -->
     <script src="../js/bootstrap.bundle.min.js"></script>
+     <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px)';
+        });
+
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+    AOS.init({
+        duration: 1000,
+        once: true
+    });
+    </script>
 </body>
 
 </html>

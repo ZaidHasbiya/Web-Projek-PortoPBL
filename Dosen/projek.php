@@ -122,12 +122,12 @@ if (isset($_POST['cari'])) {
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <?php while($row = mysqli_fetch_assoc($data)) :?>
             <div class="col">
-                <div class="card border border-info">
+               <div class="card border border-info h-100 d-flex flex-column">
 
                     <!-- Gambar projek -->
                     <div class="ratio ratio-16x9 overflow-hidden">
-                        <img src="../asset/uploads/<?= $row['gambar_projek']; ?>" class="w-100 h-100 object-fit-cover"
-                            alt="Projek Web Portofolio PBL">
+                        <img src="../asset/uploads/<?= htmlspecialchars($row['gambar_projek']); ?>"
+                            class="w-100 h-100 object-fit-cover" alt="Projek Web Portofolio PBL">
                     </div>
 
                     <!-- Konten projek -->
@@ -157,7 +157,7 @@ if (isset($_POST['cari'])) {
 
     <!-- Wave -->
     <div class="overflow mt-5">
-       <img src="../asset/wave-new-navy.svg" class="img-fluid d-block" style="width:100vw" alt="wave">
+        <img src="../asset/wave-new-navy.svg" class="img-fluid d-block" style="width:100vw" alt="wave">
     </div>
 
     <!-- Footer halaman -->
@@ -167,6 +167,33 @@ if (isset($_POST['cari'])) {
 
     <!-- Bootstrap JS -->
     <script src="../js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px)';
+        });
+
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+    AOS.init({
+        duration: 1000,
+        once: true
+    });
+    </script>
 </body>
 
 </html>

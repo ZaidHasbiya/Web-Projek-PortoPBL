@@ -106,35 +106,35 @@ body {
             <!-- Perulangan data projek -->
             <?php while ($row = mysqli_fetch_assoc($data)) : ?>
             <div class="col">
-                <div class="card border border-info">
+                <div class="card border border-info h-100 d-flex flex-column">
 
                     <!-- Gambar projek -->
                     <div class="ratio ratio-16x9 overflow-hidden">
-                        <img src="asset/uploads/<?= $row['gambar_projek']; ?>" class="w-100 h-100 object-fit-cover"
-                            alt="Projek Web Portofolio PBL">
+                        <img src="asset/uploads/<?=  htmlspecialchars($row['gambar_projek']); ?>"
+                            class="w-100 h-100 object-fit-cover" alt="Projek Web Portofolio PBL">
                     </div>
 
                     <!-- Informasi projek -->
                     <div class="card-body">
-                        <h5 class="card-title"><?= $row['judul']; ?></h5>
+                        <h5 class="card-title"><?= htmlspecialchars($row['judul']); ?></h5>
+
                         <p class="card-text">
-                            Deskripsi Projek : <?= $row['deskripsi']; ?>
-                        </p>
-                        <p class="card-text">Dibuat Oleh :</p>
-                        <p class="card-text">
-                            Nama Mahasiswa : <?= $row['nama']; ?>
-                        </p>
-                        <p class="card-text">
-                            NIM : <?= $row['username']; ?>
+                            Deskripsi Projek : <?= htmlspecialchars($row['deskripsi']); ?>
                         </p>
 
-                        <!-- Tombol lihat detail projek -->
+                        <p class="card-text mb-1">Dibuat Oleh :</p>
+                        <p class="card-text mb-1">
+                            Nama Mahasiswa : <?= htmlspecialchars($row['nama']); ?>
+                        </p>
+                        <p class="card-text">
+                            NIM : <?= htmlspecialchars($row['username']); ?>
+                        </p>
+
                         <a href="lihat_projek.php?projek_id=<?= $row['projek_id']; ?>"
                             class="btn btn-outline-info rounded-pill d-flex justify-content-center strk-btn">
                             Lihat Projek
                         </a>
                     </div>
-
                 </div>
             </div>
             <?php endwhile; ?>
@@ -175,6 +175,33 @@ body {
 
     <!-- Bootstrap JS -->
     <script src="js/bootstrap.bundle.min.js"></script>
+     <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px)';
+        });
+
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+    AOS.init({
+        duration: 1000,
+        once: true
+    });
+    </script>
 </body>
 
 </html>
