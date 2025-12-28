@@ -72,179 +72,174 @@ if (isset($_POST['login'])) {
 <html lang="id">
 
 <head>
-  <!-- Metadata halaman -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PortoPBL | Masuk</title>
+    <!-- Metadata halaman -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PortoPBL | Masuk</title>
 
-  <!-- Font Google -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 
-  <!-- CSS internal halaman login -->
-  <style>
+    <!-- CSS internal halaman login -->
+    <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      letter-spacing: 0.2px;
-      background:
-        linear-gradient(rgba(13, 27, 42, 0.65),
-        rgba(13, 27, 42, 0.65)),
-        url('asset/poltek.jpeg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
+        font-family: 'Poppins', sans-serif;
+        letter-spacing: 0.2px;
+        background:
+            linear-gradient(rgba(13, 27, 42, 0.65),
+                rgba(13, 27, 42, 0.65)),
+            url('asset/poltek.jpeg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }
 
     .text-muted {
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.3px;
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0.3px;
     }
 
     .form-label {
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0.4px;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.4px;
     }
 
     .form-control,
     .form-select {
-      font-size: 14.5px;
-      font-weight: 400;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.8);
+        background: rgba(253, 246, 227, 0.85);
+        border-radius: 10px;
+        border: 1px solid #e6ddc4;
     }
 
+
     .btn-primary-custom {
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 0.6px;
-      background-color: #0d6efd;
-      border: none;
-      border-radius: 30px;
-      color: #ffffff;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.6px;
+        background-color: #1D5D8C;
+        border: none;
+        border-radius: 30px;
+        color: #ffffff;
     }
 
     .btn-primary-custom:hover {
-      background-color: #0b5ed7;
-      color: #ffffff;
+        background-color: #0b5ed7;
+        color: #ffffff;
+    }
+
+    .card-body {
+        color: #2d3748;
     }
 
     .login-card {
-      border-radius: 20px;
-      background-color: rgba(251, 254, 255, 0.7);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 20px;
+        background-color: rgba(253, 246, 227, 0.75);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.45);
     }
 
     .logo {
-      width: 150px;
-      transition: transform 0.3s ease;
+        width: 150px;
+        transition: transform 0.3s ease;
     }
 
     .logo:hover {
-      transform: scale(1.05);
+        transform: scale(1.05);
     }
 
     .select-wrapper {
-      position: relative;
+        position: relative;
     }
 
     .custom-select {
-      appearance: none;
-      padding-right: 40px;
-      cursor: pointer;
+        appearance: none;
+        padding-right: 40px;
+        cursor: pointer;
     }
 
     .select-arrow {
-      position: absolute;
-      top: 50%;
-      right: 15px;
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-      border-top: 6px solid #555;
-      transform: translateY(-50%);
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 6px solid #555;
+        transform: translateY(-50%);
     }
-  </style>
+    </style>
 </head>
 
 <body>
 
-<!-- Container utama halaman login -->
-<div class="container min-vh-100 d-flex align-items-center justify-content-center">
-  <div class="col-md-5">
+    <!-- Container utama halaman login -->
+    <div class="container min-vh-100 d-flex align-items-center justify-content-center">
+        <div class="col-md-5">
 
-    <!-- Card login -->
-    <div class="card login-card shadow border-0">
-      <div class="card-body p-4">
+            <!-- Card login -->
+            <div class="card login-card shadow border-0">
+                <div class="card-body p-4">
 
-        <!-- Logo aplikasi -->
-        <div class="text-center mb-3">
-          <img src="asset/logoo.png" alt="Logo PortoPBL" class="logo mb-2">
-          <p class="text-muted mb-0">Silakan masuk ke akun anda</p>
-        </div>
+                    <!-- Logo aplikasi -->
+                    <div class="text-center mb-3">
+                        <img src="asset/logoo.png" alt="Logo PortoPBL" class="logo mb-2">
+                        <p class="text-muted mb-0">Silakan masuk ke akun anda</p>
+                    </div>
 
-        <!-- Form login -->
-        <form action="" method="POST">
+                    <!-- Form login -->
+                    <form action="" method="POST">
 
-          <!-- Pilih role -->
-          <div class="mb-3">
-            <label class="form-label">Masuk Sebagai</label>
-            <div class="select-wrapper">
-              <select name="role" class="form-select custom-select" required>
-                <option value="">Pilih Role</option>
-                <?php foreach ($role_list as $r): ?>
-                  <option value="<?= $r ?>"><?= ucfirst($r) ?></option>
-                <?php endforeach; ?>
-              </select>
-              <span class="select-arrow"></span>
+                        <!-- Pilih role -->
+                        <div class="mb-3">
+                            <label class="form-label">Masuk Sebagai</label>
+                            <div class="select-wrapper">
+                                <select name="role" class="form-select custom-select" required>
+                                    <option value="">Pilih Role</option>
+                                    <?php foreach ($role_list as $r): ?>
+                                    <option value="<?= $r ?>"><?= ucfirst($r) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <span class="select-arrow"></span>
+                            </div>
+                        </div>
+
+                        <!-- Input username -->
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input type="text" name="username" class="form-control"
+                                placeholder="Masukkan Username (NIM atau NIDN)" required>
+                        </div>
+
+                        <!-- Input password -->
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="Masukkan Password"
+                                required>
+                        </div>
+
+                        <!-- Tombol login -->
+                        <div class="d-grid mt-4">
+                            <button type="submit" name="login" class="btn btn-primary-custom btn-lg">
+                                Masuk
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
             </div>
-          </div>
 
-          <!-- Input username -->
-          <div class="mb-3">
-            <label class="form-label">Username</label>
-            <input
-              type="text"
-              name="username"
-              class="form-control"
-              placeholder="Masukkan Username (NIM atau NIDN)"
-              required
-            >
-          </div>
-
-          <!-- Input password -->
-          <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input
-              type="password"
-              name="password"
-              class="form-control"
-              placeholder="Masukkan Password"
-              required
-            >
-          </div>
-
-          <!-- Tombol login -->
-          <div class="d-grid mt-4">
-            <button type="submit" name="login" class="btn btn-primary-custom btn-lg">
-              Masuk
-            </button>
-          </div>
-
-        </form>
-
-      </div>
+        </div>
     </div>
 
-  </div>
-</div>
-
-<!-- Bootstrap JS -->
-<script src="js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

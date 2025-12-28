@@ -30,6 +30,9 @@ h1, h2, h3 {
     color: #4FB3E8;
 }
 
+/* =========================================
+   Buttons
+========================================= */
 .btn-clr {
     background-color: #0B3C5D;
     color: aliceblue;
@@ -39,12 +42,38 @@ h1, h2, h3 {
     background-color: #4FB3E8;
 }
 
+.btn-outline-light {
+    color: #fdf6e3 !important;
+    border-color: #fdf6e3 !important;
+    background: transparent;
+    transition: all .3s ease;
+}
+
+.btn-outline-light:hover {
+    background-color: #fdf6e3 !important; /* cream */
+    color: #1D5D8C !important;
+}
+
+/* stroke button */
+.strk-btn {
+    border-color: #0B3C5D;
+    color: #0B3C5D;
+}
+
+.strk-btn:hover {
+    background-color: #0B3C5D;
+    color: aliceblue;
+}
+
 /* =========================================
-   Section Tentang
+   Utility
 ========================================= */
-#tentang {
-    background-color: #fdf6e3;
-    padding: 60px 0;
+.margin-top {
+    padding-top: 50px;
+}
+
+.outline-card {
+    border: 3px solid #0B3C5D;
 }
 
 /* =========================================
@@ -53,20 +82,12 @@ h1, h2, h3 {
 #tim {
     background-color: #1D5D8C;
     color: white;
-    padding-top: 80px;
-    padding-bottom: 0;   
+    padding: 80px 0;
 }
 
-/* kartu di dalam TIM (tetap cream) */
 #tim .card {
     background-color: #fffef5 !important;
     color: #333;
-}
-
-/* SVG pemutus ke footer */
-#tim svg {
-    display: block;
-    margin-bottom: -8px;
 }
 
 /* =========================================
@@ -78,18 +99,23 @@ footer {
     padding: 25px 0 !important;
     font-weight: 500;
 }
+
 /* =========================================
    Responsive
 ========================================= */
 @media (max-width: 768px) {
 
-    .jumbotron { padding: 60px 0; }
+    .jumbotron {
+        padding: 60px 0;
+    }
 
-    h1.display-3 { font-size: 2.5rem; }
+    h1.display-3 {
+        font-size: 2.5rem;
+    }
 
     #tentang,
     #tim {
-        padding-top: 60px;
+        padding: 50px 0;
     }
 
     .card-img-top {

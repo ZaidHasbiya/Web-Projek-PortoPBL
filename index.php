@@ -37,6 +37,13 @@ Deskripsi  : Menampilkan halaman publik berisi informasi aplikasi,
     .text-justify {
         text-align: justify !important;
     }
+
+    .jumbotron h1,
+    .jumbotron h2 {
+        color: #e9e1c9 !important;
+    }
+
+ 
     </style>
 </head>
 
@@ -48,7 +55,7 @@ Deskripsi  : Menampilkan halaman publik berisi informasi aplikasi,
     <!-- Jumbotron Section Menampilkan judul dan tombol login -->
     <section class="jumbotron text-center">
 
-        <h1 class="display-3 fw-bold text-white" data-aos="fade-up">
+        <h1 class="display-3 fw-bold" data-aos="fade-up">
             SELAMAT DATANG DI PORTOPBL
         </h1>
 
