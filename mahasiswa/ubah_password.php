@@ -123,9 +123,9 @@ $data = mysqli_fetch_assoc($query_user);
          alt="wave">
   </div>
 
-  <footer class="w-100 text-center py-3 bg-light">
-    &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-  </footer>
+  <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
+        &copy; <span>2025</span> Tim Web Portofolio Projek PBL
+    </footer>
 
   <script src="../js/bootstrap.bundle.min.js"></script>
 </body>

@@ -54,136 +54,167 @@ $totalPage   = ceil($totalData / $limit);
 <html lang="en">
 
 <head>
-  <!-- Metadata halaman -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PortoPBL</title>
+    <!-- Metadata halaman -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PortoPBL</title>
 
-  <!-- Google Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
-    rel="stylesheet"
-  >
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+        rel="stylesheet">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="../styles.css" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../styles.css" type="text/css">
 </head>
+
+<style>
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+}
+</style>
 
 <body>
 
-  <!-- Navbar Mahasiswa -->
-  <?php include '../layouts/navbar_mhs.php'; ?>
+    <!-- Navbar Mahasiswa -->
+    <?php include '../layouts/navbar_mhs.php'; ?>
 
-  <!-- Konten Utama -->
-  <div class="container">
-    <h1 class="my-5 pt-5">Jurusan Teknik Elektro</h1>
+    <!-- Konten Utama -->
+    <div class="container">
+        <h1 class="my-5 pt-5">Jurusan Teknik Elektro</h1>
 
-    <?php if (mysqli_num_rows($data) > 0): ?>
-      <div class="d-flex flex-wrap justify-content-evenly align-items-start gap-4">
+        <?php if (mysqli_num_rows($data) > 0): ?>
+        <div class="d-flex flex-wrap justify-content-evenly align-items-start gap-4">
 
-        <?php while ($row = mysqli_fetch_assoc($data)): ?>
-          <?php
+            <?php while ($row = mysqli_fetch_assoc($data)): ?>
+            <?php
             // Menentukan foto profil mahasiswa
             $foto = !empty($row['foto_profil'])
                     ? "../asset/profil/" . $row['foto_profil']
                     : "../tim/profil-kosong.jpeg";
           ?>
 
-          <div class="col-md-4 col-lg-3">
-            <div class="card shadow-sm border-0 h-100">
+            <div class="col-md-4 col-lg-3">
+                <div class="card shadow-sm border-0 h-100">
 
-              <!-- Foto Mahasiswa -->
-              <div class="ratio ratio-1x1">
-                <img
-                  src="<?= $foto ?>"
-                  class="card-img-top rounded-2"
-                  alt="Foto Mahasiswa"
-                  style="object-fit: cover;"
-                >
-              </div>
+                    <!-- Foto Mahasiswa -->
+                    <div class="ratio ratio-1x1">
+                        <img src="<?= $foto ?>" class="card-img-top rounded-2" alt="Foto Mahasiswa"
+                            style="object-fit: cover;">
+                    </div>
 
-              <!-- Informasi Mahasiswa -->
-              <div class="card-body text-center">
-                <p class="mb-1">
-                  <strong>Nama:</strong> <?= $row['nama']; ?>
-                </p>
-                <p class="mb-1">
-                  <strong>NIM:</strong> <?= $row['username']; ?>
-                </p>
-                <p class="mb-3">
-                  <strong>Jurusan:</strong> <?= $row['jurusan']; ?>
-                </p>
+                    <!-- Informasi Mahasiswa -->
+                    <div class="card-body text-center">
+                        <p class="mb-1">
+                            <strong>Nama:</strong> <?= $row['nama']; ?>
+                        </p>
+                        <p class="mb-1">
+                            <strong>NIM:</strong> <?= $row['username']; ?>
+                        </p>
+                        <p class="mb-3">
+                            <strong>Jurusan:</strong> <?= $row['jurusan']; ?>
+                        </p>
 
-                <!-- Tombol lihat profil -->
-                <a
-                  href="lihat_profil_mhs.php?id=<?= $row['id']; ?>"
-                  class="btn btn-clr px-4"
-                >
-                  Lihat Profil
-                </a>
-              </div>
+                        <!-- Tombol lihat profil -->
+                        <a href="lihat_profil_mhs.php?id=<?= $row['id']; ?>" class="btn btn-clr px-4">
+                            Lihat Profil
+                        </a>
+                    </div>
 
+                </div>
             </div>
-          </div>
 
-        <?php endwhile; ?>
-      </div>
+            <?php endwhile; ?>
+        </div>
 
-      <!-- Pagination -->
-      <?php if ($totalPage > 1): ?>
+        <!-- Pagination -->
+        <?php if ($totalPage > 1): ?>
         <nav class="d-flex justify-content-center mt-5">
-          <ul class="pagination">
+            <ul class="pagination">
 
-            <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
-              <a class="page-link" href="?page=<?= $page - 1 ?>">
-                Sebelumnya
-              </a>
-            </li>
+                <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?page=<?= $page - 1 ?>">
+                        Sebelumnya
+                    </a>
+                </li>
 
-            <?php for ($i = 1; $i <= $totalPage; $i++): ?>
-              <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
-                <a class="page-link" href="?page=<?= $i ?>">
-                  <?= $i ?>
-                </a>
-              </li>
-            <?php endfor; ?>
+                <?php for ($i = 1; $i <= $totalPage; $i++): ?>
+                <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                    <a class="page-link" href="?page=<?= $i ?>">
+                        <?= $i ?>
+                    </a>
+                </li>
+                <?php endfor; ?>
 
-            <li class="page-item <?= ($page >= $totalPage) ? 'disabled' : '' ?>">
-              <a class="page-link" href="?page=<?= $page + 1 ?>">
-                Selanjutnya
-              </a>
-            </li>
+                <li class="page-item <?= ($page >= $totalPage) ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?page=<?= $page + 1 ?>">
+                        Selanjutnya
+                    </a>
+                </li>
 
-          </ul>
+            </ul>
         </nav>
-      <?php endif; ?>
+        <?php endif; ?>
 
-    <?php else: ?>
-      <h2>Belum ada mahasiswa</h2>
-    <?php endif; ?>
-  </div>
+        <?php else: ?>
+        <h2>Belum ada mahasiswa</h2>
+        <?php endif; ?>
+    </div>
 
-  <!-- Wave -->
-  <div class="overflow-hidden mt-5">
-    <img
-      src="../asset/wave-new-navy.svg"
-      class="img-fluid d-block"
-      style="width:100vw"
-      alt="wave"
-    >
-  </div>
+    <!-- Wave -->
+    <div class="overflow mt-5">
+        <img src="../asset/wave-new-navy.svg" class="img-fluid d-block" style="width:100vw" alt="wave" />
+    </div>
 
-  <!-- Footer -->
-  <footer class="w-100 text-center py-3 bg-light">
-    &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-  </footer>
+    <!-- Footer -->
+    <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
+        &copy; <span>2025</span> Tim Web Portofolio Projek PBL
+    </footer>
 
-  <!-- Bootstrap JS -->
-  <script src="../js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="../js/bootstrap.bundle.min.js"></script>
+      <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px)';
+        });
+
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+    AOS.init({
+        duration: 1000,
+        once: true
+    });
+    </script>
 </body>
+
 </html>

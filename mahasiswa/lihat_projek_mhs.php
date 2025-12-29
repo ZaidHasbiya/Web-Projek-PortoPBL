@@ -80,123 +80,108 @@ $komentarResult = mysqli_query($koneksi, $komentarQuery);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <!-- Metadata halaman -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PortoPBL</title>
+    <!-- Metadata halaman -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PortoPBL</title>
 
-  <!-- Google Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600;700;900&display=swap"
-    rel="stylesheet"
-  >
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600;700;900&display=swap"
+        rel="stylesheet">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="../styles.css" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../styles.css" type="text/css">
 </head>
 
 <body>
 
-  <!-- Navbar Mahasiswa -->
-  <?php include '../layouts/navbar_mhs.php'; ?>
+    <!-- Navbar Mahasiswa -->
+    <?php include '../layouts/navbar_mhs.php'; ?>
 
-  <!-- Konten Detail Projek -->
-  <div class="container py-5 mt-5">
+    <!-- Konten Detail Projek -->
+    <div class="container py-5 mt-5">
 
-    <!-- Judul Projek -->
-    <h1 class="fw-bold mb-4">
-      <?= htmlspecialchars($projek['judul']); ?>
-    </h1>
+        <!-- Judul Projek -->
+        <h1 class="fw-bold mb-4">
+            <?= htmlspecialchars($projek['judul']); ?>
+        </h1>
 
-    <!-- Gambar Projek -->
-    <?php if (!empty($projek['gambar_projek'])): ?>
-      <img
-        src="../asset/uploads/<?= htmlspecialchars($projek['gambar_projek']); ?>"
-        class="img-fluid rounded shadow-sm mb-4"
-        alt="Gambar Projek"
-      >
-    <?php endif; ?>
+        <!-- Gambar Projek -->
+        <?php if (!empty($projek['gambar_projek'])): ?>
+        <img src="../asset/uploads/<?= htmlspecialchars($projek['gambar_projek']); ?>"
+            class="img-fluid rounded shadow-sm mb-4" alt="Gambar Projek">
+        <?php endif; ?>
 
-    <!-- Deskripsi Projek -->
-    <div class="fw-semibold">
-      <h2>Deskripsi Projek</h2>
-      <p><?= nl2br(htmlspecialchars($projek['deskripsi'])); ?></p>
-    </div>
-
-    <!-- Video Projek -->
-    <div class="mb-4">
-      <?php if (!empty($projek['link'])): ?>
-        <h4 class="fw-semibold">Video</h4>
-        <div class="ratio ratio-16x9">
-          <iframe
-            src="<?= htmlspecialchars($projek['link']); ?>"
-            title="Video Projek"
-            allowfullscreen
-          ></iframe>
+        <!-- Deskripsi Projek -->
+        <div class="fw-semibold">
+            <h2>Deskripsi Projek</h2>
+            <p><?= nl2br(htmlspecialchars($projek['deskripsi'])); ?></p>
         </div>
-      <?php endif; ?>
-    </div>
 
-    <!-- Informasi Tambahan Projek -->
-    <div class="mb-4">
-      <p>
-        <strong>Tautan Repositori:</strong><br>
-        <a
-          href="<?= htmlspecialchars($projek['link_repo']); ?>"
-          target="_blank"
-          class="text-break d-block text-decoration-none"
-        >
-          <?= htmlspecialchars($projek['link_repo']); ?>
-        </a>
-      </p>
-      <p><strong>Tanggal Dibuat:</strong> <?= htmlspecialchars($projek['tgl_pembuatan']); ?></p>
-      <p><strong>Tanggal Selesai:</strong> <?= htmlspecialchars($projek['tgl_selesai']); ?></p>
-      <p><strong>Dibuat Oleh:</strong> <?= $projek['nama']; ?></p>
-      <p><strong>NIM:</strong> <?= $projek['username']; ?></p>
-    </div>
+        <!-- Video Projek -->
+        <div class="mb-4">
+            <?php if (!empty($projek['link'])): ?>
+            <h4 class="fw-semibold">Video</h4>
+            <div class="ratio ratio-16x9">
+                <iframe src="<?= htmlspecialchars($projek['link']); ?>" title="Video Projek" allowfullscreen></iframe>
+            </div>
+            <?php endif; ?>
+        </div>
 
-    <!-- Komentar Projek -->
-    <div class="border border-dark p-3 rounded mt-4">
-      <h6 class="fw-semibold mb-3">Komentar</h6>
-
-      <?php if (mysqli_num_rows($komentarResult) > 0): ?>
-        <?php while ($k = mysqli_fetch_assoc($komentarResult)): ?>
-          <div class="p-3 bg-light border rounded mb-3">
-            <strong><?= htmlspecialchars($k['nama']); ?></strong>
-            <p class="mb-0">
-              <?= nl2br(htmlspecialchars($k['komentar'])); ?>
+        <!-- Informasi Tambahan Projek -->
+        <div class="mb-4">
+            <p>
+                <strong>Tautan Repositori:</strong><br>
+                <a href="<?= htmlspecialchars($projek['link_repo']); ?>" target="_blank"
+                    class="text-break d-block text-decoration-none">
+                    <?= htmlspecialchars($projek['link_repo']); ?>
+                </a>
             </p>
-          </div>
-        <?php endwhile; ?>
-      <?php else: ?>
-        <p class="text-muted">Belum ada komentar.</p>
-      <?php endif; ?>
+            <p><strong>Tanggal Dibuat:</strong> <?= htmlspecialchars($projek['tgl_pembuatan']); ?></p>
+            <p><strong>Tanggal Selesai:</strong> <?= htmlspecialchars($projek['tgl_selesai']); ?></p>
+            <p><strong>Dibuat Oleh:</strong> <?= $projek['nama']; ?></p>
+            <p><strong>NIM:</strong> <?= $projek['username']; ?></p>
+        </div>
+
+        <!-- Komentar Projek -->
+        <div class="border border-dark p-3 rounded mt-4">
+            <h6 class="fw-semibold mb-3">Komentar</h6>
+
+            <?php if (mysqli_num_rows($komentarResult) > 0): ?>
+            <?php while ($k = mysqli_fetch_assoc($komentarResult)): ?>
+            <div class="p-3 bg-light border rounded mb-3">
+                <strong><?= htmlspecialchars($k['nama']); ?></strong>
+                <p class="mb-0">
+                    <?= nl2br(htmlspecialchars($k['komentar'])); ?>
+                </p>
+            </div>
+            <?php endwhile; ?>
+            <?php else: ?>
+            <p class="text-muted">Belum ada komentar.</p>
+            <?php endif; ?>
+        </div>
+
     </div>
 
-  </div>
+    <!-- Wave -->
+    <div class="overflow-hidden mt-5">
+        <img src="../asset/wave-new-navy.svg" class="img-fluid d-block" style="width:100vw" alt="wave">
+    </div>
 
-  <!-- Wave -->
-  <div class="overflow-hidden mt-5">
-    <img
-      src="../asset/wave-new-navy.svg"
-      class="img-fluid d-block"
-      style="width:100vw"
-      alt="wave"
-    >
-  </div>
+    <!-- Footer -->
+    <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
+        &copy; <span>2025</span> Tim Web Portofolio Projek PBL
+    </footer>
 
-  <!-- Footer -->
-  <footer class="w-100 text-center py-3 bg-light">
-    &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-  </footer>
-
-  <!-- Bootstrap JS -->
-  <script src="../js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="../js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

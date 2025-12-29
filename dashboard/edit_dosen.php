@@ -88,7 +88,7 @@ if(isset($_POST['update'])){
     <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="../styles.css" type="text/css">
 </head>
-<body>
+<body style="background-color: #fdf6e3;">\
 
 <div class="container my-5">
     <h3 class="mb-4">Ubah Dosen</h3>

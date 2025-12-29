@@ -31,152 +31,187 @@ if ($_SESSION['role'] != 'mahasiswa') {
 <html lang="en">
 
 <head>
-  <!-- Metadata halaman -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PortoPBL</title>
+    <!-- Metadata halaman -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PortoPBL</title>
 
-  <!-- Google Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
-    rel="stylesheet"
-  >
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
 
-  <!-- AOS Animation CSS -->
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="../styles.css" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../styles.css" type="text/css">
 </head>
+
+<style>
+.text-justify-center {
+    margin: 0 auto;
+    text-align: justify;
+}
+
+.jumbotron h1,
+.jumbotron h2 {
+    color: #e9e1c9 !important;
+}
+
+h1,
+h2,
+h3 {
+    color: #2d3748;
+}
+
+#tim h1 {
+    color: #e9e1c9 !important;
+}
+</style>
 
 <body>
 
-  <!-- Navbar Mahasiswa -->
-  <?php include '../layouts/navbar_mhs.php'; ?>
+    <!-- Navbar Mahasiswa -->
+    <?php include '../layouts/navbar_mhs.php'; ?>
 
-  <!-- Section Jumbotron -->
-  <section class="jumbotron text-center">
-    <h1 class="text-white fw-bold" data-aos="fade-up">
-      Halo, <?= $_SESSION['nama']; ?>
-    </h1>
+    <!-- Section Jumbotron -->
+    <section class="jumbotron text-center">
+        <h1 class="text-white fw-bold" data-aos="fade-up">
+            Halo, <?= $_SESSION['nama']; ?>
+        </h1>
 
-    <h1
-      class="display-3 fw-bold text-white"
-      data-aos="fade-up"
-      data-aos-delay="150"
-    >
-      SELAMAT DATANG DI PORTOPBL
-    </h1>
+        <h1 class="display-3 fw-bold text-white" data-aos="fade-up" data-aos-delay="150">
+            SELAMAT DATANG DI PORTOPBL
+        </h1>
 
-    <h2 data-aos="fade-up" data-aos-delay="300">
-      Platform Portofolio Digital Mahasiswa
-    </h2>
+        <h2 data-aos="fade-up" data-aos-delay="300">
+            Platform Portofolio Digital Mahasiswa
+        </h2>
 
-    <img src="../asset/wave.svg" alt="Garis pemisah">
-  </section>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -10 1440 320"
+            style="width: 100%; display: flex; margin-top: -1 px;">
+            <path fill="#fdf6e3" fill-opacity="1"
+                d="M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,213.3C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+            </path>
+        </svg>
+    </section>
 
-  <!-- Section Tentang -->
-  <section id="tentang" class="mt-5">
-    <div class="container">
-      <div class="row text-center">
-        <div class="col">
-          <h1 data-aos="fade-up">Tentang PortoPBL</h1>
-          <br>
-          <h3 data-aos="fade-up" data-aos-delay="150">
-            Sebuah website portofolio sebagai platform bagi mahasiswa untuk
-            mendokumentasikan dan memamerkan proyek-proyek PBL mereka.
-            Website ini menjadi ruang pribadi untuk membangun portofolio digital
-            berisi deskripsi proyek, tangkapan layar, kode sumber, dan video demo.
-          </h3>
-        </div>
-      </div>
-    </div>
-    <img src="../asset/wave-new-navy.svg" alt="Garis pemisah">
-  </section>
-
-  <!-- Section Tim Projek -->
-  <section id="tim">
-    <div class="container">
-      <div class="row text-center mb-4">
-        <div class="col">
-          <h1 class="text-white" data-aos="fade-up">TIM PROJEK PBL</h1>
-        </div>
-      </div>
-
-      <div class="row text-center">
-
-        <!-- Anggota 1 -->
-        <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="100">
-          <div class="card h-100">
-            <img
-              src="../tim/zaid-biru.jpg"
-              class="card-img-top"
-              alt="Zaid Hasbiya Abrar"
-            >
-            <div class="card-body">
-              <p class="card-text">3312501046</p>
-              <p class="card-text">Zaid Hasbiya Abrar</p>
+    <!-- Section Tentang -->
+    <section id="tentang" class="mt-5">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col">
+                    <h1 data-aos="fade-up">Tentang PortoPBL</h1>
+                    <br>
+                    <h3 class="text-justify-center" data-aos="fade-up" data-aos-delay="150">
+                        Sebuah website portofolio sebagai platform bagi mahasiswa untuk
+                        mendokumentasikan dan memamerkan proyek-proyek PBL mereka.
+                        Website ini menjadi ruang pribadi untuk membangun portofolio digital
+                        berisi deskripsi proyek, tangkapan layar, kode sumber, dan video demo.
+                    </h3>
+                </div>
             </div>
-          </div>
         </div>
+        <img src="../asset/wave-new-navy.svg" alt="Garis pemisah">
+    </section>
 
-        <!-- Anggota 2 -->
-        <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="200">
-          <div class="card h-100">
-            <img
-              src="../tim/patur-biru.jpg"
-              class="card-img-top"
-              alt="Fathur Alfitrah Dermawan"
-            >
-            <div class="card-body">
-              <p class="card-text">3312501047</p>
-              <p class="card-text">Fathur Alfitrah Dermawan</p>
+    <!-- Section Tim Projek -->
+    <section id="tim">
+        <div class="container">
+            <div class="row text-center mb-4">
+                <div class="col">
+                    <h1 data-aos="fade-up">TIM PROJEK PBL</h1>
+                </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Anggota 3 -->
-        <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="300">
-          <div class="card h-100">
-            <img
-              src="../tim/panda-biru.jpg"
-              class="card-img-top"
-              alt="Reifandra Kinadi"
-            >
-            <div class="card-body">
-              <p class="card-text">3312501048</p>
-              <p class="card-text">Reifandra Kinadi</p>
+            <div class="row text-center">
+
+                <!-- Anggota 1 -->
+                <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card h-100">
+                        <img src="../tim/zaid-biru.jpg" class="card-img-top" alt="Zaid Hasbiya Abrar">
+                        <div class="card-body">
+                            <p class="card-text">3312501046</p>
+                            <p class="card-text">Zaid Hasbiya Abrar</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Anggota 2 -->
+                <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card h-100">
+                        <img src="../tim/patur-biru.jpg" class="card-img-top" alt="Fathur Alfitrah Dermawan">
+                        <div class="card-body">
+                            <p class="card-text">3312501047</p>
+                            <p class="card-text">Fathur Alfitrah Dermawan</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Anggota 3 -->
+                <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card h-100">
+                        <img src="../tim/panda-biru.jpg" class="card-img-top" alt="Reifandra Kinadi">
+                        <div class="card-body">
+                            <p class="card-text">3312501048</p>
+                            <p class="card-text">Reifandra Kinadi</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-          </div>
         </div>
+    </section>
 
-      </div>
-    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"
+        style="width:100%; display:block; margin-top:-2px; transform: scaleY(-1);">
+        <path fill="#1D5D8C" fill-opacity="1" d="M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,213.3C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320
+        C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320
+        C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+        </path>
+    </svg>
 
-    <img src="../asset/wave.svg" alt="Garis pemisah bawah">
-  </section>
+    <!-- Footer -->
+    <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
+        &copy; <span>2025</span> Tim Web Portofolio Projek PBL
+    </footer>
 
-  <!-- Footer -->
-  <footer class="text-center py-3 bg-light mt-5" data-aos="fade-up">
-    &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-  </footer>
-
-  <!-- JavaScript -->
-  <script src="../js/bootstrap.bundle.min.js"></script>
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    // Inisialisasi animasi AOS
-    AOS.init({
-      duration: 900,
-      once: true,
-      easing: 'ease-out-cubic'
+    <!-- JavaScript -->
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
     });
-  </script>
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px)';
+        });
+
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+    AOS.init({
+        duration: 1000,
+        once: true
+    });
+    </script>
 
 </body>
+
 </html>

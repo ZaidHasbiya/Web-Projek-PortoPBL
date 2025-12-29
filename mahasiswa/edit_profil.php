@@ -108,110 +108,119 @@ if (isset($_POST['edit'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <!-- Metadata halaman -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ubah Profil | PortoPBL</title>
+    <!-- Metadata halaman -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ubah Profil | PortoPBL</title>
 
-  <!-- Google Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="../css/bootstrap.min.css">
-  <link rel="stylesheet" href="../styles.css" type="text/css">
-  <link rel="stylesheet" href="../custom.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+
 </head>
+
+<style>
+body {
+    background-color: #fdf6e3 !important;
+    color: #2d3748;
+}
+
+h1, h2, h3, label {
+    color: #2d3748;
+}
+
+.btn-clr {
+    background-color: #1D5D8C !important;
+    color: #fff !important;
+    border-radius: 7px;
+    border: none;
+}
+
+.btn-clr:hover{
+    opacity: .9;
+}
+</style>
+
 
 <body>
 
-  <!-- Container utama form -->
-  <div class="container my-5">
-    <h3 class="mb-4">Ubah Profil</h3>
+    <!-- Container utama form -->
+    <div class="container my-5">
+        <h3 class="mb-4">Ubah Profil</h3>
 
-    <!-- Form edit profil -->
-    <form action="#" method="post" enctype="multipart/form-data">
+        <!-- Form edit profil -->
+        <form action="#" method="post" enctype="multipart/form-data">
 
-      <!-- Data identitas (read-only) -->
-      <div class="mb-3">
-        <label class="form-label">Nama</label>
-        <input type="text" class="form-control" value="<?= $user['nama']; ?>" readonly>
-      </div>
+            <!-- Data identitas (read-only) -->
+            <div class="mb-3">
+                <label class="form-label">Nama</label>
+                <input type="text" class="form-control" value="<?= $user['nama']; ?>" readonly>
+            </div>
 
-      <div class="mb-3">
-        <label class="form-label">NIM</label>
-        <input type="text" class="form-control" value="<?= $user['username']; ?>" readonly>
-      </div>
+            <div class="mb-3">
+                <label class="form-label">NIM</label>
+                <input type="text" class="form-control" value="<?= $user['username']; ?>" readonly>
+            </div>
 
-      <div class="mb-3">
-        <label class="form-label">Jurusan</label>
-        <input type="text" class="form-control" value="<?= $user['jurusan']; ?>" readonly>
-      </div>
+            <div class="mb-3">
+                <label class="form-label">Jurusan</label>
+                <input type="text" class="form-control" value="<?= $user['jurusan']; ?>" readonly>
+            </div>
 
-      <!-- Upload foto profil -->
-      <div class="mb-3">
-        <label for="foto_profil" class="form-label">Foto Profil</label>
-        <div class="form-text text-danger mb-2">
-          File foto berupa jpg, jpeg, dan png dan tidak melebihi 20Mb
-        </div>
-        <input
-          type="file"
-          class="form-control"
-          id="foto_profil"
-          name="foto_profil"
-          accept=".jpg,.jpeg,.png"
-        >
-      </div>
+            <!-- Upload foto profil -->
+            <div class="mb-3">
+                <label for="foto_profil" class="form-label">Foto Profil</label>
+                <div class="form-text text-danger mb-2">
+                    File foto berupa jpg, jpeg, dan png dan tidak melebihi 20Mb
+                </div>
+                <input type="file" class="form-control" id="foto_profil" name="foto_profil" accept=".jpg,.jpeg,.png">
+            </div>
 
-      <!-- Input prestasi -->
-      <div class="mb-3">
-        <label class="form-label">Catatan Prestasi</label>
-        <textarea
-          class="form-control"
-          name="prestasi"
-          rows="3"
-        ><?= $user['prestasi'] ?: 'Belum Diatur'; ?></textarea>
-      </div>
+            <!-- Input prestasi -->
+            <div class="mb-3">
+                <label class="form-label">Catatan Prestasi</label>
+                <textarea class="form-control" name="prestasi"
+                    rows="3"><?= $user['prestasi'] ?: 'Belum Diatur'; ?></textarea>
+            </div>
 
-      <!-- Input deskripsi diri -->
-      <div class="mb-3">
-        <label class="form-label">Deskripsi Diri</label>
-        <textarea
-          class="form-control"
-          name="deskripsi_diri"
-          rows="4"
-        ><?= $user['deskripsi_diri'] ?: 'Belum Diatur'; ?></textarea>
-      </div>
+            <!-- Input deskripsi diri -->
+            <div class="mb-3">
+                <label class="form-label">Deskripsi Diri</label>
+                <textarea class="form-control" name="deskripsi_diri"
+                    rows="4"><?= $user['deskripsi_diri'] ?: 'Belum Diatur'; ?></textarea>
+            </div>
 
-      <!-- Tombol aksi -->
-      <div class="d-flex justify-content-between">
-        <a href="profil_saya.php" class="btn btn-clr">Kembali</a>
-        <button type="submit" name="edit" class="btn btn-success">UBAH</button>
-      </div>
+            <!-- Tombol aksi -->
+            <div class="d-flex justify-content-between">
+                <a href="profil_saya.php" class="btn btn-clr text-white">
+                    Kembali
+                </a>
+                <button type="submit" name="edit" class="btn btn-success">UBAH</button>
+            </div>
 
-    </form>
-  </div>
+        </form>
+    </div>
 
-  <!-- Wave -->
-  <div class="overflow-hidden mt-5">
-    <img
-      src="../asset/wave-new-navy.svg"
-      class="img-fluid d-block"
-      style="width:100vw"
-      alt="wave"
-    >
-  </div>
+    <!-- Wave -->
+    <div class="overflow-hidden mt-5">
+        <img src="../asset/wave-new-navy.svg" class="img-fluid d-block" style="width:100vw" alt="wave">
+    </div>
 
-  <!-- Footer -->
-  <footer class="w-100 text-center py-3 bg-light">
-    &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-  </footer>
+    <!-- Footer -->
+    <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
+        &copy; <span>2025</span> Tim Web Portofolio Projek PBL
+    </footer>
 
-  <!-- Bootstrap JS -->
-  <script src="../js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="../js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
