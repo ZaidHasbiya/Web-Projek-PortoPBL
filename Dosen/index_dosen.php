@@ -6,6 +6,8 @@ Deskripsi : Halaman dashboard dosen pada aplikasi PortoPBL.
             Digunakan untuk menampilkan halaman utama dosen
             setelah login, termasuk informasi sambutan,
             deskripsi aplikasi, dan tim projek PBL.
+Dibuat Oleh    :  - NIM : []
+Tanggal     : 29 November 2025
 */
 
 // Memulai session
@@ -60,21 +62,6 @@ if($_SESSION['role'] != 'dosen'){
 .text-justify-center {
     margin: 0 auto;
     text-align: justify;
-}
-
-.jumbotron h1,
-.jumbotron h2 {
-    color: #e9e1c9 !important;
-}
-
-h1,
-h2,
-h3 {
-    color: #2d3748;
-}
-
-#tim h1 {
-    color: #e9e1c9 !important;
 }
 </style>
 

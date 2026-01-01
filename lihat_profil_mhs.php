@@ -73,46 +73,6 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
     <link rel="stylesheet" href="styles.css" />
 </head>
 
-<style>
-/* Kotak biru */
-.bg-footer {
-    background-color: #1f4f73;
-    /* warna biru kotak */
-    border-radius: 6px;
-}
-
-/* Judul & label warna cream */
-.bg-footer h5,
-.bg-footer label,
-.bg-footer span,
-.bg-footer strong {
-    color: #e9e1c9 !important;
-}
-
-/* Isi deskripsi warna #2d3748 */
-.bg-footer .form-control,
-.bg-footer p,
-.bg-footer div,
-.bg-footer .card-text {
-    color: #2d3748 !important;
-}
-
-/* Biar area teks tetap putih */
-.bg-footer .form-control {
-    background-color: #ffffff !important;
-}
-
-/* Jangan ganggu warna link */
-.bg-footer a {
-    color: inherit;
-}
-
-.bg-footer .form-control a {
-    color: #0d6efd !important;
-    /* biru standar bootstrap */
-}
-</style>
-
 <body>
 
     <!-- Menampilkan navbar publik -->
@@ -121,7 +81,7 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
     <div class="container py-4 mt-5 pt-5">
 
         <!-- Informasi utama mahasiswa -->
-        <div class="row align-items-center">
+        <div class="row align-items-center g-4">
 
             <!-- Kolom kiri: Foto dan jurusan -->
             <div class="col-md-4 text-center">
@@ -133,7 +93,7 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
                     <?= htmlspecialchars($user['nama']) ?>
                 </small>
 
-                <div class="bg-footer p-2 rounded d-inline-block">
+                <div class="bg-footer p-2 rounded d-inline-block mb-4">
                     <strong class="text-white">
                         Jurusan: <?= htmlspecialchars($user['jurusan'] ?: 'Belum Diatur') ?>
                     </strong>

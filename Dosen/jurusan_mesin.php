@@ -4,6 +4,8 @@ Nama File : jurusan_mesin.php
 Deskripsi : Halaman dosen untuk menampilkan daftar mahasiswa
             jurusan Teknik Mesin, dilengkapi dengan fitur
             pencarian data mahasiswa dan pagination.
+Dibuat Oleh    :  - NIM : []
+Tanggal     : 29 November 2025
 */
 
 // Menghubungkan file koneksi database
