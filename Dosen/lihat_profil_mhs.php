@@ -4,6 +4,8 @@ Nama File : lihat_profil_mhs.php
 Deskripsi :
 Halaman ini digunakan oleh dosen untuk melihat detail profil mahasiswa,
 daftar proyek mahasiswa, serta memberikan dan melihat penilaian portofolio.
+Dibuat Oleh    :  - NIM : []
+Tanggal     : 29 November 2025
 */
 
 session_start();
@@ -107,52 +109,12 @@ $result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaia
     <link rel="stylesheet" href="../custom.css">
 </head>
 
-<style>
-/* Kotak biru */
-.bg-footer {
-    background-color: #1f4f73;
-    /* warna biru kotak */
-    border-radius: 6px;
-}
-
-/* Judul & label warna cream */
-.bg-footer h5,
-.bg-footer label,
-.bg-footer span,
-.bg-footer strong {
-    color: #e9e1c9 !important;
-}
-
-/* Isi deskripsi warna #2d3748 */
-.bg-footer .form-control,
-.bg-footer p,
-.bg-footer div,
-.bg-footer .card-text {
-    color: #2d3748 !important;
-}
-
-/* Biar area teks tetap putih */
-.bg-footer .form-control {
-    background-color: #ffffff !important;
-}
-
-/* Jangan ganggu warna link */
-.bg-footer a {
-    color: inherit;
-}
-
-.bg-footer .form-control a {
-    color: #0d6efd !important;
-    /* biru standar bootstrap */
-}
-</style>
-
 <body>
 
     <?php include '../layouts/navbar_dosen.php'; ?>
 
     <div class="container py-4 mt-5 pt-5">
-        <div class="row align-items-center">
+        <div class="row align-items-center g-4">
             <div class="col-md-4 text-center">
                 <div class="ratio ratio-1x1 rounded-circle overflow-hidden mx-auto mb-2" style="width:200px;">
                     <img src="<?= $foto ?>" class="w-100 h-100" style="object-fit:cover;">
@@ -162,7 +124,7 @@ $result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaia
                     <?= htmlspecialchars($user['nama']) ?>
                 </small>
 
-                <div class="bg-footer p-2 rounded d-inline-block">
+                <div class="bg-footer p-2 rounded d-inline-block mb-4">
                     <strong class="text-white">
                         Jurusan: <?= htmlspecialchars($user['jurusan'] ?: 'Belum Diatur') ?>
                     </strong>
@@ -247,6 +209,35 @@ $result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaia
         </p>
         <?php endif; ?>
 
+        <div class="container mt-4 mb-5">
+            <div class="bg-footer p-4 rounded">
+                <h5 class="fw-bold text-white mb-3 text-center">
+                    Riwayat Penilaian Portofolio
+                </h5>
+
+                <?php if (mysqli_num_rows($result_penilaian) > 0): ?>
+                <?php while ($p = mysqli_fetch_assoc($result_penilaian)): ?>
+
+                <div class="bg-light p-3 rounded mb-3">
+                    <strong><?= htmlspecialchars($p['nama_dosen']) ?></strong>
+                    <span class="badge bg-footer ms-2">
+                        Nilai: <?= htmlspecialchars($p['nilai']) ?>
+                    </span>
+
+                    <p class="mt-2 mb-1">
+                        Komentar: <?= htmlspecialchars($p['komentar']) ?>
+                    </p>
+                </div>
+
+                <?php endwhile; ?>
+                <?php else: ?>
+                <p class="text-center text-white">
+                    Belum ada penilaian dari dosen.
+                </p>
+                <?php endif; ?>
+
+            </div>
+
         <div class="bg-footer p-4 rounded mt-4">
             <h5 class="fw-bold text-white text-center mb-3">Penilaian Profil Mahasiswa</h5>
 
@@ -266,7 +257,7 @@ $result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaia
                 </button>
             </form>
         </div>
-
+    </div>
     </div>
 
     <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">

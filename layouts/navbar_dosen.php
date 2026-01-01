@@ -7,7 +7,7 @@
 </style>
 <nav class="navbar navbar-expand-lg navbar-dark py-3 bg-nav-new shadow fixed-top">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="index.html">PortoPBL</a>
+      <a class="navbar-brand fw-bold" href="index_dosen.php">PortoPBL</a>
       <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

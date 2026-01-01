@@ -59,8 +59,10 @@ if (!$projek) {
 
 // Menghapus file gambar projek jika ada
 if (!empty($projek['gambar_projek'])) {
-    $filePath = '../asset/uploads/' . $projek['gambar_projek'];
-    if (file_exists($filePath)) {
+    $uploadDir = __DIR__ . '/../asset/uploads/';
+    $filePath  = $uploadDir . $projek['gambar_projek'];
+
+    if (file_exists($filePath) && is_file($filePath)) {
         unlink($filePath);
     }
 }

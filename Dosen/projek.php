@@ -2,7 +2,7 @@
 /**
  * File: projek.php
  * Fungsi: Menampilkan daftar projek mahasiswa untuk dosen, dengan fitur pencarian berdasarkan nama atau username mahasiswa.
- * Pembuat: Zaid Hasbiya Abrar
+ * Pembuat: Zaid Hasbiya Abrar - NIM : [3312501046]
  * Waktu Pembuatan: 26 Desember 2025
  */
 
@@ -148,6 +148,34 @@ if (isset($_POST['cari'])) {
             </div>
             <?php endwhile; ?>
         </div>
+
+        <?php if ($total_page > 1): ?>
+        <nav class="d-flex justify-content-center mt-5">
+            <ul class="pagination">
+
+                <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?page=<?= $page - 1 ?>">
+                        <
+                    </a>
+                </li>
+
+                <?php for ($i = 1; $i <= $totalPage; $i++): ?>
+                <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                    <a class="page-link" href="?page=<?= $i ?>">
+                        <?= $i ?>
+                    </a>
+                </li>
+                <?php endfor; ?>
+
+                <li class="page-item <?= ($page >= $totalPage) ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?page=<?= $page + 1 ?>">
+                        >
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        <?php endif; ?>
 
         <?php else : ?>
         <!-- Pesan jika tidak ada projek -->

@@ -143,15 +143,29 @@ body {
 
         <!-- Navigasi pagination -->
         <?php if ($total_page > 1): ?>
-        <nav class="mt-4">
-            <ul class="pagination justify-content-center">
-                <?php for ($i = 1; $i <= $total_page; $i++): ?>
-                <li class="page-item <?= ($i == $page) ? 'active' : ''; ?>">
-                    <a class="page-link" href="?page=<?= $i; ?>">
-                        <?= $i; ?>
+        <nav class="d-flex justify-content-center mt-5">
+            <ul class="pagination">
+
+                <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?page=<?= $page - 1 ?>">
+                        <
+                    </a>
+                </li>
+
+                <?php for ($i = 1; $i <= $totalPage; $i++): ?>
+                <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                    <a class="page-link" href="?page=<?= $i ?>">
+                        <?= $i ?>
                     </a>
                 </li>
                 <?php endfor; ?>
+
+                <li class="page-item <?= ($page >= $totalPage) ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?page=<?= $page + 1 ?>">
+                        >
+                    </a>
+                </li>
+
             </ul>
         </nav>
         <?php endif; ?>

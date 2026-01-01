@@ -84,8 +84,9 @@ $komentarResult = mysqli_query($koneksi, $komentarQuery);
         <!-- Video proyek -->
         <?php if (!empty($projek['link'])): ?>
         <h2>Video</h2>
-        <iframe width="560" height="315" src="<?= htmlspecialchars($projek['link']); ?>" title="Video Projek"
-            frameborder="0" allowfullscreen></iframe>
+        <div class="ratio ratio-16x9">
+                <iframe src="<?= htmlspecialchars($projek['link']); ?>" title="Video Projek" allowfullscreen></iframe>
+            </div>
         <?php endif; ?>
 
         <!-- Informasi tambahan proyek -->

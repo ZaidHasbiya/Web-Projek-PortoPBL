@@ -57,21 +57,6 @@ if ($_SESSION['role'] != 'mahasiswa') {
     margin: 0 auto;
     text-align: justify;
 }
-
-.jumbotron h1,
-.jumbotron h2 {
-    color: #e9e1c9 !important;
-}
-
-h1,
-h2,
-h3 {
-    color: #2d3748;
-}
-
-#tim h1 {
-    color: #e9e1c9 !important;
-}
 </style>
 
 <body>

@@ -2,7 +2,7 @@
 /**
  * File: profil_saya.php
  * Fungsi: Menampilkan halaman profil dosen dengan foto, identitas, jurusan, dan catatan prestasi.
- * Pembuat: Zaid Hasbiya Abrar
+ * Pembuat: Zaid Hasbiya Abrar - NIM : [3312501046]
  * Waktu Pembuatan: 26 Desember 2025
  */
 

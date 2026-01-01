@@ -5,6 +5,8 @@ Deskripsi  :
 File ini digunakan oleh dosen untuk melihat detail projek mahasiswa,
 menampilkan deskripsi, gambar, video, serta memberikan dan melihat
 komentar dosen terhadap projek mahasiswa.
+Dibuat Oleh    :  - NIM : []
+Tanggal     : 
 */
 
 session_start();

@@ -5,6 +5,8 @@ Nama File : jurusan_elektro.php
 Deskripsi : Halaman dosen untuk menampilkan daftar mahasiswa
             jurusan Teknik Elektro dengan fitur pencarian
             dan pagination.
+Dibuat Oleh    :  - NIM : []
+Tanggal     : 29 November 2025
 */
 
 // Menghubungkan file koneksi database

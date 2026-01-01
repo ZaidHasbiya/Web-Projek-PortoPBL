@@ -4,6 +4,8 @@ Nama File : jurusan_mb.php
 Deskripsi : Halaman dosen untuk menampilkan daftar mahasiswa
             jurusan Manajemen Bisnis dengan fitur pencarian
             dan pagination.
+Dibuat Oleh    :  - NIM : []
+Tanggal     : 29 November 2025
 */
 
 // Menghubungkan file koneksi database
