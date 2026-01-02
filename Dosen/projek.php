@@ -24,14 +24,40 @@ if ($_SESSION['role'] !== 'dosen') {
     exit;
 }
 
-// Mengambil id user dari session
-$user_id = $_SESSION['id'];
+// Jumlah data yang ditampilkan per halaman
+$limit = 6;
 
-// Query default untuk menampilkan semua projek beserta nama dan username pembuat
+// Menentukan halaman aktif dari parameter URL
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$page = ($page < 1) ? 1 : $page;
+
+// Menghitung offset data untuk pagination
+$offset = ($page - 1) * $limit;
+
+// Query untuk menghitung total jumlah projek
+$total_query = mysqli_query(
+    $koneksi,
+    "SELECT COUNT(*) AS total FROM projek"
+);
+
+// Mengambil total data projek
+$total_data = mysqli_fetch_assoc($total_query)['total'];
+
+// Menghitung total halaman
+$total_page = ceil($total_data / $limit);
+
+// Query untuk mengambil data projek beserta data mahasiswa pembuatnya
 $query = "SELECT projek.*, users.nama, users.username 
           FROM projek 
           JOIN users ON projek.user_id = users.id 
-          ORDER BY projek.judul ASC";
+          ORDER BY projek.judul ASC
+          LIMIT $limit OFFSET $offset";
+
+// Menjalankan query data projek
+$data = mysqli_query($koneksi, $query);
+
+// Menghitung jumlah data yang ditampilkan
+$result = mysqli_num_rows($data);
 
 $data = mysqli_query($koneksi, $query); // Eksekusi query
 $result = mysqli_num_rows($data); // Menghitung jumlah projek
@@ -60,6 +86,7 @@ if (isset($_POST['cari'])) {
     $data = mysqli_query($koneksi, $query);
     $result = mysqli_num_rows($data);
 }
+
 ?>
 
 <!DOCTYPE html>
