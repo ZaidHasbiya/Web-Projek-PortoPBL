@@ -13,23 +13,24 @@ Tanggal     : 29 November 2025
 // Memulai session
 session_start();
 
-// Mengecek apakah session username ada (user sudah login atau belum)
-if(!isset($_SESSION['username'])){
-  // Jika belum login, tampilkan alert dan arahkan ke halaman login
-  echo "<script>
-          alert('username tidak sesuai ! silahkan melakukan login');
-          window.location ='../login.php';
-        </script>";
+// Fungsi untuk mengatur SweetAlert
+function set_alert($icon, $title, $url) {
+    $_SESSION['alert'] = [
+        'icon' => $icon,
+        'title' => $title,
+        'url' => $url
+    ];
 }
 
+// Mengecek apakah session username ada (user sudah login atau belum)
+if(!isset($_SESSION['username'])){
+  // Jika belum login, gunakan SweetAlert dan arahkan ke login
+  set_alert('warning', 'Username tidak sesuai! Silakan melakukan login.', '../login.php');
+} 
 // Mengecek apakah role user adalah dosen
-if($_SESSION['role'] != 'dosen'){
+else if($_SESSION['role'] != 'dosen'){
   // Jika bukan dosen, akses ditolak
-  echo "<script>
-          alert('Akses ditolak! Halaman ini hanya untuk Dosen.');
-          window.location='index.php';
-        </script>";
-  exit;
+  set_alert('error', 'Akses ditolak! Halaman ini hanya untuk Dosen.', 'index.php');
 }
 ?>
 
@@ -41,19 +42,17 @@ if($_SESSION['role'] != 'dosen'){
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PortoPBL</title>
 
-    <!-- Google Font Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
         rel="stylesheet">
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 
-    <!-- AOS (Animate On Scroll) CSS -->
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <link rel="stylesheet" href="../styles.css" type="text/css">
     <link rel="stylesheet" href="../custom.css">
 </head>
@@ -67,23 +66,18 @@ if($_SESSION['role'] != 'dosen'){
 
 <body>
 
-    <!-- ===== Navbar Dosen ===== -->
     <?php include '../layouts/navbar_dosen.php'; ?>
 
-    <!-- ===== Jumbotron / Header Section ===== -->
     <section class="jumbotron text-center">
 
-        <!-- Sapaan nama dosen -->
         <h1 class="text-white fw-bold" data-aos="fade-up">
-            Halo, <?= $_SESSION['nama'] ?>
+            Halo, <?= isset($_SESSION['nama']) ? $_SESSION['nama'] : 'Dosen' ?>
         </h1>
 
-        <!-- Judul utama -->
         <h1 class="display-3 fw-bold text-white" data-aos="fade-up" data-aos-delay="150">
             SELAMAT DATANG DI PORTOPBL
         </h1>
 
-        <!-- Subjudul -->
         <h2 data-aos="fade-up" data-aos-delay="300">
             Platform Portofolio Digital Mahasiswa
         </h2>
@@ -96,7 +90,6 @@ if($_SESSION['role'] != 'dosen'){
         </svg>
     </section>
 
-    <!-- ===== Tentang PortoPBL ===== -->
     <section id="tentang" class="mt-5">
         <div class="container">
             <div class="row text-center">
@@ -104,7 +97,6 @@ if($_SESSION['role'] != 'dosen'){
                     <h1 data-aos="fade-up">Tentang PortoPBL</h1>
                     <br>
 
-                    <!-- Deskripsi aplikasi -->
                     <h3 class="text-justify-center" data-aos="fade-up" data-aos-delay="150">
                         Sebuah website portofolio sebagai platform bagi mahasiswa untuk mendokumentasikan dan memamerkan
                         proyek-proyek PBL mereka.
@@ -116,25 +108,20 @@ if($_SESSION['role'] != 'dosen'){
             </div>
         </div>
 
-        <!-- Wave pemisah -->
         <img src="../asset/wave-new-navy.svg" alt="Garis pemisah">
     </section>
 
-    <!-- ===== Tim Projek PBL ===== -->
     <section id="tim">
         <div class="container">
 
-            <!-- Judul tim -->
             <div class="row text-center mb-4">
                 <div class="col">
                     <h1 class="text-white" data-aos="fade-up">TIM PROJEK PBL</h1>
                 </div>
             </div>
 
-            <!-- Daftar anggota tim -->
             <div class="row text-center">
 
-                <!-- Anggota 1 -->
                 <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="100">
                     <div class="card h-100">
                         <img src="../tim/zaid-biru.jpg" class="card-img-top" alt="Zaid Hasbiya Abrar">
@@ -145,7 +132,6 @@ if($_SESSION['role'] != 'dosen'){
                     </div>
                 </div>
 
-                <!-- Anggota 2 -->
                 <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="200">
                     <div class="card h-100">
                         <img src="../tim/patur-biru.jpg" class="card-img-top" alt="Fathur Alfitrah">
@@ -156,7 +142,6 @@ if($_SESSION['role'] != 'dosen'){
                     </div>
                 </div>
 
-                <!-- Anggota 3 -->
                 <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="300">
                     <div class="card h-100">
                         <img src="../tim/panda-biru.jpg" class="card-img-top" alt="Reifandra Kinadi">
@@ -179,17 +164,25 @@ if($_SESSION['role'] != 'dosen'){
         </path>
     </svg>
 
-    <!-- ===== Footer ===== -->
     <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
         &copy; <span>2025</span> Tim Web Portofolio Projek PBL
     </footer>
 
-    <!-- ===== JavaScript ===== -->
     <script src="../js/bootstrap.bundle.min.js"></script>
 
-    <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
+    // Penanganan SweetAlert
+    <?php if (isset($_SESSION['alert'])): ?>
+    Swal.fire({
+        icon: '<?= $_SESSION['alert']['icon'] ?>',
+        title: '<?= $_SESSION['alert']['title'] ?>',
+        showConfirmButton: true
+    }).then(() => {
+        window.location.href = '<?= $_SESSION['alert']['url'] ?>';
+    });
+    <?php unset($_SESSION['alert']); endif; ?>
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -205,6 +198,7 @@ if($_SESSION['role'] != 'dosen'){
     document.querySelectorAll('.card').forEach(card => {
         card.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-8px)';
+            this.style.transition = '0.3s';
         });
 
         card.addEventListener('mouseleave', function() {

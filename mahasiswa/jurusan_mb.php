@@ -1,9 +1,9 @@
 <?php
 /*
 Nama File   : jurusan_mb.php
-Deskripsi     : Menampilkan daftar mahasiswa jurusan Manajemen Bisnis
-             dengan fitur pagination
-Dibuat Oleh    : Reifandra Kinadi - NIM : [3312501047]
+Deskripsi   : Menampilkan daftar mahasiswa jurusan Manajemen Bisnis
+              dengan fitur pagination
+Dibuat Oleh : Reifandra Kinadi - NIM : [3312501048]
 Tanggal     : 10 Oktober 2025
 */
 
@@ -14,11 +14,8 @@ session_start();
 
 // Validasi login dan role mahasiswa
 if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'mahasiswa') {
-    echo "<script>
-            alert('Maaf, anda bukan mahasiswa. Silakan login ulang.');
-            window.location.href = '../login.php';
-          </script>";
-    exit;
+    // Menggunakan session untuk mengirim pesan error ke SweetAlert di bawah
+    $_SESSION['auth_error'] = 'Maaf, anda bukan mahasiswa. Silakan login ulang.';
 }
 
 // Mengambil ID user dari session
@@ -54,23 +51,21 @@ $totalPage   = ceil($totalData / $limit);
 <html lang="en">
 
 <head>
-    <!-- Metadata halaman -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PortoPBL</title>
 
-    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
         rel="stylesheet">
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="../styles.css" type="text/css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <style>
@@ -91,10 +86,8 @@ body {
 
 <body>
 
-    <!-- Navbar Mahasiswa -->
     <?php include '../layouts/navbar_mhs.php'; ?>
 
-    <!-- Konten Utama -->
     <div class="container">
         <h1 class="my-5 pt-5">Jurusan Manajemen Bisnis</h1>
 
@@ -112,13 +105,11 @@ body {
             <div class="col-md-4 col-lg-3">
                 <div class="card shadow-sm border-0 h-100">
 
-                    <!-- Foto Mahasiswa -->
                     <div class="ratio ratio-1x1">
                         <img src="<?= $foto ?>" class="card-img-top rounded-2" alt="Foto Mahasiswa"
                             style="object-fit: cover;">
                     </div>
 
-                    <!-- Informasi Mahasiswa -->
                     <div class="card-body text-center">
                         <p class="mb-1">
                             <strong>Nama:</strong> <?= $row['nama']; ?>
@@ -130,7 +121,6 @@ body {
                             <strong>Jurusan:</strong> <?= $row['jurusan']; ?>
                         </p>
 
-                        <!-- Tombol lihat profil -->
                         <a href="lihat_profil_mhs.php?id=<?= $row['id']; ?>" class="btn btn-clr px-4">
                             Lihat Profil
                         </a>
@@ -142,7 +132,6 @@ body {
             <?php endwhile; ?>
         </div>
 
-        <!-- Pagination -->
         <?php if ($totalPage > 1): ?>
         <nav class="d-flex justify-content-center mt-5">
             <ul class="pagination">
@@ -176,19 +165,29 @@ body {
         <?php endif; ?>
     </div>
 
-    <!-- Wave -->
     <div class="overflow mt-5">
         <img src="../asset/wave-new-navy.svg" class="img-fluid d-block" style="width:100vw" alt="wave">
     </div>
 
-    <!-- Footer -->
     <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
         &copy; <span>2025</span> Tim Web Portofolio Projek PBL
     </footer>
 
-    <!-- Bootstrap JS -->
     <script src="../js/bootstrap.bundle.min.js"></script>
-      <script>
+    <script>
+    // Logic SweetAlert untuk validasi akses
+    <?php if (isset($_SESSION['auth_error'])): ?>
+        Swal.fire({
+            icon: 'error',
+            title: 'Akses Ditolak',
+            text: '<?= $_SESSION['auth_error']; ?>',
+            confirmButtonColor: '#3085d6'
+        }).then((result) => {
+            window.location.href = '../login.php';
+        });
+        <?php unset($_SESSION['auth_error']); ?>
+    <?php endif; ?>
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -201,18 +200,16 @@ body {
             }
         });
     });
+
     document.querySelectorAll('.card').forEach(card => {
         card.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-8px)';
+            this.style.transition = 'transform 0.3s ease';
         });
 
         card.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0)';
         });
-    });
-    AOS.init({
-        duration: 1000,
-        once: true
     });
     </script>
 </body>

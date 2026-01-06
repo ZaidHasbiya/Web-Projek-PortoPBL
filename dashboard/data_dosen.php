@@ -9,16 +9,23 @@
 session_start(); // Memulai session
 include '../koneksi.php'; // Include koneksi database
 
+// Fungsi pembantu SweetAlert Session
+function set_alert($icon, $title, $url) {
+    $_SESSION['alert'] = [
+        'icon' => $icon,
+        'title' => $title,
+        'url' => $url
+    ];
+}
+
 // Mengecek apakah user sudah login
 if(!isset($_SESSION['username'])){
-    echo "<script>alert('Username tidak sesuai! Silahkan login'); window.location ='../login.php';</script>";
-    exit;
+    set_alert('warning', 'Username tidak sesuai! Silahkan login', '../login.php');
 }
 
 // Mengecek apakah user memiliki role 'admin'
-if($_SESSION['role'] != 'admin'){
-    echo "<script>alert('Akses ditolak! Halaman ini hanya untuk admin.'); window.location='../login.php';</script>";
-    exit;
+if(!isset($_SESSION['alert']) && $_SESSION['role'] != 'admin'){
+    set_alert('error', 'Akses ditolak! Halaman ini hanya untuk admin.', '../login.php');
 }
 
 // Query untuk mengambil data dosen
@@ -38,21 +45,19 @@ $result = mysqli_num_rows($data);
     <meta name="author" content="Zaid Hasbiya Abrar" />
     <title>Data Dosen - Dasbor Admin</title>
 
-    <!-- Google Fonts Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
 
-    <!-- Simple DataTables CSS -->
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
 
-    <!-- Custom styles -->
     <link href="css/styles.css" rel="stylesheet" />
 
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         crossorigin="anonymous" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <style>
@@ -263,7 +268,6 @@ table .btn {
 
 <body class="sb-nav-fixed">
 
-    <!-- ===== Navbar ===== -->
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-nav-new shadow fixed-top">
         <a class="navbar-brand ps-3" href="dashboard.php">Dasbor Admin</a>
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle"><i
@@ -287,7 +291,6 @@ table .btn {
     </nav>
 
     <div id="layoutSidenav">
-        <!-- ===== Sidebar ===== -->
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
@@ -316,18 +319,15 @@ table .btn {
             </nav>
         </div>
 
-        <!-- ===== Content ===== -->
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Data Dosen</h1>
 
-                    <!-- Tombol tambah dosen -->
                     <a href="tambah_dosen.php" class="btn btn-info text-white mb-4">
                         <i class="fas fa-plus"></i> Tambah Dosen
                     </a>
 
-                    <!-- Tabel data dosen -->
                     <div class="table-responsive">
                         <table class="table table-bordered text-center">
                             <thead>
@@ -349,92 +349,29 @@ table .btn {
                                     <td><?= $row['username']; ?></td>
                                     <td><?= $row['jurusan'] ?? 'Belum diatur'; ?></td>
                                     <td>
-                                        <!-- Tombol modal lihat detail dosen -->
                                         <button class="btn btn-info btn-sm text-white" data-bs-toggle="modal"
                                             data-bs-target="#modalLihat<?= $row['id']; ?>">
                                             <i class="fas fa-eye"></i> Lihat
                                         </button>
                                     </td>
                                     <td>
-                                        <!-- Tombol edit dosen -->
                                         <a href="edit_dosen.php?id=<?= $row['id']; ?>"
                                             class="btn btn-warning btn-sm text-white">
                                             <i class="fas fa-edit"></i> Ubah
                                         </a>
                                     </td>
                                     <td>
-                                        <!-- Tombol hapus dosen -->
-                                        <a href="hapus_dosen.php?id=<?= $row['id']; ?>"
-                                            onclick="return confirm('Yakin hapus?')" class="btn btn-danger btn-sm">
+                                        <a href="javascript:void(0);" 
+                                           onclick="konfirmasiHapus('hapus_dosen.php?id=<?= $row['id']; ?>')" 
+                                           class="btn btn-danger btn-sm">
                                             <i class="fas fa-trash"></i> Hapus
                                         </a>
                                     </td>
                                 </tr>
 
-                                <!-- Modal detail dosen -->
                                 <div class="modal fade" id="modalLihat<?= $row['id']; ?>" tabindex="-1"
                                     aria-labelledby="modalLihatLabel<?= $row['id']; ?>" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-scrollable">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="modalLihatLabel<?= $row['id']; ?>">Detail
-                                                    Dosen</h5>
-                                                <button type="button" class="btn-close"
-                                                    data-bs-dismiss="modal"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p><strong>Nama:</strong> <?= $row['nama']; ?></p>
-                                                <p><strong>NIDN:</strong> <?= $row['username']; ?></p>
-                                                <p><strong>Jurusan:</strong> <?= $row['jurusan'] ?? 'Belum diatur'; ?>
-                                                </p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Tutup</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <?php endwhile; else: ?>
-                                <tr>
-                                    <td colspan="7">Tidak ada data dosen</td>
-                                </tr>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </main>
-
-            <!-- Footer -->
-            <footer style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div>Copyright &copy; Your Website 2023</div>
-                        <div>
-                            <a href="#" style="color: #5a5a5a;">Privacy Policy</a>
-                            &middot;
-                            <a href="#" style="color: #5a5a5a;">Terms &amp; Conditions</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-
-        </div>
-    </div>
-
-    <!-- JS Bootstrap & Plugins -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
-    </script>
-    <script src="js/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="assets/demo/chart-area-demo.js"></script>
-    <script src="assets/demo/chart-bar-demo.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
-        crossorigin="anonymous"></script>
-    <script src="js/datatables-simple-demo.js"></script>
-
-</body>
-
-</html>

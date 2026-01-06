@@ -10,26 +10,23 @@ Dibuat     : 2025
 session_start();
 include 'koneksi.php';
 
-// Mengambil daftar role dari kolom ENUM pada tabel users
+// Ambil role ENUM
 $query_role = mysqli_fetch_assoc(
   mysqli_query($koneksi, "SHOW COLUMNS FROM users LIKE 'role'")
 );
 
-// Mengubah tipe ENUM menjadi array role
 $role_list = explode(
   "','",
   str_replace(["enum('", "')"], "", $query_role['Type'])
 );
 
-// Mengecek apakah tombol login ditekan
+// Proses login
 if (isset($_POST['login'])) {
 
-  // Mengambil data input dari form login
   $username = $_POST['username'];
   $password = $_POST['password'];
   $role     = $_POST['role'];
 
-  // Query untuk mencocokkan data login dengan database
   $query = mysqli_query(
     $koneksi,
     "SELECT * FROM users 
@@ -38,32 +35,25 @@ if (isset($_POST['login'])) {
      AND role = '$role'"
   );
 
-  // Mengambil hasil query
   $data = mysqli_fetch_assoc($query);
 
-  // Jika data ditemukan (login berhasil)
   if ($data) {
-
-    // Menyimpan data pengguna ke dalam session
     $_SESSION['id']       = $data['id'];
     $_SESSION['nama']     = $data['nama'];
     $_SESSION['username'] = $data['username'];
     $_SESSION['role']     = $data['role'];
+    $_SESSION['login_success'] = true;
 
-    // Pengalihan halaman berdasarkan role
     if ($role == 'mahasiswa') {
-      echo "<script>alert('Login Berhasil!'); window.location='mahasiswa/index_mahasiswa.php';</script>";
+      $_SESSION['redirect'] = 'mahasiswa/index_mahasiswa.php';
     } elseif ($role == 'dosen') {
-      echo "<script>alert('Login Berhasil!'); window.location='Dosen/index_dosen.php';</script>";
-      exit;
+      $_SESSION['redirect'] = 'Dosen/index_dosen.php';
     } elseif ($role == 'admin') {
-      echo "<script>alert('Login Berhasil!'); window.location='dashboard/dashboard.php';</script>";
-      exit;
+      $_SESSION['redirect'] = 'dashboard/dashboard.php';
     }
 
   } else {
-    // Jika login gagal
-    echo "<script>alert('Login Gagal! Username atau Password'); window.location='login.php';</script>";
+    $_SESSION['login_error'] = true;
   }
 }
 ?>
@@ -239,6 +229,36 @@ if (isset($_POST['login'])) {
 
     <!-- Bootstrap JS -->
     <script src="js/bootstrap.bundle.min.js"></script>
+
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <?php if (isset($_SESSION['login_success'])): ?>
+        <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Login Berhasil!',
+            text: 'Selamat datang!',
+            timer: 2000,
+            showConfirmButton: false
+        }).then(() => {
+            window.location.href = "<?= $_SESSION['redirect']; ?>";
+        });
+        </script>
+        <?php
+        unset($_SESSION['login_success'], $_SESSION['redirect']);
+        endif;
+        ?>
+
+        <?php if (isset($_SESSION['login_error'])): ?>
+        <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Login Gagal!',
+            text: 'Username atau Password salah'
+        });
+        </script>
+        <?php unset($_SESSION['login_error']); endif; ?>
+
 
 </body>
 

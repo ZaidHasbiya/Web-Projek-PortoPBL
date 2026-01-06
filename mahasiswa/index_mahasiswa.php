@@ -2,28 +2,37 @@
 /*
 Nama File   : index_mahasiswa.php
 Deskripsi     : Halaman dashboard utama mahasiswa setelah login
-Dibuat Oleh    : Fathur Alfitrah - NIM : [3312501048]
+Dibuat Oleh    : Fathur Alfitrah - NIM : [3312501047]
 Tanggal     : 10 Oktober 2025
 */
 
 session_start(); 
-// Memulai session untuk mengecek status login
+include '../koneksi.php';
+
+// Fungsi SweetAlert redirect (Sesuai struktur file jurusan)
+function redirect_alert($icon, $title, $url) {
+    $_SESSION['alert'] = [
+        'icon' => $icon,
+        'title' => $title,
+        'url' => $url
+    ];
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
 
 // Validasi login
 if (!isset($_SESSION['username'])) {
-  echo "<script>
-          alert('Username tidak sesuai! Silakan melakukan login.');
-          window.location ='../login.php';
-        </script>";
+    header("Location: ../login.php");
+    exit;
 }
 
 // Validasi role pengguna
-if ($_SESSION['role'] != 'mahasiswa') {
-  echo "<script>
-          alert('Akses ditolak! Halaman ini hanya untuk Mahasiswa.');
-          window.location='index.php';
-        </script>";
-  exit;
+if ($_SESSION['role'] !== 'mahasiswa') {
+    $_SESSION['alert'] = [
+        'icon' => 'error',
+        'title' => 'Akses Ditolak!',
+        'url' => 'index.php'
+    ];
 }
 ?>
 
@@ -31,25 +40,22 @@ if ($_SESSION['role'] != 'mahasiswa') {
 <html lang="en">
 
 <head>
-    <!-- Metadata halaman -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PortoPBL</title>
 
-    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
         rel="stylesheet">
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 
-    <!-- AOS Animation CSS -->
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="../styles.css" type="text/css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <style>
@@ -61,10 +67,8 @@ if ($_SESSION['role'] != 'mahasiswa') {
 
 <body>
 
-    <!-- Navbar Mahasiswa -->
     <?php include '../layouts/navbar_mhs.php'; ?>
 
-    <!-- Section Jumbotron -->
     <section class="jumbotron text-center">
         <h1 class="text-white fw-bold" data-aos="fade-up">
             Halo, <?= $_SESSION['nama']; ?>
@@ -86,7 +90,6 @@ if ($_SESSION['role'] != 'mahasiswa') {
         </svg>
     </section>
 
-    <!-- Section Tentang -->
     <section id="tentang" class="mt-5">
         <div class="container">
             <div class="row text-center">
@@ -105,7 +108,6 @@ if ($_SESSION['role'] != 'mahasiswa') {
         <img src="../asset/wave-new-navy.svg" alt="Garis pemisah">
     </section>
 
-    <!-- Section Tim Projek -->
     <section id="tim">
         <div class="container">
             <div class="row text-center mb-4">
@@ -116,7 +118,6 @@ if ($_SESSION['role'] != 'mahasiswa') {
 
             <div class="row text-center">
 
-                <!-- Anggota 1 -->
                 <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="100">
                     <div class="card h-100">
                         <img src="../tim/zaid-biru.jpg" class="card-img-top" alt="Zaid Hasbiya Abrar">
@@ -127,7 +128,6 @@ if ($_SESSION['role'] != 'mahasiswa') {
                     </div>
                 </div>
 
-                <!-- Anggota 2 -->
                 <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="200">
                     <div class="card h-100">
                         <img src="../tim/patur-biru.jpg" class="card-img-top" alt="Fathur Alfitrah Dermawan">
@@ -138,7 +138,6 @@ if ($_SESSION['role'] != 'mahasiswa') {
                     </div>
                 </div>
 
-                <!-- Anggota 3 -->
                 <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="300">
                     <div class="card h-100">
                         <img src="../tim/panda-biru.jpg" class="card-img-top" alt="Reifandra Kinadi">
@@ -161,15 +160,25 @@ if ($_SESSION['role'] != 'mahasiswa') {
         </path>
     </svg>
 
-    <!-- Footer -->
     <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
         &copy; <span>2025</span> Tim Web Portofolio Projek PBL
     </footer>
 
-    <!-- JavaScript -->
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
+    // SweetAlert Handling (Sesuai struktur file jurusan)
+    <?php if (isset($_SESSION['alert'])): ?>
+    Swal.fire({
+        icon: '<?= $_SESSION['alert']['icon']; ?>',
+        title: '<?= $_SESSION['alert']['title']; ?>',
+        timer: 2000,
+        showConfirmButton: false
+    }).then(() => {
+        window.location.href = '<?= $_SESSION['alert']['url']; ?>';
+    });
+    <?php unset($_SESSION['alert']); endif; ?>
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();

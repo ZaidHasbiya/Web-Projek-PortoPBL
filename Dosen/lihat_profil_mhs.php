@@ -4,29 +4,36 @@ Nama File : lihat_profil_mhs.php
 Deskripsi :
 Halaman ini digunakan oleh dosen untuk melihat detail profil mahasiswa,
 daftar proyek mahasiswa, serta memberikan dan melihat penilaian portofolio.
-Dibuat Oleh    :  - NIM : []
+Dibuat Oleh    : Zaid Hasbiya Abrar - NIM : [3312501046]
 Tanggal     : 29 November 2025
 */
 
 session_start();
 include '../koneksi.php';
 
+// Fungsi SweetAlert redirect (Sesuai struktur file lainnya)
+function redirect_alert($icon, $title, $url) {
+    $_SESSION['alert'] = [
+        'icon' => $icon,
+        'title' => $title,
+        'url' => $url
+    ];
+}
+
 // Cek login
 if (!isset($_SESSION['username'])) {
-  echo "<script>alert('Silakan login terlebih dahulu'); window.location ='../login.php';</script>";
-  exit;
+    header("Location: ../login.php");
+    exit;
 }
 
 // Cek role dosen
 if ($_SESSION['role'] !== 'dosen') {
-  echo "<script>alert('Anda tidak memiliki akses!'); window.location.href='../login.php';</script>";
-  exit;
+    redirect_alert('error', 'Anda tidak memiliki akses!', '../login.php');
 }
 
 // Cek ID mahasiswa
 if (!isset($_GET['id'])) {
-  echo "<script>alert('Mahasiswa tidak ditemukan'); window.location='index_dosen.php';</script>";
-  exit;
+    redirect_alert('warning', 'Mahasiswa tidak ditemukan', 'index_dosen.php');
 }
 
 $user_id  = $_GET['id'];
@@ -38,8 +45,7 @@ $result_user = mysqli_query($koneksi, $query_user);
 $user        = mysqli_fetch_assoc($result_user);
 
 if (!$user) {
-  echo "<script>alert('Mahasiswa tidak ditemukan'); window.location='index_dosen.php';</script>";
-  exit;
+    redirect_alert('error', 'Mahasiswa tidak ditemukan', 'index_dosen.php');
 }
 
 // Foto profil
@@ -49,7 +55,7 @@ $foto = !empty($user['foto_profil'])
 
 // Simpan penilaian
 if (isset($_POST['simpan_penilaian'])) {
-  $komentar = $_POST['komentar'];
+  $komentar = mysqli_real_escape_string($koneksi, $_POST['komentar']);
   $nilai    = (int) $_POST['nilai'];
 
   $insert_penilaian = "
@@ -59,10 +65,12 @@ if (isset($_POST['simpan_penilaian'])) {
   ";
 
   if (mysqli_query($koneksi, $insert_penilaian)) {
-    echo "<script>alert('Penilaian berhasil disimpan');</script>";
+      redirect_alert('success', 'Penilaian berhasil disimpan', "lihat_profil_mhs.php?id=$user_id");
   } else {
-    echo "<script>alert('Gagal menyimpan penilaian');</script>";
+      redirect_alert('error', 'Gagal menyimpan penilaian', "lihat_profil_mhs.php?id=$user_id");
   }
+  header("Location: lihat_profil_mhs.php?id=$user_id");
+  exit;
 }
 
 // Ambil projek mahasiswa
@@ -78,17 +86,6 @@ $query_penilaian = "
   ORDER BY pf.id_penilaian DESC
 ";
 $result_penilaian = mysqli_query($koneksi, $query_penilaian);
-
-// Ambil penilaian dosen yang login
-$query_history_penilaian_dosen = "
-  SELECT pf.*, u.nama AS nama_dosen
-  FROM penilaian_portofolio pf
-  JOIN users u ON pf.dosen_id = u.id
-  WHERE pf.mahasiswa_id = '$user_id'
-  AND pf.dosen_id = '$dosen_id'
-  ORDER BY pf.id_penilaian DESC
-";
-$result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaian_dosen);
 ?>
 
 <!DOCTYPE html>
@@ -100,13 +97,13 @@ $result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaia
     <title>PortoPBL</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="../custom.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -176,8 +173,6 @@ $result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaia
                 </div>
             </div>
             <div class="row g-3">
-
-                <!-- Video -->
                 <div class="col-md-6">
                     <div class="bg-light border p-3 text-center rounded">
                         <span class="fw-semibold text-muted">Video</span>
@@ -189,7 +184,6 @@ $result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaia
                     </div>
                 </div>
 
-                <!-- Foto -->
                 <div class="col-md-6">
                     <div class="bg-light border p-3 text-center rounded">
                         <span class="fw-semibold text-muted">Foto</span><br>
@@ -199,7 +193,6 @@ $result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaia
                         <?php endif; ?>
                     </div>
                 </div>
-
             </div>
         </div>
         <?php endwhile; ?>
@@ -217,47 +210,40 @@ $result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaia
 
                 <?php if (mysqli_num_rows($result_penilaian) > 0): ?>
                 <?php while ($p = mysqli_fetch_assoc($result_penilaian)): ?>
-
                 <div class="bg-light p-3 rounded mb-3">
                     <strong><?= htmlspecialchars($p['nama_dosen']) ?></strong>
-                    <span class="badge bg-footer ms-2">
+                    <span class="badge bg-primary ms-2">
                         Nilai: <?= htmlspecialchars($p['nilai']) ?>
                     </span>
-
                     <p class="mt-2 mb-1">
                         Komentar: <?= htmlspecialchars($p['komentar']) ?>
                     </p>
                 </div>
-
                 <?php endwhile; ?>
                 <?php else: ?>
                 <p class="text-center text-white">
                     Belum ada penilaian dari dosen.
                 </p>
                 <?php endif; ?>
-
             </div>
 
-        <div class="bg-footer p-4 rounded mt-4">
-            <h5 class="fw-bold text-white text-center mb-3">Penilaian Profil Mahasiswa</h5>
-
-            <form method="POST">
-                <div class="mb-3">
-                    <label class="form-label text-white">Komentar</label>
-                    <textarea name="komentar" class="form-control" required></textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label text-white">Nilai (0 - 100)</label>
-                    <input type="number" name="nilai" class="form-control" min="0" max="100" required>
-                </div>
-
-                <button type="submit" name="simpan_penilaian" class="btn btn-light fw-semibold">
-                    Simpan Penilaian
-                </button>
-            </form>
+            <div class="bg-footer p-4 rounded mt-4">
+                <h5 class="fw-bold text-white text-center mb-3">Penilaian Profil Mahasiswa</h5>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label text-white">Komentar</label>
+                        <textarea name="komentar" class="form-control" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-white">Nilai (0 - 100)</label>
+                        <input type="number" name="nilai" class="form-control" min="0" max="100" required>
+                    </div>
+                    <button type="submit" name="simpan_penilaian" class="btn btn-light fw-semibold">
+                        Simpan Penilaian
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
     </div>
 
     <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
@@ -265,6 +251,20 @@ $result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaia
     </footer>
 
     <script src="../js/bootstrap.bundle.min.js"></script>
+
+    <script>
+    // SweetAlert Handling
+    <?php if (isset($_SESSION['alert'])): ?>
+    Swal.fire({
+        icon: '<?= $_SESSION['alert']['icon']; ?>',
+        title: '<?= $_SESSION['alert']['title']; ?>',
+        timer: 2000,
+        showConfirmButton: false
+    }).then(() => {
+        window.location.href = '<?= $_SESSION['alert']['url']; ?>';
+    });
+    <?php unset($_SESSION['alert']); endif; ?>
+    </script>
 </body>
 
 </html>

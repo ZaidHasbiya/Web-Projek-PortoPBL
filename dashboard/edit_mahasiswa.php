@@ -8,51 +8,59 @@
 session_start();
 include '../koneksi.php'; // koneksi ke database
 
+// Fungsi untuk menyiapkan SweetAlert
+function set_alert($icon, $title, $url) {
+    $_SESSION['alert'] = [
+        'icon' => $icon,
+        'title' => $title,
+        'url' => $url
+    ];
+}
+
 // Cek apakah user sudah login
 if(!isset($_SESSION['username'])){
-    echo "<script>alert('Silakan login dahulu'); window.location='../login.php';</script>";
-    exit;
-}
-
+    set_alert('warning', 'Silakan login dahulu', '../login.php');
+} 
 // Cek apakah role user adalah admin
-if($_SESSION['role'] != 'admin'){
-    echo "<script>alert('Akses ditolak!'); window.location='../login.php';</script>";
-    exit;
+else if($_SESSION['role'] != 'admin'){
+    set_alert('error', 'Akses ditolak!', '../login.php');
 }
-
 // Cek apakah parameter id ada di URL
-if(!isset($_GET['id'])){
-    echo "<script>alert('ID tidak ditemukan'); window.location='data_mahasiswa.php';</script>";
-    exit;
+else if(!isset($_GET['id'])){
+    set_alert('warning', 'ID tidak ditemukan', 'data_mahasiswa.php');
 }
 
-$id = $_GET['id'];
+// Menangani ID dan pengecekan data
+$id = isset($_GET['id']) ? mysqli_real_escape_string($koneksi, $_GET['id']) : '';
+$mhs = null;
 
-// Ambil data mahasiswa berdasarkan id
-$qMhs = mysqli_query($koneksi, "SELECT * FROM users WHERE id='$id' AND role='mahasiswa'");
-$mhs = mysqli_fetch_assoc($qMhs);
-
-// Jika data mahasiswa tidak ditemukan
-if(!$mhs){
-    echo "<script>alert('Data mahasiswa tidak ditemukan'); window.location='data_mahasiswa.php';</script>";
-    exit;
+if (!empty($id)) {
+    $qMhs = mysqli_query($koneksi, "SELECT * FROM users WHERE id='$id' AND role='mahasiswa'");
+    $mhs = mysqli_fetch_assoc($qMhs);
+    
+    if(!$mhs && !isset($_SESSION['alert'])){
+        set_alert('error', 'Data mahasiswa tidak ditemukan', 'data_mahasiswa.php');
+    }
 }
 
-// Ambil daftar jurusan dari kolom enum di database
-$jurusan = mysqli_fetch_assoc(mysqli_query($koneksi, "SHOW COLUMNS FROM users LIKE 'jurusan'"));
-$jurusan_list = explode("','", str_replace(["enum('","')"], "", $jurusan['Type']));
+// Ambil daftar jurusan & role (hanya jika data mahasiswa ditemukan)
+$jurusan_list = [];
+$role_list = [];
+if ($mhs) {
+    $jurusan = mysqli_fetch_assoc(mysqli_query($koneksi, "SHOW COLUMNS FROM users LIKE 'jurusan'"));
+    $jurusan_list = explode("','", str_replace(["enum('","')"], "", $jurusan['Type']));
 
-// Ambil daftar role dari kolom enum di database
-$role = mysqli_fetch_assoc(mysqli_query($koneksi, "SHOW COLUMNS FROM users LIKE 'role'"));
-$role_list = explode("','", str_replace(["enum('","')"], "", $role['Type']));
+    $role = mysqli_fetch_assoc(mysqli_query($koneksi, "SHOW COLUMNS FROM users LIKE 'role'"));
+    $role_list = explode("','", str_replace(["enum('","')"], "", $role['Type']));
+}
 
 // Proses update data jika tombol update ditekan
 if(isset($_POST['update'])){
-    $nama = $_POST['nama'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $jurusan = $_POST['jurusan'];
-    $role = $_POST['role'];
+    $nama = mysqli_real_escape_string($koneksi, $_POST['nama']);
+    $username = mysqli_real_escape_string($koneksi, $_POST['username']);
+    $password = mysqli_real_escape_string($koneksi, $_POST['password']);
+    $jurusan_val = $_POST['jurusan'];
+    $role_val = $_POST['role'];
 
     // Query update data mahasiswa
     $update = mysqli_query($koneksi, 
@@ -60,60 +68,57 @@ if(isset($_POST['update'])){
             nama='$nama', 
             username='$username',
             password='$password',
-            jurusan='$jurusan',
-            role='$role'
+            jurusan='$jurusan_val',
+            role='$role_val'
         WHERE id='$id'"
     );
 
     // Feedback update
     if($update){
-        echo "<script>alert('Data mahasiswa berhasil diperbarui!'); window.location='data_mahasiswa.php';</script>";
+        set_alert('success', 'Data mahasiswa berhasil diperbarui!', 'data_mahasiswa.php');
     } else {
-        echo "<script>alert('Gagal memperbarui data!'); window.location='edit_mahasiswa.php?id=$id';</script>";
+        set_alert('error', 'Gagal memperbarui data!', "edit_mahasiswa.php?id=$id");
     }
 }
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ubah Mahasiswa</title>
-    <!-- Font Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Bootstrap & Custom CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="../styles.css" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body style="background-color: #fdf6e3;">
 
 <div class="container my-5">
+    <?php if($mhs): ?>
     <h3 class="mb-4">Ubah Mahasiswa</h3>
 
     <form method="post">
-        <!-- Input Nama Mahasiswa -->
         <div class="mb-3">
-            <label>Nama Mahasiswa</label>
-            <input type="text" class="form-control" name="nama" value="<?= $mhs['nama']; ?>" required>
+            <label class="form-label fw-semibold">Nama Mahasiswa</label>
+            <input type="text" class="form-control" name="nama" value="<?= htmlspecialchars($mhs['nama']); ?>" required>
         </div>
 
-        <!-- Input NIM -->
         <div class="mb-3">
-            <label>NIM</label>
-            <input type="text" class="form-control" name="username" value="<?= $mhs['username']; ?>" required>
+            <label class="form-label fw-semibold">NIM</label>
+            <input type="text" class="form-control" name="username" value="<?= htmlspecialchars($mhs['username']); ?>" required>
         </div>
 
-        <!-- Input Password -->
         <div class="mb-3">
-            <label>Password</label>
-            <input type="text" class="form-control" name="password" value="<?= $mhs['password']; ?>" required>
+            <label class="form-label fw-semibold">Password</label>
+            <input type="text" class="form-control" name="password" value="<?= htmlspecialchars($mhs['password']); ?>" required>
         </div>
 
-        <!-- Pilih Jurusan -->
         <div class="mb-3">
-            <label>Jurusan</label>
+            <label class="form-label fw-semibold">Jurusan</label>
             <select name="jurusan" class="form-control" required>
                 <option value="">-- Pilih Jurusan --</option>
                 <?php foreach($jurusan_list as $j): ?>
@@ -124,9 +129,8 @@ if(isset($_POST['update'])){
             </select>
         </div>
 
-        <!-- Pilih Role -->
         <div class="mb-3">
-            <label>Role</label>
+            <label class="form-label fw-semibold">Role</label>
             <select name="role" class="form-control" required>
                 <?php foreach ($role_list as $r): ?>
                     <option value="<?= $r ?>" <?= $mhs['role']==$r ? 'selected' : '' ?>>
@@ -136,14 +140,29 @@ if(isset($_POST['update'])){
             </select>
         </div>
 
-        <!-- Tombol aksi -->
-        <div class="d-flex justify-content-between">
-            <a href="data_mahasiswa.php" class="btn btn-primary">Kembali</a>
-            <button type="submit" name="update" class="btn btn-success">Ubah</button>
+        <div class="d-flex justify-content-between mt-4">
+            <a href="data_mahasiswa.php" class="btn btn-primary px-4">Kembali</a>
+            <button type="submit" name="update" class="btn btn-success px-4">Simpan Perubahan</button>
         </div>
     </form>
+    <?php endif; ?>
 </div>
 
 <script src="../js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Penanganan SweetAlert
+    <?php if (isset($_SESSION['alert'])): ?>
+    Swal.fire({
+        icon: '<?= $_SESSION['alert']['icon'] ?>',
+        title: '<?= $_SESSION['alert']['title'] ?>',
+        confirmButtonColor: '#1D5D8C',
+        showConfirmButton: true
+    }).then(() => {
+        window.location.href = '<?= $_SESSION['alert']['url'] ?>';
+    });
+    <?php unset($_SESSION['alert']); endif; ?>
+</script>
+
 </body>
 </html>
