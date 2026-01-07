@@ -8,16 +8,23 @@
 session_start();
 include '../koneksi.php'; // Koneksi ke database
 
-// Cek apakah user sudah login
-if(!isset($_SESSION['username'])){
-    echo "<script>alert('Silakan login dahulu'); window.location='../login.php';</script>";
-    exit;
+// Fungsi pembantu SweetAlert
+function set_alert($icon, $title, $url) {
+    $_SESSION['alert'] = [
+        'icon' => $icon,
+        'title' => $title,
+        'url' => $url
+    ];
 }
 
-// Cek apakah user adalah admin
-if($_SESSION['role'] != 'admin'){
-    echo "<script>alert('Akses ditolak!'); window.location='../login.php';</script>";
-    exit;
+// Cek apakah user sudah login
+if(!isset($_SESSION['username'])){
+    set_alert('warning', 'Silakan login dahulu', '../login.php');
+}
+
+// Cek apakah user adalah admin (hanya jika sudah login)
+if(isset($_SESSION['role']) && $_SESSION['role'] != 'admin'){
+    set_alert('error', 'Akses ditolak!', '../login.php');
 }
 
 // Ambil daftar jurusan dari enum di kolom 'jurusan'
@@ -30,8 +37,8 @@ $jurusan_list = explode("','", $enum); // Pecah string menjadi array jurusan
 // Proses saat form dikirim
 if(isset($_POST['tambah'])){
 
-    $nama = $_POST['nama']; // Nama mahasiswa
-    $username = $_POST['username']; // NIM mahasiswa
+    $nama = mysqli_real_escape_string($koneksi, $_POST['nama']); // Nama mahasiswa
+    $username = mysqli_real_escape_string($koneksi, $_POST['username']); // NIM mahasiswa
     $password = $_POST['password']; // Password
     $jurusan = $_POST['jurusan']; // Jurusan
     $role = 'mahasiswa'; // Role otomatis mahasiswa
@@ -40,8 +47,7 @@ if(isset($_POST['tambah'])){
     $cek = mysqli_query($koneksi,"SELECT * FROM users WHERE username = '$username'");
     
     if(mysqli_num_rows($cek) > 0){
-        // Jika username sudah ada
-        echo "<script>alert('Nama atau username sudah terdaftar'); window.location = 'data_mahasiswa.php';</script>";
+        set_alert('error', 'Nama atau username sudah terdaftar', 'data_mahasiswa.php');
     } else {
         // Insert data mahasiswa baru ke database
         $query = "INSERT INTO users (nama, username, password, jurusan, role) 
@@ -49,9 +55,9 @@ if(isset($_POST['tambah'])){
         $data = mysqli_query($koneksi, $query);
 
         if($data){
-            echo "<script>alert('Tambah data mahasiswa berhasil!'); window.location ='data_mahasiswa.php';</script>";
+            set_alert('success', 'Tambah data mahasiswa berhasil!', 'data_mahasiswa.php');
         } else{
-            echo "<script>alert('Tambah data mahasiswa gagal!'); window.location ='tambah_mahasiswa.php';</script>";
+            set_alert('error', 'Tambah data mahasiswa gagal!', 'tambah_mahasiswa.php');
         }
     }
 }
@@ -64,13 +70,13 @@ if(isset($_POST['tambah'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tambah Mahasiswa</title>
 
-    <!-- Font Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
-    <!-- CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <link rel="stylesheet" href="css/styles.css" type="text/css">
 </head>
 
@@ -78,7 +84,6 @@ if(isset($_POST['tambah'])){
     <div class="container my-5">
         <h3 class="mb-4">Tambah Mahasiswa</h3>
 
-        <!-- Form tambah mahasiswa -->
         <form action="" method="post">
             <div class="mb-3">
                 <label for="nama" class="form-label">Nama Mahasiswa</label>
@@ -109,13 +114,25 @@ if(isset($_POST['tambah'])){
         </form>
     </div>
 
-    <!-- Footer -->
     <img src="../asset/wave-new-navy.svg" class="w-100" alt="wave">
     <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
         &copy; <span>2025</span> Tim Web Portofolio Projek PBL
     </footer>
 
     <script src="../js/bootstrap.bundle.min.js"></script>
+    <script>
+    // Logika SweetAlert dari Session
+    <?php if (isset($_SESSION['alert'])): ?>
+    Swal.fire({
+        icon: '<?= $_SESSION['alert']['icon'] ?>',
+        title: '<?= $_SESSION['alert']['title'] ?>',
+        timer: 2000,
+        showConfirmButton: true
+    }).then(() => {
+        window.location.href = '<?= $_SESSION['alert']['url'] ?>';
+    });
+    <?php unset($_SESSION['alert']); endif; ?>
+    </script>
 </body>
 
 </html>

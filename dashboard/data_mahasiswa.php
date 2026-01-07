@@ -7,16 +7,23 @@
 session_start();
 include '../koneksi.php';
 
-// Validasi login
-if(!isset($_SESSION['username'])){
-    echo "<script>alert('Username tidak sesuai! Silahkan login'); window.location ='../login.php';</script>";
-    exit;
+// Fungsi pembantu SweetAlert Session
+function set_alert($icon, $title, $url) {
+    $_SESSION['alert'] = [
+        'icon' => $icon,
+        'title' => $title,
+        'url' => $url
+    ];
 }
 
-// Validasi role admin
-if($_SESSION['role'] != 'admin'){
-    echo "<script>alert('Akses ditolak! Halaman ini hanya untuk admin.'); window.location='../login.php';</script>";
-    exit;
+// Validasi login
+if(!isset($_SESSION['username'])){
+    set_alert('warning', 'Username tidak sesuai! Silahkan login', '../login.php');
+}
+
+// Validasi role admin (hanya dijalankan jika session alert belum ada dari validasi login)
+if(!isset($_SESSION['alert']) && $_SESSION['role'] != 'admin'){
+    set_alert('error', 'Akses ditolak! Halaman ini hanya untuk admin.', '../login.php');
 }
 
 // Query data mahasiswa
@@ -40,6 +47,7 @@ $result = mysqli_num_rows($data);
     <link href="css/styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <style>
 /* Navbar & Sidebar Styling */
@@ -268,7 +276,6 @@ table .btn {
 </style>
 
 <body class="sb-nav-fixed">
-    <!-- Navbar -->
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-nav-new shadow fixed-top">
         <a class="navbar-brand ps-3" href="dashboard.php">Dasbor Admin</a>
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle"><i
@@ -290,7 +297,6 @@ table .btn {
     </nav>
 
     <div id="layoutSidenav">
-        <!-- Sidebar -->
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
@@ -314,12 +320,11 @@ table .btn {
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    <?= htmlspecialchars($_SESSION['nama']); ?>
+                    <?= htmlspecialchars($_SESSION['nama'] ?? 'Admin'); ?>
                 </div>
             </nav>
         </div>
 
-        <!-- Content -->
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
@@ -361,15 +366,13 @@ table .btn {
                                         </a>
                                     </td>
                                     <td>
-                                        <a onclick="return confirm('Yakin ingin menghapus?')"
-                                            href="hapus_mahasiswa.php?id=<?= $row['id']; ?>"
+                                        <button onclick="confirmDelete(<?= $row['id']; ?>)"
                                             class="btn btn-danger btn-sm">
                                             <i class="fas fa-trash"></i> Hapus
-                                        </a>
+                                        </button>
                                     </td>
                                 </tr>
 
-                                <!-- Modal Detail Mahasiswa -->
                                 <div class="modal fade" id="modalLihat<?= $row['id']; ?>" tabindex="-1"
                                     aria-labelledby="modalLihatLabel<?= $row['id']; ?>" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-scrollable">
@@ -421,12 +424,43 @@ table .btn {
         </div>
     </div>
 
-    <!-- JS Bootstrap & Plugins -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="js/scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
+
+    <script>
+    // Penanganan SweetAlert untuk validasi akses
+    <?php if (isset($_SESSION['alert'])): ?>
+    Swal.fire({
+        icon: '<?= $_SESSION['alert']['icon'] ?>',
+        title: '<?= $_SESSION['alert']['title'] ?>',
+        confirmButtonColor: '#1D5D8C',
+        showConfirmButton: true
+    }).then(() => {
+        window.location.href = '<?= $_SESSION['alert']['url'] ?>';
+    });
+    <?php unset($_SESSION['alert']); endif; ?>
+
+    // Fungsi konfirmasi hapus
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Apakah anda yakin?',
+            text: "Data mahasiswa akan dihapus secara permanen!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'hapus_mahasiswa.php?id=' + id;
+            }
+        });
+    }
+    </script>
 </body>
 
 </html>

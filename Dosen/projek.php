@@ -9,19 +9,24 @@
 session_start(); // Memulai session untuk mengecek status login
 include '../koneksi.php'; // Menghubungkan ke database
 
+// Fungsi SweetAlert redirect (Sesuai struktur file lainnya)
+function redirect_alert($icon, $title, $url) {
+    $_SESSION['alert'] = [
+        'icon' => $icon,
+        'title' => $title,
+        'url' => $url
+    ];
+}
+
 // Mengecek apakah user sudah login
 if(!isset($_SESSION['username'])){
-    echo "<script>alert('Silahkan Melakukan Login Terlebih Dahulu'); window.location.href = '../login.php';</script>";
+    header("Location: ../login.php");
     exit;
 }
 
 // Mengecek apakah user memiliki role 'dosen'
 if ($_SESSION['role'] !== 'dosen') {
-    echo "<script>
-            alert('Maaf, anda bukan dosen. Silakan login ulang.');
-            window.location.href = '../login.php';
-          </script>";
-    exit;
+    redirect_alert('error', 'Akses Ditolak!', '../login.php');
 }
 
 // Jumlah data yang ditampilkan per halaman
@@ -59,9 +64,6 @@ $data = mysqli_query($koneksi, $query);
 // Menghitung jumlah data yang ditampilkan
 $result = mysqli_num_rows($data);
 
-$data = mysqli_query($koneksi, $query); // Eksekusi query
-$result = mysqli_num_rows($data); // Menghitung jumlah projek
-
 // Jika form pencarian dikirim
 if (isset($_POST['cari'])) {
     $keyword = mysqli_real_escape_string($koneksi, $_POST['keyword']); // Mengamankan input dari SQL injection
@@ -76,17 +78,7 @@ if (isset($_POST['cari'])) {
 
     $data = mysqli_query($koneksi, $query);
     $result = mysqli_num_rows($data);
-} else {
-    // Query default jika tidak melakukan pencarian
-    $query = "SELECT projek.*, users.nama, users.username 
-              FROM projek 
-              JOIN users ON projek.user_id = users.id 
-              ORDER BY projek.judul ASC";
-
-    $data = mysqli_query($koneksi, $query);
-    $result = mysqli_num_rows($data);
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -97,19 +89,18 @@ if (isset($_POST['cari'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PortoPBL</title>
 
-    <!-- Google Fonts Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 
-    <!-- Custom Styles -->
     <link rel="stylesheet" href="../styles.css" type="text/css">
     <link rel="stylesheet" href="../custom.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <style>
@@ -127,37 +118,30 @@ if (isset($_POST['cari'])) {
 
 <body>
 
-    <!-- ===== Navbar dosen ===== -->
     <?php include '../layouts/navbar_dosen.php'; ?>
 
-    <!-- Container utama projek -->
     <div class="container">
 
-        <!-- Header dan form pencarian -->
         <div class="d-flex justify-content-between align-items-center my-5">
             <h1 class="my-5">Projek</h1>
 
-            <!-- Form pencarian mahasiswa -->
             <form class="d-flex" method="POST">
                 <input class="form-control me-2" type="text" placeholder="Cari Mahasiswa" name="keyword">
                 <button class="btn btn-clr" type="submit" name="cari">Cari</button>
             </form>
         </div>
 
-        <!-- Menampilkan projek jika ada -->
         <?php if ($result > 0 ): ?>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <?php while($row = mysqli_fetch_assoc($data)) :?>
             <div class="col">
                <div class="card border border-info h-100 d-flex flex-column">
 
-                    <!-- Gambar projek -->
                     <div class="ratio ratio-16x9 overflow-hidden">
                         <img src="../asset/uploads/<?= htmlspecialchars($row['gambar_projek']); ?>"
                             class="w-100 h-100 object-fit-cover" alt="Projek Web Portofolio PBL">
                     </div>
 
-                    <!-- Konten projek -->
                     <div class="card-body">
                         <h5 class="card-title"><?= $row['judul']; ?></h5>
                         <p class="card-text">Deskripsi Projek : <?= $row['deskripsi']; ?></p>
@@ -165,7 +149,6 @@ if (isset($_POST['cari'])) {
                         <p class="card-text">Nama Mahasiswa : <?= $row['nama']; ?></p>
                         <p class="card-text">NIM : <?= $row['username']; ?></p>
 
-                        <!-- Tombol untuk melihat projek detail -->
                         <a href="lihat_projek_dosen.php?projek_id=<?= $row['projek_id']; ?>"
                             class="btn btn-outline-info rounded-pill d-flex justify-content-center strk-btn">
                             Lihat Projek
@@ -176,7 +159,7 @@ if (isset($_POST['cari'])) {
             <?php endwhile; ?>
         </div>
 
-        <?php if ($total_page > 1): ?>
+        <?php if ($total_page > 1 && !isset($_POST['cari'])): ?>
         <nav class="d-flex justify-content-center mt-5">
             <ul class="pagination">
 
@@ -186,7 +169,7 @@ if (isset($_POST['cari'])) {
                     </a>
                 </li>
 
-                <?php for ($i = 1; $i <= $totalPage; $i++): ?>
+                <?php for ($i = 1; $i <= $total_page; $i++): ?>
                 <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
                     <a class="page-link" href="?page=<?= $i ?>">
                         <?= $i ?>
@@ -194,7 +177,7 @@ if (isset($_POST['cari'])) {
                 </li>
                 <?php endfor; ?>
 
-                <li class="page-item <?= ($page >= $totalPage) ? 'disabled' : '' ?>">
+                <li class="page-item <?= ($page >= $total_page) ? 'disabled' : '' ?>">
                     <a class="page-link" href="?page=<?= $page + 1 ?>">
                         >
                     </a>
@@ -205,24 +188,32 @@ if (isset($_POST['cari'])) {
         <?php endif; ?>
 
         <?php else : ?>
-        <!-- Pesan jika tidak ada projek -->
         <h2>Belum ada projek</h2>
         <?php endif; ?>
     </div>
 
-    <!-- Wave -->
     <div class="overflow mt-5">
         <img src="../asset/wave-new-navy.svg" class="img-fluid d-block" style="width:100vw" alt="wave">
     </div>
 
-    <!-- Footer halaman -->
     <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
         &copy; <span>2025</span> Tim Web Portofolio Projek PBL
     </footer>
 
-    <!-- Bootstrap JS -->
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script>
+    // SweetAlert Handling (Sesuai struktur file lainnya)
+    <?php if (isset($_SESSION['alert'])): ?>
+    Swal.fire({
+        icon: '<?= $_SESSION['alert']['icon']; ?>',
+        title: '<?= $_SESSION['alert']['title']; ?>',
+        timer: 2000,
+        showConfirmButton: false
+    }).then(() => {
+        window.location.href = '<?= $_SESSION['alert']['url']; ?>';
+    });
+    <?php unset($_SESSION['alert']); endif; ?>
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -243,10 +234,6 @@ if (isset($_POST['cari'])) {
         card.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0)';
         });
-    });
-    AOS.init({
-        duration: 1000,
-        once: true
     });
     </script>
 </body>
