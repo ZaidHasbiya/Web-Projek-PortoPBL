@@ -9,6 +9,7 @@ Tanggal    : 10 Oktober 2025
 session_start();
 include '../koneksi.php';
 
+<<<<<<< HEAD
 // Fungsi redirect dengan SweetAlert
 function redirect_alert($icon, $title, $url) {
     $_SESSION['alert'] = [
@@ -18,6 +19,22 @@ function redirect_alert($icon, $title, $url) {
     ];
     header("Location: profil_saya.php");
     exit;
+=======
+// Mengecek apakah user sudah login
+if (!isset($_SESSION['username'])) {
+  echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script>
+        Swal.fire({
+            icon: 'warning',
+            title: 'Silahkan login terlebih dahulu!',
+            timer: 2000,
+            showConfirmButton: false
+        }).then(() => {
+            window.location.href = '../login.php';
+        });
+        </script>";
+  exit;
+>>>>>>> bf556ff (Merubah seluruh desain web)
 }
 
 // Validasi login
@@ -27,7 +44,22 @@ if (!isset($_SESSION['username'])) {
 
 // Validasi role mahasiswa
 if ($_SESSION['role'] !== 'mahasiswa') {
+<<<<<<< HEAD
     redirect_alert('error', 'Maaf, anda bukan mahasiswa. Silakan login ulang.', '../login.php');
+=======
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+          <script>
+          Swal.fire({
+              icon: 'error',
+              title: 'Maaf, anda bukan mahasiswa. Silakan login ulang.',
+              timer: 2000,
+              showConfirmButton: false
+          }).then(() => {
+              window.location.href = '../login.php';
+          });
+          </script>";
+    exit;
+>>>>>>> bf556ff (Merubah seluruh desain web)
 }
 
 // Mengambil nama mahasiswa dari session
@@ -85,6 +117,103 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
 <!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+<<<<<<< HEAD
+=======
+<style>
+/* warna tema biru */
+.bg-footer {
+    background-color: #1D5D8C !important;
+    color: white !important;
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* judul dalam box */
+.bg-footer h5 {
+    color: white !important;
+    letter-spacing: .5px;
+}
+
+/* jarak antar box */
+.bg-footer+.bg-footer {
+    margin-top: 18px;
+}
+
+/* form di dalam box biru */
+.bg-footer .form-control {
+    border: none;
+    box-shadow: none;
+    border-radius: 10px;
+}
+
+/* teks deskripsi form */
+.bg-footer label {
+    color: #fff !important;
+    font-weight: 600;
+}
+
+/* badge nilai */
+.badge.bg-footer {
+    background: #0B3C5D !important;
+}
+
+/* background halaman */
+body {
+    background: #fdf6e3 !important;
+}
+
+/* Kotak biru utama */
+.bg-footer {
+    background-color: #1D5D8C !important;
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, .15);
+}
+
+/* JUDUL dalam box (cream) */
+.bg-footer h1,
+.bg-footer h2,
+.bg-footer h3,
+.bg-footer h4,
+.bg-footer h5,
+.bg-footer strong {
+    color: #e9e1c9 !important;
+}
+
+.bg-footer p,
+.bg-footer span,
+.bg-footer .form-control {
+    color: #2d3748 !important;
+}
+
+.bg-footer a {
+    color: #0d6efd !important;
+    text-decoration: underline;
+}
+
+.bg-footer a:hover {
+    color: #0a58ca !important;
+}
+
+.bg-footer label {
+    color: #e9e1c9 !important;
+    font-weight: 600;
+}
+
+.bg-footer .form-control {
+    background: #fffef5;
+    border-radius: 10px;
+    border: 1px solid #e9e1c9;
+}
+
+.badge.bg-footer {
+    background: #0B3C5D !important;
+    color: #e9e1c9 !important;
+}
+</style>
+
+>>>>>>> bf556ff (Merubah seluruh desain web)
 
 <body>
 

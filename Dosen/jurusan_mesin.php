@@ -14,7 +14,11 @@ include '../koneksi.php';
 // Memulai session
 session_start();
 
+<<<<<<< HEAD
 // Fungsi SweetAlert redirect (Sesuai struktur file lainnya)
+=======
+// Fungsi SweetAlert redirect (Ditambahkan untuk standarisasi)
+>>>>>>> bf556ff (Merubah seluruh desain web)
 function redirect_alert($icon, $title, $url) {
     $_SESSION['alert'] = [
         'icon' => $icon,
@@ -24,7 +28,13 @@ function redirect_alert($icon, $title, $url) {
 }
 
 // Validasi login dan role pengguna (harus dosen)
+<<<<<<< HEAD
 if (!isset($_SESSION['username'])) {
+=======
+if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'dosen') {
+    // Mengganti alert JS biasa dengan sistem SweetAlert session
+    redirect_alert('error', 'Maaf, anda bukan dosen. Silakan login ulang.', '../login.php');
+>>>>>>> bf556ff (Merubah seluruh desain web)
     header("Location: ../login.php");
     exit;
 }
@@ -154,6 +164,7 @@ $totalPage = ceil($totalData / $limit);
     </form>
 
     <?php if (mysqli_num_rows($data) > 0 ) : ?>
+<<<<<<< HEAD
     <div class="container">
         <div class="row g-4 justify-content-center">
             <?php while ($row = mysqli_fetch_assoc($data)): ?>
@@ -177,6 +188,31 @@ $totalPage = ceil($totalData / $limit);
                             Lihat Profil
                         </a>
                     </div>
+=======
+    <div class="d-flex flex-wrap justify-content-evenly align-items-start gap-4">
+
+        <?php while ($row = mysqli_fetch_assoc($data)): ?>
+        <?php
+        // Menentukan foto profil mahasiswa (default jika kosong)
+        $foto = !empty($row['foto_profil']) 
+                ? "../asset/profil/" . $row['foto_profil'] 
+                : "../tim/profil-kosong.jpeg";
+      ?>
+
+        <div class="col-md-4 col-lg-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="ratio ratio-1x1">
+                    <img src="<?= $foto ?>" class="card-img-top rounded-2" alt="Foto Mahasiswa"
+                        style="object-fit: cover;">
+                </div>
+                <div class="card-body text-center">
+                    <p class="mb-1"><strong>Nama:</strong> <?= htmlspecialchars($row['nama']) ?></p>
+                    <p class="mb-1"><strong>NIM:</strong> <?= htmlspecialchars($row['username']) ?></p>
+                    <p class="mb-3"><strong>Jurusan:</strong> <?= htmlspecialchars($row['jurusan']) ?></p>
+                    <a href="lihat_profil_mhs.php?id=<?= $row['id'] ?>" class="btn btn-info px-4 btn-clr">
+                        Lihat Profil
+                    </a>
+>>>>>>> bf556ff (Merubah seluruh desain web)
                 </div>
             </div>
             <?php endwhile; ?>
@@ -186,6 +222,10 @@ $totalPage = ceil($totalData / $limit);
     <?php if ($totalPage > 1): ?>
     <nav class="d-flex justify-content-center mt-5">
         <ul class="pagination">
+<<<<<<< HEAD
+=======
+
+>>>>>>> bf556ff (Merubah seluruh desain web)
             <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
                 <a class="page-link" href="?page=<?= $page - 1 ?>&search=<?= urlencode($search) ?>">Sebelumnya</a>
             </li>
@@ -206,11 +246,21 @@ $totalPage = ceil($totalData / $limit);
     <?php endif; ?>
 
     <?php else: ?>
+<<<<<<< HEAD
+=======
+
+    <?php if (!empty($search)): ?>
+>>>>>>> bf556ff (Merubah seluruh desain web)
     <h2 class="text-center text-muted">
         <?= !empty($search) ? 'Mahasiswa belum ada atau terdaftar' : 'Belum ada mahasiswa'; ?>
     </h2>
     <?php endif; ?>
 
+<<<<<<< HEAD
+=======
+    <?php endif; ?>
+
+>>>>>>> bf556ff (Merubah seluruh desain web)
     <div class="overflow-hidden mt-5">
         <img src="../asset/wave-new-navy.svg" class="img-fluid d-block" style="width:100vw" alt="wave">
     </div>
@@ -230,8 +280,26 @@ $totalPage = ceil($totalData / $limit);
         showConfirmButton: false
     }).then(() => {
         window.location.href = '<?= $_SESSION['alert']['url']; ?>';
+<<<<<<< HEAD
     });
     <?php unset($_SESSION['alert']); endif; ?>
+=======
+    });
+    <?php unset($_SESSION['alert']); endif; ?>
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+>>>>>>> bf556ff (Merubah seluruh desain web)
 
     document.querySelectorAll('.card').forEach(card => {
         card.addEventListener('mouseenter', function() {

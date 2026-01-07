@@ -9,6 +9,7 @@ Tanggal     : 10 Oktober 2025
 session_start();
 include '../koneksi.php';
 
+<<<<<<< HEAD
 // Fungsi SweetAlert redirect
 function redirect_alert($icon, $title, $url) {
     $_SESSION['alert'] = [
@@ -35,6 +36,22 @@ if ($_SESSION['role'] !== 'mahasiswa') {
         'url' => '../login.php'
     ];
 }
+=======
+session_start();
+// Memulai session untuk validasi login
+
+// Validasi login dan role mahasiswa menggunakan SweetAlert
+if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'mahasiswa') {
+    $_SESSION['alert'] = [
+        'icon' => 'error',
+        'title' => 'Maaf, anda bukan mahasiswa. Silakan login ulang.',
+        'url' => '../login.php'
+    ];
+}
+
+// Mengambil ID user dari session
+$user_id = isset($_SESSION['id']) ? $_SESSION['id'] : null;
+>>>>>>> bf556ff (Merubah seluruh desain web)
 
 // Konfigurasi pagination
 $limit  = 6;
@@ -77,6 +94,7 @@ $totalPage   = ceil($totalData / $limit);
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 
     <link rel="stylesheet" href="../styles.css" type="text/css">
+<<<<<<< HEAD
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -87,14 +105,23 @@ $totalPage   = ceil($totalData / $limit);
         .card { transition: transform 0.3s ease; }
         .card:hover { transform: translateY(-8px); }
     </style>
+=======
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+>>>>>>> bf556ff (Merubah seluruh desain web)
 </head>
 
 <body>
 
     <?php include '../layouts/navbar_mhs.php'; ?>
 
+<<<<<<< HEAD
     <div class="container content-wrapper py-4 mt-5">
         <h1 class="my-5 pt-3 fw-bold">Jurusan Teknik Mesin</h1>
+=======
+    <div class="container">
+        <h1 class="my-5 pt-5">Jurusan Teknik Mesin</h1>
+>>>>>>> bf556ff (Merubah seluruh desain web)
 
         <?php if (mysqli_num_rows($data) > 0): ?>
         <div class="row g-4">
@@ -106,6 +133,10 @@ $totalPage   = ceil($totalData / $limit);
             ?>
             <div class="col-md-4 col-lg-3">
                 <div class="card shadow-sm border-0 h-100">
+<<<<<<< HEAD
+=======
+
+>>>>>>> bf556ff (Merubah seluruh desain web)
                     <div class="ratio ratio-1x1">
                         <img src="<?= $foto ?>" class="card-img-top rounded-top" alt="Foto Mahasiswa" style="object-fit: cover;">
                     </div>
@@ -115,7 +146,11 @@ $totalPage   = ceil($totalData / $limit);
                         <p class="mb-1"><strong>NIM:</strong> <?= htmlspecialchars($row['username']); ?></p>
                         <p class="mb-3"><strong>Jurusan:</strong> <?= htmlspecialchars($row['jurusan']); ?></p>
 
+<<<<<<< HEAD
                         <a href="lihat_profil_mhs.php?id=<?= $row['id']; ?>" class="btn btn-clr px-4 w-100">
+=======
+                        <a href="lihat_profil_mhs.php?id=<?= $row['id']; ?>" class="btn btn-clr px-4">
+>>>>>>> bf556ff (Merubah seluruh desain web)
                             Lihat Profil
                         </a>
                     </div>
@@ -152,7 +187,11 @@ $totalPage   = ceil($totalData / $limit);
         <?php endif; ?>
     </div>
 
+<<<<<<< HEAD
     <div class="overflow-hidden mt-5">
+=======
+    <div class="overflow mt-5">
+>>>>>>> bf556ff (Merubah seluruh desain web)
         <img src="../asset/wave-new-navy.svg" class="img-fluid d-block" style="width:100vw" alt="wave">
     </div>
 
@@ -161,6 +200,7 @@ $totalPage   = ceil($totalData / $limit);
     </footer>
 
     <script src="../js/bootstrap.bundle.min.js"></script>
+<<<<<<< HEAD
 
     <script>
     // SweetAlert2 Logic
@@ -174,6 +214,45 @@ $totalPage   = ceil($totalData / $limit);
         window.location.href = '<?= $_SESSION['alert']['url']; ?>';
     });
     <?php unset($_SESSION['alert']); endif; ?>
+=======
+
+    <script>
+    // SweetAlert2 Logic
+    <?php if (isset($_SESSION['alert'])): ?>
+    Swal.fire({
+        icon: '<?= $_SESSION['alert']['icon']; ?>',
+        title: '<?= $_SESSION['alert']['title']; ?>',
+        timer: 2000,
+        showConfirmButton: false
+    }).then(() => {
+        window.location.href = '<?= $_SESSION['alert']['url']; ?>';
+    });
+    <?php unset($_SESSION['alert']); endif; ?>
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px)';
+            this.style.transition = 'transform 0.3s ease';
+        });
+
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+>>>>>>> bf556ff (Merubah seluruh desain web)
     </script>
 </body>
 </html>

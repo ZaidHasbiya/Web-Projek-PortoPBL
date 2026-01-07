@@ -1,10 +1,10 @@
 <?php
 /*
-Nama File   : login.php
-Deskripsi     : Menangani proses login pengguna (mahasiswa, dosen, admin)
-             dan mengarahkan ke halaman sesuai role
-Dibuat Oleh    : Fathur Alfitah - NIM : [3312501048]
-Dibuat     : 2025
+Nama File    : login.php
+Deskripsi    : Menangani proses login pengguna (mahasiswa, dosen, admin)
+               dan mengarahkan ke halaman sesuai role dengan SweetAlert
+Dibuat Oleh  : Fathur Alfitah - NIM : [3312501048]
+Dibuat       : 2025
 */
 
 session_start();
@@ -51,7 +51,6 @@ if (isset($_POST['login'])) {
     } elseif ($role == 'admin') {
       $_SESSION['redirect'] = 'dashboard/dashboard.php';
     }
-
   } else {
     $_SESSION['login_error'] = true;
   }
@@ -62,26 +61,19 @@ if (isset($_POST['login'])) {
 <html lang="id">
 
 <head>
-    <!-- Metadata halaman -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PortoPBL | Masuk</title>
 
-    <!-- Font Google -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
 
-    <!-- CSS internal halaman login -->
     <style>
     body {
         font-family: 'Poppins', sans-serif;
         letter-spacing: 0.2px;
-        background:
-            linear-gradient(rgba(13, 27, 42, 0.65),
-                rgba(13, 27, 42, 0.65)),
-            url('asset/poltek.jpeg');
+        background: linear-gradient(rgba(13, 27, 42, 0.65), rgba(13, 27, 42, 0.65)), url('asset/poltek.jpeg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -106,7 +98,6 @@ if (isset($_POST['login'])) {
         border-radius: 10px;
         border: 1px solid #e6ddc4;
     }
-
 
     .btn-primary-custom {
         font-size: 15px;
@@ -137,6 +128,7 @@ if (isset($_POST['login'])) {
     .logo {
         width: 150px;
         transition: transform 0.3s ease;
+        cursor: pointer;
     }
 
     .logo:hover {
@@ -167,24 +159,19 @@ if (isset($_POST['login'])) {
 
 <body>
 
-    <!-- Container utama halaman login -->
     <div class="container min-vh-100 d-flex align-items-center justify-content-center">
         <div class="col-md-5">
-
-            <!-- Card login -->
             <div class="card login-card shadow border-0">
                 <div class="card-body p-4">
 
-                    <!-- Logo aplikasi -->
                     <div class="text-center mb-3">
-                        <img src="asset/logoo.png" alt="Logo PortoPBL" class="logo mb-2">
+                        <a href="index.php">
+                            <img src="asset/logoo.png" alt="Logo PortoPBL" class="logo mb-2">
+                        </a>
                         <p class="text-muted mb-0">Silakan masuk ke akun anda</p>
                     </div>
 
-                    <!-- Form login -->
                     <form action="" method="POST">
-
-                        <!-- Pilih role -->
                         <div class="mb-3">
                             <label class="form-label">Masuk Sebagai</label>
                             <div class="select-wrapper">
@@ -198,36 +185,28 @@ if (isset($_POST['login'])) {
                             </div>
                         </div>
 
-                        <!-- Input username -->
                         <div class="mb-3">
                             <label class="form-label">Username</label>
                             <input type="text" name="username" class="form-control"
                                 placeholder="Masukkan Username (NIM atau NIDN)" required>
                         </div>
 
-                        <!-- Input password -->
                         <div class="mb-3">
                             <label class="form-label">Password</label>
                             <input type="password" name="password" class="form-control" placeholder="Masukkan Password"
                                 required>
                         </div>
 
-                        <!-- Tombol login -->
                         <div class="d-grid mt-4">
-                            <button type="submit" name="login" class="btn btn-primary-custom btn-lg">
-                                Masuk
-                            </button>
+                            <button type="submit" name="login" class="btn btn-primary-custom btn-lg">Masuk</button>
                         </div>
-
                     </form>
 
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="js/bootstrap.bundle.min.js"></script>
 
     <!-- SweetAlert -->

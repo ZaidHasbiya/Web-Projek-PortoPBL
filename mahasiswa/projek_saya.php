@@ -9,6 +9,7 @@ Tanggal          : 10 Oktober 2025
 session_start();
 include '../koneksi.php';
 
+<<<<<<< HEAD
 // Fungsi redirect dengan SweetAlert
 function redirect_alert($icon, $title, $url) {
     $_SESSION['alert'] = [
@@ -17,6 +18,21 @@ function redirect_alert($icon, $title, $url) {
         'url' => $url
     ];
     header("Location: projek_saya.php");
+=======
+// Cek apakah user sudah login
+if (!isset($_SESSION['username'])) {
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+          <script>
+          Swal.fire({
+              icon: 'warning',
+              title: 'Silakan login terlebih dahulu!',
+              timer: 2000,
+              showConfirmButton: false
+          }).then(() => {
+              window.location.href = '../login.php';
+          });
+          </script>";
+>>>>>>> bf556ff (Merubah seluruh desain web)
     exit;
 }
 
@@ -27,7 +43,22 @@ if (!isset($_SESSION['username'])) {
 
 // Cek role
 if ($_SESSION['role'] !== 'mahasiswa') {
+<<<<<<< HEAD
     redirect_alert('error', 'Maaf, anda bukan mahasiswa. Silakan login ulang.', '../login.php');
+=======
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+          <script>
+          Swal.fire({
+              icon: 'error',
+              title: 'Maaf, anda bukan mahasiswa. Silakan login ulang.',
+              timer: 2000,
+              showConfirmButton: false
+          }).then(() => {
+              window.location.href = '../login.php';
+          });
+          </script>";
+    exit;
+>>>>>>> bf556ff (Merubah seluruh desain web)
 }
 
 // Mengambil ID user dari session
@@ -74,11 +105,19 @@ $jumlah_projek = mysqli_num_rows($result);
 <!-- Bootstrap -->
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 
+<<<<<<< HEAD
 <!-- Custom CSS -->
 <link rel="stylesheet" href="../styles.css" type="text/css">
 
 <!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+=======
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+>>>>>>> bf556ff (Merubah seluruh desain web)
 </head>
 <body>
 
@@ -120,9 +159,29 @@ $jumlah_projek = mysqli_num_rows($result);
                                 <i class="fas fa-edit"></i> Ubah
                             </a>
 
+<<<<<<< HEAD
                             <a href="hapus_projek.php?projek_id=<?= $row['projek_id']; ?>" 
                                class="btn btn-danger btn-sm btn-hapus">
                                 <i class="fas fa-trash-alt"></i> Hapus
+=======
+                        <!-- Tombol aksi -->
+                        <div class="mt-auto">
+                            <div class="d-flex justify-content-center gap-2 mb-2">
+                                <a href="edit_projek.php?projek_id=<?= $row['projek_id']; ?>"
+                                    class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit"></i> Ubah
+                                </a>
+
+                                <a href="hapus_projek.php?projek_id=<?= $row['projek_id']; ?>"
+                                    class="btn btn-danger btn-sm btn-hapus">
+                                    <i class="fas fa-trash-alt"></i> Hapus
+                                </a>
+                            </div>
+
+                            <a href="lihat_projek_saya.php?projek_id=<?= $row['projek_id']; ?>"
+                                class="btn btn-outline-info w-100 rounded-pill">
+                                Lihat Projek
+>>>>>>> bf556ff (Merubah seluruh desain web)
                             </a>
                         </div>
 
@@ -167,6 +226,7 @@ $jumlah_projek = mysqli_num_rows($result);
     </div>
     <?php endif; ?>
 
+<<<<<<< HEAD
 </div>
 
 <div class="overflow-hidden mt-5">
@@ -215,5 +275,39 @@ document.querySelectorAll('.btn-hapus').forEach(btn => {
 });
 </script>
 
+=======
+    <!-- Footer -->
+    <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
+        &copy; <span>2025</span> Tim Web Portofolio Projek PBL
+    </footer>
+
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../script.js"></script>
+
+    <script>
+    // Konfirmasi hapus projek dengan SweetAlert
+    document.querySelectorAll('.btn-hapus').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const href = this.getAttribute('href');
+
+            Swal.fire({
+                title: 'Yakin ingin menghapus projek ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = href;
+                }
+            });
+        });
+    });
+    </script>
+
+>>>>>>> bf556ff (Merubah seluruh desain web)
 </body>
 </html>

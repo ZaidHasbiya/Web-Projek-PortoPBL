@@ -49,12 +49,19 @@ else if($_SESSION['role'] != 'dosen'){
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 
+<<<<<<< HEAD
+=======
+    <!-- AOS CSS -->
+>>>>>>> bf556ff (Merubah seluruh desain web)
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link rel="stylesheet" href="../styles.css" type="text/css">
     <link rel="stylesheet" href="../custom.css">
+
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <style>
@@ -171,8 +178,12 @@ else if($_SESSION['role'] != 'dosen'){
     <script src="../js/bootstrap.bundle.min.js"></script>
 
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
     <script>
+<<<<<<< HEAD
     // Penanganan SweetAlert
+=======
+>>>>>>> bf556ff (Merubah seluruh desain web)
     <?php if (isset($_SESSION['alert'])): ?>
     Swal.fire({
         icon: '<?= $_SESSION['alert']['icon'] ?>',
@@ -195,6 +206,7 @@ else if($_SESSION['role'] != 'dosen'){
             }
         });
     });
+
     document.querySelectorAll('.card').forEach(card => {
         card.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-8px)';
@@ -205,11 +217,13 @@ else if($_SESSION['role'] != 'dosen'){
             this.style.transform = 'translateY(0)';
         });
     });
+
     AOS.init({
         duration: 1000,
         once: true
     });
     </script>
+
 </body>
 
 </html>

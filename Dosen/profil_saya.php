@@ -9,7 +9,11 @@
 session_start(); // Memulai session untuk mengecek login user
 include '../koneksi.php'; // Menghubungkan ke database
 
+<<<<<<< HEAD
 // Fungsi SweetAlert redirect (Sesuai struktur file lainnya)
+=======
+// Fungsi SweetAlert redirect (Ditambahkan untuk standarisasi alert)
+>>>>>>> bf556ff (Merubah seluruh desain web)
 function redirect_alert($icon, $title, $url) {
     $_SESSION['alert'] = [
         'icon' => $icon,
@@ -20,6 +24,10 @@ function redirect_alert($icon, $title, $url) {
 
 // Mengecek apakah user sudah login
 if (!isset($_SESSION['username'])) {
+<<<<<<< HEAD
+=======
+    redirect_alert('warning', 'Username tidak sesuai! Silakan login.', '../login.php');
+>>>>>>> bf556ff (Merubah seluruh desain web)
     header("Location: ../login.php");
     exit;
 }
@@ -27,6 +35,11 @@ if (!isset($_SESSION['username'])) {
 // Mengecek apakah user memiliki role dosen
 if ($_SESSION['role'] !== 'dosen') {
     redirect_alert('error', 'Maaf, anda bukan dosen. Silakan login ulang.', '../login.php');
+<<<<<<< HEAD
+=======
+    header("Location: ../login.php");
+    exit; // Menghentikan eksekusi script jika bukan dosen
+>>>>>>> bf556ff (Merubah seluruh desain web)
 }
 
 $nama = $_SESSION['nama']; // Mengambil nama user dari session
@@ -141,7 +154,10 @@ body {
     <script src="../js/bootstrap.bundle.min.js"></script>
 
     <script>
+<<<<<<< HEAD
     // SweetAlert Handling
+=======
+>>>>>>> bf556ff (Merubah seluruh desain web)
     <?php if (isset($_SESSION['alert'])): ?>
     Swal.fire({
         icon: '<?= $_SESSION['alert']['icon']; ?>',

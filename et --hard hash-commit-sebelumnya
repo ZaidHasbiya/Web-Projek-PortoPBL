@@ -1,0 +1,23 @@
+[33me170146[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mlogin_registrasi[m[33m, [m[1;31morigin/login_registrasi[m[33m)[m HEAD@{0}: pull origin login_registrasi: Fast-forward
+[33mb671927[m HEAD@{1}: commit: Menambahkan javascript pada halaman proyek publik, mahasiswa & dosen dan merapikan desainnya
+[33mc0f0b73[m HEAD@{2}: commit: Mengubah tampilan halaman dasbor admin
+[33me967505[m HEAD@{3}: commit: Mengubah desain background dosen menjadi warna cream dan memperbaiki desain lainnya
+[33m7eb246a[m HEAD@{4}: commit: Mengubah tampilan profil dropdown mahasiswa
+[33m26d67ee[m HEAD@{5}: commit: Mengubah tampilan halaman sebagai mahasiswa menjadi cream
+[33mef40d77[m HEAD@{6}: commit: Mengubah tampilan login form menjadi cream
+[33m019e1d6[m HEAD@{7}: commit: Mengubah warna background publik menjadi cream
+[33m5331b39[m HEAD@{8}: pull origin login_registrasi: Fast-forward
+[33ma94a2a1[m HEAD@{9}: commit: Merapikan halaman dasbor admin
+[33m80b14f7[m HEAD@{10}: commit (merge): Merge branch 'login_registrasi' of https://github.com/ZaidHasbiya/Web-Projek-PortoPBL into login_registrasi
+[33mf0a7028[m HEAD@{11}: commit: Merapikan halaman dasbor admin
+[33me8d5ffd[m HEAD@{12}: commit: Memperbaiki desain jurusan halaman dosen
+[33m9350f30[m HEAD@{13}: pull origin login_registrasi: Fast-forward
+[33m3479d8d[m HEAD@{14}: commit: Melalakukan finishing pada dasbor admin
+[33mc280333[m HEAD@{15}: pull origin login_registrasi: Fast-forward
+[33m88fbd2e[m HEAD@{16}: commit: Menambahkan fitur logged menampilkan nama pada dasbor dan memperbaiki desain login form
+[33m1b4f2bd[m HEAD@{17}: commit: Memperbaiki desain dasbor admin
+[33m6e3f6d2[m HEAD@{18}: commit: Memperbaiki desain login
+[33m76db37b[m HEAD@{19}: pull origin login_registrasi: Fast-forward
+[33m2687c4f[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{20}: checkout: moving from main to login_registrasi
+[33m2687c4f[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{21}: checkout: moving from main to main
+[33m2687c4f[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{22}: clone: from https://github.com/ZaidHasbiya/Web-Projek-PortoPBL.git

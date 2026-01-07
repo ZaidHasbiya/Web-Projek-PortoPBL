@@ -135,7 +135,7 @@ if (isset($_POST['cari'])) {
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <?php while($row = mysqli_fetch_assoc($data)) :?>
             <div class="col">
-               <div class="card border border-info h-100 d-flex flex-column">
+                <div class="card border border-info h-100 d-flex flex-column">
 
                     <div class="ratio ratio-16x9 overflow-hidden">
                         <img src="../asset/uploads/<?= htmlspecialchars($row['gambar_projek']); ?>"
@@ -163,6 +163,7 @@ if (isset($_POST['cari'])) {
         <nav class="d-flex justify-content-center mt-5">
             <ul class="pagination">
 
+<<<<<<< HEAD
                 <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
                     <a class="page-link" href="?page=<?= $page - 1 ?>">
                         <
@@ -181,12 +182,37 @@ if (isset($_POST['cari'])) {
                     <a class="page-link" href="?page=<?= $page + 1 ?>">
                         >
                     </a>
+=======
+                <!-- Prev -->
+                <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?page=<?= $page - 1 ?>">Prev</a>
+                </li>
+
+                <?php
+        $start = max(1, $page - 2);
+        $end   = min($total_page, $page + 2);
+
+        for ($i = $start; $i <= $end; $i++):
+        ?>
+                <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                    <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                </li>
+                <?php endfor; ?>
+
+                <!-- Next -->
+                <li class="page-item <?= ($page >= $total_page) ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?page=<?= $page + 1 ?>">Next</a>
+>>>>>>> bf556ff (Merubah seluruh desain web)
                 </li>
 
             </ul>
         </nav>
         <?php endif; ?>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> bf556ff (Merubah seluruh desain web)
         <?php else : ?>
         <h2>Belum ada projek</h2>
         <?php endif; ?>

@@ -11,7 +11,11 @@ Tanggal     : 29 November 2025
 session_start();
 include '../koneksi.php';
 
+<<<<<<< HEAD
 // Fungsi SweetAlert redirect (Sesuai struktur file lainnya)
+=======
+// Fungsi SweetAlert redirect (Ditambahkan untuk standarisasi)
+>>>>>>> bf556ff (Merubah seluruh desain web)
 function redirect_alert($icon, $title, $url) {
     $_SESSION['alert'] = [
         'icon' => $icon,
@@ -22,6 +26,10 @@ function redirect_alert($icon, $title, $url) {
 
 // Cek login
 if (!isset($_SESSION['username'])) {
+<<<<<<< HEAD
+=======
+    redirect_alert('warning', 'Silakan login terlebih dahulu', '../login.php');
+>>>>>>> bf556ff (Merubah seluruh desain web)
     header("Location: ../login.php");
     exit;
 }
@@ -29,11 +37,22 @@ if (!isset($_SESSION['username'])) {
 // Cek role dosen
 if ($_SESSION['role'] !== 'dosen') {
     redirect_alert('error', 'Anda tidak memiliki akses!', '../login.php');
+<<<<<<< HEAD
+=======
+    header("Location: ../login.php");
+    exit;
+>>>>>>> bf556ff (Merubah seluruh desain web)
 }
 
 // Cek ID mahasiswa
 if (!isset($_GET['id'])) {
+<<<<<<< HEAD
     redirect_alert('warning', 'Mahasiswa tidak ditemukan', 'index_dosen.php');
+=======
+    redirect_alert('error', 'Mahasiswa tidak ditemukan', 'index_dosen.php');
+    header("Location: index_dosen.php");
+    exit;
+>>>>>>> bf556ff (Merubah seluruh desain web)
 }
 
 $user_id  = $_GET['id'];
@@ -46,6 +65,11 @@ $user        = mysqli_fetch_assoc($result_user);
 
 if (!$user) {
     redirect_alert('error', 'Mahasiswa tidak ditemukan', 'index_dosen.php');
+<<<<<<< HEAD
+=======
+    header("Location: index_dosen.php");
+    exit;
+>>>>>>> bf556ff (Merubah seluruh desain web)
 }
 
 // Foto profil
@@ -97,7 +121,12 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
     <title>PortoPBL</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<<<<<<< HEAD
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+=======
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+>>>>>>> bf556ff (Merubah seluruh desain web)
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../styles.css">
@@ -106,6 +135,47 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
+<<<<<<< HEAD
+=======
+<style>
+/* Kotak biru */
+.bg-footer {
+    background-color: #1f4f73;
+    border-radius: 6px;
+}
+
+/* Judul & label warna cream */
+.bg-footer h5,
+.bg-footer label,
+.bg-footer span,
+.bg-footer strong {
+    color: #e9e1c9 !important;
+}
+
+/* Isi deskripsi warna #2d3748 */
+.bg-footer .form-control,
+.bg-footer p,
+.bg-footer div,
+.bg-footer .card-text {
+    color: #2d3748 !important;
+}
+
+/* Biar area teks tetap putih */
+.bg-footer .form-control {
+    background-color: #ffffff !important;
+}
+
+/* Jangan ganggu warna link */
+.bg-footer a {
+    color: inherit;
+}
+
+.bg-footer .form-control a {
+    color: #0d6efd !important;
+}
+</style>
+
+>>>>>>> bf556ff (Merubah seluruh desain web)
 <body>
 
     <?php include '../layouts/navbar_dosen.php'; ?>
@@ -253,7 +323,11 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
     <script src="../js/bootstrap.bundle.min.js"></script>
 
     <script>
+<<<<<<< HEAD
     // SweetAlert Handling
+=======
+    // Logic SweetAlert
+>>>>>>> bf556ff (Merubah seluruh desain web)
     <?php if (isset($_SESSION['alert'])): ?>
     Swal.fire({
         icon: '<?= $_SESSION['alert']['icon']; ?>',

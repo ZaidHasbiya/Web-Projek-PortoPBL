@@ -141,11 +141,12 @@ body {
 
         </div>
 
-        <!-- Navigasi pagination -->
+        <!-- Pagination -->
         <?php if ($total_page > 1): ?>
         <nav class="d-flex justify-content-center mt-5">
             <ul class="pagination">
 
+<<<<<<< HEAD
                 <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
                     <a class="page-link" href="?page=<?= $page - 1 ?>">
                         <
@@ -164,17 +165,39 @@ body {
                     <a class="page-link" href="?page=<?= $page + 1 ?>">
                         >
                     </a>
+=======
+                <!-- Prev -->
+                <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?page=<?= $page - 1 ?>">Prev</a>
+                </li>
+
+
+                <?php
+        $start = max(1, $page - 2);
+        $end   = min($total_page, $page + 2);
+
+        for ($i = $start; $i <= $end; $i++):
+        ?>
+                <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                    <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                </li>
+                <?php endfor; ?>
+
+                <!-- Next -->
+                <li class="page-item <?= ($page >= $total_page) ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?page=<?= $page + 1 ?>">Next</a>
+>>>>>>> bf556ff (Merubah seluruh desain web)
                 </li>
 
             </ul>
         </nav>
         <?php endif; ?>
-
-        <?php else : ?>
-        <!-- Jika belum ada projek -->
-        <h2>Belum ada projek</h2>
+         <?php else: ?>
+        <div class="text-center my-5">
+            <i class="fas fa-folder-open fa-3x text-info mb-3"></i>
+            <p class="fs-5 text-muted">Belum ada projek yang tersedia.</p>
+        </div>
         <?php endif; ?>
-
     </div>
 
     <!-- Wave -->
@@ -189,7 +212,7 @@ body {
 
     <!-- Bootstrap JS -->
     <script src="js/bootstrap.bundle.min.js"></script>
-     <script>
+    <script>
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();

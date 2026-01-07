@@ -9,6 +9,7 @@ Tanggal     : 10 Oktober 2025
 session_start();
 include '../koneksi.php';
 
+<<<<<<< HEAD
 // Fungsi SweetAlert redirect
 function redirect_alert($icon, $title, $url) {
     $_SESSION['alert'] = [
@@ -17,6 +18,21 @@ function redirect_alert($icon, $title, $url) {
         'url' => $url
     ];
     header("Location: lihat_projek_mhs.php");
+=======
+// Cek apakah user sudah login
+if (!isset($_SESSION['username'])) {
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+          <script>
+          Swal.fire({
+              icon: 'warning',
+              title: 'Silakan login terlebih dahulu!',
+              timer: 2000,
+              showConfirmButton: false
+          }).then(() => {
+              window.location.href = '../login.php';
+          });
+          </script>";
+>>>>>>> bf556ff (Merubah seluruh desain web)
     exit;
 }
 
@@ -27,12 +43,42 @@ if (!isset($_SESSION['username'])) {
 
 // Validasi role mahasiswa
 if ($_SESSION['role'] !== 'mahasiswa') {
+<<<<<<< HEAD
     redirect_alert('error', 'Maaf, anda bukan mahasiswa. Silakan login ulang.', '../login.php');
+=======
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+          <script>
+          Swal.fire({
+              icon: 'error',
+              title: 'Maaf, anda bukan mahasiswa. Silakan login ulang.',
+              timer: 2000,
+              showConfirmButton: false
+          }).then(() => {
+              window.location.href = '../login.php';
+          });
+          </script>";
+    exit;
+>>>>>>> bf556ff (Merubah seluruh desain web)
 }
 
 // Validasi projek_id
 if (!isset($_GET['projek_id'])) {
+<<<<<<< HEAD
     redirect_alert('warning', 'Projek tidak ditemukan!', 'projek_mhs.php');
+=======
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+          <script>
+          Swal.fire({
+              icon: 'warning',
+              title: 'Projek tidak ditemukan!',
+              timer: 2000,
+              showConfirmButton: false
+          }).then(() => {
+              window.location.href='projek_mhs.php';
+          });
+          </script>";
+    exit;
+>>>>>>> bf556ff (Merubah seluruh desain web)
 }
 
 // Ambil ID projek
@@ -49,7 +95,22 @@ $result = mysqli_query($koneksi, $query);
 
 // Validasi projek
 if (mysqli_num_rows($result) == 0) {
+<<<<<<< HEAD
     redirect_alert('warning', 'Projek tidak ditemukan.', 'projek_mhs.php');
+=======
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+          <script>
+          Swal.fire({
+              icon: 'error',
+              title: 'Projek tidak ditemukan atau bukan milik Anda.',
+              timer: 2000,
+              showConfirmButton: false
+          }).then(() => {
+              window.location.href='projek_saya.php';
+          });
+          </script>";
+    exit;
+>>>>>>> bf556ff (Merubah seluruh desain web)
 }
 
 $projek = mysqli_fetch_assoc($result);

@@ -11,8 +11,14 @@ session_start();
 
 // Cek login & role
 if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'mahasiswa') {
+<<<<<<< HEAD
     $_SESSION['access_denied'] = true;
     header("Location: ../login.php");
+=======
+    $_SESSION['projek_error'] = 'Maaf, anda bukan mahasiswa. Silakan login ulang.';
+    $_SESSION['redirect_to'] = '../login.php';
+    header("Location: ../login.php"); // Atau tetap di halaman ini untuk trigger Swal
+>>>>>>> bf556ff (Merubah seluruh desain web)
     exit;
 }
 
@@ -46,13 +52,22 @@ if (isset($_POST['tambah'])) {
     $max_size = 20 * 1024 * 1024;
     $allowed_ext = ['jpg', 'jpeg', 'png'];
 
+<<<<<<< HEAD
     $error_msg = '';
+=======
+    if ($error !== 0) {
+        $_SESSION['projek_error'] = 'Terjadi kesalahan upload gambar!';
+        header("Location: tambah_projek.php");
+        exit;
+    }
+>>>>>>> bf556ff (Merubah seluruh desain web)
 
     if ($error !== 0) $error_msg = 'Terjadi kesalahan upload gambar!';
     $ext = strtolower(pathinfo($gambar, PATHINFO_EXTENSION));
     if (!in_array($ext, $allowed_ext)) $error_msg = 'Format gambar harus JPG, JPEG, atau PNG';
     if ($ukuran > $max_size) $error_msg = 'Ukuran gambar maksimal 20 MB';
 
+<<<<<<< HEAD
     if ($error_msg === '') move_uploaded_file($tmp, $folder . $gambar);
 
     // Simpan ke database
@@ -70,6 +85,36 @@ if (isset($_POST['tambah'])) {
 
     if ($error_msg !== '') $_SESSION['projek_error'] = $error_msg;
 
+=======
+    if (!in_array($ext, $allowed_ext)) {
+        $_SESSION['projek_error'] = 'Format gambar harus JPG, JPEG, atau PNG';
+        header("Location: tambah_projek.php");
+        exit;
+    }
+
+    if ($ukuran > $max_size) {
+        $_SESSION['projek_error'] = 'Ukuran gambar maksimal 20 MB';
+        header("Location: tambah_projek.php");
+        exit;
+    }
+
+    if (move_uploaded_file($tmp, $folder . $gambar)) {
+        // Simpan ke database
+        $query = "INSERT INTO projek 
+                  (user_id, judul, deskripsi, link, link_repo, gambar_projek, tgl_pembuatan, tgl_selesai)
+                  VALUES
+                  ('$user_id', '$judul', '$deskripsi', '$link', '$link_repo', '$gambar', '$tgl_pembuatan', '$tgl_selesai')";
+
+        if (mysqli_query($koneksi, $query)) {
+            $_SESSION['projek_success'] = true;
+        } else {
+            $_SESSION['projek_error'] = 'Gagal menyimpan data ke database';
+        }
+    } else {
+        $_SESSION['projek_error'] = 'Gagal memindahkan file ke folder uploads';
+    }
+    
+>>>>>>> bf556ff (Merubah seluruh desain web)
     header("Location: tambah_projek.php");
     exit;
 }
@@ -86,6 +131,7 @@ if (isset($_POST['tambah'])) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+<<<<<<< HEAD
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 <link rel="stylesheet" href="../styles.css">
 
@@ -97,6 +143,37 @@ body { background-color: #fdf6e3 !important; color: #2d3748; font-family: 'Poppi
 h1,h2,h3,label { color: #2d3748; }
 .btn-clr { background-color: #1D5D8C !important; color: #fff !important; border-radius: 7px; border: none; }
 .btn-clr:hover { opacity: .9; }
+=======
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../styles.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<style>
+body {
+    background-color: #fdf6e3 !important;
+    color: #2d3748;
+}
+
+h1,
+h2,
+h3,
+label {
+    color: #2d3748;
+}
+
+.btn-clr {
+    background-color: #1D5D8C !important;
+    color: #fff !important;
+    border-radius: 7px;
+    border: none;
+}
+
+.btn-clr:hover {
+    opacity: .9;
+}
+>>>>>>> bf556ff (Merubah seluruh desain web)
 </style>
 </head>
 
@@ -143,10 +220,17 @@ h1,h2,h3,label { color: #2d3748; }
             <input type="date" class="form-control" name="tgl_selesai" required>
         </div>
 
+<<<<<<< HEAD
         <div class="d-flex justify-content-between">
             <a href="projek_saya.php" class="btn btn-clr text-white">Kembali</a>
             <button type="submit" name="tambah" class="btn btn-success">Tambah</button>
         </div>
+=======
+            <div class="d-flex justify-content-between">
+                <a href="projek_saya.php" class="btn btn-clr text-white">Kembali</a>
+                <button type="submit" name="tambah" class="btn btn-success">Tambah</button>
+            </div>
+>>>>>>> bf556ff (Merubah seluruh desain web)
 
     </form>
 </div>
@@ -175,5 +259,38 @@ Swal.fire({
 </script>
 <?php unset($_SESSION['projek_error']); endif; ?>
 
+<<<<<<< HEAD
+=======
+    <script src="../js/bootstrap.bundle.min.js"></script>
+
+    <?php if (isset($_SESSION['projek_success'])): ?>
+    <script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: 'Projek berhasil ditambahkan',
+        timer: 2000,
+        showConfirmButton: false
+    }).then(() => {
+        window.location.href = 'projek_saya.php';
+    });
+    </script>
+    <?php unset($_SESSION['projek_success']); endif; ?>
+
+    <?php if (isset($_SESSION['projek_error'])): ?>
+    <script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '<?= $_SESSION['projek_error']; ?>'
+    }).then(() => {
+        <?php if (isset($_SESSION['redirect_to'])): ?>
+        window.location.href = '<?= $_SESSION['redirect_to']; ?>';
+        <?php unset($_SESSION['redirect_to']); endif; ?>
+    });
+    </script>
+    <?php unset($_SESSION['projek_error']); endif; ?>
+
+>>>>>>> bf556ff (Merubah seluruh desain web)
 </body>
 </html>
