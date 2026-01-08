@@ -1,37 +1,22 @@
 <?php
 /*
-<<<<<<< HEAD
-Nama File   : index_mahasiswa.php
-Deskripsi     : Halaman dashboard utama mahasiswa setelah login
-Dibuat Oleh    : Fathur Alfitrah - NIM : [3312501047]
-Tanggal     : 10 Oktober 2025
-=======
 Nama File    : index_mahasiswa.php
 Deskripsi    : Halaman dashboard utama mahasiswa setelah login
 Dibuat Oleh  : Fathur Alfitrah - NIM : [3312501047]
 Tanggal      : 10 Oktober 2025
->>>>>>> bf556ff (Merubah seluruh desain web)
 */
 
 session_start(); 
 include '../koneksi.php';
 
-<<<<<<< HEAD
-// Fungsi SweetAlert redirect (Sesuai struktur file jurusan)
-=======
 // Fungsi SweetAlert redirect
->>>>>>> bf556ff (Merubah seluruh desain web)
 function redirect_alert($icon, $title, $url) {
     $_SESSION['alert'] = [
         'icon' => $icon,
         'title' => $title,
         'url' => $url
     ];
-<<<<<<< HEAD
-    header("Location: " . $_SERVER['PHP_SELF']);
-=======
     header("Location: index_mahasiswa.php");
->>>>>>> bf556ff (Merubah seluruh desain web)
     exit;
 }
 
@@ -48,12 +33,9 @@ if ($_SESSION['role'] !== 'mahasiswa') {
         'title' => 'Akses Ditolak!',
         'url' => 'index.php'
     ];
-<<<<<<< HEAD
-=======
     // Jika bukan mahasiswa, arahkan ke index utama (luar)
     header("Location: ../index.php");
     exit;
->>>>>>> bf556ff (Merubah seluruh desain web)
 }
 ?>
 
@@ -76,17 +58,6 @@ if ($_SESSION['role'] !== 'mahasiswa') {
     <link rel="stylesheet" href="../styles.css" type="text/css">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<<<<<<< HEAD
-</head>
-
-<style>
-.text-justify-center {
-    margin: 0 auto;
-    text-align: justify;
-}
-</style>
-
-=======
 
     <style>
         .text-justify-center {
@@ -108,7 +79,6 @@ if ($_SESSION['role'] !== 'mahasiswa') {
     </style>
 </head>
 
->>>>>>> bf556ff (Merubah seluruh desain web)
 <body>
 
     <?php include '../layouts/navbar_mhs.php'; ?>
@@ -161,10 +131,6 @@ if ($_SESSION['role'] !== 'mahasiswa') {
             </div>
 
             <div class="row text-center">
-<<<<<<< HEAD
-
-=======
->>>>>>> bf556ff (Merubah seluruh desain web)
                 <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="100">
                     <div class="card h-100">
                         <img src="../tim/zaid-biru.jpg" class="card-img-top" alt="Zaid Hasbiya Abrar">
@@ -211,11 +177,7 @@ if ($_SESSION['role'] !== 'mahasiswa') {
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
-<<<<<<< HEAD
-    // SweetAlert Handling (Sesuai struktur file jurusan)
-=======
     // SweetAlert Handling
->>>>>>> bf556ff (Merubah seluruh desain web)
     <?php if (isset($_SESSION['alert'])): ?>
     Swal.fire({
         icon: '<?= $_SESSION['alert']['icon']; ?>',
@@ -227,10 +189,7 @@ if ($_SESSION['role'] !== 'mahasiswa') {
     });
     <?php unset($_SESSION['alert']); endif; ?>
 
-<<<<<<< HEAD
-=======
     // Smooth Scroll
->>>>>>> bf556ff (Merubah seluruh desain web)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();

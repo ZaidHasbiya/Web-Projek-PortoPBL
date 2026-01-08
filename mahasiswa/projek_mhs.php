@@ -20,30 +20,16 @@ function redirect_alert($icon, $title, $url) {
     exit;
 }
 
-// Fungsi redirect dengan SweetAlert
-function redirect_alert($icon, $title, $url) {
-    $_SESSION['alert'] = [
-        'icon' => $icon,
-        'title' => $title,
-        'url' => $url
-    ];
-    header("Location: projek_mhs.php");
-    exit;
-}
-
 // Validasi login
 if (!isset($_SESSION['username'])) {
-    redirect_alert('error', 'Silahkan login terlebih dahulu!', '../login.php');
     redirect_alert('error', 'Silahkan login terlebih dahulu!', '../login.php');
 }
 
 // Validasi role mahasiswa
 if ($_SESSION['role'] !== 'mahasiswa') {
     redirect_alert('error', 'Maaf, anda bukan mahasiswa. Silakan login ulang.', '../login.php');
-    redirect_alert('error', 'Maaf, anda bukan mahasiswa. Silakan login ulang.', '../login.php');
 }
 
-// Pagination
 // Pagination
 $limit  = 6;
 $page   = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -54,13 +40,7 @@ $offset = ($page - 1) * $limit;
 $total_query = mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM projek");
 $total_data  = mysqli_fetch_assoc($total_query)['total'];
 $total_page  = ceil($total_data / $limit);
-// Total projek
-$total_query = mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM projek");
-$total_data  = mysqli_fetch_assoc($total_query)['total'];
-$total_page  = ceil($total_data / $limit);
 
-// Data projek
-$query  = "
 // Data projek
 $query  = "
     SELECT projek.*, users.nama, users.username
@@ -95,8 +75,6 @@ $result = mysqli_num_rows($data);
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-<<<<<<< HEAD
-=======
 
 <style>
 .card-text {
@@ -108,20 +86,19 @@ $result = mysqli_num_rows($data);
 
 </style>
 
->>>>>>> a096997 (Finalisasi produk)
 <body>
 
     <?php include '../layouts/navbar_mhs.php'; ?>
 
-<div class="container">
-    <h1 class="my-5 pt-5">Projek</h1>
+    <div class="container">
+        <h1 class="my-5 pt-5">Projek</h1>
 
-    <?php if ($result > 0): ?>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <?php if ($result > 0): ?>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
 
-        <?php while ($row = mysqli_fetch_assoc($data)): ?>
-        <div class="col">
-            <div class="card border border-info h-100 d-flex flex-column">
+            <?php while ($row = mysqli_fetch_assoc($data)): ?>
+            <div class="col">
+                <div class="card border border-info h-100 d-flex flex-column">
 
                     <div class="ratio ratio-16x9 overflow-hidden">
                         <img src="../asset/uploads/<?= htmlspecialchars($row['gambar_projek']); ?>"
@@ -135,25 +112,17 @@ $result = mysqli_num_rows($data);
                         <p class="card-text mb-1">Nama Mahasiswa : <?= htmlspecialchars($row['nama']); ?></p>
                         <p class="card-text">NIM : <?= htmlspecialchars($row['username']); ?></p>
 
-<<<<<<< HEAD
-                    <a href="lihat_projek_mhs.php?projek_id=<?= $row['projek_id']; ?>"
-                        class="btn btn-outline-info rounded-pill d-flex justify-content-center">
-                        Lihat Projek
-                    </a>
-=======
                         <a href="lihat_projek_mhs.php?projek_id=<?= $row['projek_id']; ?>"
                             class="btn btn-outline-info rounded-pill d-flex justify-content-center mt-auto">
                             Lihat Projek
                         </a>
 
                     </div>
->>>>>>> a096997 (Finalisasi produk)
                 </div>
             </div>
-        </div>
-        <?php endwhile; ?>
+            <?php endwhile; ?>
 
-    </div>
+        </div>
 
         <?php if ($total_page > 1): ?>
         <nav class="d-flex justify-content-center mt-5">
@@ -233,4 +202,5 @@ $result = mysqli_num_rows($data);
     });
     </script>
 </body>
+
 </html>

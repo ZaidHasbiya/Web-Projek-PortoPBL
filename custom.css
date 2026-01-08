@@ -6,6 +6,10 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+h1, h2, h3 {
+    color: #2d3748;
+}
+
 .card {
     background-color: #fffef5 !important;
     border: 1px solid #e9e1c9;
@@ -13,9 +17,7 @@ body {
     overflow: hidden;
     transition: transform .3s ease, box-shadow .3s ease;
 }
-.bg-footer{
-    background-color: #1D5D8C;
-}
+
 /* =========================================
    Navbar
 ========================================= */

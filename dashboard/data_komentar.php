@@ -7,23 +7,16 @@
 session_start();
 include '../koneksi.php';
 
-// Fungsi pembantu SweetAlert Session
-function set_alert($icon, $title, $url) {
-    $_SESSION['alert'] = [
-        'icon' => $icon,
-        'title' => $title,
-        'url' => $url
-    ];
-}
-
 // Validasi login
 if(!isset($_SESSION['username'])){
-    set_alert('warning', 'Username tidak sesuai! Silahkan login', '../login.php');
+    echo "<script>alert('Username tidak sesuai! Silahkan login'); window.location ='../login.php';</script>";
+    exit;
 }
 
-// Validasi role admin (hanya jika alert belum diset oleh validasi login)
-if(!isset($_SESSION['alert']) && $_SESSION['role'] != 'admin'){
-    set_alert('error', 'Akses ditolak! Halaman ini hanya untuk admin.', '../login.php');
+// Validasi role admin
+if($_SESSION['role'] != 'admin'){
+    echo "<script>alert('Akses ditolak! Halaman ini hanya untuk admin.'); window.location='../login.php';</script>";
+    exit;
 }
 
 // Query mengambil data komentar beserta nama dosen, mahasiswa, dan judul projek
@@ -46,13 +39,13 @@ $result = mysqli_query($koneksi, $query);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Komentar Dosen - Dasbor Admin</title>
 
+    <!-- Fonts & CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         crossorigin="anonymous" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <style>
@@ -287,6 +280,7 @@ table tbody td:nth-child(5) {
 </style>
 
 <body class="sb-nav-fixed">
+    <!-- Navbar -->
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-nav-new shadow fixed-top">
         <a class="navbar-brand ps-3" href="dashboard.php">Dasbor Admin</a>
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle">
@@ -311,6 +305,7 @@ table tbody td:nth-child(5) {
     </nav>
 
     <div id="layoutSidenav">
+        <!-- Sidebar -->
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
@@ -342,11 +337,12 @@ table tbody td:nth-child(5) {
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    <?= htmlspecialchars($_SESSION['nama'] ?? 'Admin'); ?>
+                    <?= $_SESSION['nama']; ?>
                 </div>
             </nav>
         </div>
 
+        <!-- Content -->
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
@@ -396,25 +392,12 @@ table tbody td:nth-child(5) {
         </div>
     </div>
 
+    <!-- JS Bootstrap & Plugins -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="js/scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
-
-    <script>
-    // Penanganan SweetAlert untuk validasi sesi dan hak akses
-    <?php if (isset($_SESSION['alert'])): ?>
-    Swal.fire({
-        icon: '<?= $_SESSION['alert']['icon'] ?>',
-        title: '<?= $_SESSION['alert']['title'] ?>',
-        confirmButtonColor: '#1D5D8C',
-        showConfirmButton: true
-    }).then(() => {
-        window.location.href = '<?= $_SESSION['alert']['url'] ?>';
-    });
-    <?php unset($_SESSION['alert']); endif; ?>
-    </script>
 </body>
 
 </html>

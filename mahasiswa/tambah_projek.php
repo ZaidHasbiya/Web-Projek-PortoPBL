@@ -1,24 +1,22 @@
 <?php
 /*
 Nama File        : tambah_projek.php
-Deskripsi        : Menambahkan projek mahasiswa, validasi input, upload gambar, dan simpan ke database
-Dibuat Oleh      : Zaid Hasbiya Abrar - NIM : [3312501046]
-Tanggal          : 10 Oktober 2025
+Deskripsi   : File ini digunakan untuk menambahkan data projek mahasiswa,
+              termasuk upload gambar, validasi input, dan penyimpanan ke database
+Dibuat Oleh    : Zaid Hasbiya Abrar - NIM : [3312501046]
+Tanggal     : 10 Oktober 2025
 */
 
 include '../koneksi.php';
+
+// memulai session
 session_start();
 
-// Cek login & role
+// Cek login
 if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'mahasiswa') {
-<<<<<<< HEAD
-    $_SESSION['access_denied'] = true;
-    header("Location: ../login.php");
-=======
     $_SESSION['projek_error'] = 'Maaf, anda bukan mahasiswa. Silakan login ulang.';
     $_SESSION['redirect_to'] = '../login.php';
     header("Location: ../login.php"); // Atau tetap di halaman ini untuk trigger Swal
->>>>>>> bf556ff (Merubah seluruh desain web)
     exit;
 }
 
@@ -34,7 +32,7 @@ if (isset($_POST['tambah'])) {
     $tgl_pembuatan = $_POST['tgl_pembuatan'];
     $tgl_selesai = $_POST['tgl_selesai'];
 
-    // Konversi link YouTube ke embed
+    // Ubah link YouTube ke format embed
     if (strpos($link, "youtu.be") !== false) {
         $id = basename($link);
         $link = "https://www.youtube.com/embed/$id";
@@ -42,7 +40,7 @@ if (isset($_POST['tambah'])) {
         $link = str_replace("watch?v=", "embed/", $link);
     }
 
-    // Upload gambar
+    // Konfigurasi upload gambar
     $gambar = time() . '_' . basename($_FILES['gambar_projek']['name']);
     $tmp = $_FILES['gambar_projek']['tmp_name'];
     $ukuran = $_FILES['gambar_projek']['size'];
@@ -52,40 +50,14 @@ if (isset($_POST['tambah'])) {
     $max_size = 20 * 1024 * 1024;
     $allowed_ext = ['jpg', 'jpeg', 'png'];
 
-<<<<<<< HEAD
-    $error_msg = '';
-=======
     if ($error !== 0) {
         $_SESSION['projek_error'] = 'Terjadi kesalahan upload gambar!';
         header("Location: tambah_projek.php");
         exit;
     }
->>>>>>> bf556ff (Merubah seluruh desain web)
 
-    if ($error !== 0) $error_msg = 'Terjadi kesalahan upload gambar!';
     $ext = strtolower(pathinfo($gambar, PATHINFO_EXTENSION));
-    if (!in_array($ext, $allowed_ext)) $error_msg = 'Format gambar harus JPG, JPEG, atau PNG';
-    if ($ukuran > $max_size) $error_msg = 'Ukuran gambar maksimal 20 MB';
 
-<<<<<<< HEAD
-    if ($error_msg === '') move_uploaded_file($tmp, $folder . $gambar);
-
-    // Simpan ke database
-    if ($error_msg === '') {
-        $query = "INSERT INTO projek 
-                  (user_id, judul, deskripsi, link, link_repo, gambar_projek, tgl_pembuatan, tgl_selesai)
-                  VALUES
-                  ('$user_id', '$judul', '$deskripsi', '$link', '$link_repo', '$gambar', '$tgl_pembuatan', '$tgl_selesai')";
-        if (mysqli_query($koneksi, $query)) {
-            $_SESSION['projek_success'] = true;
-        } else {
-            $error_msg = 'Gagal menambahkan projek ke database';
-        }
-    }
-
-    if ($error_msg !== '') $_SESSION['projek_error'] = $error_msg;
-
-=======
     if (!in_array($ext, $allowed_ext)) {
         $_SESSION['projek_error'] = 'Format gambar harus JPG, JPEG, atau PNG';
         header("Location: tambah_projek.php");
@@ -114,36 +86,24 @@ if (isset($_POST['tambah'])) {
         $_SESSION['projek_error'] = 'Gagal memindahkan file ke folder uploads';
     }
     
->>>>>>> bf556ff (Merubah seluruh desain web)
     header("Location: tambah_projek.php");
     exit;
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Tambah Projek | PortoPBL</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Tambah Projek | PortoPBL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
-<<<<<<< HEAD
-<link rel="stylesheet" href="../css/bootstrap.min.css">
-<link rel="stylesheet" href="../styles.css">
-
-<!-- SweetAlert2 -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<style>
-body { background-color: #fdf6e3 !important; color: #2d3748; font-family: 'Poppins', sans-serif; }
-h1,h2,h3,label { color: #2d3748; }
-.btn-clr { background-color: #1D5D8C !important; color: #fff !important; border-radius: 7px; border: none; }
-.btn-clr:hover { opacity: .9; }
-=======
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../styles.css">
 
@@ -173,94 +133,59 @@ label {
 .btn-clr:hover {
     opacity: .9;
 }
->>>>>>> bf556ff (Merubah seluruh desain web)
 </style>
-</head>
 
 <body>
 
-<div class="container my-5">
-    <h3 class="mb-4">Tambah Projek</h3>
+    <div class="container my-5">
+        <h3 class="mb-4">Tambah Projek</h3>
 
-    <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data">
 
-        <div class="mb-3">
-            <label class="form-label">Judul Projek</label>
-            <input type="text" class="form-control" name="judul" required>
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Judul Projek</label>
+                <input type="text" class="form-control" name="judul" required>
+            </div>
 
-        <div class="mb-3">
-            <label class="form-label">Deskripsi Projek</label>
-            <textarea class="form-control" name="deskripsi" rows="3" required></textarea>
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Deskripsi Projek</label>
+                <textarea class="form-control" name="deskripsi" rows="3" required></textarea>
+            </div>
 
-        <div class="mb-3">
-            <label class="form-label">Tautan Video</label>
-            <input type="url" class="form-control" name="link" required>
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Tautan Video</label>
+                <input type="url" class="form-control" name="link" required>
+            </div>
 
-        <div class="mb-3">
-            <label class="form-label">Tautan Repositori</label>
-            <input type="url" class="form-control" name="link_repo" required>
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Tautan Repositori</label>
+                <input type="url" class="form-control" name="link_repo" required>
+            </div>
 
-        <div class="mb-3">
-            <label class="form-label">Foto Projek</label>
-            <input type="file" class="form-control" name="gambar_projek" accept=".jpg,.jpeg,.png" required>
-            <small class="text-danger">Format jpg, jpeg, png (maks 20MB)</small>
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Foto Projek</label>
+                <input type="file" class="form-control" name="gambar_projek" accept=".jpg,.jpeg,.png" required>
+                <small class="text-danger">Format jpg, jpeg, png (maks 20MB)</small>
+            </div>
 
-        <div class="mb-3">
-            <label class="form-label">Tanggal Pembuatan</label>
-            <input type="date" class="form-control" name="tgl_pembuatan" required>
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Tanggal Pembuatan</label>
+                <input type="date" class="form-control" name="tgl_pembuatan" required>
+            </div>
 
-        <div class="mb-4">
-            <label class="form-label">Tanggal Selesai</label>
-            <input type="date" class="form-control" name="tgl_selesai" required>
-        </div>
+            <div class="mb-4">
+                <label class="form-label">Tanggal Selesai</label>
+                <input type="date" class="form-control" name="tgl_selesai" required>
+            </div>
 
-<<<<<<< HEAD
-        <div class="d-flex justify-content-between">
-            <a href="projek_saya.php" class="btn btn-clr text-white">Kembali</a>
-            <button type="submit" name="tambah" class="btn btn-success">Tambah</button>
-        </div>
-=======
             <div class="d-flex justify-content-between">
                 <a href="projek_saya.php" class="btn btn-clr text-white">Kembali</a>
                 <button type="submit" name="tambah" class="btn btn-success">Tambah</button>
             </div>
->>>>>>> bf556ff (Merubah seluruh desain web)
 
-    </form>
-</div>
+        </form>
+    </div>
 
-<script src="../js/bootstrap.bundle.min.js"></script>
-
-<!-- SweetAlert2 Notifikasi -->
-<?php if (isset($_SESSION['projek_success'])): ?>
-<script>
-Swal.fire({
-    icon: 'success',
-    title: 'Projek Berhasil Ditambahkan!',
-    timer: 2000,
-    showConfirmButton: false
-}).then(() => { window.location.href = 'projek_saya.php'; });
-</script>
-<?php unset($_SESSION['projek_success']); endif; ?>
-
-<?php if (isset($_SESSION['projek_error'])): ?>
-<script>
-Swal.fire({
-    icon: 'error',
-    title: 'Gagal Menambahkan Projek',
-    text: '<?= $_SESSION['projek_error']; ?>'
-});
-</script>
-<?php unset($_SESSION['projek_error']); endif; ?>
-
-<<<<<<< HEAD
-=======
     <script src="../js/bootstrap.bundle.min.js"></script>
 
     <?php if (isset($_SESSION['projek_success'])): ?>
@@ -291,6 +216,6 @@ Swal.fire({
     </script>
     <?php unset($_SESSION['projek_error']); endif; ?>
 
->>>>>>> bf556ff (Merubah seluruh desain web)
 </body>
+
 </html>

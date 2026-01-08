@@ -154,26 +154,6 @@ body {
         <nav class="d-flex justify-content-center mt-5">
             <ul class="pagination">
 
-<<<<<<< HEAD
-                <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page - 1 ?>">
-                        <
-                    </a>
-                </li>
-
-                <?php for ($i = 1; $i <= $totalPage; $i++): ?>
-                <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
-                    <a class="page-link" href="?page=<?= $i ?>">
-                        <?= $i ?>
-                    </a>
-                </li>
-                <?php endfor; ?>
-
-                <li class="page-item <?= ($page >= $totalPage) ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page + 1 ?>">
-                        >
-                    </a>
-=======
                 <!-- Prev -->
                 <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
                     <a class="page-link" href="?page=<?= $page - 1 ?>">Sebelumnya</a>
@@ -193,12 +173,7 @@ body {
 
                 <!-- Next -->
                 <li class="page-item <?= ($page >= $total_page) ? 'disabled' : '' ?>">
-<<<<<<< HEAD
-                    <a class="page-link" href="?page=<?= $page + 1 ?>">Next</a>
->>>>>>> bf556ff (Merubah seluruh desain web)
-=======
                     <a class="page-link" href="?page=<?= $page + 1 ?>">Selanjutnya</a>
->>>>>>> a096997 (Finalisasi produk)
                 </li>
 
             </ul>

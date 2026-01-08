@@ -1,31 +1,18 @@
 <?php
 /*
-<<<<<<< HEAD
-Nama File    : edit_projek.php
-Deskripsi    : Mengelola proses pengubahan data projek mahasiswa,
-               termasuk judul, deskripsi, video, repositori, tanggal,
-               dan gambar projek
-Dibuat Oleh  : Zaid Hasbiya Abrar - NIM : [3312501046]
-Tanggal      : 10 Oktober 2025
-=======
 Nama File   : edit_projek.php
 Deskripsi   : Mengelola proses pengubahan data projek mahasiswa,
               termasuk judul, deskripsi, video, repositori, tanggal,
               dan gambar projek
 Dibuat Oleh : Zaid Hasbiya Abrar - NIM : [3312501046]
 Tanggal     : 10 Oktober 2025
->>>>>>> bf556ff (Merubah seluruh desain web)
 */
 
 include '../koneksi.php';
 
 session_start(); // Memulai session
 
-<<<<<<< HEAD
-// Fungsi SweetAlert redirect (Sesuai struktur file lainnya)
-=======
 // Fungsi SweetAlert redirect
->>>>>>> bf556ff (Merubah seluruh desain web)
 function redirect_alert($icon, $title, $url) {
     $_SESSION['alert'] = [
         'icon' => $icon,
@@ -36,12 +23,8 @@ function redirect_alert($icon, $title, $url) {
 
 // Validasi akses: hanya mahasiswa yang boleh mengakses halaman ini
 if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'mahasiswa') {
-<<<<<<< HEAD
-    header("Location: ../login.php");
-=======
     redirect_alert('warning', 'Maaf, anda bukan mahasiswa. Silakan login ulang.', '../login.php');
     echo "<script>window.location.href='../login.php';</script>";
->>>>>>> bf556ff (Merubah seluruh desain web)
     exit;
 }
 
@@ -51,26 +34,12 @@ $user_id = $_SESSION['id'];
 // Validasi parameter projek_id
 if (!isset($_GET['projek_id'])) {
     redirect_alert('warning', 'Projek tidak ditemukan!', 'projek_saya.php');
-<<<<<<< HEAD
-} else {
-    $projek_id = $_GET['projek_id'];
-=======
     echo "<script>window.location.href='projek_saya.php';</script>";
     exit;
 }
->>>>>>> bf556ff (Merubah seluruh desain web)
 
-    // Mengambil data projek berdasarkan ID
-    $query  = "SELECT * FROM projek WHERE projek_id = '$projek_id'";
-    $result = mysqli_query($koneksi, $query);
-    $projek = mysqli_fetch_assoc($result);
+$projek_id = $_GET['projek_id'];
 
-<<<<<<< HEAD
-    // Jika data projek tidak ditemukan
-    if (!$projek) {
-        redirect_alert('error', 'Data projek tidak ditemukan!', 'projek_saya.php');
-    }
-=======
 // Mengambil data projek berdasarkan ID
 $query  = "SELECT * FROM projek WHERE projek_id = '$projek_id'";
 $result = mysqli_query($koneksi, $query);
@@ -81,12 +50,12 @@ if (!$projek) {
     redirect_alert('error', 'Data projek tidak ditemukan!', 'projek_saya.php');
     echo "<script>window.location.href='projek_saya.php';</script>";
     exit;
->>>>>>> bf556ff (Merubah seluruh desain web)
 }
 
 // Proses ketika tombol edit ditekan
 if (isset($_POST['edit'])) {
 
+    // Mengambil input form
     $judul         = $_POST['judul'];
     $deskripsi     = $_POST['deskripsi'];
     $link          = $_POST['link'];
@@ -104,47 +73,26 @@ if (isset($_POST['edit'])) {
         }
     }
 
+    // Menyimpan nama gambar lama jika tidak diganti
     $gambar = $projek['gambar_projek'];
 
+    // Cek apakah user mengunggah gambar baru
     if (!empty($_FILES['gambar_projek']['name'])) {
+
+        // Informasi file upload
         $namaFile = $_FILES['gambar_projek']['name'];
         $tmpName  = $_FILES['gambar_projek']['tmp_name'];
         $ukuran   = $_FILES['gambar_projek']['size'];
         $error    = $_FILES['gambar_projek']['error'];
 
+        // Konfigurasi upload
         $folder      = "../asset/uploads/";
         $max_size    = 20 * 1024 * 1024; // 20MB
         $allowed_ext = ['jpg', 'jpeg', 'png'];
 
+        // Validasi error upload
         if ($error !== 0) {
             redirect_alert('error', 'Terjadi kesalahan saat upload gambar!', 'edit_projek.php?projek_id='.$projek_id);
-<<<<<<< HEAD
-        } else {
-            $ext = strtolower(pathinfo($namaFile, PATHINFO_EXTENSION));
-            if (!in_array($ext, $allowed_ext)) {
-                redirect_alert('warning', 'Format gambar harus JPG, JPEG, atau PNG!', 'edit_projek.php?projek_id='.$projek_id);
-            } elseif ($ukuran > $max_size) {
-                redirect_alert('warning', 'Ukuran gambar maksimal 20 MB!', 'edit_projek.php?projek_id='.$projek_id);
-            } else {
-                $namaBaru = time() . '_' . $namaFile;
-                move_uploaded_file($tmpName, $folder . $namaBaru);
-                $gambar = $namaBaru;
-            }
-        }
-    }
-
-    // Hanya lanjut update jika tidak ada alert error/warning yang terpicu di atas
-    if (!isset($_SESSION['alert'])) {
-        $query_update = "UPDATE projek SET
-                    judul = '$judul',
-                    deskripsi = '$deskripsi',
-                    link = '$link',
-                    link_repo = '$link_repo',
-                    tgl_pembuatan = '$tgl_pembuatan',
-                    tgl_selesai = '$tgl_selesai',
-                    gambar_projek = '$gambar'
-                  WHERE projek_id = '$projek_id'";
-=======
         }
 
         // Validasi ekstensi file
@@ -177,7 +125,6 @@ if (isset($_POST['edit'])) {
                         tgl_selesai = '$tgl_selesai',
                         gambar_projek = '$gambar'
                       WHERE projek_id = '$projek_id'";
->>>>>>> bf556ff (Merubah seluruh desain web)
 
         if (mysqli_query($koneksi, $query_update)) {
             redirect_alert('success', 'Projek berhasil diubah!', 'projek_saya.php');
@@ -191,21 +138,6 @@ if (isset($_POST['edit'])) {
 <html lang="en">
 
 <head>
-<<<<<<< HEAD
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Halaman Ubah Projek | PortoPBL</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
-  <link rel="stylesheet" href="../css/bootstrap.min.css" />
-  <link rel="stylesheet" href="../styles.css" type="text/css" />
-  <link rel="stylesheet" href="../custom.css" />
-  
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-=======
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Halaman Ubah Projek | PortoPBL</title>
@@ -220,38 +152,10 @@ if (isset($_POST['edit'])) {
     <link rel="stylesheet" href="../custom.css" />
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
->>>>>>> bf556ff (Merubah seluruh desain web)
 </head>
 
 <body>
 
-<<<<<<< HEAD
-  <div class="container my-5">
-    <h3 class="mb-4">Ubah Projek</h3>
-
-    <form action="" method="post" enctype="multipart/form-data">
-      <input type="hidden" name="projek_id" value="<?= $projek['projek_id']; ?>">
-
-      <div class="mb-3">
-        <label class="form-label">Judul Proyek</label>
-        <input type="text" class="form-control" name="judul" value="<?= htmlspecialchars($projek['judul']); ?>">
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">Deskripsi Proyek</label>
-        <textarea class="form-control" name="deskripsi" rows="3"><?= htmlspecialchars($projek['deskripsi']); ?></textarea>
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">Tautan Video</label>
-        <input type="url" class="form-control" name="link" value="<?= htmlspecialchars($projek['link']); ?>">
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">Tautan Repositori</label>
-        <input type="url" class="form-control" name="link_repo" value="<?= htmlspecialchars($projek['link_repo']); ?>" required>
-      </div>
-=======
     <div class="container my-5">
         <h3 class="mb-4">Ubah Projek</h3>
 
@@ -279,7 +183,6 @@ if (isset($_POST['edit'])) {
                 <input type="url" class="form-control" name="link_repo"
                     value="<?= htmlspecialchars($projek['link_repo']); ?>" required>
             </div>
->>>>>>> bf556ff (Merubah seluruh desain web)
 
             <div class="mb-3">
                 <label class="form-label">Foto Proyek</label>
@@ -287,46 +190,6 @@ if (isset($_POST['edit'])) {
                     File foto berupa jpg, jpeg, atau png dan tidak melebihi 20Mb
                 </div>
 
-<<<<<<< HEAD
-        <?php if (!empty($projek['gambar_projek'])): ?>
-          <div class="mt-2">
-            <img src="../asset/uploads/<?= htmlspecialchars($projek['gambar_projek']); ?>" alt="Gambar Projek" width="200">
-          </div>
-        <?php endif; ?>
-
-        <input type="file" class="form-control mt-2" name="gambar_projek" accept=".jpg,.jpeg,.png">
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">Tanggal Pembuatan</label>
-        <input type="date" class="form-control" name="tgl_pembuatan" value="<?= $projek['tgl_pembuatan']; ?>">
-      </div>
-
-      <div class="mb-4">
-        <label class="form-label">Tanggal Selesai</label>
-        <input type="date" class="form-control" name="tgl_selesai" value="<?= $projek['tgl_selesai']; ?>">
-      </div>
-
-      <div class="d-flex justify-content-between">
-        <a href="projek_saya.php" class="btn btn-clr">Kembali</a>
-        <button type="submit" name="edit" class="btn btn-success">UBAH</button>
-      </div>
-    </form>
-  </div>
-
-  <div class="overflow-hidden mt-5">
-    <img src="../asset/wave-new-navy.svg" class="img-fluid d-block" style="width:100vw" alt="wave">
-  </div>
-
- <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
-        &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-    </footer>
-
-  <script src="../js/bootstrap.bundle.min.js"></script>
-  
-  <script>
-    // SweetAlert Handling (Sesuai struktur file lainnya)
-=======
                 <?php if (!empty($projek['gambar_projek'])): ?>
                 <div class="mt-2">
                     <img src="../asset/uploads/<?= htmlspecialchars($projek['gambar_projek']); ?>" alt="Gambar Projek"
@@ -366,7 +229,6 @@ if (isset($_POST['edit'])) {
 
     <!-- SweetAlert Handling -->
     <script>
->>>>>>> bf556ff (Merubah seluruh desain web)
     <?php if (isset($_SESSION['alert'])): ?>
     Swal.fire({
         icon: '<?= $_SESSION['alert']['icon']; ?>',
@@ -377,12 +239,7 @@ if (isset($_POST['edit'])) {
         window.location.href = '<?= $_SESSION['alert']['url']; ?>';
     });
     <?php unset($_SESSION['alert']); endif; ?>
-<<<<<<< HEAD
-  </script>
-</body>
-=======
     </script>
 </body>
 
->>>>>>> bf556ff (Merubah seluruh desain web)
 </html>

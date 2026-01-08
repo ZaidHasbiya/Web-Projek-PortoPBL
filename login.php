@@ -10,23 +10,26 @@ Dibuat       : 2025
 session_start();
 include 'koneksi.php';
 
-// Ambil role ENUM
+// Mengambil daftar role dari kolom ENUM pada tabel users
 $query_role = mysqli_fetch_assoc(
   mysqli_query($koneksi, "SHOW COLUMNS FROM users LIKE 'role'")
 );
 
+// Mengubah tipe ENUM menjadi array role
 $role_list = explode(
   "','",
   str_replace(["enum('", "')"], "", $query_role['Type'])
 );
 
-// Proses login
+// Mengecek apakah tombol login ditekan
 if (isset($_POST['login'])) {
 
-  $username = $_POST['username'];
-  $password = $_POST['password'];
+  // Mengambil data input dari form login
+  $username = mysqli_real_escape_string($koneksi, $_POST['username']);
+  $password = mysqli_real_escape_string($koneksi, $_POST['password']);
   $role     = $_POST['role'];
 
+  // Query untuk mencocokkan data login dengan database
   $query = mysqli_query(
     $koneksi,
     "SELECT * FROM users 
@@ -35,15 +38,19 @@ if (isset($_POST['login'])) {
      AND role = '$role'"
   );
 
+  // Mengambil hasil query
   $data = mysqli_fetch_assoc($query);
 
+  // Jika data ditemukan (login berhasil)
   if ($data) {
+    // Menyimpan data pengguna ke dalam session
     $_SESSION['id']       = $data['id'];
     $_SESSION['nama']     = $data['nama'];
     $_SESSION['username'] = $data['username'];
     $_SESSION['role']     = $data['role'];
     $_SESSION['login_success'] = true;
 
+    // Menentukan target redirect
     if ($role == 'mahasiswa') {
       $_SESSION['redirect'] = 'mahasiswa/index_mahasiswa.php';
     } elseif ($role == 'dosen') {
@@ -52,6 +59,7 @@ if (isset($_POST['login'])) {
       $_SESSION['redirect'] = 'dashboard/dashboard.php';
     }
   } else {
+    // Jika login gagal
     $_SESSION['login_error'] = true;
   }
 }
@@ -208,36 +216,31 @@ if (isset($_POST['login'])) {
     </div>
 
     <script src="js/bootstrap.bundle.min.js"></script>
-
-    <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <?php if (isset($_SESSION['login_success'])): ?>
-        <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Login Berhasil!',
-            text: 'Selamat datang!',
-            timer: 2000,
-            showConfirmButton: false
-        }).then(() => {
-            window.location.href = "<?= $_SESSION['redirect']; ?>";
-        });
-        </script>
-        <?php
-        unset($_SESSION['login_success'], $_SESSION['redirect']);
-        endif;
-        ?>
+    <script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Login Berhasil!',
+        text: 'Selamat datang, <?= $_SESSION['nama'] ?>!',
+        timer: 2000,
+        showConfirmButton: false
+    }).then(() => {
+        window.location.href = "<?= $_SESSION['redirect']; ?>";
+    });
+    </script>
+    <?php unset($_SESSION['login_success'], $_SESSION['redirect']); endif; ?>
 
-        <?php if (isset($_SESSION['login_error'])): ?>
-        <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Login Gagal!',
-            text: 'Username atau Password salah'
-        });
-        </script>
-        <?php unset($_SESSION['login_error']); endif; ?>
-
+    <?php if (isset($_SESSION['login_error'])): ?>
+    <script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Login Gagal!',
+        text: 'Username, Password, atau Role salah.'
+    });
+    </script>
+    <?php unset($_SESSION['login_error']); endif; ?>
 
 </body>
 

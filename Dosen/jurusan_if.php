@@ -4,8 +4,6 @@ Nama File : jurusan_informatika.php
 Deskripsi : Halaman dosen untuk menampilkan daftar mahasiswa
             jurusan Teknik Informatika dengan fitur pencarian
             dan pagination.
-Dibuat Oleh    :  - NIM : []
-Tanggal     : 29 November 2025
 */
 
 // Menghubungkan file koneksi database
@@ -30,23 +28,17 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'dosen') {
     exit;
 }
 
-// Validasi role dosen
-if ($_SESSION['role'] !== 'dosen') {
-    // Jika bukan dosen, arahkan menggunakan SweetAlert
-    redirect_alert('error', 'Maaf, anda bukan dosen. Silakan login ulang.', '../login.php');
-}
-
 // Menyimpan ID user dosen dari session
 $user_id = $_SESSION['id'];
 
-// Menangkap keyword pencarian dan mengamankannya
-$search = isset($_GET['search']) ? mysqli_real_escape_string($koneksi, $_GET['search']) : '';
+// Menangkap keyword pencarian dari URL (jika ada)
+$search = isset($_GET['search']) ? $_GET['search'] : '';
 
 // Menentukan jumlah data per halaman
 $limit = 6;
 
 // Menentukan halaman saat ini
-$page  = isset($_GET['page']) ? (int)$GET['page'] : 1;
+$page  = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $page  = ($page < 1) ? 1 : $page;
 
 // Menghitung offset data untuk pagination
@@ -101,15 +93,18 @@ $totalPage = ceil($totalData / $limit);
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PortoPBL - Teknik Informatika</title>
+    <title>PortoPBL</title>
 
+    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="../custom.css">
 
@@ -182,7 +177,7 @@ $totalPage = ceil($totalData / $limit);
         </div>
         <?php endwhile; ?>
 
-        </div>
+    </div>
 
     <?php if ($totalPage > 1): ?>
     <nav class="d-flex justify-content-center mt-5">

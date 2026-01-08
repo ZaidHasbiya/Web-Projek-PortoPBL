@@ -2,11 +2,7 @@
 /*
 Nama File   : jurusan_informatika.php
 Deskripsi   : Menampilkan daftar mahasiswa jurusan Teknik Informatika
-<<<<<<< HEAD
-              dengan fitur pagination
-=======
               dengan fitur pagination dan SweetAlert
->>>>>>> bf556ff (Merubah seluruh desain web)
 Dibuat Oleh : Reifandra Kinadi - NIM : [3312501048]
 Tanggal     : 10 Oktober 2025
 */
@@ -24,11 +20,6 @@ function redirect_alert($icon, $title, $url) {
 }
 
 // Validasi login dan role mahasiswa
-<<<<<<< HEAD
-if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'mahasiswa') {
-    // Bagian alert diubah ke SweetAlert2 di bagian bawah script
-    $_SESSION['alert_error'] = 'Maaf, anda bukan mahasiswa. Silakan login ulang.';
-=======
 if (!isset($_SESSION['username'])) {
     redirect_alert('error', 'Silakan login terlebih dahulu!', '../login.php');
     header("Location: " . $_SERVER['PHP_SELF']);
@@ -39,7 +30,6 @@ if ($_SESSION['role'] !== 'mahasiswa') {
     redirect_alert('error', 'Maaf, anda bukan mahasiswa. Silakan login ulang.', '../login.php');
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
->>>>>>> bf556ff (Merubah seluruh desain web)
 }
 
 // Mengambil ID user dari session
@@ -85,10 +75,6 @@ $totalPage   = ceil($totalData / $limit);
         rel="stylesheet">
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-<<<<<<< HEAD
-
-=======
->>>>>>> bf556ff (Merubah seluruh desain web)
     <link rel="stylesheet" href="../styles.css" type="text/css">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -132,37 +118,15 @@ body {
             ?>
             <div class="col-md-4 col-lg-3">
                 <div class="card shadow-sm border-0 h-100">
-<<<<<<< HEAD
-
-=======
->>>>>>> bf556ff (Merubah seluruh desain web)
                     <div class="ratio ratio-1x1">
                         <img src="<?= $foto ?>" class="card-img-top rounded-2" alt="Foto Mahasiswa"
                             style="object-fit: cover;">
                     </div>
-<<<<<<< HEAD
-
-                    <div class="card-body text-center">
-                        <p class="mb-1">
-                            <strong>Nama:</strong> <?= $row['nama']; ?>
-                        </p>
-                        <p class="mb-1">
-                            <strong>NIM:</strong> <?= $row['username']; ?>
-                        </p>
-                        <p class="mb-3">
-                            <strong>Jurusan:</strong> <?= $row['jurusan']; ?>
-                        </p>
-
-                        <a href="lihat_profil_mhs.php?id=<?= $row['id']; ?>" class="btn btn-clr px-4">
-                            Lihat Profil
-                        </a>
-=======
                     <div class="card-body text-center">
                         <p class="mb-1"><strong>Nama:</strong> <?= htmlspecialchars($row['nama']); ?></p>
                         <p class="mb-1"><strong>NIM:</strong> <?= htmlspecialchars($row['username']); ?></p>
                         <p class="mb-3"><strong>Jurusan:</strong> <?= htmlspecialchars($row['jurusan']); ?></p>
                         <a href="lihat_profil_mhs.php?id=<?= $row['id']; ?>" class="btn btn-clr px-4">Lihat Profil</a>
->>>>>>> bf556ff (Merubah seluruh desain web)
                     </div>
                 </div>
             </div>
@@ -205,21 +169,6 @@ body {
     <script src="../js/bootstrap.bundle.min.js"></script>
 
     <script>
-<<<<<<< HEAD
-    // Logic SweetAlert untuk proteksi login/role
-    <?php if (isset($_SESSION['alert_error'])): ?>
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: '<?= $_SESSION['alert_error']; ?>',
-            confirmButtonColor: '#3085d6'
-        }).then((result) => {
-            window.location.href = '../login.php';
-        });
-        <?php unset($_SESSION['alert_error']); ?>
-    <?php endif; ?>
-
-=======
     // SweetAlert Login & Role Validation
     <?php if (isset($_SESSION['alert'])): ?>
     Swal.fire({
@@ -233,7 +182,6 @@ body {
     <?php unset($_SESSION['alert']); endif; ?>
 
     // Smooth Scrolling
->>>>>>> bf556ff (Merubah seluruh desain web)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -245,14 +193,10 @@ body {
         });
     });
 
-<<<<<<< HEAD
-=======
     // Card Hover Effect
->>>>>>> bf556ff (Merubah seluruh desain web)
     document.querySelectorAll('.card').forEach(card => {
         card.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-8px)';
-            this.style.transition = 'transform 0.3s ease';
         });
         card.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0)';

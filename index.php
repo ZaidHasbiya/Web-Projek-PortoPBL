@@ -45,6 +45,7 @@ Deskripsi  : Menampilkan halaman publik berisi informasi aplikasi,
     #tim h1 {
     color: #e9e1c9 !important;
 }
+
     </style>
 </head>
 

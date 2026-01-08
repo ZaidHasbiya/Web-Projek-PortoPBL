@@ -34,8 +34,4 @@ Swal.fire({
 </script>
 
 </body>
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> bf556ff (Merubah seluruh desain web)
