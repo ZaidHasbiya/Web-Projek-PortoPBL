@@ -45,6 +45,7 @@ else if(!isset($_GET['id'])){
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,21 +55,26 @@ else if(!isset($_GET['id'])){
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Poppins', sans-serif; background-color: #fdf6e3; }
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #fdf6e3;
+    }
     </style>
 </head>
+
 <body>
     <script>
     <?php if (isset($_SESSION['alert'])): ?>
-        Swal.fire({
-            icon: '<?= $_SESSION['alert']['icon'] ?>',
-            title: '<?= $_SESSION['alert']['title'] ?>',
-            showConfirmButton: true,
-            confirmButtonColor: '#1D5D8C'
-        }).then(() => {
-            window.location.href = '<?= $_SESSION['alert']['url'] ?>';
-        });
+    Swal.fire({
+        icon: '<?= $_SESSION['alert']['icon'] ?>',
+        title: '<?= $_SESSION['alert']['title'] ?>',
+        showConfirmButton: true,
+        confirmButtonColor: '#1D5D8C'
+    }).then(() => {
+        window.location.href = '<?= $_SESSION['alert']['url'] ?>';
+    });
     <?php unset($_SESSION['alert']); endif; ?>
     </script>
 </body>
+
 </html>

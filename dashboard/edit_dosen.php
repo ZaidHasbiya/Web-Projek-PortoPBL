@@ -85,73 +85,79 @@ if(isset($_POST['update'])){
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ubah Dosen</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="../styles.css" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+
 <body style="background-color: #fdf6e3;">
 
-<div class="container my-5">
-    <?php if ($dosen): ?>
-    <h3 class="mb-4">Ubah Dosen</h3>
+    <div class="container my-5">
+        <?php if ($dosen): ?>
+        <h3 class="mb-4">Ubah Dosen</h3>
 
-    <form method="post">
-        <div class="mb-3">
-            <label class="form-label fw-bold">Nama Dosen</label>
-            <input type="text" class="form-control" name="nama" value="<?= htmlspecialchars($dosen['nama']); ?>" required>
-        </div>
+        <form method="post">
+            <div class="mb-3">
+                <label class="form-label fw-bold">Nama Dosen</label>
+                <input type="text" class="form-control" name="nama" value="<?= htmlspecialchars($dosen['nama']); ?>"
+                    required>
+            </div>
 
-        <div class="mb-3">
-            <label class="form-label fw-bold">NIDN</label>
-            <input type="text" class="form-control" name="username" value="<?= htmlspecialchars($dosen['username']); ?>" required>
-        </div>
+            <div class="mb-3">
+                <label class="form-label fw-bold">NIDN</label>
+                <input type="text" class="form-control" name="username"
+                    value="<?= htmlspecialchars($dosen['username']); ?>" required>
+            </div>
 
-        <div class="mb-3">
-            <label class="form-label fw-bold">Password</label>
-            <input type="text" class="form-control" name="password" value="<?= htmlspecialchars($dosen['password']); ?>" required>
-        </div>
+            <div class="mb-3">
+                <label class="form-label fw-bold">Password</label>
+                <input type="text" class="form-control" name="password"
+                    value="<?= htmlspecialchars($dosen['password']); ?>" required>
+            </div>
 
-        <div class="mb-3">
-            <label class="form-label fw-bold">Jurusan</label>
-            <select name="jurusan" class="form-control" required>
-                <option value="">-- Pilih Jurusan --</option>
-                <?php foreach($jurusan_list as $j): ?>
+            <div class="mb-3">
+                <label class="form-label fw-bold">Jurusan</label>
+                <select name="jurusan" class="form-control" required>
+                    <option value="">-- Pilih Jurusan --</option>
+                    <?php foreach($jurusan_list as $j): ?>
                     <option value="<?= $j ?>" <?= ($dosen['jurusan'] == $j ? 'selected' : '') ?>>
                         <?= ucfirst($j) ?>
                     </option>
-                <?php endforeach; ?>
-            </select>
-        </div>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <div class="mb-3">
-            <label class="form-label fw-bold">Role</label>
-            <select name="role" class="form-control" required>
-                <?php foreach ($role_list as $r): ?>
+            <div class="mb-3">
+                <label class="form-label fw-bold">Role</label>
+                <select name="role" class="form-control" required>
+                    <?php foreach ($role_list as $r): ?>
                     <option value="<?= $r ?>" <?= $dosen['role']==$r ? 'selected' : '' ?>>
                         <?= ucfirst($r) ?>
                     </option>
-                <?php endforeach; ?>
-            </select>
-        </div>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <div class="d-flex justify-content-between mt-4">
-            <a href="data_dosen.php" class="btn btn-primary px-4">Kembali</a>
-            <button type="submit" name="update" class="btn btn-success px-4">Simpan Perubahan</button>
-        </div>
-    </form>
-    <?php endif; ?>
-</div>
+            <div class="d-flex justify-content-between mt-4">
+                <a href="data_dosen.php" class="btn btn-primary px-4">Kembali</a>
+                <button type="submit" name="update" class="btn btn-success px-4">Simpan Perubahan</button>
+            </div>
+        </form>
+        <?php endif; ?>
+    </div>
 
-<script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
 
-<script>
+    <script>
     // Penanganan SweetAlert
     <?php if (isset($_SESSION['alert'])): ?>
     Swal.fire({
@@ -163,7 +169,8 @@ if(isset($_POST['update'])){
         window.location.href = '<?= $_SESSION['alert']['url'] ?>';
     });
     <?php unset($_SESSION['alert']); endif; ?>
-</script>
+    </script>
 
 </body>
+
 </html>

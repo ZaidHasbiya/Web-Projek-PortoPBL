@@ -6,8 +6,6 @@ Deskripsi : Halaman dashboard dosen pada aplikasi PortoPBL.
             Digunakan untuk menampilkan halaman utama dosen
             setelah login, termasuk informasi sambutan,
             deskripsi aplikasi, dan tim projek PBL.
-Dibuat Oleh    :  - NIM : []
-Tanggal     : 29 November 2025
 */
 
 // Memulai session
@@ -42,25 +40,45 @@ else if($_SESSION['role'] != 'dosen'){
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PortoPBL</title>
 
+    <!-- Google Font Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
         rel="stylesheet">
 
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 
+    <!-- AOS CSS -->
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="../styles.css" type="text/css">
     <link rel="stylesheet" href="../custom.css">
+
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <style>
 .text-justify-center {
     margin: 0 auto;
     text-align: justify;
+}
+
+.jumbotron h1,
+.jumbotron h2 {
+    color: #e9e1c9 !important;
+}
+
+h1,
+h2,
+h3 {
+    color: #2d3748;
+}
+
+#tim h1 {
+    color: #e9e1c9 !important;
 }
 </style>
 
@@ -71,7 +89,7 @@ else if($_SESSION['role'] != 'dosen'){
     <section class="jumbotron text-center">
 
         <h1 class="text-white fw-bold" data-aos="fade-up">
-            Halo, <?= isset($_SESSION['nama']) ? $_SESSION['nama'] : 'Dosen' ?>
+            Halo, <?= $_SESSION['nama'] ?>
         </h1>
 
         <h1 class="display-3 fw-bold text-white" data-aos="fade-up" data-aos-delay="150">
@@ -171,8 +189,8 @@ else if($_SESSION['role'] != 'dosen'){
     <script src="../js/bootstrap.bundle.min.js"></script>
 
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
     <script>
-    // Penanganan SweetAlert
     <?php if (isset($_SESSION['alert'])): ?>
     Swal.fire({
         icon: '<?= $_SESSION['alert']['icon'] ?>',
@@ -195,6 +213,7 @@ else if($_SESSION['role'] != 'dosen'){
             }
         });
     });
+
     document.querySelectorAll('.card').forEach(card => {
         card.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-8px)';
@@ -205,11 +224,13 @@ else if($_SESSION['role'] != 'dosen'){
             this.style.transform = 'translateY(0)';
         });
     });
+
     AOS.init({
         duration: 1000,
         once: true
     });
     </script>
+
 </body>
 
 </html>

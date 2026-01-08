@@ -6,6 +6,10 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+h1, h2, h3 {
+    color: #2d3748;
+}
+
 .card {
     background-color: #fffef5 !important;
     border: 1px solid #e9e1c9;
@@ -13,9 +17,7 @@ body {
     overflow: hidden;
     transition: transform .3s ease, box-shadow .3s ease;
 }
-.bg-footer{
-    background-color: #1D5D8C;
-}
+
 /* =========================================
    Navbar
 ========================================= */
@@ -96,4 +98,52 @@ footer {
     color: #5a5a5a !important;
     padding: 25px 0 !important;
     font-weight: 500;
+}
+
+/* =========================================
+   Responsive
+========================================= */
+.card-img-top {
+    object-fit: cover;
+    object-position: top;
+}
+
+@media (max-width: 768px) {
+    .jumbotron {
+        padding: 80px 0 0 0;
+    }
+
+    h1.display-3 {
+        font-size: 2rem;
+        padding: 0 10px;
+    }
+
+    #tentang {
+        padding-top: 120px !important;
+        padding-bottom: 0 !important;
+        margin-top: 0 !important;
+    }
+
+    #tentang svg, 
+    #tentang img[alt="Garis pemisah"],
+    #tentang img[src*="wave"] {
+        margin-top: 80px !important;
+        margin-bottom: -2px;
+        display: block !important;
+        width: 100% !important;
+    }
+
+    #tim {
+        padding-top: 100px !important;
+        padding-bottom: 80px;
+    }
+
+    #tim .col-md-4 {
+        margin-bottom: 30px !important;
+    }
+
+    svg, img[src*="wave"] {
+        margin-top: -2px;
+        display: block;
+    }
 }

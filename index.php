@@ -37,6 +37,15 @@ Deskripsi  : Menampilkan halaman publik berisi informasi aplikasi,
     .text-justify {
         text-align: justify !important;
     }
+
+    .jumbotron h1,
+    .jumbotron h2 {
+        color: #e9e1c9 !important;
+    }
+    #tim h1 {
+    color: #e9e1c9 !important;
+}
+
     </style>
 </head>
 

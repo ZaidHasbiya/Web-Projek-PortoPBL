@@ -2,14 +2,14 @@
 /**
  * File: profil_saya.php
  * Fungsi: Menampilkan halaman profil dosen dengan foto, identitas, jurusan, dan catatan prestasi.
- * Pembuat: Zaid Hasbiya Abrar - NIM : [3312501046]
+ * Pembuat: Zaid Hasbiya Abrar
  * Waktu Pembuatan: 26 Desember 2025
  */
 
 session_start(); // Memulai session untuk mengecek login user
 include '../koneksi.php'; // Menghubungkan ke database
 
-// Fungsi SweetAlert redirect (Sesuai struktur file lainnya)
+// Fungsi SweetAlert redirect (Ditambahkan untuk standarisasi alert)
 function redirect_alert($icon, $title, $url) {
     $_SESSION['alert'] = [
         'icon' => $icon,
@@ -20,6 +20,7 @@ function redirect_alert($icon, $title, $url) {
 
 // Mengecek apakah user sudah login
 if (!isset($_SESSION['username'])) {
+    redirect_alert('warning', 'Username tidak sesuai! Silakan login.', '../login.php');
     header("Location: ../login.php");
     exit;
 }
@@ -27,6 +28,8 @@ if (!isset($_SESSION['username'])) {
 // Mengecek apakah user memiliki role dosen
 if ($_SESSION['role'] !== 'dosen') {
     redirect_alert('error', 'Maaf, anda bukan dosen. Silakan login ulang.', '../login.php');
+    header("Location: ../login.php");
+    exit; // Menghentikan eksekusi script jika bukan dosen
 }
 
 $nama = $_SESSION['nama']; // Mengambil nama user dari session
@@ -116,12 +119,25 @@ body {
 
                 <div class="bg-footer p-3 rounded mb-4">
                     <h5 class="fw-bold text-white">Tentang Dosen</h5>
-                    <p class="mb-0 text-white">Deskripsi singkat tentang Dosen dapat ditulis di sini.</p>
+
+                    <div class="form-control bg-light mt-2" style="min-height: 90px;">
+                        <?= !empty($user['deskripsi_diri']) 
+            ? nl2br(htmlspecialchars($user['deskripsi_diri'])) 
+            : 'Belum ada deskripsi apapun.' ?>
+                    </div>
                 </div>
+
 
                 <div class="bg-footer p-3 rounded">
                     <h5 class="fw-bold text-white">Catatan Prestasi</h5>
+
+                    <div class="form-control bg-light mt-2" style="min-height: 90px;">
+                        <?= !empty($user['prestasi']) 
+            ? nl2br(htmlspecialchars($user['prestasi'])) 
+            : 'Belum ada catatan prestasi.' ?>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -141,7 +157,6 @@ body {
     <script src="../js/bootstrap.bundle.min.js"></script>
 
     <script>
-    // SweetAlert Handling
     <?php if (isset($_SESSION['alert'])): ?>
     Swal.fire({
         icon: '<?= $_SESSION['alert']['icon']; ?>',

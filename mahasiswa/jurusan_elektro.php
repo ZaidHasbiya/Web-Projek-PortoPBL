@@ -7,8 +7,8 @@ Dibuat Oleh : Reifandra Kinadi - NIM : [3312501047]
 Tanggal     : 10 Oktober 2025
 */
 
-session_start();
 include '../koneksi.php';
+session_start(); // Memulai session
 
 // Fungsi SweetAlert redirect jika akses ditolak
 function redirect_alert($icon, $title, $url) {
@@ -17,22 +17,19 @@ function redirect_alert($icon, $title, $url) {
         'title' => $title,
         'url' => $url
     ];
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit;
 }
 
 // Validasi login dan role mahasiswa
 if (!isset($_SESSION['username'])) {
-    header("Location: ../login.php");
+    redirect_alert('error', 'Silakan login terlebih dahulu!', '../login.php');
+    header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
 
 if ($_SESSION['role'] !== 'mahasiswa') {
-    $_SESSION['alert'] = [
-        'icon' => 'error',
-        'title' => 'Maaf, anda bukan mahasiswa. Silakan login ulang.',
-        'url' => '../login.php'
-    ];
+    redirect_alert('error', 'Maaf, anda bukan mahasiswa. Silakan login ulang.', '../login.php');
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
 }
 
 // Mengambil ID user dari session
@@ -74,20 +71,33 @@ $totalPage   = ceil($totalData / $limit);
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;900&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-
     <link rel="stylesheet" href="../styles.css" type="text/css">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <style>
-html, body { height: 100%; }
-body { display: flex; flex-direction: column; }
-.container { flex: 1; }
-.card { transition: transform 0.3s ease; }
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+}
+
+.card {
+    transition: transform 0.3s ease;
+}
 </style>
 
 <body>
@@ -102,30 +112,24 @@ body { display: flex; flex-direction: column; }
 
             <?php while ($row = mysqli_fetch_assoc($data)): ?>
             <?php
-            // Menentukan foto profil mahasiswa
             $foto = !empty($row['foto_profil'])
                     ? "../asset/profil/" . $row['foto_profil']
                     : "../tim/profil-kosong.jpeg";
             ?>
-
             <div class="col-md-4 col-lg-3">
                 <div class="card shadow-sm border-0 h-100">
                     <div class="ratio ratio-1x1">
-                        <img src="<?= $foto ?>" class="card-img-top rounded-2" alt="Foto Mahasiswa" style="object-fit: cover;">
+                        <img src="<?= $foto ?>" class="card-img-top rounded-2" alt="Foto Mahasiswa"
+                            style="object-fit: cover;">
                     </div>
-
                     <div class="card-body text-center">
                         <p class="mb-1"><strong>Nama:</strong> <?= htmlspecialchars($row['nama']); ?></p>
                         <p class="mb-1"><strong>NIM:</strong> <?= htmlspecialchars($row['username']); ?></p>
                         <p class="mb-3"><strong>Jurusan:</strong> <?= htmlspecialchars($row['jurusan']); ?></p>
-
-                        <a href="lihat_profil_mhs.php?id=<?= $row['id']; ?>" class="btn btn-clr px-4">
-                            Lihat Profil
-                        </a>
+                        <a href="lihat_profil_mhs.php?id=<?= $row['id']; ?>" class="btn btn-clr px-4">Lihat Profil</a>
                     </div>
                 </div>
             </div>
-
             <?php endwhile; ?>
         </div>
 
@@ -135,13 +139,11 @@ body { display: flex; flex-direction: column; }
                 <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
                     <a class="page-link" href="?page=<?= $page - 1 ?>">Sebelumnya</a>
                 </li>
-
                 <?php for ($i = 1; $i <= $totalPage; $i++): ?>
                 <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
                     <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
                 </li>
                 <?php endfor; ?>
-
                 <li class="page-item <?= ($page >= $totalPage) ? 'disabled' : '' ?>">
                     <a class="page-link" href="?page=<?= $page + 1 ?>">Selanjutnya</a>
                 </li>
@@ -185,7 +187,10 @@ body { display: flex; flex-direction: column; }
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
             }
         });
     });

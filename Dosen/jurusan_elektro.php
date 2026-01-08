@@ -1,11 +1,10 @@
 <?php
+
 /*
 Nama File : jurusan_elektro.php
 Deskripsi : Halaman dosen untuk menampilkan daftar mahasiswa
             jurusan Teknik Elektro dengan fitur pencarian
             dan pagination.
-Dibuat Oleh    : Zaid Hasbiya Abrar - NIM : [3312501046]
-Tanggal     : 29 November 2025
 */
 
 // Menghubungkan file koneksi database
@@ -14,7 +13,7 @@ include '../koneksi.php';
 // Memulai session
 session_start();
 
-// Fungsi SweetAlert redirect (Konsisten dengan file sebelumnya)
+// ===== Fungsi SweetAlert Redirect =====
 function redirect_alert($icon, $title, $url) {
     $_SESSION['alert'] = [
         'icon' => $icon,
@@ -23,29 +22,22 @@ function redirect_alert($icon, $title, $url) {
     ];
 }
 
-// Validasi login
-if (!isset($_SESSION['username'])) {
-    header("Location: ../login.php");
-    exit;
-}
-
-// Validasi role dosen
-if ($_SESSION['role'] !== 'dosen') {
-    // Jika bukan dosen, arahkan menggunakan SweetAlert
+// ===== Validasi login dan role dosen =====
+if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'dosen') {
     redirect_alert('error', 'Maaf, anda bukan dosen. Silakan login ulang.', '../login.php');
 }
 
 // Menyimpan ID user dosen dari session
 $user_id = $_SESSION['id'];
 
-// Menangkap keyword pencarian dari URL (menggunakan real_escape_string untuk keamanan)
-$search = isset($_GET['search']) ? mysqli_real_escape_string($koneksi, $_GET['search']) : '';
+// Menangkap keyword pencarian dari URL (jika ada)
+$search = isset($_GET['search']) ? $_GET['search'] : '';
 
 // Menentukan jumlah data per halaman
 $limit = 6;
 
 // Menentukan halaman saat ini
-$page  = isset($_GET['page']) ? (int)$GET['page'] : 1;
+$page  = isset($_GET['page']) ? (int)$_GET['page'] : 1; // <-- diperbaiki $_GET
 $page  = ($page < 1) ? 1 : $page;
 
 // Menghitung offset data untuk pagination
@@ -102,27 +94,29 @@ $totalPage = ceil($totalData / $limit);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PortoPBL</title>
 
+    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="../custom.css">
 
+    <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <style>
-/* Mengatur posisi navbar agar selalu di atas */
 .navbar {
     position: relative;
     z-index: 10;
 }
 
-/* Styling kotak pencarian */
 .search-box {
     width: 100%;
     max-width: 550px;
@@ -135,18 +129,20 @@ $totalPage = ceil($totalData / $limit);
 
 <body>
 
+    <!-- ===== Navbar Dosen ===== -->
     <?php include '../layouts/navbar_dosen.php'; ?>
 
+    <!-- ===== Judul Halaman ===== -->
     <div class="text-center pt-4 mb-4">
         <h1 class="fw-bold display-6 mb-2">Jurusan Teknik Elektro</h1>
     </div>
 
+    <!-- ===== Form Pencarian ===== -->
     <form method="GET" class="d-flex justify-content-center mb-5">
         <div class="search-box shadow-sm">
             <div class="input-group input-group-lg">
                 <input type="text" name="search" class="form-control border-0"
                     placeholder="Cari nama atau NIM Mahasiswa" value="<?= htmlspecialchars($search) ?>">
-
                 <button type="submit" class="btn btn-clr px-4 fw-semibold">
                     Cari
                 </button>
@@ -154,66 +150,71 @@ $totalPage = ceil($totalData / $limit);
         </div>
     </form>
 
-    <div class="container">
-        <?php if (mysqli_num_rows($data) > 0 ) : ?>
-        <div class="row g-4 justify-content-center">
+    <?php if (mysqli_num_rows($data) > 0 ) : ?>
+    <div class="d-flex flex-wrap justify-content-evenly align-items-start gap-4">
 
-            <?php while ($row = mysqli_fetch_assoc($data)): ?>
-            <?php
-            // Menentukan foto profil mahasiswa
-            $foto = !empty($row['foto_profil']) 
-                    ? "../asset/profil/" . $row['foto_profil'] 
-                    : "../tim/profil-kosong.jpeg";
-            ?>
+        <?php while ($row = mysqli_fetch_assoc($data)): ?>
+        <?php
+        $foto = !empty($row['foto_profil']) 
+                ? "../asset/profil/" . $row['foto_profil'] 
+                : "../tim/profil-kosong.jpeg";
+        ?>
 
-            <div class="col-md-4 col-lg-3">
-                <div class="card shadow-sm border-0 h-100">
-                    <div class="ratio ratio-1x1">
-                        <img src="<?= $foto ?>" class="card-img-top rounded-2" alt="Foto Mahasiswa"
-                            style="object-fit: cover;">
-                    </div>
-                    <div class="card-body text-center">
-                        <p class="mb-1"><strong>Nama:</strong> <?= htmlspecialchars($row['nama']) ?></p>
-                        <p class="mb-1"><strong>NIM:</strong> <?= htmlspecialchars($row['username']) ?></p>
-                        <p class="mb-3"><strong>Jurusan:</strong> <?= htmlspecialchars($row['jurusan']) ?></p>
-                        <a href="lihat_profil_mhs.php?id=<?= $row['id'] ?>" class="btn btn-info px-4 btn-clr">
-                            Lihat Profil
-                        </a>
-                    </div>
+        <div class="col-md-4 col-lg-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="ratio ratio-1x1">
+                    <img src="<?= $foto ?>" class="card-img-top rounded-2" alt="Foto Mahasiswa"
+                        style="object-fit: cover;">
+                </div>
+                <div class="card-body text-center">
+                    <p class="mb-1"><strong>Nama:</strong> <?= $row['nama'] ?></p>
+                    <p class="mb-1"><strong>NIM:</strong> <?= $row['username'] ?></p>
+                    <p class="mb-3"><strong>Jurusan:</strong> <?= $row['jurusan'] ?></p>
+                    <a href="lihat_profil_mhs.php?id=<?= $row['id'] ?>" class="btn btn-info px-4 btn-clr">
+                        Lihat Profil
+                    </a>
                 </div>
             </div>
-            <?php endwhile; ?>
-
         </div>
+        <?php endwhile; ?>
 
-        <?php if ($totalPage > 1): ?>
-        <nav class="d-flex justify-content-center mt-5">
-            <ul class="pagination">
-                <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page - 1 ?>&search=<?= urlencode($search) ?>">Sebelumnya</a>
-                </li>
-
-                <?php for ($i = 1; $i <= $totalPage; $i++): ?>
-                <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
-                    <a class="page-link" href="?page=<?= $i ?>&search=<?= urlencode($search) ?>">
-                        <?= $i ?>
-                    </a>
-                </li>
-                <?php endfor; ?>
-
-                <li class="page-item <?= ($page >= $totalPage) ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page + 1 ?>&search=<?= urlencode($search) ?>">Selanjutnya</a>
-                </li>
-            </ul>
-        </nav>
-        <?php endif; ?>
-
-        <?php else: ?>
-        <h2 class="text-center text-muted">
-            <?= !empty($search) ? 'Mahasiswa belum ada atau terdaftar' : 'Belum ada mahasiswa'; ?>
-        </h2>
-        <?php endif; ?>
     </div>
+
+    <?php if ($totalPage > 1): ?>
+    <nav class="d-flex justify-content-center mt-5">
+        <ul class="pagination">
+            <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
+                <a class="page-link" href="?page=<?= $page - 1 ?>&search=<?= urlencode($search) ?>">Sebelumnya</a>
+            </li>
+
+            <?php for ($i = 1; $i <= $totalPage; $i++): ?>
+            <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                <a class="page-link" href="?page=<?= $i ?>&search=<?= urlencode($search) ?>">
+                    <?= $i ?>
+                </a>
+            </li>
+            <?php endfor; ?>
+
+            <li class="page-item <?= ($page >= $totalPage) ? 'disabled' : '' ?>">
+                <a class="page-link" href="?page=<?= $page + 1 ?>&search=<?= urlencode($search) ?>">Selanjutnya</a>
+            </li>
+        </ul>
+    </nav>
+    <?php endif; ?>
+
+    <?php else: ?>
+
+    <?php if (!empty($search)): ?>
+    <h2 class="text-center text-muted">
+        Mahasiswa belum ada atau terdaftar
+    </h2>
+    <?php else: ?>
+    <h2 class="text-center text-muted">
+        Belum ada mahasiswa
+    </h2>
+    <?php endif; ?>
+
+    <?php endif; ?>
 
     <div class="overflow-hidden mt-5">
         <img src="../asset/wave-new-navy.svg" class="img-fluid d-block" style="width:100vw" alt="wave">
@@ -224,8 +225,8 @@ $totalPage = ceil($totalData / $limit);
     </footer>
 
     <script src="../js/bootstrap.bundle.min.js"></script>
+
     <script>
-    // SweetAlert Handling
     <?php if (isset($_SESSION['alert'])): ?>
     Swal.fire({
         icon: '<?= $_SESSION['alert']['icon']; ?>',
@@ -237,18 +238,16 @@ $totalPage = ceil($totalData / $limit);
     });
     <?php unset($_SESSION['alert']); endif; ?>
 
-    // Card Hover Effects
     document.querySelectorAll('.card').forEach(card => {
         card.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-8px)';
-            this.style.transition = '0.3s';
         });
-
         card.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0)';
         });
     });
     </script>
+
 </body>
 
 </html>

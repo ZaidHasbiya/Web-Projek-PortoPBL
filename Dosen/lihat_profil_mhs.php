@@ -4,14 +4,12 @@ Nama File : lihat_profil_mhs.php
 Deskripsi :
 Halaman ini digunakan oleh dosen untuk melihat detail profil mahasiswa,
 daftar proyek mahasiswa, serta memberikan dan melihat penilaian portofolio.
-Dibuat Oleh    : Zaid Hasbiya Abrar - NIM : [3312501046]
-Tanggal     : 29 November 2025
 */
 
 session_start();
 include '../koneksi.php';
 
-// Fungsi SweetAlert redirect (Sesuai struktur file lainnya)
+// Fungsi SweetAlert redirect (Ditambahkan untuk standarisasi)
 function redirect_alert($icon, $title, $url) {
     $_SESSION['alert'] = [
         'icon' => $icon,
@@ -22,6 +20,7 @@ function redirect_alert($icon, $title, $url) {
 
 // Cek login
 if (!isset($_SESSION['username'])) {
+    redirect_alert('warning', 'Silakan login terlebih dahulu', '../login.php');
     header("Location: ../login.php");
     exit;
 }
@@ -29,11 +28,15 @@ if (!isset($_SESSION['username'])) {
 // Cek role dosen
 if ($_SESSION['role'] !== 'dosen') {
     redirect_alert('error', 'Anda tidak memiliki akses!', '../login.php');
+    header("Location: ../login.php");
+    exit;
 }
 
 // Cek ID mahasiswa
 if (!isset($_GET['id'])) {
-    redirect_alert('warning', 'Mahasiswa tidak ditemukan', 'index_dosen.php');
+    redirect_alert('error', 'Mahasiswa tidak ditemukan', 'index_dosen.php');
+    header("Location: index_dosen.php");
+    exit;
 }
 
 $user_id  = $_GET['id'];
@@ -46,6 +49,8 @@ $user        = mysqli_fetch_assoc($result_user);
 
 if (!$user) {
     redirect_alert('error', 'Mahasiswa tidak ditemukan', 'index_dosen.php');
+    header("Location: index_dosen.php");
+    exit;
 }
 
 // Foto profil
@@ -86,6 +91,17 @@ $query_penilaian = "
   ORDER BY pf.id_penilaian DESC
 ";
 $result_penilaian = mysqli_query($koneksi, $query_penilaian);
+
+// Ambil penilaian dosen yang login
+$query_history_penilaian_dosen = "
+  SELECT pf.*, u.nama AS nama_dosen
+  FROM penilaian_portofolio pf
+  JOIN users u ON pf.dosen_id = u.id
+  WHERE pf.mahasiswa_id = '$user_id'
+  AND pf.dosen_id = '$dosen_id'
+  ORDER BY pf.id_penilaian DESC
+";
+$result_history_penilaian_dosen = mysqli_query($koneksi, $query_history_penilaian_dosen);
 ?>
 
 <!DOCTYPE html>
@@ -97,7 +113,8 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
     <title>PortoPBL</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../styles.css">
@@ -106,12 +123,43 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
+<style>
+.bg-footer {
+    background-color: #1f4f73;
+    border-radius: 6px;
+}
+.bg-footer h5,
+.bg-footer label,
+.bg-footer strong {
+    color: #e9e1c9 !important;
+}
+
+.bg-footer .form-control,
+.bg-footer p,
+.bg-footer div,
+.bg-footer .card-text {
+    color: #2d3748 !important;
+}
+
+.bg-footer .form-control {
+    background-color: #ffffff !important;
+}
+
+.bg-footer a {
+    color: inherit;
+}
+
+.bg-footer .form-control a {
+    color: #0d6efd !important;
+}
+</style>
+
 <body>
 
     <?php include '../layouts/navbar_dosen.php'; ?>
 
     <div class="container py-4 mt-5 pt-5">
-        <div class="row align-items-center g-4">
+        <div class="row align-items-center">
             <div class="col-md-4 text-center">
                 <div class="ratio ratio-1x1 rounded-circle overflow-hidden mx-auto mb-2" style="width:200px;">
                     <img src="<?= $foto ?>" class="w-100 h-100" style="object-fit:cover;">
@@ -121,7 +169,7 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
                     <?= htmlspecialchars($user['nama']) ?>
                 </small>
 
-                <div class="bg-footer p-2 rounded d-inline-block mb-4">
+                <div class="bg-footer p-2 rounded d-inline-block">
                     <strong class="text-white">
                         Jurusan: <?= htmlspecialchars($user['jurusan'] ?: 'Belum Diatur') ?>
                     </strong>
@@ -129,21 +177,24 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
             </div>
 
             <div class="col-md-8">
+               <!-- Tentang mahasiswa -->
                 <div class="bg-footer p-3 rounded mb-4">
                     <h5 class="fw-bold text-white">Tentang Mahasiswa</h5>
-                    <p class="text-white mb-0">
+                    <div class="form-control bg-light mt-2">
                         <?= $user['deskripsi_diri'] ?: 'Belum Ada Deskripsi Apapun' ?>
-                    </p>
+                    </div>
                 </div>
 
+                <!-- Catatan prestasi -->
                 <div class="bg-footer p-3 rounded">
                     <h5 class="fw-bold text-white">Catatan Prestasi</h5>
-                    <p class="text-white">
+                    <div class="form-control bg-light mt-2">
                         <?= $user['prestasi'] ?: 'Belum Ada Prestasi Apapun' ?>
-                    </p>
+                        </p>
+                    </div>
+
                 </div>
             </div>
-        </div>
 
         <?php if (mysqli_num_rows($result_projek) > 0): ?>
         <?php while ($projek = mysqli_fetch_assoc($result_projek)): ?>
@@ -157,10 +208,10 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
                 </div>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label text-white fw-semibold">Deskripsi Proyek</label>
-                <div class="form-control bg-light">
-                    <?= htmlspecialchars($projek['deskripsi']) ?>
+            <div class="mb-4">
+                <label class="form-label fw-semibold text-white">Deskripsi Proyek</label>
+                <div class="form-control bg-light" style="min-height:100px; overflow-wrap:break-word;">
+                    <?= nl2br(htmlspecialchars($projek['deskripsi'])) ?>
                 </div>
             </div>
 
@@ -175,7 +226,7 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
             <div class="row g-3">
                 <div class="col-md-6">
                     <div class="bg-light border p-3 text-center rounded">
-                        <span class="fw-semibold text-muted">Video</span>
+                        <span class="fw-semibold" style="color:#000;">Video</span>
                         <?php if (!empty($projek['link'])): ?>
                         <div class="ratio ratio-16x9 mt-2">
                             <iframe src="<?= htmlspecialchars($projek['link']) ?>" allowfullscreen></iframe>
@@ -186,7 +237,8 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
 
                 <div class="col-md-6">
                     <div class="bg-light border p-3 text-center rounded">
-                        <span class="fw-semibold text-muted">Foto</span><br>
+                        <span class="fw-semibold" style="color:#000;">Foto</span>
+                        <br>
                         <?php if (!empty($projek['gambar_projek'])): ?>
                         <img src="../asset/uploads/<?= htmlspecialchars($projek['gambar_projek']) ?>"
                             class="img-fluid rounded mt-2">
@@ -202,47 +254,25 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
         </p>
         <?php endif; ?>
 
-        <div class="container mt-4 mb-5">
-            <div class="bg-footer p-4 rounded">
-                <h5 class="fw-bold text-white mb-3 text-center">
-                    Riwayat Penilaian Portofolio
-                </h5>
+        <div class="bg-footer p-4 rounded mt-4">
+            <h5 class="fw-bold text-white text-center mb-3">Penilaian Profil Mahasiswa</h5>
 
-                <?php if (mysqli_num_rows($result_penilaian) > 0): ?>
-                <?php while ($p = mysqli_fetch_assoc($result_penilaian)): ?>
-                <div class="bg-light p-3 rounded mb-3">
-                    <strong><?= htmlspecialchars($p['nama_dosen']) ?></strong>
-                    <span class="badge bg-primary ms-2">
-                        Nilai: <?= htmlspecialchars($p['nilai']) ?>
-                    </span>
-                    <p class="mt-2 mb-1">
-                        Komentar: <?= htmlspecialchars($p['komentar']) ?>
-                    </p>
+            <form method="POST">
+                <div class="mb-3">
+                    <label class="form-label text-white">Komentar</label>
+                    <textarea name="komentar" class="form-control" required></textarea>
                 </div>
-                <?php endwhile; ?>
-                <?php else: ?>
-                <p class="text-center text-white">
-                    Belum ada penilaian dari dosen.
-                </p>
-                <?php endif; ?>
-            </div>
 
-            <div class="bg-footer p-4 rounded mt-4">
-                <h5 class="fw-bold text-white text-center mb-3">Penilaian Profil Mahasiswa</h5>
-                <form method="POST">
-                    <div class="mb-3">
-                        <label class="form-label text-white">Komentar</label>
-                        <textarea name="komentar" class="form-control" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label text-white">Nilai (0 - 100)</label>
-                        <input type="number" name="nilai" class="form-control" min="0" max="100" required>
-                    </div>
-                    <button type="submit" name="simpan_penilaian" class="btn btn-light fw-semibold">
-                        Simpan Penilaian
-                    </button>
-                </form>
-            </div>
+                <div class="mb-3">
+                    <label class="form-label text-white">Nilai (0 - 100)</label>
+                    <input type="number" name="nilai" class="form-control" min="0" max="100" required>
+                </div>
+
+                <button type="submit" name="simpan_penilaian" class="btn btn-light fw-semibold">
+                    Simpan Penilaian
+                </button>
+            </form>
+        </div>
         </div>
     </div>
 
@@ -253,7 +283,7 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
     <script src="../js/bootstrap.bundle.min.js"></script>
 
     <script>
-    // SweetAlert Handling
+    // Logic SweetAlert
     <?php if (isset($_SESSION['alert'])): ?>
     Swal.fire({
         icon: '<?= $_SESSION['alert']['icon']; ?>',

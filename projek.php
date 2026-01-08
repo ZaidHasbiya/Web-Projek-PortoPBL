@@ -87,6 +87,13 @@ body {
 .container {
     flex: 1;
 }
+
+.card-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 </style>
 
 <body>
@@ -115,7 +122,7 @@ body {
                     </div>
 
                     <!-- Informasi projek -->
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-column">
                         <h5 class="card-title"><?= htmlspecialchars($row['judul']); ?></h5>
 
                         <p class="card-text">
@@ -131,9 +138,10 @@ body {
                         </p>
 
                         <a href="lihat_projek.php?projek_id=<?= $row['projek_id']; ?>"
-                            class="btn btn-outline-info rounded-pill d-flex justify-content-center strk-btn">
+                            class="btn btn-outline-info rounded-pill d-flex justify-content-center strk-btn mt-auto">
                             Lihat Projek
                         </a>
+
                     </div>
                 </div>
             </div>
@@ -141,40 +149,42 @@ body {
 
         </div>
 
-        <!-- Navigasi pagination -->
+        <!-- Pagination -->
         <?php if ($total_page > 1): ?>
         <nav class="d-flex justify-content-center mt-5">
             <ul class="pagination">
 
+                <!-- Prev -->
                 <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page - 1 ?>">
-                        <
-                    </a>
+                    <a class="page-link" href="?page=<?= $page - 1 ?>">Sebelumnya</a>
                 </li>
 
-                <?php for ($i = 1; $i <= $totalPage; $i++): ?>
+
+                <?php
+        $start = max(1, $page - 2);
+        $end   = min($total_page, $page + 2);
+
+        for ($i = $start; $i <= $end; $i++):
+        ?>
                 <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
-                    <a class="page-link" href="?page=<?= $i ?>">
-                        <?= $i ?>
-                    </a>
+                    <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
                 </li>
                 <?php endfor; ?>
 
-                <li class="page-item <?= ($page >= $totalPage) ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page + 1 ?>">
-                        >
-                    </a>
+                <!-- Next -->
+                <li class="page-item <?= ($page >= $total_page) ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?page=<?= $page + 1 ?>">Selanjutnya</a>
                 </li>
 
             </ul>
         </nav>
         <?php endif; ?>
-
-        <?php else : ?>
-        <!-- Jika belum ada projek -->
-        <h2>Belum ada projek</h2>
+        <?php else: ?>
+        <div class="text-center my-5">
+            <i class="fas fa-folder-open fa-3x text-info mb-3"></i>
+            <p class="fs-5 text-muted">Belum ada projek yang tersedia.</p>
+        </div>
         <?php endif; ?>
-
     </div>
 
     <!-- Wave -->
@@ -189,7 +199,7 @@ body {
 
     <!-- Bootstrap JS -->
     <script src="js/bootstrap.bundle.min.js"></script>
-     <script>
+    <script>
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();

@@ -1,22 +1,22 @@
 <?php
 /*
-Nama File   : index_mahasiswa.php
-Deskripsi     : Halaman dashboard utama mahasiswa setelah login
-Dibuat Oleh    : Fathur Alfitrah - NIM : [3312501047]
-Tanggal     : 10 Oktober 2025
+Nama File    : index_mahasiswa.php
+Deskripsi    : Halaman dashboard utama mahasiswa setelah login
+Dibuat Oleh  : Fathur Alfitrah - NIM : [3312501047]
+Tanggal      : 10 Oktober 2025
 */
 
 session_start(); 
 include '../koneksi.php';
 
-// Fungsi SweetAlert redirect (Sesuai struktur file jurusan)
+// Fungsi SweetAlert redirect
 function redirect_alert($icon, $title, $url) {
     $_SESSION['alert'] = [
         'icon' => $icon,
         'title' => $title,
         'url' => $url
     ];
-    header("Location: " . $_SERVER['PHP_SELF']);
+    header("Location: index_mahasiswa.php");
     exit;
 }
 
@@ -33,6 +33,9 @@ if ($_SESSION['role'] !== 'mahasiswa') {
         'title' => 'Akses Ditolak!',
         'url' => 'index.php'
     ];
+    // Jika bukan mahasiswa, arahkan ke index utama (luar)
+    header("Location: ../index.php");
+    exit;
 }
 ?>
 
@@ -46,8 +49,7 @@ if ($_SESSION['role'] !== 'mahasiswa') {
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 
@@ -56,14 +58,26 @@ if ($_SESSION['role'] !== 'mahasiswa') {
     <link rel="stylesheet" href="../styles.css" type="text/css">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
 
-<style>
-.text-justify-center {
-    margin: 0 auto;
-    text-align: justify;
-}
-</style>
+    <style>
+        .text-justify-center {
+            margin: 0 auto;
+            text-align: justify;
+        }
+
+        .jumbotron h1, .jumbotron h2 {
+            color: #e9e1c9 !important;
+        }
+
+        h1, h2, h3 {
+            color: #2d3748;
+        }
+
+        #tim h1 {
+            color: #e9e1c9 !important;
+        }
+    </style>
+</head>
 
 <body>
 
@@ -71,7 +85,7 @@ if ($_SESSION['role'] !== 'mahasiswa') {
 
     <section class="jumbotron text-center">
         <h1 class="text-white fw-bold" data-aos="fade-up">
-            Halo, <?= $_SESSION['nama']; ?>
+            Halo, <?= htmlspecialchars($_SESSION['nama']); ?>
         </h1>
 
         <h1 class="display-3 fw-bold text-white" data-aos="fade-up" data-aos-delay="150">
@@ -83,7 +97,7 @@ if ($_SESSION['role'] !== 'mahasiswa') {
         </h2>
 
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -10 1440 320"
-            style="width: 100%; display: flex; margin-top: -1 px;">
+            style="width: 100%; display: flex; margin-top: -1px;">
             <path fill="#fdf6e3" fill-opacity="1"
                 d="M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,213.3C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
             </path>
@@ -105,7 +119,7 @@ if ($_SESSION['role'] !== 'mahasiswa') {
                 </div>
             </div>
         </div>
-        <img src="../asset/wave-new-navy.svg" alt="Garis pemisah">
+        <img src="../asset/wave-new-navy.svg" alt="Garis pemisah" style="width: 100%; display: block;">
     </section>
 
     <section id="tim">
@@ -117,7 +131,6 @@ if ($_SESSION['role'] !== 'mahasiswa') {
             </div>
 
             <div class="row text-center">
-
                 <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="100">
                     <div class="card h-100">
                         <img src="../tim/zaid-biru.jpg" class="card-img-top" alt="Zaid Hasbiya Abrar">
@@ -147,16 +160,13 @@ if ($_SESSION['role'] !== 'mahasiswa') {
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"
         style="width:100%; display:block; margin-top:-2px; transform: scaleY(-1);">
-        <path fill="#1D5D8C" fill-opacity="1" d="M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,213.3C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320
-        C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320
-        C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+        <path fill="#1D5D8C" fill-opacity="1" d="M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,213.3C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
         </path>
     </svg>
 
@@ -167,7 +177,7 @@ if ($_SESSION['role'] !== 'mahasiswa') {
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
-    // SweetAlert Handling (Sesuai struktur file jurusan)
+    // SweetAlert Handling
     <?php if (isset($_SESSION['alert'])): ?>
     Swal.fire({
         icon: '<?= $_SESSION['alert']['icon']; ?>',
@@ -179,6 +189,7 @@ if ($_SESSION['role'] !== 'mahasiswa') {
     });
     <?php unset($_SESSION['alert']); endif; ?>
 
+    // Smooth Scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -191,15 +202,19 @@ if ($_SESSION['role'] !== 'mahasiswa') {
             }
         });
     });
+
+    // Hover Card Animation
     document.querySelectorAll('.card').forEach(card => {
         card.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-8px)';
+            this.style.transition = 'transform 0.3s ease';
         });
-
         card.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0)';
         });
     });
+
+    // Initialize AOS
     AOS.init({
         duration: 1000,
         once: true
@@ -207,5 +222,4 @@ if ($_SESSION['role'] !== 'mahasiswa') {
     </script>
 
 </body>
-
 </html>

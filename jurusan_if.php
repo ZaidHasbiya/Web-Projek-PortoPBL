@@ -132,7 +132,7 @@ $totalPage = ceil($totalData / $limit);
 
                 <!-- Tombol halaman sebelumnya -->
                 <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page - 1 ?>">Previous</a>
+                    <a class="page-link" href="?page=<?= $page - 1 ?>">Sebelumnya</a>
                 </li>
 
                 <!-- Nomor halaman -->
@@ -146,7 +146,7 @@ $totalPage = ceil($totalData / $limit);
 
                 <!-- Tombol halaman selanjutnya -->
                 <li class="page-item <?= ($page >= $totalPage) ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page + 1 ?>">Next</a>
+                    <a class="page-link" href="?page=<?= $page + 1 ?>">Selanjutnya</a>
                 </li>
 
             </ul>

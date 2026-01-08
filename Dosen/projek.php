@@ -104,15 +104,11 @@ if (isset($_POST['cari'])) {
 </head>
 
 <style>
-/* Styling navbar brand */
-.navbar-brand img {
-    width: 80px;
-    height: 80px;
-    margin-right: 12px;
-}
-
-.navbar-brand {
-    font-size: 1.2rem;
+.card-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 </style>
 
@@ -135,14 +131,14 @@ if (isset($_POST['cari'])) {
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <?php while($row = mysqli_fetch_assoc($data)) :?>
             <div class="col">
-               <div class="card border border-info h-100 d-flex flex-column">
+                <div class="card border border-info h-100 d-flex flex-column">
 
                     <div class="ratio ratio-16x9 overflow-hidden">
                         <img src="../asset/uploads/<?= htmlspecialchars($row['gambar_projek']); ?>"
                             class="w-100 h-100 object-fit-cover" alt="Projek Web Portofolio PBL">
                     </div>
 
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-column">
                         <h5 class="card-title"><?= $row['judul']; ?></h5>
                         <p class="card-text">Deskripsi Projek : <?= $row['deskripsi']; ?></p>
                         <p class="card-text">Dibuat Oleh :</p>
@@ -150,9 +146,10 @@ if (isset($_POST['cari'])) {
                         <p class="card-text">NIM : <?= $row['username']; ?></p>
 
                         <a href="lihat_projek_dosen.php?projek_id=<?= $row['projek_id']; ?>"
-                            class="btn btn-outline-info rounded-pill d-flex justify-content-center strk-btn">
+                            class="btn btn-outline-info rounded-pill d-flex justify-content-center mt-auto">
                             Lihat Projek
                         </a>
+
                     </div>
                 </div>
             </div>
@@ -163,29 +160,31 @@ if (isset($_POST['cari'])) {
         <nav class="d-flex justify-content-center mt-5">
             <ul class="pagination">
 
+                <!-- Prev -->
                 <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page - 1 ?>">
-                        <
-                    </a>
+                    <a class="page-link" href="?page=<?= $page - 1 ?>">Sebelumnya</a>
                 </li>
 
-                <?php for ($i = 1; $i <= $total_page; $i++): ?>
+                <?php
+        $start = max(1, $page - 2);
+        $end   = min($total_page, $page + 2);
+
+        for ($i = $start; $i <= $end; $i++):
+        ?>
                 <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
-                    <a class="page-link" href="?page=<?= $i ?>">
-                        <?= $i ?>
-                    </a>
+                    <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
                 </li>
                 <?php endfor; ?>
 
+                <!-- Next -->
                 <li class="page-item <?= ($page >= $total_page) ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page + 1 ?>">
-                        >
-                    </a>
+                    <a class="page-link" href="?page=<?= $page + 1 ?>">Selanjutnya</a>
                 </li>
 
             </ul>
         </nav>
         <?php endif; ?>
+
 
         <?php else : ?>
         <h2>Belum ada projek</h2>
