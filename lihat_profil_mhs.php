@@ -84,6 +84,45 @@ if (!isset($_SESSION['swal_notif'])) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
+<style>
+/* Kotak biru */
+.bg-footer {
+    background-color: #1f4f73;
+    /* warna biru kotak */
+    border-radius: 6px;
+}
+
+/* Judul & label warna cream */
+.bg-footer h5,
+.bg-footer label,
+.bg-footer strong {
+    color: #e9e1c9 !important;
+}
+
+/* Isi deskripsi warna #2d3748 */
+.bg-footer .form-control,
+.bg-footer p,
+.bg-footer div,
+.bg-footer .card-text {
+    color: #2d3748 !important;
+}
+
+/* Biar area teks tetap putih */
+.bg-footer .form-control {
+    background-color: #ffffff !important;
+}
+
+/* Jangan ganggu warna link */
+.bg-footer a {
+    color: inherit;
+}
+
+.bg-footer .form-control a {
+    color: #0d6efd !important;
+    /* biru standar bootstrap */
+}
+</style>
+
 <body>
 
     <?php include 'layouts/navbar_publik.php'; ?>
@@ -113,52 +152,66 @@ if (!isset($_SESSION['swal_notif'])) {
 
                 <div class="bg-footer p-3 rounded mb-4">
                     <h5 class="fw-bold text-white">Tentang Mahasiswa</h5>
-                    <p class="mb-0 text-white">
+                    <div class="form-control bg-light mt-2">
                         <?= $user['deskripsi_diri'] ?: 'Belum Ada Deskripsi Apapun' ?>
-                    </p>
+                    </div>
                 </div>
 
                 <div class="bg-footer p-3 rounded">
                     <h5 class="fw-bold text-white">Catatan Prestasi</h5>
-                    <p class="text-white">
+                    <div class="form-control bg-light mt-2">
                         <?= $user['prestasi'] ?: 'Belum Ada Prestasi Apapun' ?>
-                    </p>
+                        </p>
+                    </div>
+
                 </div>
-
             </div>
-        </div>
 
+            <!-- Daftar proyek mahasiswa -->
+            <?php if (mysqli_num_rows($result_projek) > 0): ?>
+            <?php while ($projek = mysqli_fetch_assoc($result_projek)): ?>
         <?php if (mysqli_num_rows($result_projek) > 0): ?>
         <?php while ($projek = mysqli_fetch_assoc($result_projek)): ?>
 
-        <div class="bg-footer p-4 rounded mt-4">
-            <h5 class="fw-bold mb-3 text-center text-white">Proyek</h5>
+            <div class="bg-footer p-4 rounded mt-4">
+                <h5 class="fw-bold mb-3 text-center text-white">Proyek</h5>
 
-            <div class="mb-3">
-                <label class="form-label fw-semibold text-white">Judul Proyek</label>
-                <div class="form-control bg-light">
-                    <?= htmlspecialchars($projek['judul']) ?>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold text-white">Judul Proyek</label>
+                    <div class="form-control bg-light">
+                        <?= htmlspecialchars($projek['judul']) ?>
+                    </div>
                 </div>
-            </div>
 
-            <div class="mb-4">
-                <label class="form-label fw-semibold text-white">Deskripsi Proyek</label>
-                <div class="form-control bg-light" style="min-height: 100px;">
-                    <?= htmlspecialchars($projek['deskripsi']) ?>
+                <div class="mb-4">
+                    <label class="form-label fw-semibold text-white">Deskripsi Proyek</label>
+                    <div class="form-control bg-light" style="min-height:100px; overflow-wrap:break-word;">
+                        <?= nl2br(htmlspecialchars($projek['deskripsi'])) ?>
+                    </div>
                 </div>
-            </div>
 
-            <div class="mb-4">
-                <label class="form-label fw-semibold text-white">Tautan Repositori</label>
-                <div class="form-control bg-light">
-                    <a href="<?= htmlspecialchars($projek['link_repo']) ?>" target="_blank">
-                        <?= htmlspecialchars($projek['link_repo']) ?>
-                    </a>
+                <div class="mb-4">
+                    <label class="form-label fw-semibold text-white">Tautan Repositori</label>
+                    <div class="form-control bg-light">
+                        <a href="<?= htmlspecialchars($projek['link_repo']) ?>" target="_blank">
+                            <?= htmlspecialchars($projek['link_repo']) ?>
+                        </a>
+                    </div>
                 </div>
-            </div>
 
-            <div class="row g-3">
+                <div class="row g-3">
 
+                    <!-- Video proyek -->
+                    <div class="col-md-6">
+                        <div class="bg-light border p-3 text-center rounded">
+                            <span class="fw-semibold" style="color:#000;">Video</span>
+                            <?php if (!empty($projek['link'])): ?>
+                            <div class="ratio ratio-16x9 mt-2">
+                                <iframe src="<?= htmlspecialchars($projek['link']) ?>" allowfullscreen></iframe>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
                 <div class="col-md-6">
                     <div class="bg-light border p-3 text-center rounded">
                         <span class="fw-semibold text-muted">Video</span>
@@ -170,6 +223,17 @@ if (!isset($_SESSION['swal_notif'])) {
                     </div>
                 </div>
 
+                    <!-- Foto proyek -->
+                    <div class="col-md-6">
+                        <div class="bg-light border p-3 text-center rounded">
+                            <span class="fw-semibold" style="color:#000;">Foto</span>
+                            <br />
+                            <?php if (!empty($projek['gambar_projek'])): ?>
+                            <img src="asset/uploads/<?= htmlspecialchars($projek['gambar_projek']) ?>"
+                                class="img-fluid rounded mt-2" />
+                            <?php endif; ?>
+                        </div>
+                    </div>
                 <div class="col-md-6">
                     <div class="bg-light border p-3 text-center rounded">
                         <span class="fw-semibold text-muted">Foto</span><br />
@@ -180,9 +244,15 @@ if (!isset($_SESSION['swal_notif'])) {
                     </div>
                 </div>
 
+                </div>
             </div>
-        </div>
 
+            <?php endwhile; ?>
+            <?php else: ?>
+            <p class="text-center text-dark fw-semibold">
+                Mahasiswa belum mengunggah projek apapun.
+            </p>
+            <?php endif; ?>
         <?php endwhile; ?>
         <?php else: ?>
         <p class="text-center text-dark fw-semibold mt-4">
@@ -190,33 +260,40 @@ if (!isset($_SESSION['swal_notif'])) {
         </p>
         <?php endif; ?>
 
+            <!-- Riwayat penilaian portofolio -->
+            <div class="container mt-4 mb-5">
+                <div class="bg-footer p-4 rounded">
+                    <h5 class="fw-bold text-white mb-3 text-center">
+                        Riwayat Penilaian Portofolio
+                    </h5>
         <div class="container mt-4 mb-5">
             <div class="bg-footer p-4 rounded">
                 <h5 class="fw-bold text-white mb-3 text-center">
                     Riwayat Penilaian Portofolio
                 </h5>
 
-                <?php if (mysqli_num_rows($result_penilaian) > 0): ?>
-                <?php while ($p = mysqli_fetch_assoc($result_penilaian)): ?>
+                    <?php if (mysqli_num_rows($result_penilaian) > 0): ?>
+                    <?php while ($p = mysqli_fetch_assoc($result_penilaian)): ?>
 
-                <div class="bg-light p-3 rounded mb-3">
-                    <strong><?= htmlspecialchars($p['nama_dosen']) ?></strong>
-                    <span class="badge bg-footer ms-2">
-                        Nilai: <?= htmlspecialchars($p['nilai']) ?>
-                    </span>
+                    <div class="bg-light p-3 rounded mb-3">
+                        <strong><?= htmlspecialchars($p['nama_dosen']) ?></strong>
+                        <span class="badge bg-footer ms-2">
+                            Nilai: <?= htmlspecialchars($p['nilai']) ?>
+                        </span>
 
-                    <p class="mt-2 mb-1">
-                        Komentar: <?= htmlspecialchars($p['komentar']) ?>
+                        <p class="mt-2 mb-1">
+                            Komentar: <?= htmlspecialchars($p['komentar']) ?>
+                        </p>
+                    </div>
+
+                    <?php endwhile; ?>
+                    <?php else: ?>
+                    <p class="text-center text-white">
+                        Belum ada penilaian dari dosen.
                     </p>
+                    <?php endif; ?>
+
                 </div>
-
-                <?php endwhile; ?>
-                <?php else: ?>
-                <p class="text-center text-white">
-                    Belum ada penilaian dari dosen.
-                </p>
-                <?php endif; ?>
-
             </div>
         </div>
         <?php endif; ?>
@@ -246,5 +323,7 @@ if (!isset($_SESSION['swal_notif'])) {
     </script>
 
 </body>
+
+</html>
 
 </html>

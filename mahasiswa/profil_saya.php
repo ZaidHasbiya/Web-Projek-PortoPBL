@@ -228,11 +228,30 @@ body {
             <div class="ratio ratio-1x1 rounded-circle overflow-hidden mx-auto mb-2" style="width: 200px;">
                 <img src="<?= $foto ?>" alt="Foto Mahasiswa" class="w-100 h-100" style="object-fit: cover;">
             </div>
+<<<<<<< HEAD
             <small class="d-block mb-3 text-muted"><?= htmlspecialchars($user['nama']) ?></small>
             <div class="bg-footer p-2 rounded d-inline-block">
                 <strong class="text-white">
                     Jurusan: <?= htmlspecialchars($user['jurusan'] ?: 'Belum Diatur') ?>
                 </strong>
+=======
+
+            <!-- Tentang Mahasiswa dan Prestasi -->
+            <div class="col-md-8">
+                <div class="bg-footer p-3 rounded mb-4">
+                    <h5 class="fw-bold text-white">Tentang Mahasiswa</h5>
+                    <div class="form-control bg-light mt-2">
+                        <?= $user['deskripsi_diri'] ?: 'Belum Ada Deskripsi Apapun' ?>
+                    </div>
+                </div>
+
+                <div class="bg-footer p-3 rounded">
+                    <h5 class="fw-bold text-white">Catatan Prestasi</h5>
+                    <div class="form-control bg-light mt-2">
+                        <?= $user['prestasi'] ?: 'Belum Ada Prestasi Apapun' ?>
+                    </div>
+                </div>
+>>>>>>> a096997 (Finalisasi produk)
             </div>
         </div>
 
@@ -242,9 +261,83 @@ body {
                 <p class="mb-0 text-white"><?= $user['deskripsi_diri'] ?: 'Belum Ada Deskripsi Apapun' ?></p>
             </div>
 
+<<<<<<< HEAD
             <div class="bg-footer p-3 rounded">
                 <h5 class="fw-bold text-white">Catatan Prestasi</h5>
                 <p class="text-white"><?= $user['prestasi'] ?: 'Belum Ada Prestasi Apapun' ?></p>
+=======
+            <div class="mb-4">
+                <label class="form-label fw-semibold text-white">Deskripsi Proyek</label>
+
+                <div class="form-control bg-light" style="min-height:100px; overflow-wrap:break-word;">
+                    <?= nl2br(htmlspecialchars($projek['deskripsi'])) ?>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-semibold text-white">Link Repositori</label>
+                <div class="form-control bg-light">
+                    <a href="<?= htmlspecialchars($projek['link_repo']); ?>" target="_blank">
+                        <?= htmlspecialchars($projek['link_repo']); ?>
+                    </a>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="bg-light p-3 text-center rounded">
+                        <span class="fw-semibold text-muted">Video</span>
+                        <?php if (!empty($projek['link'])): ?>
+                        <div class="ratio ratio-16x9 mt-2">
+                            <iframe src="<?= htmlspecialchars($projek['link']) ?>" allowfullscreen></iframe>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="bg-light p-3 text-center rounded">
+                        <span class="fw-semibold text-muted">Foto</span><br>
+                        <?php if (!empty($projek['gambar_projek'])): ?>
+                        <img src="../asset/uploads/<?= htmlspecialchars($projek['gambar_projek']) ?>"
+                            class="img-fluid rounded mt-2">
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php endwhile; ?>
+        <?php else: ?>
+        <p class="text-center text-white fw-semibold">
+            Mahasiswa belum mengunggah projek apapun.
+        </p>
+        <?php endif; ?>
+
+        <!-- Riwayat Penilaian -->
+        <div class="container mt-4 mb-5">
+            <div class="bg-footer p-4 rounded">
+                <h5 class="fw-bold text-white mb-3 text-center">
+                    Riwayat Penilaian Portofolio
+                </h5>
+
+                <?php if (mysqli_num_rows($result_penilaian) > 0): ?>
+                <?php while ($p = mysqli_fetch_assoc($result_penilaian)): ?>
+                <div class="bg-light p-3 rounded mb-3">
+                    <strong><?= htmlspecialchars($p['nama_dosen']) ?></strong>
+                    <span class="badge bg-footer ms-2">
+                        Nilai: <?= htmlspecialchars($p['nilai']) ?>
+                    </span>
+                    <p class="mt-2 mb-1">
+                        Komentar: <?= htmlspecialchars($p['komentar']) ?>
+                    </p>
+                </div>
+                <?php endwhile; ?>
+                <?php else: ?>
+                <p class="text-center text-white">
+                    Belum ada penilaian dari dosen.
+                </p>
+                <?php endif; ?>
+>>>>>>> a096997 (Finalisasi produk)
             </div>
         </div>
     </div>

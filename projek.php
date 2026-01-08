@@ -87,6 +87,13 @@ body {
 .container {
     flex: 1;
 }
+
+.card-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 </style>
 
 <body>
@@ -115,7 +122,7 @@ body {
                     </div>
 
                     <!-- Informasi projek -->
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-column">
                         <h5 class="card-title"><?= htmlspecialchars($row['judul']); ?></h5>
 
                         <p class="card-text">
@@ -131,9 +138,10 @@ body {
                         </p>
 
                         <a href="lihat_projek.php?projek_id=<?= $row['projek_id']; ?>"
-                            class="btn btn-outline-info rounded-pill d-flex justify-content-center strk-btn">
+                            class="btn btn-outline-info rounded-pill d-flex justify-content-center strk-btn mt-auto">
                             Lihat Projek
                         </a>
+
                     </div>
                 </div>
             </div>
@@ -168,7 +176,7 @@ body {
 =======
                 <!-- Prev -->
                 <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page - 1 ?>">Prev</a>
+                    <a class="page-link" href="?page=<?= $page - 1 ?>">Sebelumnya</a>
                 </li>
 
 
@@ -185,14 +193,18 @@ body {
 
                 <!-- Next -->
                 <li class="page-item <?= ($page >= $total_page) ? 'disabled' : '' ?>">
+<<<<<<< HEAD
                     <a class="page-link" href="?page=<?= $page + 1 ?>">Next</a>
 >>>>>>> bf556ff (Merubah seluruh desain web)
+=======
+                    <a class="page-link" href="?page=<?= $page + 1 ?>">Selanjutnya</a>
+>>>>>>> a096997 (Finalisasi produk)
                 </li>
 
             </ul>
         </nav>
         <?php endif; ?>
-         <?php else: ?>
+        <?php else: ?>
         <div class="text-center my-5">
             <i class="fas fa-folder-open fa-3x text-info mb-3"></i>
             <p class="fs-5 text-muted">Belum ada projek yang tersedia.</p>

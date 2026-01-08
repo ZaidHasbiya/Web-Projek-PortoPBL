@@ -289,12 +289,15 @@ table tbody td:nth-child(5) {
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-nav-new shadow fixed-top">
         <a class="navbar-brand ps-3" href="dashboard.php">Dasbor Admin</a>
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle"><i
-                class="fas fa-bars"></i></button>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+        </button>
         <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    aria-expanded="false">
+                    <i class="fas fa-user fa-fw"></i>
+                </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="#!">Settings</a></li>
                     <li><a class="dropdown-item" href="#!">Activity Log</a></li>
@@ -313,12 +316,20 @@ table tbody td:nth-child(5) {
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <a class="nav-link text-white" href="dashboard.php">
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-tachometer-alt"></i></div> Dasbor
+                            <div class="sb-nav-link-icon">
+                                <i class="fa-solid fa-tachometer-alt"></i>
+                            </div>
+                            Dasbor
                         </a>
                         <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
                             data-bs-target="#collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div> Data
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-table"></i>
+                            </div>
+                            Data
+                            <div class="sb-sidenav-collapse-arrow">
+                                <i class="fas fa-angle-down"></i>
+                            </div>
                         </a>
                         <div class="collapse" id="collapseLayouts" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">

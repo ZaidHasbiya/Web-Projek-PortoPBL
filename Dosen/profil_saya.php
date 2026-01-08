@@ -129,12 +129,25 @@ body {
 
                 <div class="bg-footer p-3 rounded mb-4">
                     <h5 class="fw-bold text-white">Tentang Dosen</h5>
-                    <p class="mb-0 text-white">Deskripsi singkat tentang Dosen dapat ditulis di sini.</p>
+
+                    <div class="form-control bg-light mt-2" style="min-height: 90px;">
+                        <?= !empty($user['deskripsi_diri']) 
+            ? nl2br(htmlspecialchars($user['deskripsi_diri'])) 
+            : 'Belum ada deskripsi apapun.' ?>
+                    </div>
                 </div>
+
 
                 <div class="bg-footer p-3 rounded">
                     <h5 class="fw-bold text-white">Catatan Prestasi</h5>
+
+                    <div class="form-control bg-light mt-2" style="min-height: 90px;">
+                        <?= !empty($user['prestasi']) 
+            ? nl2br(htmlspecialchars($user['prestasi'])) 
+            : 'Belum ada catatan prestasi.' ?>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>

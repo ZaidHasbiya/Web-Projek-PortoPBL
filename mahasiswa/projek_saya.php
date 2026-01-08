@@ -119,6 +119,18 @@ $jumlah_projek = mysqli_num_rows($result);
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 >>>>>>> bf556ff (Merubah seluruh desain web)
 </head>
+<<<<<<< HEAD
+=======
+<style>
+.card-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+</style>
+
+>>>>>>> a096997 (Finalisasi produk)
 <body>
 
 <!-- Navbar Mahasiswa -->

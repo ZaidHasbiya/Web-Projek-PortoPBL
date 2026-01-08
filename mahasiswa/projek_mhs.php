@@ -95,6 +95,20 @@ $result = mysqli_num_rows($data);
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+<<<<<<< HEAD
+=======
+
+<style>
+.card-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+</style>
+
+>>>>>>> a096997 (Finalisasi produk)
 <body>
 
     <?php include '../layouts/navbar_mhs.php'; ?>
@@ -114,17 +128,26 @@ $result = mysqli_num_rows($data);
                             class="w-100 h-100 object-fit-cover" alt="Projek Web Portofolio PBL">
                     </div>
 
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-column">
                         <h5 class="card-title"><?= htmlspecialchars($row['judul']); ?></h5>
                         <p class="card-text">Deskripsi Projek : <?= htmlspecialchars($row['deskripsi']); ?></p>
                         <p class="card-text mb-1">Dibuat Oleh :</p>
                         <p class="card-text mb-1">Nama Mahasiswa : <?= htmlspecialchars($row['nama']); ?></p>
                         <p class="card-text">NIM : <?= htmlspecialchars($row['username']); ?></p>
 
+<<<<<<< HEAD
                     <a href="lihat_projek_mhs.php?projek_id=<?= $row['projek_id']; ?>"
                         class="btn btn-outline-info rounded-pill d-flex justify-content-center">
                         Lihat Projek
                     </a>
+=======
+                        <a href="lihat_projek_mhs.php?projek_id=<?= $row['projek_id']; ?>"
+                            class="btn btn-outline-info rounded-pill d-flex justify-content-center mt-auto">
+                            Lihat Projek
+                        </a>
+
+                    </div>
+>>>>>>> a096997 (Finalisasi produk)
                 </div>
             </div>
         </div>
@@ -134,21 +157,35 @@ $result = mysqli_num_rows($data);
 
         <?php if ($total_page > 1): ?>
         <nav class="d-flex justify-content-center mt-5">
-            <ul class="pagination">
+            <?php if ($total_page > 1): ?>
+            <nav class="d-flex justify-content-center mt-5">
+                <ul class="pagination">
 
-                <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page - 1 ?>"><</a>
-                </li>
+                    <!-- Prev -->
+                    <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $page - 1 ?>">Sebelumnya</a>
+                    </li>
 
-                <?php for ($i = 1; $i <= $total_page; $i++): ?>
-                <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
-                    <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                </li>
-                <?php endfor; ?>
+                    <?php
+        $start = max(1, $page - 2);
+        $end   = min($total_page, $page + 2);
 
-                <li class="page-item <?= ($page >= $total_page) ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page + 1 ?>">></a>
-                </li>
+        for ($i = $start; $i <= $end; $i++):
+        ?>
+                    <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                    </li>
+                    <?php endfor; ?>
+
+                    <!-- Next -->
+                    <li class="page-item <?= ($page >= $total_page) ? 'disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $page + 1 ?>">Selanjutnya</a>
+                    </li>
+
+                </ul>
+            </nav>
+            <?php endif; ?>
+
 
             </ul>
         </nav>

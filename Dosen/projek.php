@@ -104,15 +104,11 @@ if (isset($_POST['cari'])) {
 </head>
 
 <style>
-/* Styling navbar brand */
-.navbar-brand img {
-    width: 80px;
-    height: 80px;
-    margin-right: 12px;
-}
-
-.navbar-brand {
-    font-size: 1.2rem;
+.card-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 </style>
 
@@ -142,7 +138,7 @@ if (isset($_POST['cari'])) {
                             class="w-100 h-100 object-fit-cover" alt="Projek Web Portofolio PBL">
                     </div>
 
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-column">
                         <h5 class="card-title"><?= $row['judul']; ?></h5>
                         <p class="card-text">Deskripsi Projek : <?= $row['deskripsi']; ?></p>
                         <p class="card-text">Dibuat Oleh :</p>
@@ -150,9 +146,10 @@ if (isset($_POST['cari'])) {
                         <p class="card-text">NIM : <?= $row['username']; ?></p>
 
                         <a href="lihat_projek_dosen.php?projek_id=<?= $row['projek_id']; ?>"
-                            class="btn btn-outline-info rounded-pill d-flex justify-content-center strk-btn">
+                            class="btn btn-outline-info rounded-pill d-flex justify-content-center mt-auto">
                             Lihat Projek
                         </a>
+
                     </div>
                 </div>
             </div>
@@ -185,7 +182,7 @@ if (isset($_POST['cari'])) {
 =======
                 <!-- Prev -->
                 <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page - 1 ?>">Prev</a>
+                    <a class="page-link" href="?page=<?= $page - 1 ?>">Sebelumnya</a>
                 </li>
 
                 <?php
@@ -201,8 +198,12 @@ if (isset($_POST['cari'])) {
 
                 <!-- Next -->
                 <li class="page-item <?= ($page >= $total_page) ? 'disabled' : '' ?>">
+<<<<<<< HEAD
                     <a class="page-link" href="?page=<?= $page + 1 ?>">Next</a>
 >>>>>>> bf556ff (Merubah seluruh desain web)
+=======
+                    <a class="page-link" href="?page=<?= $page + 1 ?>">Selanjutnya</a>
+>>>>>>> a096997 (Finalisasi produk)
                 </li>
 
             </ul>

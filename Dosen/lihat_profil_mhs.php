@@ -138,21 +138,16 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
 <<<<<<< HEAD
 =======
 <style>
-/* Kotak biru */
 .bg-footer {
     background-color: #1f4f73;
     border-radius: 6px;
 }
-
-/* Judul & label warna cream */
 .bg-footer h5,
 .bg-footer label,
-.bg-footer span,
 .bg-footer strong {
     color: #e9e1c9 !important;
 }
 
-/* Isi deskripsi warna #2d3748 */
 .bg-footer .form-control,
 .bg-footer p,
 .bg-footer div,
@@ -160,12 +155,10 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
     color: #2d3748 !important;
 }
 
-/* Biar area teks tetap putih */
 .bg-footer .form-control {
     background-color: #ffffff !important;
 }
 
-/* Jangan ganggu warna link */
 .bg-footer a {
     color: inherit;
 }
@@ -199,21 +192,24 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
             </div>
 
             <div class="col-md-8">
+               <!-- Tentang mahasiswa -->
                 <div class="bg-footer p-3 rounded mb-4">
                     <h5 class="fw-bold text-white">Tentang Mahasiswa</h5>
-                    <p class="text-white mb-0">
+                    <div class="form-control bg-light mt-2">
                         <?= $user['deskripsi_diri'] ?: 'Belum Ada Deskripsi Apapun' ?>
-                    </p>
+                    </div>
                 </div>
 
+                <!-- Catatan prestasi -->
                 <div class="bg-footer p-3 rounded">
                     <h5 class="fw-bold text-white">Catatan Prestasi</h5>
-                    <p class="text-white">
+                    <div class="form-control bg-light mt-2">
                         <?= $user['prestasi'] ?: 'Belum Ada Prestasi Apapun' ?>
-                    </p>
+                        </p>
+                    </div>
+
                 </div>
             </div>
-        </div>
 
         <?php if (mysqli_num_rows($result_projek) > 0): ?>
         <?php while ($projek = mysqli_fetch_assoc($result_projek)): ?>
@@ -227,10 +223,10 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
                 </div>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label text-white fw-semibold">Deskripsi Proyek</label>
-                <div class="form-control bg-light">
-                    <?= htmlspecialchars($projek['deskripsi']) ?>
+            <div class="mb-4">
+                <label class="form-label fw-semibold text-white">Deskripsi Proyek</label>
+                <div class="form-control bg-light" style="min-height:100px; overflow-wrap:break-word;">
+                    <?= nl2br(htmlspecialchars($projek['deskripsi'])) ?>
                 </div>
             </div>
 
@@ -245,7 +241,7 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
             <div class="row g-3">
                 <div class="col-md-6">
                     <div class="bg-light border p-3 text-center rounded">
-                        <span class="fw-semibold text-muted">Video</span>
+                        <span class="fw-semibold" style="color:#000;">Video</span>
                         <?php if (!empty($projek['link'])): ?>
                         <div class="ratio ratio-16x9 mt-2">
                             <iframe src="<?= htmlspecialchars($projek['link']) ?>" allowfullscreen></iframe>
@@ -256,7 +252,8 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
 
                 <div class="col-md-6">
                     <div class="bg-light border p-3 text-center rounded">
-                        <span class="fw-semibold text-muted">Foto</span><br>
+                        <span class="fw-semibold" style="color:#000;">Foto</span>
+                        <br>
                         <?php if (!empty($projek['gambar_projek'])): ?>
                         <img src="../asset/uploads/<?= htmlspecialchars($projek['gambar_projek']) ?>"
                             class="img-fluid rounded mt-2">
@@ -314,6 +311,10 @@ $result_penilaian = mysqli_query($koneksi, $query_penilaian);
                 </form>
             </div>
         </div>
+<<<<<<< HEAD
+=======
+        </div>
+>>>>>>> a096997 (Finalisasi produk)
     </div>
 
     <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
