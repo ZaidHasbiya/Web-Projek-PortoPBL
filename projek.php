@@ -88,12 +88,15 @@ body {
     flex: 1;
 }
 
-.card-text {
+.card-desc {
     display: -webkit-box;
-    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+
+    line-clamp: 3;
     overflow: hidden;
 }
+
 </style>
 
 <body>
@@ -125,9 +128,10 @@ body {
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title"><?= htmlspecialchars($row['judul']); ?></h5>
 
-                        <p class="card-text">
+                        <p class="card-text card-desc">
                             Deskripsi Projek : <?= htmlspecialchars($row['deskripsi']); ?>
                         </p>
+
 
                         <p class="card-text mb-1">Dibuat Oleh :</p>
                         <p class="card-text mb-1">
