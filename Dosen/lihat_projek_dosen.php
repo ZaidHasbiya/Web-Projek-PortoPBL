@@ -107,78 +107,117 @@ $komentarResult = mysqli_query($koneksi, $komentarQuery);
 
     <div class="container py-5 mt-5">
 
-        <h1 class="fw-bold mb-4"><?= htmlspecialchars($projek['judul']); ?></h1>
-
-        <?php if (!empty($projek['gambar_projek'])): ?>
-        <div class="mb-4">
-            <img src="../asset/uploads/<?= htmlspecialchars($projek['gambar_projek']); ?>"
-                class="img-fluid rounded shadow" alt="Gambar Projek">
-        </div>
-        <?php endif; ?>
-
-        <div class="mb-4">
-            <h4 class="fw-semibold">Deskripsi Projek</h4>
-            <p class="text-muted">
-                <?= nl2br(htmlspecialchars($projek['deskripsi'])); ?>
-            </p>
+        <div class="mb-5">
+            <h1 class="fw-bold mb-1"><?= htmlspecialchars($projek['judul']); ?></h1>
+            <span class="badge bg-info text-dark px-3 py-2 rounded-pill">
+                📘 Detail Projek Mahasiswa
+            </span>
         </div>
 
-        <?php if (!empty($projek['link'])): ?>
-        <div class="mb-4">
-            <h4 class="fw-semibold">Video</h4>
-            <div class="ratio ratio-16x9">
-                <iframe src="<?= htmlspecialchars($projek['link']); ?>" title="Video Projek" allowfullscreen></iframe>
+        <!-- Media Projek -->
+        <div class="row g-4 mb-5 align-items-stretch">
+
+            <?php if (!empty($projek['gambar_projek'])): ?>
+            <div class="col-lg-6">
+                <div class="card shadow-sm border-0 h-100 overflow-hidden">
+                    <div class="ratio ratio-16x9">
+                        <img src="../asset/uploads/<?= htmlspecialchars($projek['gambar_projek']); ?>"
+                            class="w-100 h-100" style="object-fit: cover;" alt="Gambar Projek">
+                    </div>
+                </div>
             </div>
-        </div>
-        <?php endif; ?>
+            <?php endif; ?>
 
-        <div class="mb-4">
-            <p>
-                <strong>Tautan Repositori:</strong><br>
-                <a href="<?= htmlspecialchars($projek['link_repo']); ?>" target="_blank"
-                    class="text-break d-block text-decoration-none">
-                    <?= htmlspecialchars($projek['link_repo']); ?>
-                </a>
-            </p>
-            <p><strong>Tanggal Dibuat:</strong> <?= htmlspecialchars($projek['tgl_pembuatan']); ?></p>
-            <p><strong>Tanggal Selesai:</strong> <?= htmlspecialchars($projek['tgl_selesai']); ?></p>
-            <p><strong>Dibuat Oleh:</strong> <?= htmlspecialchars($projek['nama']); ?></p>
-            <p><strong>NIM:</strong> <?= htmlspecialchars($projek['username']); ?></p>
-        </div>
-
-        <form action="" method="POST" class="border p-3 rounded shadow-sm mb-4">
-            <h5 class="fw-semibold mb-3">Tulis Komentar</h5>
-
-            <div class="mb-3">
-                <textarea name="komentar" class="form-control" rows="3" placeholder="Tulis komentar di sini..."
-                    required></textarea>
+            <?php if (!empty($projek['link'])): ?>
+            <div class="col-lg-6">
+                <div class="card shadow-sm border-0 h-100 overflow-hidden">
+                    <div class="ratio ratio-16x9">
+                        <iframe src="<?= htmlspecialchars($projek['link']); ?>" allowfullscreen></iframe>
+                    </div>
+                </div>
             </div>
+            <?php endif; ?>
 
-            <button type="submit" class="btn btn-clr">
-                Kirim Komentar
-            </button>
-        </form>
+        </div>
 
-        <div class="border p-3 rounded shadow-sm mb-5">
-            <h5 class="fw-semibold mb-3">Komentar Dosen</h5>
-
-            <?php if (mysqli_num_rows($komentarResult) > 0): ?>
-            <?php while ($k = mysqli_fetch_assoc($komentarResult)): ?>
-            <div class="p-3 bg-light border rounded mb-3">
-                <strong><?= htmlspecialchars($k['nama']); ?></strong>
-                <p class="mb-0">
-                    <?= nl2br(htmlspecialchars($k['komentar'])); ?>
+        <!-- Deskripsi -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body px-4 py-4">
+                <h4 class="fw-semibold mb-3">📄 Deskripsi Projek</h4>
+                <p class="mb-0 text-secondary" style="line-height: 1.7;">
+                    <?= nl2br(htmlspecialchars($projek['deskripsi'])); ?>
                 </p>
             </div>
-            <?php endwhile; ?>
-            <?php else: ?>
-            <p class="text-muted">Belum ada komentar.</p>
-            <?php endif; ?>
+        </div>
+
+        <!-- Informasi Projek -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body px-4 py-4">
+
+                <h5 class="fw-semibold mb-4">📌 Informasi Projek</h5>
+
+                <div class="row gy-2 mb-3">
+                    <div class="col-md-6">
+                        <p class="mb-1">👤 <strong>Mahasiswa</strong><br><?= $projek['nama']; ?></p>
+                        <p class="mb-0">🆔 <strong>NIM</strong><br><?= $projek['username']; ?></p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <p class="mb-1">📅 <strong>Tanggal Dibuat</strong><br><?= $projek['tgl_pembuatan']; ?></p>
+                        <p class="mb-0">✅ <strong>Tanggal Selesai</strong><br><?= $projek['tgl_selesai']; ?></p>
+                    </div>
+                </div>
+
+                <?php if (!empty($projek['link_repo'])): ?>
+                <hr class="my-3">
+                <p class="mb-1 fw-semibold">🔗 Repositori Projek</p>
+                <a href="<?= htmlspecialchars($projek['link_repo']); ?>" target="_blank"
+                    class="text-decoration-none text-break">
+                    <?= htmlspecialchars($projek['link_repo']); ?>
+                </a>
+                <?php endif; ?>
+
+            </div>
+        </div>
+
+        <!-- Form Komentar Dosen -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body px-4 py-4">
+                <h5 class="fw-semibold mb-3">✍️ Tambahkan Komentar</h5>
+
+                <form method="POST">
+                    <div class="mb-3">
+                        <textarea name="komentar" class="form-control" rows="3" placeholder="Tulis komentar di sini..."
+                            required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-clr">Kirim Komentar</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Daftar Komentar -->
+        <div class="card shadow-sm border-0">
+            <div class="card-body px-4 py-4">
+                <h5 class="fw-semibold mb-3">💬 Komentar</h5>
+
+                <?php if (mysqli_num_rows($komentarResult) > 0): ?>
+                <?php while ($k = mysqli_fetch_assoc($komentarResult)): ?>
+                <div class="border rounded p-3 mb-3 bg-light">
+                    <strong><?= htmlspecialchars($k['nama']); ?></strong>
+                    <p class="mb-0 mt-1 text-secondary">
+                        <?= nl2br(htmlspecialchars($k['komentar'])); ?>
+                    </p>
+                </div>
+                <?php endwhile; ?>
+                <?php else: ?>
+                <p class="text-muted mb-0">Belum ada komentar.</p>
+                <?php endif; ?>
+            </div>
         </div>
 
     </div>
-    <div>
-        <img src="../asset/wave-new-navy.svg" class="img-fluid d-block" style="width:100vw" alt="wave">
+
+    <img src="../asset/wave-new-navy.svg" class="img-fluid d-block" style="width:100vw" alt="wave">
     </div>
     <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
         &copy; <span>2025</span> Tim Web Portofolio Projek PBL

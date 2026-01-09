@@ -1,13 +1,32 @@
 <link rel="stylesheet" href="../custom.css">
 <style>
-  .navbar .dropdown-menu {
+.navbar .dropdown-menu {
     background-color: #e9e1c9 !important;
     border: 1px solid #d9d2b8;
+    z-index: 1050;
+}
+
+.logo-custom {
+    height: 40px !important;
+    width: auto !important;
+    object-fit: contain;
+    display: inline-block !important;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand {
+    display: flex !important;
+    align-items: center !important;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 </style>
 <nav class="navbar navbar-expand-lg navbar-dark py-3 bg-nav-new shadow fixed-top">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="index_mahasiswa.php">PortoPBL</a>
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index_mahasiswa.php">
+            <img src="../asset/logoo.png" alt="Logo PortoPBL" class="logo-custom">
+            <span class="d-inline-block">PortoPBL</span>
+        </a>
         <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
             aria-label="Toggle navigation">
