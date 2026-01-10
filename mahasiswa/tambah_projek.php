@@ -137,54 +137,57 @@ label {
 
 <body>
 
-    <div class="container my-5">
-        <h3 class="mb-4">Tambah Projek</h3>
+    <div class="container my-5 d-flex justify-content-center">
+    <div class="card p-4 shadow" style="max-width: 650px; width: 100%;">
+        <h3 class="mb-4 text-center">Tambah Projek</h3>
 
         <form method="post" enctype="multipart/form-data">
 
             <div class="mb-3">
-                <label class="form-label">Judul Projek</label>
+                <label class="form-label fw-semibold">Judul Projek</label>
                 <input type="text" class="form-control" name="judul" required>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Deskripsi Projek</label>
+                <label class="form-label fw-semibold">Deskripsi Projek</label>
                 <textarea class="form-control" name="deskripsi" rows="3" required></textarea>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Tautan Video</label>
+                <label class="form-label fw-semibold">Tautan Video</label>
                 <input type="url" class="form-control" name="link" required>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Tautan Repositori</label>
+                <label class="form-label fw-semibold">Tautan Repositori</label>
                 <input type="url" class="form-control" name="link_repo" required>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Foto Projek</label>
+                <label class="form-label fw-semibold">Foto Projek</label>
                 <input type="file" class="form-control" name="gambar_projek" accept=".jpg,.jpeg,.png" required>
                 <small class="text-danger">Format jpg, jpeg, png (maks 20MB)</small>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Tanggal Pembuatan</label>
+                <label class="form-label fw-semibold">Tanggal Pembuatan</label>
                 <input type="date" class="form-control" name="tgl_pembuatan" required>
             </div>
 
             <div class="mb-4">
-                <label class="form-label">Tanggal Selesai</label>
+                <label class="form-label fw-semibold">Tanggal Selesai</label>
                 <input type="date" class="form-control" name="tgl_selesai" required>
             </div>
 
-            <div class="d-flex justify-content-between">
-                <a href="projek_saya.php" class="btn btn-clr text-white">Kembali</a>
-                <button type="submit" name="tambah" class="btn btn-success">Tambah</button>
+            <div class="d-flex justify-content-between mt-4">
+                <a href="projek_saya.php" class="btn btn-clr text-white px-4">Kembali</a>
+                <button type="submit" name="tambah" class="btn btn-success px-4">Tambah</button>
             </div>
 
         </form>
     </div>
+</div>
+
 
     <script src="../js/bootstrap.bundle.min.js"></script>
 

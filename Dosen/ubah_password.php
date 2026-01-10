@@ -81,7 +81,7 @@ if (isset($_POST['ubah_password'])) {
             </div>
 
             <div class="d-flex justify-content-between mt-4">
-                <a href="index_mahasiswa.php" class="btn btn-primary px-4">Kembali</a>
+                <a href="index_dosen.php" class="btn btn-primary px-4">Kembali</a>
                 <button type="submit" name="ubah_password" class="btn btn-warning px-4">Ubah</button>
             </div>
         </form>
@@ -108,7 +108,7 @@ if (isset($_POST['ubah_password'])) {
         timer: 2000,
         showConfirmButton: false
     }).then(() => {
-        window.location.href = 'index_mahasiswa.php';
+        window.location.href = 'index_dosen.php';
     });
     </script>
     <?php unset($_SESSION['password_success']); endif; ?>

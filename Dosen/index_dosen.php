@@ -134,7 +134,7 @@ h3 {
 
             <div class="row text-center mb-4">
                 <div class="col">
-                    <h1 class="text-white" data-aos="fade-up">TIM PROJEK PBL</h1>
+                    <h1 class="text-white" data-aos="fade-up">TIM PENGEMBANG PROJEK PBL</h1>
                 </div>
             </div>
 

@@ -25,43 +25,79 @@ $role_list = explode(
 if (isset($_POST['login'])) {
 
   // Mengambil data input dari form login
-  $username = mysqli_real_escape_string($koneksi, $_POST['username']);
-  $password = mysqli_real_escape_string($koneksi, $_POST['password']);
-  $role     = $_POST['role'];
+    $username = mysqli_real_escape_string($koneksi, $_POST['username']);
+    $password_input = $_POST['password']; // JANGAN di-escape
+    $role = $_POST['role'];
 
   // Query untuk mencocokkan data login dengan database
-  $query = mysqli_query(
-    $koneksi,
-    "SELECT * FROM users 
-     WHERE username = '$username' 
-     AND password = '$password' 
-     AND role = '$role'"
-  );
+    $query = mysqli_query(
+        $koneksi,
+        "SELECT * FROM users 
+         WHERE username = '$username' 
+         AND role = '$role'"
+    );
 
   // Mengambil hasil query
   $data = mysqli_fetch_assoc($query);
 
   // Jika data ditemukan (login berhasil)
-  if ($data) {
-    // Menyimpan data pengguna ke dalam session
-    $_SESSION['id']       = $data['id'];
-    $_SESSION['nama']     = $data['nama'];
-    $_SESSION['username'] = $data['username'];
-    $_SESSION['role']     = $data['role'];
-    $_SESSION['login_success'] = true;
+// Jika data ditemukan (login berhasil)
+if ($data) {
 
-    // Menentukan target redirect
-    if ($role == 'mahasiswa') {
-      $_SESSION['redirect'] = 'mahasiswa/index_mahasiswa.php';
-    } elseif ($role == 'dosen') {
-      $_SESSION['redirect'] = 'Dosen/index_dosen.php';
-    } elseif ($role == 'admin') {
-      $_SESSION['redirect'] = 'dashboard/dashboard.php';
+    // 1️⃣ Cek password hash normal
+    if (password_verify($password_input, $data['password'])) {
+        // Login sukses
+        $_SESSION['id']       = $data['id'];
+        $_SESSION['nama']     = $data['nama'];
+        $_SESSION['username'] = $data['username'];
+        $_SESSION['role']     = $data['role'];
+        $_SESSION['login_success'] = true;
+
+        // Redirect
+        if ($role == 'mahasiswa') {
+            $_SESSION['redirect'] = 'mahasiswa/index_mahasiswa.php';
+        } elseif ($role == 'dosen') {
+            $_SESSION['redirect'] = 'Dosen/index_dosen.php';
+        } elseif ($role == 'admin') {
+            $_SESSION['redirect'] = 'dashboard/dashboard.php';
+        }
+
+    } 
+    // 2️⃣ Fallback untuk password lama (plain text)
+    else if ($password_input === $data['password']) {
+
+        // Hash password baru
+        $newHash = password_hash($password_input, PASSWORD_DEFAULT);
+        mysqli_query($koneksi, 
+            "UPDATE users SET password='$newHash' WHERE id='{$data['id']}'"
+        );
+
+        // Login sukses
+        $_SESSION['id']       = $data['id'];
+        $_SESSION['nama']     = $data['nama'];
+        $_SESSION['username'] = $data['username'];
+        $_SESSION['role']     = $data['role'];
+        $_SESSION['login_success'] = true;
+
+        // Redirect
+        if ($role == 'mahasiswa') {
+            $_SESSION['redirect'] = 'mahasiswa/index_mahasiswa.php';
+        } elseif ($role == 'dosen') {
+            $_SESSION['redirect'] = 'Dosen/index_dosen.php';
+        } elseif ($role == 'admin') {
+            $_SESSION['redirect'] = 'dashboard/dashboard.php';
+        }
+
+    } 
+    // 3️⃣ Password salah
+    else {
+        $_SESSION['login_error'] = true;
     }
-  } else {
-    // Jika login gagal
+
+} else {
     $_SESSION['login_error'] = true;
-  }
+}
+
 }
 ?>
 
@@ -204,6 +240,14 @@ if (isset($_POST['login'])) {
                             <input type="password" name="password" class="form-control" placeholder="Masukkan Password"
                                 required>
                         </div>
+                        <div>
+                            <p class="text-center mt-3">
+                                Belum punya akun?
+                                <a href="https://forms.gle/Ei386uWRFVz2UrRs8" target="_blank">
+                                 Ajukan pembuatan akun
+                                </a>
+                            </p>
+                        </div>
 
                         <div class="d-grid mt-4">
                             <button type="submit" name="login" class="btn btn-primary-custom btn-lg">Masuk</button>
@@ -222,7 +266,7 @@ if (isset($_POST['login'])) {
     <script>
     Swal.fire({
         icon: 'success',
-        title: 'Login Berhasil!',
+        title: 'Berhasil Masuk!',
         text: 'Selamat datang, <?= $_SESSION['nama'] ?>!',
         timer: 2000,
         showConfirmButton: false
@@ -236,7 +280,7 @@ if (isset($_POST['login'])) {
     <script>
     Swal.fire({
         icon: 'error',
-        title: 'Login Gagal!',
+        title: 'Gagal Masuk!',
         text: 'Username, Password, atau Role salah.'
     });
     </script>

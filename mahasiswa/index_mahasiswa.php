@@ -126,7 +126,7 @@ if ($_SESSION['role'] !== 'mahasiswa') {
         <div class="container">
             <div class="row text-center mb-4">
                 <div class="col">
-                    <h1 data-aos="fade-up">TIM PROJEK PBL</h1>
+                    <h1 data-aos="fade-up">TIM PENGEMBANG PROJEK PBL</h1>
                 </div>
             </div>
 

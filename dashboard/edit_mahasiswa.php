@@ -58,20 +58,34 @@ if ($mhs) {
 if(isset($_POST['update'])){
     $nama = mysqli_real_escape_string($koneksi, $_POST['nama']);
     $username = mysqli_real_escape_string($koneksi, $_POST['username']);
-    $password = mysqli_real_escape_string($koneksi, $_POST['password']);
+    $password_input = $_POST['password'];
     $jurusan_val = $_POST['jurusan'];
     $role_val = $_POST['role'];
 
-    // Query update data mahasiswa
-    $update = mysqli_query($koneksi, 
-        "UPDATE users SET 
-            nama='$nama', 
-            username='$username',
-            password='$password',
-            jurusan='$jurusan_val',
-            role='$role_val'
-        WHERE id='$id'"
-    );
+    if (!empty($password_input)) {
+        // PASSWORD DIUBAH → HASH
+        $password_hash = password_hash($password_input, PASSWORD_DEFAULT);
+
+        $update = mysqli_query($koneksi, 
+            "UPDATE users SET 
+                nama='$nama', 
+                username='$username',
+                password='$password_hash',
+                jurusan='$jurusan_val',
+                role='$role_val'
+            WHERE id='$id'"
+        );
+    } else {
+        // PASSWORD TIDAK DIUBAH
+        $update = mysqli_query($koneksi, 
+            "UPDATE users SET 
+                nama='$nama', 
+                username='$username',
+                jurusan='$jurusan_val',
+                role='$role_val'
+            WHERE id='$id'"
+        );
+    }
 
     // Feedback update
     if($update){
@@ -99,54 +113,59 @@ if(isset($_POST['update'])){
 
 <div class="container my-5">
     <?php if($mhs): ?>
-    <h3 class="mb-4">Ubah Mahasiswa</h3>
+    <div class="card mx-auto" style="max-width: 500px;"> <!-- Kotak tengah -->
+        <div class="card-body">
+            <h3 class="card-title mb-4 text-center">Ubah Mahasiswa</h3>
 
-    <form method="post">
-        <div class="mb-3">
-            <label class="form-label fw-semibold">Nama Mahasiswa</label>
-            <input type="text" class="form-control" name="nama" value="<?= htmlspecialchars($mhs['nama']); ?>" required>
-        </div>
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Nama Mahasiswa</label>
+                    <input type="text" class="form-control" name="nama" value="<?= htmlspecialchars($mhs['nama']); ?>" required>
+                </div>
 
-        <div class="mb-3">
-            <label class="form-label fw-semibold">NIM</label>
-            <input type="text" class="form-control" name="username" value="<?= htmlspecialchars($mhs['username']); ?>" required>
-        </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">NIM</label>
+                    <input type="text" class="form-control" name="username" value="<?= htmlspecialchars($mhs['username']); ?>" required>
+                </div>
 
-        <div class="mb-3">
-            <label class="form-label fw-semibold">Password</label>
-            <input type="text" class="form-control" name="password" value="<?= htmlspecialchars($mhs['password']); ?>" required>
-        </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Password</label>
+                    <input type="password" class="form-control" name="password" placeholder="Kosongkan jika tidak ingin diubah">
+                </div>
 
-        <div class="mb-3">
-            <label class="form-label fw-semibold">Jurusan</label>
-            <select name="jurusan" class="form-control" required>
-                <option value="">-- Pilih Jurusan --</option>
-                <?php foreach($jurusan_list as $j): ?>
-                    <option value="<?= $j ?>" <?= ($mhs['jurusan'] == $j ? 'selected' : '') ?>>
-                        <?= ucfirst($j) ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Jurusan</label>
+                    <select name="jurusan" class="form-control" required>
+                        <option value="">-- Pilih Jurusan --</option>
+                        <?php foreach($jurusan_list as $j): ?>
+                        <option value="<?= $j ?>" <?= ($mhs['jurusan'] == $j ? 'selected' : '') ?>>
+                            <?= ucfirst($j) ?>
+                        </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
-        <div class="mb-3">
-            <label class="form-label fw-semibold">Role</label>
-            <select name="role" class="form-control" required>
-                <?php foreach ($role_list as $r): ?>
-                    <option value="<?= $r ?>" <?= $mhs['role']==$r ? 'selected' : '' ?>>
-                        <?= ucfirst($r) ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Role</label>
+                    <select name="role" class="form-control" required>
+                        <?php foreach ($role_list as $r): ?>
+                        <option value="<?= $r ?>" <?= $mhs['role'] == $r ? 'selected' : '' ?>>
+                            <?= ucfirst($r) ?>
+                        </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
-        <div class="d-flex justify-content-between mt-4">
-            <a href="data_mahasiswa.php" class="btn btn-primary px-4">Kembali</a>
-            <button type="submit" name="update" class="btn btn-success px-4">Simpan Perubahan</button>
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="data_mahasiswa.php" class="btn btn-primary px-4">Kembali</a>
+                    <button type="submit" name="update" class="btn btn-success px-4">Simpan Perubahan</button>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
     <?php endif; ?>
 </div>
+
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 

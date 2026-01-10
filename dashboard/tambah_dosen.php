@@ -41,6 +41,7 @@ if(isset($_POST['tambah'])){
     $nama = mysqli_real_escape_string($koneksi, $_POST['nama']);
     $username = mysqli_real_escape_string($koneksi, $_POST['username']);
     $password = $_POST['password'];
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
     $jurusan = $_POST['jurusan'];
     $role_input = 'dosen'; // Default role adalah dosen
 
@@ -53,7 +54,7 @@ if(isset($_POST['tambah'])){
     } else {
         // Insert data dosen baru ke database
         $query = "INSERT INTO users (nama, username, password, jurusan, role) 
-                  VALUES ('$nama', '$username', '$password', '$jurusan', '$role_input')";
+          VALUES ('$nama', '$username', '$password_hash', '$jurusan', '$role_input')";
         $data = mysqli_query($koneksi, $query);
 
         if($data){
@@ -84,46 +85,56 @@ if(isset($_POST['tambah'])){
 
 <body style="background-color: #fdf6e3;">
     <div class="container my-5">
-        <h3 class="mb-4">Tambah Dosen</h3>
+    <div class="card mx-auto" style="max-width: 500px;"> <!-- Kotak tengah, max width 500px -->
+        <div class="card-body">
+            <h3 class="card-title mb-4 text-center">Tambah Dosen</h3>
 
-        <form action="" method="post">
-            <div class="mb-3">
-                <label for="nama" class="form-label">Nama Dosen</label>
-                <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Dosen" required>
-            </div>
-            <div class="mb-3">
-                <label for="username" class="form-label">NIDN</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="NIDN" required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="text" class="form-control" id="password" name="password" placeholder="Password" required>
-            </div>
-            <div class="mb-3">
-                <label for="jurusan" class="form-label">Pilih Jurusan</label>
-                <select name="jurusan" class="form-control" id="jurusan" required>
-                    <option value="">-- Pilih Jurusan --</option>
-                    <?php foreach ($jurusan_list as $j): ?>
-                    <option value="<?= $j ?>"><?= ucfirst($j) ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="role" class="form-label">Pilih Role</label>
-                <select name="role" class="form-control" id="role" required>
-                    <option value="">-- Pilih Role --</option>
-                    <?php foreach ($role_list as $r): ?>
-                    <option value="<?= $r ?>"><?= ucfirst($r) ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
+            <form action="" method="post">
+                <div class="mb-3">
+                    <label for="nama" class="form-label">Nama Dosen</label>
+                    <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Dosen" required>
+                </div>
 
-            <div class="d-flex justify-content-between">
-                <a href="data_dosen.php" class="btn btn-primary">Kembali</a>
-                <button type="submit" class="btn btn-success" name="tambah">Tambah</button>
-            </div>
-        </form>
+                <div class="mb-3">
+                    <label for="username" class="form-label">NIDN</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="NIDN" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="text" class="form-control" id="password" name="password" placeholder="Password" >
+                </div>
+
+                <div class="mb-3">
+                    <label for="jurusan" class="form-label">Pilih Jurusan</label>
+                    <select name="jurusan" class="form-control" id="jurusan" required>
+                        <option value="">-- Pilih Jurusan --</option>
+                        <?php foreach ($jurusan_list as $j): ?>
+                        <option value="<?= $j ?>"><?= ucfirst($j) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="role" class="form-label">Pilih Role</label>
+                    <select name="role" class="form-control" id="role" required>
+                        <option value="">-- Pilih Role --</option>
+                        <?php foreach ($role_list as $r): ?>
+                        <option value="<?= $r ?>"><?= ucfirst($r) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a href="data_dosen.php" class="btn btn-primary">Kembali</a>
+                    <button type="submit" class="btn btn-success" name="tambah">Tambah</button>
+                </div>
+            </form>
+
+        </div>
     </div>
+</div>
+
 
     <img src="../asset/wave-new-navy.svg" class="w-100" alt="wave">
     <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
