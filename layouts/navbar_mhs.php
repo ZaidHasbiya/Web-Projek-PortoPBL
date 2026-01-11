@@ -66,7 +66,7 @@
                     <a class="nav-link fw-bold" href="projek_mhs.php">Projek</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fw-bold" href="../logout.php">Log Out</a>
+                    <a class="nav-link fw-bold" href="../logout.php">Keluar</a>
                 </li>
             </ul>
         </div>

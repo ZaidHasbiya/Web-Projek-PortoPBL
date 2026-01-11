@@ -24,7 +24,7 @@ session_destroy();
 <script>
 Swal.fire({
     icon: 'success',
-    title: 'Logout Berhasil!',
+    title: 'Berhasil Keluar!',
     text: 'Sampai jumpa!',
     timer: 2000,
     showConfirmButton: false

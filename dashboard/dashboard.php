@@ -230,12 +230,10 @@ h1.mt-4 {
                 </a>
                 <!-- Dropdown Menu -->
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Settings</a></li>
-                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="../logout.php">Logout</a></li>
+                    <li><a class="dropdown-item" href="../logout.php">Keluar</a></li>
                 </ul>
             </li>
         </ul>
@@ -294,7 +292,7 @@ h1.mt-4 {
                             <div class="card bg-primary text-white mb-4">
                                 <div class="card-body">Data Mahasiswa</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="#">View Details</a>
+                                    <a class="small text-white stretched-link" href="data_mahasiswa.php">View Details</a>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
@@ -304,7 +302,7 @@ h1.mt-4 {
                             <div class="card bg-warning text-white mb-4">
                                 <div class="card-body">Data Dosen</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="#">View Details</a>
+                                    <a class="small text-white stretched-link" href="data_dosen.php">View Details</a>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>

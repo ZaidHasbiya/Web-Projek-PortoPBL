@@ -154,28 +154,29 @@ label {
 
 <body>
 
-    <div class="container my-5">
-        <h3 class="mb-4">Ubah Profil</h3>
-
+        <!-- Form Edit Profil -->
+<div class="container my-5 d-flex justify-content-center">
+    <div class="card p-4 shadow" style="max-width: 600px; width: 100%;">
+        <h3 class="mb-4 text-center">Edit Profil</h3>
         <form action="#" method="post" enctype="multipart/form-data">
 
             <div class="mb-3">
-                <label class="form-label">Nama</label>
-                <input type="text" class="form-control" value="<?= $user['nama']; ?>" readonly>
+                <label class="form-label fw-semibold">Nama</label>
+                <input type="text" class="form-control" value="<?= htmlspecialchars($user['nama']); ?>" readonly>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">NIM</label>
-                <input type="text" class="form-control" value="<?= $user['username']; ?>" readonly>
+                <label class="form-label fw-semibold">NIM</label>
+                <input type="text" class="form-control" value="<?= htmlspecialchars($user['username']); ?>" readonly>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Jurusan</label>
-                <input type="text" class="form-control" value="<?= $user['jurusan']; ?>" readonly>
+                <label class="form-label fw-semibold">Jurusan</label>
+                <input type="text" class="form-control" value="<?= htmlspecialchars($user['jurusan']); ?>" readonly>
             </div>
 
             <div class="mb-3">
-                <label for="foto_profil" class="form-label">Foto Profil</label>
+                <label for="foto_profil" class="form-label fw-semibold">Foto Profil</label>
                 <div class="form-text text-danger mb-2">
                     File foto berupa jpg, jpeg, dan png dan tidak melebihi 20Mb
                 </div>
@@ -183,34 +184,34 @@ label {
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Catatan Prestasi</label>
-                <textarea class="form-control" name="prestasi"
-                    rows="3"><?= $user['prestasi'] ?: 'Belum Diatur'; ?></textarea>
+                <label class="form-label fw-semibold">Catatan Prestasi</label>
+                <textarea class="form-control" name="prestasi" rows="3"><?= htmlspecialchars($user['prestasi'] ?: 'Belum Diatur'); ?></textarea>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Deskripsi Diri</label>
-                <textarea class="form-control" name="deskripsi_diri"
-                    rows="4"><?= $user['deskripsi_diri'] ?: 'Belum Diatur'; ?></textarea>
+                <label class="form-label fw-semibold">Deskripsi Diri</label>
+                <textarea class="form-control" name="deskripsi_diri" rows="4"><?= htmlspecialchars($user['deskripsi_diri'] ?: 'Belum Diatur'); ?></textarea>
             </div>
 
-            <div class="d-flex justify-content-between">
-                <a href="profil_saya.php" class="btn btn-clr text-white">
-                    Kembali
-                </a>
-                <button type="submit" name="edit" class="btn btn-success">UBAH</button>
+            <div class="d-flex justify-content-between mt-4">
+                <a href="profil_saya.php" class="btn btn-primary px-4">Kembali</a>
+                <button type="submit" name="edit" class="btn btn-success px-4">UBAH</button>
             </div>
 
         </form>
     </div>
+</div>
 
-    <div class="overflow-hidden mt-5">
-        <img src="../asset/wave-new-navy.svg" class="img-fluid d-block" style="width:100vw" alt="wave">
-    </div>
+<!-- Wave -->
+<div class="overflow-hidden mt-5">
+    <img src="../asset/wave-new-navy.svg" class="img-fluid d-block" style="width:100vw" alt="wave">
+</div>
 
-    <footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
-        &copy; <span>2025</span> Tim Web Portofolio Projek PBL
-    </footer>
+<!-- Footer -->
+<footer class="text-center py-3" style="background-color: #e9e1c9; color: #5a5a5a; padding: 25px 0;">
+    &copy; <span>2025</span> Tim Web Portofolio Projek PBL
+</footer>
+
 
     <script src="../js/bootstrap.bundle.min.js"></script>
 

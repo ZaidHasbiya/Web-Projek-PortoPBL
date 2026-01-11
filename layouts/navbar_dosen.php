@@ -20,6 +20,7 @@
     padding-top: 0;
     padding-bottom: 0;
 }
+
 </style>
 <nav class="navbar navbar-expand-lg navbar-dark py-3 bg-nav-new shadow fixed-top">
     <div class="container">
@@ -57,13 +58,16 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="profil_saya.php">Profil Saya</a></li>
+                        <li>
+                            <a class="dropdown-item" href="ubah_password.php">Ubah Password</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link fw-bold" href="projek.php">Projek</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fw-bold" href="../logout.php">Log Out</a>
+                    <a class="nav-link fw-bold" href="../logout.php">Keluar</a>
                 </li>
             </ul>
         </div>

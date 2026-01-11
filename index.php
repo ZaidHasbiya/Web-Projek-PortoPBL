@@ -115,7 +115,7 @@ Deskripsi  : Menampilkan halaman publik berisi informasi aplikasi,
             <div class="row text-center mb-4">
                 <div class="col">
                     <h1 data-aos="fade-up">
-                        TIM PROJEK PBL
+                        TIM PENGEMBANG PROJEK PBL
                     </h1>
                 </div>
             </div>

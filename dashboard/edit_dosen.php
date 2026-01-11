@@ -59,28 +59,43 @@ if ($dosen) {
 if(isset($_POST['update'])){
     $nama = mysqli_real_escape_string($koneksi, $_POST['nama']);
     $username = mysqli_real_escape_string($koneksi, $_POST['username']);
-    $password = mysqli_real_escape_string($koneksi, $_POST['password']);
+    $password_input = $_POST['password'];
     $jurusan_val = $_POST['jurusan'];
     $role_val = $_POST['role'];
 
-    // Query update
-    $update = mysqli_query($koneksi, 
-        "UPDATE users SET 
-            nama='$nama', 
-            username='$username',
-            password='$password',
-            jurusan='$jurusan_val',
-            role='$role_val'
-        WHERE id='$id'"
-    );
+    if (!empty($password_input)) {
+        // PASSWORD DIUBAH → HASH
+        $password_hash = password_hash($password_input, PASSWORD_DEFAULT);
 
-    // Feedback update
+        $update = mysqli_query($koneksi, 
+            "UPDATE users SET 
+                nama='$nama', 
+                username='$username',
+                password='$password_hash',
+                jurusan='$jurusan_val',
+                role='$role_val'
+            WHERE id='$id'"
+        );
+    } else {
+        // PASSWORD TIDAK DIUBAH
+        $update = mysqli_query($koneksi, 
+            "UPDATE users SET 
+                nama='$nama', 
+                username='$username',
+                jurusan='$jurusan_val',
+                role='$role_val'
+            WHERE id='$id'"
+        );
+    }
+
+    // Feedback update 
     if($update){
         set_alert('success', 'Data dosen berhasil diperbarui!', 'data_dosen.php');
     } else {
         set_alert('error', 'Gagal memperbarui data!', "edit_dosen.php?id=$id");
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -102,58 +117,59 @@ if(isset($_POST['update'])){
 <body style="background-color: #fdf6e3;">
 
     <div class="container my-5">
-        <?php if ($dosen): ?>
-        <h3 class="mb-4">Ubah Dosen</h3>
+    <?php if ($dosen): ?>
+    <div class="card mx-auto" style="max-width: 500px;"> <!-- Kotak tengah -->
+        <div class="card-body">
+            <h3 class="card-title mb-4 text-center">Ubah Dosen</h3>
 
-        <form method="post">
-            <div class="mb-3">
-                <label class="form-label fw-bold">Nama Dosen</label>
-                <input type="text" class="form-control" name="nama" value="<?= htmlspecialchars($dosen['nama']); ?>"
-                    required>
-            </div>
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Nama Dosen</label>
+                    <input type="text" class="form-control" name="nama" value="<?= htmlspecialchars($dosen['nama']); ?>" required>
+                </div>
 
-            <div class="mb-3">
-                <label class="form-label fw-bold">NIDN</label>
-                <input type="text" class="form-control" name="username"
-                    value="<?= htmlspecialchars($dosen['username']); ?>" required>
-            </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">NIDN</label>
+                    <input type="text" class="form-control" name="username" value="<?= htmlspecialchars($dosen['username']); ?>" required>
+                </div>
 
-            <div class="mb-3">
-                <label class="form-label fw-bold">Password</label>
-                <input type="text" class="form-control" name="password"
-                    value="<?= htmlspecialchars($dosen['password']); ?>" required>
-            </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Password</label>
+                    <input type="password" class="form-control" name="password" placeholder="Kosongkan jika tidak ingin diubah">
+                </div>
 
-            <div class="mb-3">
-                <label class="form-label fw-bold">Jurusan</label>
-                <select name="jurusan" class="form-control" required>
-                    <option value="">-- Pilih Jurusan --</option>
-                    <?php foreach($jurusan_list as $j): ?>
-                    <option value="<?= $j ?>" <?= ($dosen['jurusan'] == $j ? 'selected' : '') ?>>
-                        <?= ucfirst($j) ?>
-                    </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Jurusan</label>
+                    <select name="jurusan" class="form-control" required>
+                        <option value="">-- Pilih Jurusan --</option>
+                        <?php foreach($jurusan_list as $j): ?>
+                        <option value="<?= $j ?>" <?= ($dosen['jurusan'] == $j ? 'selected' : '') ?>>
+                            <?= ucfirst($j) ?>
+                        </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
-            <div class="mb-3">
-                <label class="form-label fw-bold">Role</label>
-                <select name="role" class="form-control" required>
-                    <?php foreach ($role_list as $r): ?>
-                    <option value="<?= $r ?>" <?= $dosen['role']==$r ? 'selected' : '' ?>>
-                        <?= ucfirst($r) ?>
-                    </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Role</label>
+                    <select name="role" class="form-control" required>
+                        <?php foreach ($role_list as $r): ?>
+                        <option value="<?= $r ?>" <?= $dosen['role'] == $r ? 'selected' : '' ?>>
+                            <?= ucfirst($r) ?>
+                        </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
-            <div class="d-flex justify-content-between mt-4">
-                <a href="data_dosen.php" class="btn btn-primary px-4">Kembali</a>
-                <button type="submit" name="update" class="btn btn-success px-4">Simpan Perubahan</button>
-            </div>
-        </form>
-        <?php endif; ?>
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="data_dosen.php" class="btn btn-primary px-4">Kembali</a>
+                    <button type="submit" name="update" class="btn btn-success px-4">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
     </div>
+    <?php endif; ?>
+</div>
 
     <script src="../js/bootstrap.bundle.min.js"></script>
 
